@@ -67,9 +67,11 @@ class HomePageView(UserDataMixin, TemplateView):
         context = super(HomePageView, self).get_context_data(**kwargs)
         featured_projects = Project.objects.get_featured(HomePageView.FEATURED_PROJECT_TO_SHOW)
         active_projects = Project.objects.get_active()
+	completed_projects = Project.objects.get_completed()
         context["first_project"] = active_projects[0] if len(active_projects) > 0 else None
         # Get top 6 featured projects, Changed to active Projects in final fix
         context["featured_projects"] = active_projects[:6]
+	context["completed_featured_projects"] = completed_projects[:6]
         context["completed_projects_count"] = Project.objects.get_completed().count()
         context["total_donors_count"] = Payment.objects.total_distinct_organic_donors()
         context["global_impacts"] = self.get_global_impacts()

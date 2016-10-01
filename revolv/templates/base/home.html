@@ -87,7 +87,7 @@
                     {{ active_project.title }}
                 </span>
               </span>
-              <div class="img" style="background-image:url({% static 'images/solar-panels.jpg' %})"></div>
+              <div class="img" style="background-image:url('{{MEDIA_URL}}{{active_project.cover_photo.url }}' )"></div>
             </a>
             <div class="funded-round">
               <div class="status-circular">
@@ -120,6 +120,67 @@
             <div class="dark-blue-bar">
               <span class="pull-left actual-energy">{{ active_project.actual_energy }} lbs CO<sub>2</sub></span>
               <span class="pull-right">{{ active_project.donors.count }} Donors</span>
+            </div>
+            <!-- end .blue-bar -->
+          </div>
+          <!-- end .info-main -->
+        </div>
+        <!-- end .module-box -->
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<!-- end .active-projects-module -->
+
+<div class="active-projects-module animated">
+  <div class="container">
+      <div class="title-blue-border title-active-projects">COMPLETED PROJECTS</div>
+    <div class="row">
+
+      {% for completed_project in completed_featured_projects %}
+      <div class="col-md-4">
+        <div class="module-box">
+          <div class="img-main">
+            <a href="{% url "project:view" pk=completed_project.pk %}" class="img-link">
+              <span class="txt-table">
+                <span class="txt">
+                    {{ completed_project.title }}
+                </span>
+              </span>
+              <div class="img" style="background-image:url('{{MEDIA_URL}}{{completed_project.cover_photo.url }}' )"><span class="completed_project"><img src="/static/images/COMPLETED.png" alt="Project is completed" ></span></div>
+            </a>
+            <div class="funded-round">
+              <div class="status-circular">
+                <span class="status-text">
+                  <span class="round-depict"><span>OF</span> ${{ completed_project.funding_goal|floatformat:0|intcomma }}</span>
+                </span>
+                <!-- end .status-text -->
+                <div class="status-indicator desktop-circle">
+                  <input type="text" value="{{ completed_project.percent_complete }}" data-min="0" data-width="105" data-height="105" data-bgcolor="#fff" data-fgcolor="#14b1e7" data-max="100" data-readonly="true" data-thickness=".24">
+                </div>
+                <div class="status-indicator small-circle">
+                  <input type="text" value="{{ completed_project.percent_complete }}" data-min="0" data-width="92" data-height="92" data-bgcolor="#fff" data-fgcolor="#14b1e7" data-max="100" data-readonly="true" data-thickness=".2">
+                </div>
+                <div class="status-indicator tablet-circle">
+                  <input type="text" value="{{ completed_project.percent_complete }}" data-min="0" data-width="200" data-height="200" data-bgcolor="#fff" data-fgcolor="#14b1e7" data-max="100" data-readonly="true" data-thickness=".12">
+                </div>
+                <div class="status-indicator mobile-circle">
+                  <input type="text" value="{{ completed_project.percent_complete }}" data-min="0" data-width="98" data-height="98" data-bgcolor="#fff" data-fgcolor="#14b1e7" data-max="100" data-readonly="true" data-thickness=".12">
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end .img-main -->
+          <div class="info-main">
+            <div class="blue-bar">
+              <span class="pull-left">${{ completed_project.amount_donated|floatformat:"0"|intcomma }}</span>
+              <span class="pull-right">{{ completed_project.days_left }} Days Left</span>
+            </div>
+            <!-- end .blue-bar -->
+            <div class="dark-blue-bar">
+              <span class="pull-left actual-energy">{{ completed_project.actual_energy }} lbs CO<sub>2</sub></span>
+              <span class="pull-right">{{ completed_project.donors.count }} Donors</span>
             </div>
             <!-- end .blue-bar -->
           </div>

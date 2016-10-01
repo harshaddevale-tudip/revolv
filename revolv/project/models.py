@@ -690,7 +690,7 @@ class Project(models.Model):
         self.save()
 
     def __unicode__(self):
-        return self.title
+         return self.title + '-' + self.project_status
 
 
 class ProjectUpdate(models.Model):

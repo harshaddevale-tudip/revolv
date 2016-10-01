@@ -668,6 +668,7 @@ a:hover {
     padding: 41px 29px 34px 27px;
     position: relative;
     z-index: 199;
+    margin-bottom: 29px;
 }
 .active-projects-module .info-main .blue-bar,
 .active-projects-module .info-main .dark-blue-bar {
@@ -3920,6 +3921,13 @@ display: none;
         width: 1200px;
     }
 }
+
+.completed_project {
+       position: absolute;
+        top: 16px;
+        left: 0;
+}
+
 /*fix layout issue when smaller than 1200px width*/
 
 @media (max-width: 1199px) {
@@ -4166,7 +4174,7 @@ display: none;
         padding-bottom: 65px;
     }
     .active-projects-module .title-active-projects {
-        width: 306px;
+        width: 326px;
         margin: 45px auto 57px auto;
     }
     .active-projects-module .row {
@@ -6493,7 +6501,7 @@ width: 580px;
     }
     .active-projects-module .title-active-projects {
         letter-spacing: 10px;
-        width: 378px;
+        width: 420px;
         margin: 51px auto;
     }
     .active-projects-module .row {
@@ -9446,7 +9454,7 @@ width: 580px;
         padding: 0 65px 23px 65px;
     }
     .active-projects-module .img-main .img-link img {
-        height: 312px;
+        /*height: 312px;*/
     }
     .active-projects-module .img-main .funded-round {
         width: 120px;
