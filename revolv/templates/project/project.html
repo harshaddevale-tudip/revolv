@@ -5,9 +5,14 @@
 <script type="text/javascript">
   window.PARTIAL_COMPLETENESS = {{ project.partial_completeness_as_js }};
 </script>
+<style>
+input:focus:invalid {box-shadow: 0 0 5px 1px red;}
+input:invalid {box-shadow: 0 0 5px 1px red;
+</style>
 {% endblock %}
 {% block title %}Project | {% endblock %}
 {% block body %}
+{% include "project/confirm_modal.html" %}
 {%  if is_draft_mode == True %}
 <div class="draft-mode-div">
   <span class="draft-mode-title">Pending</span>
@@ -27,14 +32,189 @@
         </div>
       </div>
     </div>
+    {%  if is_reinvestment %}
     <div class="info-section">
+      <div class="container">
+        <div class="video-main">
+          <div class="row">
+            <div class="video-area col-lg-8 col-md-7">
+              <div class="video" style="height:313px">
+                {% if project.video_url %}
+                  <iframe class="project_video youtube-player" allowfullscreen style="height:313px"></iframe>
+                {% endif %}
+              </div>
+            </div>
+          {#          this is start for first condition#}
+
+          <div class="txt-area1 col-lg-4 col-md-5">
+              <div class="module-box payment-module">
+                <h5 class="title-h5" >Reinvestment In this Project</h5>
+                <div class="back-the-project">Reinvest now to help {{ project.title }} go solar and grow the Solar Seed Fund
+                </div>
+                <div class="inputs">
+                  <div class="input-group">
+                    <label for="value">Reinvestment In this Project</label>
+                    <div class="input-group">
+                      <input type="number" class="form-control" id = "amt" step="1" value="{{reinvestment_amount}}" min="1" max="{{reinvestment_amount}}" name="value" pattern="^[1-9][0-9]?$|^{{reinvestment_amount}}$">
+                      <span class="input-group-addon">$</span>
+                    </div>
+                  </div>
+                  <div >
+                    <!-- Trigger the modal with a button -->
+                    <button type="button" class="btn-reinvest" style="visibility: visible" data-toggle="modal" onclick="invest_amt(event);" data-target="#myModal">REINVEST NOW</button>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="info-main">
+          <div class="blue-bar">
+            <span class="pull-left"><span class="bold">${{ project.amount_donated|floatformat:"0"|intcomma }}</span> Donated</span>
+            <span class="pull-right"><span class="bold">{{ project.days_left }}</span> Days Left</span>
+          </div>
+          <!-- end .blue-bar -->
+          <div class="dark-blue-bar">
+            <span class="pull-left actual-energy">
+              <span class="bold">{{ project.actual_energy }}</span> lbs CO<sub>2</sub> Avoided</span><span class="pull-right">
+              <span class="bold">{{ donor_count }}</span> {{ settings.revolv_cms.ProjectPageSettings.donors_wording }}</span>
+          </div>
+          <div class="banner-section">
+            <div class="container">
+              <div class="funded-round">
+                <span class="status-text">
+                  <span class="round-depict"><span>OF</span> ${{ project.funding_goal|floatformat:0|intcomma }}</span>
+                </span>
+                <!-- end .status-text -->
+                <div class="status-indicator desktop-circle">
+                  <input type="text" value="{{ project.percent_complete }}" data-min="0" data-width="210" data-height="210" data-bgcolor="#fff" data-fgcolor="#14b1e7" data-max="100" data-readonly="true" data-thickness=".12">
+                </div>
+                <div class="status-indicator small-circle">
+                  <input type="text" value="{{ project.percent_complete }}" data-min="0" data-width="175" data-height="175" data-bgcolor="#fff" data-fgcolor="#14b1e7" data-max="100" data-readonly="true" data-thickness=".13">
+                </div>
+                <div class="status-indicator tablet-circle">
+                  <input type="text" value="{{ project.percent_complete }}" data-min="0" data-width="152" data-height="152" data-bgcolor="#fff" data-fgcolor="#14b1e7" data-max="100" data-readonly="true" data-thickness=".16">
+                </div>
+                <div class="status-indicator mobile-circle">
+                  <input type="text" value="{{ project.percent_complete }}" data-min="0" data-width="75" data-height="75" data-bgcolor="#fff" data-fgcolor="#14b1e7" data-max="100" data-readonly="true" data-thickness=".12">
+                </div>
+              </div>
+            </div>
+          </div>
+         <!-- end .blue-bar -->
+        </div>
+        <!-- end .info-main -->
+        <!-- end .video-main -->
+      </div>
+    </div>
+    <!-- end .info-section -->
+  </div>
+  <!-- end .details-active-project-module -->
+  <div class="container">
+    <div class="col-sm-12 outer-basic-silver-gold project-updates-module">
+      <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 ">
+        <div class="col-sm-12">
+          <p class="content-gold-silver">{{ project.tagline }}</p>
+        </div>
+        <div class="col-sm-12">
+          <p class="content-gold-silver content_sec">{{ project.description|safe }}</p>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pull-right price-tables">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="right-aside-new">
+            <aside class="right-aside">
+              {% if project_donation_levels %}
+                {% for donation_level in project_donation_levels %}
+                <div class="module-box payment-module" >
+                  <div class="value-txt" data-value="{{ donation_level.amount }}">$ {{ donation_level.amount|floatformat:"0"|intcomma }}</div>
+                  <h5 class="title-h5">OUR APPRECIATION</h5>
+                  <p>{{ donation_level.description }}</p>
+                  <div class="inputs"  >
+                    <label for="tip_edit">Optional support for RE-volv</label>
+                    <div class="input-group">
+                      <input type="number" name="tip_edit" min="0" max="100" step="1" value="15" class="form-control">
+                      <span class="input-group-addon">%</span>
+                    </div>
+                    <label for="total">Total</label>
+                    <div class="input-group">
+                      <input type="number" name="total" value="10" step="1" class="form-control" disabled>
+                        <span class="input-group-addon">$</span>
+                    </div>
+                  </div>
+                  <form action="{% url 'project:stripe_payment' pk=project.pk %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="amount_cents" value="{{ donation_level.amount }}">
+                    <input name="metadata" value="1.00" type="hidden">
+                    <button type="submit" class="stripe-button-el" style="visibility: visible;">
+                      <span style="display: block; min-height: 30px;">Pay with Card</span>
+                    </button>
+                  </form>
+                </div>
+                {% endfor %}
+                <!-- end .module-box -->
+
+              {% endif %}
+              <div class="module-box payment-module" style="display: none">
+                <h5 class="title-h5">Display NONE set here</h5>
+                <div class="back-the-project">Donate now to help {{ project.title }} go solar and grow the Solar Seed Fund</div>
+                <div class="inputs">
+                  <label for="value">Donation to the project</label>
+                  <div class="input-group">
+                    <input type="number" name="value" min="0" value="50" step="1" class="form-control">
+                    <span class="input-group-addon">$</span>
+                  </div>
+                  <label for="tip_edit">Optional support for RE-volv</label>
+                  <div class="input-group">
+                    <input type="number" name="tip_edit" min="0" max="100" step="1" value="15" class="form-control">
+                    <span class="input-group-addon">%</span>
+                  </div>
+                  <label for="total">Total</label>
+                  <div class="input-group">
+                    <input type="number" name="total" value="10" step="1" class="form-control" disabled>
+                    <span class="input-group-addon">$</span>
+                  </div>
+                </div>
+
+                {% if user.is_authenticated %}
+                  {% for level in project_donation_levels %}
+                  {% endfor %}
+                  <form action="{% url 'project:stripe_payment' pk=project.pk %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="amount_cents" value="1000">
+                    <input name="metadata" value="1.00" type="hidden">
+                    <button type="submit" class="stripe-button-el" style="visibility: visible;">
+                      <span style="display: block; min-height: 30px;">Pay with Card</span>
+                    </button>
+                  </form>
+                {% else %}
+                  <form action="{% url 'project:stripe_payment' pk=project.pk %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="amount_cents" value="{{ donation_level.amount }}">
+                    <input name="metadata" value="1.00" type="hidden">
+                    <button type="submit" class="stripe-button-el" style="visibility: visible;">
+                      <span style="display: block; min-height: 30px;">DONATE</span>
+                    </button>
+                  </form>
+                {% endif %}
+              </div>
+              <!-- end .module-box -->
+            </aside>
+            <!-- end .list-area -->
+          </div>
+        </div>
+      </div>
+
+
+    {%  else %}
+      <div class="info-section">
       <div class="container">
         <div class="video-main">
           <div class="row">
             <div class="video-area col-lg-8 col-md-7">
               <div class="video">
                 {% if project.video_url %}
-                  <iframe class="project_video youtube-player" allowfullscreen></iframe>
+                  <iframe class="project_video youtube-player" style="height: 468px;" allowfullscreen></iframe>
                 {% endif %}
               </div>
             </div>
@@ -118,7 +298,7 @@
                 </div>
               </div>
             </div>
-          </div> 
+          </div>
          <!-- end .blue-bar -->
         </div>
         <!-- end .info-main -->
@@ -222,7 +402,7 @@
           </div>
         </div>
       </div>
-  
+  {% endif %}
       <div class="main-area col-lg-8 col-md-8 col-sm-12 col-xs-12">
         {% if updates|length > 0 %}
           <h2 class="title-blue-border title-project-updates pull-right">PROJECT UPDATES</h2>
@@ -482,4 +662,18 @@
   }
    );
 </script>
+     <!--<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>-->
+
+    <!--{% if messages %}-->
+        <!--<script>-->
+            <!--toastr.options.positionClass = "toast-bottom-right";-->
+        <!--</script>-->
+        <!--{% for message in messages %}-->
+        <!--<script>-->
+            <!--console.log("reinvest msg");-->
+            <!--&lt;!&ndash;toastr.{{ message.tags }}('{{ message }}')&ndash;&gt;-->
+        <!--</script>-->
+        <!--{% endfor %}-->
+    <!--{% endif %}-->
+
 {% endblock %}

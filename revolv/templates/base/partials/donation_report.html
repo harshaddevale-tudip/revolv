@@ -1,0 +1,87 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "typeahead/typeahead.css" %}" />
+<link rel="stylesheet" href="{% static "chosen/chosen.css" %}" />
+<link rel="stylesheet" href="{% static 'dist/css/pages/project-edit/index.css' %}" />
+<link href='//fonts.googleapis.com/css?family=Lato:300,500,800' rel='stylesheet' type='text/css'>
+<link href='//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css' rel='stylesheet' type='text/css'>
+<style type="text/css">
+    #map-canvas { width: 100%; height: 300px; margin-bottom: 20px; padding: 0;}
+    #map-canvas img {max-width: none;}
+</style>
+ <script src="//code.jquery.com/jquery-1.12.3.js"></script>
+<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+<script src="http://cdn.datatables.net/plug-ins/1.10.9/sorting/datetime-moment.js"></script>
+
+<script>
+    $(document).ready( function () {
+    console.log($.fn.dataTable.moment( 'HH:mm MMM D, YY' ));
+    <!--$.fn.dataTable.moment( 'DD-MM-YYYY HH:mm:ss' );-->
+     <!--$.fn.dataTable.moment( 'dddd, MMMM Do, YYYY' );-->
+
+    <!--$.fn.dataTable.moment( 'DD-MM-YYYY HH:mm:ss' );-->
+    $('#example').DataTable();
+	 <!--$('#donation_report').dataTable();-->
+
+} );
+<!--$(document).ready(function() {-->
+<!--$.fn.dataTable.moment('DD.MM.YYYY');-->
+    <!--$('#example').DataTable(-->
+    <!--{-->
+     <!--"sPaginationType": "full_numbers",-->
+            <!--"aLengthMenu": [[10, 20, 50, -1], [10, 20, 50, "Wszystkie"]],-->
+            <!--"bStateSave": true,-->
+            <!--"order": [0, 'desc'],-->
+            <!--"ordering": true,    -->
+    <!--&lt;!&ndash;{&ndash;&gt;-->
+       <!--"render": function ( data, type, row )-->
+        <!--var rowvalue = row["Date"];-->
+        <!--return ($.format.date(rowvalue, "E dd/MM/yyyy"));-->
+        <!--},-->
+    <!--"targets": 1-->
+        <!--&lt;!&ndash;}&ndash;&gt;-->
+        <!--});-->
+        <!--&lt;!&ndash;$.fn.dataTable.moment( 'HH:mm MMM D, YY' );&ndash;&gt;-->
+        <!--&lt;!&ndash;$.fn.dataTable.moment( 'mm/dd/yyyy' );&ndash;&gt;-->
+
+<!--} );-->
+
+</script>
+{% endblock %}
+
+{% block body %}
+
+<div class="container after-header">
+  <table id="example" class="display" cellspacing="0" width="100%">
+  <thead >
+      <tr>
+        <th>Donor</th>
+         <th>Date</th>
+        <th>Amount Donated</th>
+
+        <th>Name of Project</th>
+        <th>Donation to solar Fund</th>
+<th>Donation to Operation</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for payment in payments %}
+      <tr>
+        <td>{{ payment.user }}</td>
+        <td>{{ payment.created_at }}</td>
+        <td>${{ payment.amount }}</td>
+        <td>{{ payment.project }}</td>
+        <td>$</td>
+        <td>$</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}
+

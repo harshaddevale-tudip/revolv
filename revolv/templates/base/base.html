@@ -49,7 +49,7 @@
     {% endblock %}
 </head>
 
-<body onscroll="header_space()" {% block body_class %}{% endblock%} id="{% if 'project' in request.get_full_path %}project{% endif %}">
+<body  {% block body_class %}{% endblock%} id="{% if 'project' in request.get_full_path %}project{% endif %}">
     {% block nav %}
     {% include "base/partials/nav.html" %}
     {% endblock %}

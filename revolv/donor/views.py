@@ -63,10 +63,12 @@ class DonorDashboardView(UserDataMixin, TemplateView):
         statistics_dictionary['people_served'] = Project.objects.aggregate(n=Sum('people_affected'))['n']
         humanize_integers(statistics_dictionary)
         context['statistics'] = statistics_dictionary
-
+        if self.user_profile and self.user_profile.reinvest_pool > 0.0:
+            context["reinvestment_amount"] = self.user_profile.reinvest_pool
 
         context['category_setter_url'] = reverse('dashboard_category_setter')
         context['categories'] = Category.objects.all().order_by('title')
         context['preferred_categories'] = self.user_profile.preferred_categories.all()
 
         return context
+

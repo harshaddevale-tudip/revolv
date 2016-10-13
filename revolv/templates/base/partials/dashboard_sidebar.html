@@ -37,10 +37,10 @@
 <div class="role-select-options">
     <div class="dashboard-header">View as:</div>
     {% if user.revolvuserprofile.is_administrator %}
-        <div class="role-select-option"><a href="/dashboard/admin/">administrator</a></div>
+        <div class="role-select-option"><a href="/dashboard/admin/">Administrator</a></div>
     {% endif %}
-    <div class="role-select-option"><a href="/dashboard/ambassador/">ambassador</a></div>
-    <div class="role-select-option"><a href="/dashboard/donor/">donor</a></div>
+    <div class="role-select-option"><a href="/dashboard/ambassador/">Ambassador</a></div>
+    <div class="role-select-option"><a href="/dashboard/donor/">Donor</a></div>
 </div>
 {% endif %}
 
@@ -48,6 +48,9 @@
 <div class="dashboard-section create-new">
     <a href="{% url "project:new" %}" class="create-new-button" id="create_project">Create Project</a>
 </div>
+{% endif %}
+{% if user.revolvuserprofile.is_administrator %}
+    <a href="{% url "donationreport" %}" class="create-new-button" id="create_project">Financial Report</a>
 {% endif %}
 <div class="dashboard-section projects">
     {% if donor_has_no_donated_projects %}

@@ -33,6 +33,18 @@ a:hover {
 }
 /* btn */
 
+.btn-reinvest {
+    background: #14b1e7 none repeat scroll 0 0;
+    border: medium none;
+    border-radius: 0;
+    color: white;
+    text-transform: uppercase;
+    width: 100%;
+    height: 44px;
+    margin-top: 20px;
+}
+
+
 .btn-blue {
     font-family: 'Source Sans Pro';
     font-weight: 900;
@@ -572,6 +584,18 @@ a:hover {
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
 }
+/*.active-projects-module .img-main .img-link .complete_project {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 50%;
+    top: 0;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+}*/
 .active-projects-module .img-main .img-link:hover img {
     opacity: 1;
 }
@@ -668,7 +692,7 @@ a:hover {
     padding: 41px 29px 34px 27px;
     position: relative;
     z-index: 199;
-    margin-bottom: 29px;
+
 }
 .active-projects-module .info-main .blue-bar,
 .active-projects-module .info-main .dark-blue-bar {
@@ -1115,6 +1139,7 @@ a:hover {
     height: 171px;
     display: table-cell;
 }
+
 .featured-on-module .logo {
     margin-right: auto;
     margin-left: auto;
@@ -3914,6 +3939,9 @@ li:before.active > *::before {
 .input-group > form#ipad {
 display: none;
 }
+
+
+
 /*fix layout issue when smaller than 1221px width*/
 
 @media (min-width: 1221px) {
@@ -3921,14 +3949,13 @@ display: none;
         width: 1200px;
     }
 }
+/*fix layout issue when smaller than 1200px width*/
 
-.completed_project {
-       position: absolute;
+ .completed_project {
+        position: absolute;
         top: 16px;
         left: 0;
-}
-
-/*fix layout issue when smaller than 1200px width*/
+    }
 
 @media (max-width: 1199px) {
     .icons {
@@ -4169,6 +4196,7 @@ display: none;
     }
     /* home page */
     /* .active-projects-module */
+
     
     .active-projects-module {
         padding-bottom: 65px;
@@ -4249,6 +4277,15 @@ display: none;
         padding: 0 11px 0 19px;
         margin-top: 16px;
     }
+    /* this css is use for managing the COMPLETED image on completed project thumbnails */
+   /* .completed_project {
+        position: absolute;
+        top: 16px;
+        left: 0;
+        /*height: 2vmin;
+        width: 2vmin;
+    }*/
+
     /* .our-impacts-module */
     
     .our-impacts-module .title-our-impacts {
@@ -9428,7 +9465,7 @@ width: 580px;
     }
     .active-projects-module .title-active-projects {
         letter-spacing: 5px;
-        width: 185px;
+        width: 241px;
         padding-left: 6px;
         margin: 25px auto;
     }
@@ -9454,7 +9491,8 @@ width: 580px;
         padding: 0 65px 23px 65px;
     }
     .active-projects-module .img-main .img-link img {
-        /*height: 312px;*/
+/*        height: 312px;
+        height: 8vmin; */
     }
     .active-projects-module .img-main .funded-round {
         width: 120px;
@@ -11990,7 +12028,8 @@ label.checkmark:after {
 label.checkmark.animate:after {
     display: block;
     -webkit-animation: check 0.8s;
-    -moz-animation: check 0.8s;
+    -moz-animation: ch
+    eck 0.8s;
     -o-animation: check 0.8s;
     animation: check 0.8s;
 }

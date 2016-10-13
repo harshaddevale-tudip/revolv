@@ -6,8 +6,9 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import JsonResponse
-from django.http.response import HttpResponseBadRequest
-from django.shortcuts import redirect, render, get_object_or_404
+from django.template.context import RequestContext
+from django.http.response import HttpResponseBadRequest, HttpResponseRedirect
+from django.shortcuts import redirect, render, get_object_or_404, render_to_response
 from django.views.generic import CreateView, DetailView, UpdateView, TemplateView
 from django.views.generic.edit import FormView
 from django.views.decorators.http import require_http_methods
@@ -278,6 +279,35 @@ class EditProjectUpdateView(TemplateProjectUpdateView):
         return super(EditProjectUpdateView, self).form_valid(form)
 
 
+class ProjectReinvestView(UserDataMixin, DetailView):
+    """
+    The project view. Displays project details and allows for editing.
+
+    Accessed through /project/{project_id}
+    """
+    model = Project
+    template_name = 'project/project.html'
+
+    # pass in Project Categories and Maps API key
+    def get_context_data(self, **kwargs):
+        context = super(ProjectReinvestView, self).get_context_data(**kwargs)
+        context['stripe_publishable_key'] = settings.STRIPE_PUBLISHABLE
+        context['GOOGLEMAPS_API_KEY'] = settings.GOOGLEMAPS_API_KEY
+        context['updates'] = self.get_object().updates.order_by('date').reverse()
+        context['donor_count'] = self.get_object().donors.count()
+        context['project_donation_levels'] = self.get_object().donation_levels.order_by('amount')
+        context["is_draft_mode"] = self.get_object().project_status == self.get_object().DRAFTED
+        context['payments'] = Payment.objects.all()
+        if self.user_profile and self.user_profile.reinvest_pool > 0.0:
+            context["is_reinvestment"] = True
+            context["reinvestment_amount"] = self.user_profile.reinvest_pool
+        return context
+
+
+
+
+
+
 class ProjectView(UserDataMixin, DetailView):
     """
     The project view. Displays project details and allows for editing.
@@ -296,17 +326,9 @@ class ProjectView(UserDataMixin, DetailView):
         context['donor_count'] = self.get_object().donors.count()
         context['project_donation_levels'] = self.get_object().donation_levels.order_by('amount')
         context["is_draft_mode"] = self.get_object().project_status == self.get_object().DRAFTED
-        if self.user_profile and self.user_profile.reinvest_pool > 0.0 \
-                and self.get_object().monthly_reinvestment_cap > 0.0 \
-                and self.get_object().amount_left > 0.0:
-            context["is_reinvestment"] = True
-            context["reinvestment_amount"] = min(self.get_object().reinvest_amount_left,
-                                                 self.user_profile.reinvest_pool)
-            context["reinvestment_url"] = reverse('project:reinvest', kwargs={'pk': self.get_object().id})
-        else:
-            context["is_reinvestment"] = False
-            context["reinvestment_amount"] = 0.0
-            context["reinvestment_url"] = ''
+        context["is_reinvestment"] = False
+        context["reinvestment_amount"] = 0.0
+        context["reinvestment_url"] = ''
         return context
 
     def dispatch(self, request, *args, **kwargs):
@@ -398,7 +420,13 @@ def reinvest(request, pk):
     UserReinvestment.objects.create(user=request.user.revolvuserprofile,
                                         amount=amount,
                                         project=project)
+
+
     res = {'amount_donated': project.amount_donated,
            'partial_completeness': project.partial_completeness_as_js(),
            'num_donors': project.donors.count()}
-    return JsonResponse({'success': True, 'project': res})
+    # return JsonResponse({'success': True, 'project': res})
+    messages.success(request, 'Reinvestment Successful')
+    return redirect("project:project_reinvest" ,pk=pk)
+
+    # return render_to_response('project/project.html', {'project': res}, pk=project.pk)

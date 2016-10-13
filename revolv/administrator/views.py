@@ -19,7 +19,8 @@ class AdministratorDashboardView(BaseStaffDashboardView):
 
     def get_context_data(self, **kwargs):
         context = super(AdministratorDashboardView, self).get_context_data(**kwargs)
-
+        if self.user_profile and self.user_profile.reinvest_pool > 0.0:
+            context["reinvestment_amount"] = self.user_profile.reinvest_pool
         context["project_dict"][ProjectGroup('Drafted Projects', "drafted")] = Project.objects.get_drafted()
         return context
 
@@ -55,3 +56,4 @@ def admin_email_csv_download(request):
     writer.writerows(newsletter_rows)
 
     return response
+

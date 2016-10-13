@@ -67,16 +67,31 @@ class HomePageView(UserDataMixin, TemplateView):
         context = super(HomePageView, self).get_context_data(**kwargs)
         featured_projects = Project.objects.get_featured(HomePageView.FEATURED_PROJECT_TO_SHOW)
         active_projects = Project.objects.get_active()
-	completed_projects = Project.objects.get_completed()
+        completed_projects = Project.objects.get_completed()
         context["first_project"] = active_projects[0] if len(active_projects) > 0 else None
         # Get top 6 featured projects, Changed to active Projects in final fix
         context["featured_projects"] = active_projects[:6]
-	context["completed_featured_projects"] = completed_projects[:6]
+        #accept return value from project/model.py and display it on project/home.html file
+        context["completed_featured_projects"] = completed_projects[:6]
         context["completed_projects_count"] = Project.objects.get_completed().count()
         context["total_donors_count"] = Payment.objects.total_distinct_organic_donors()
         context["global_impacts"] = self.get_global_impacts()
         return context
 
+class DonationReportView(UserDataMixin, TemplateView):
+    """
+    The project view. Displays project details and allows for editing.
+
+    Accessed through /project/{project_id}
+    """
+    model = Payment
+    template_name = 'base/partials/donation_report.html'
+
+    # pass in Project Categories and Maps API key
+    def get_context_data(self, **kwargs):
+        context = super(DonationReportView, self).get_context_data(**kwargs)
+        context["payments"] = Payment.objects.all()
+        return context
 
 class BaseStaffDashboardView(UserDataMixin, TemplateView):
     """
@@ -132,6 +147,7 @@ class CategoryPreferenceSetterView(UserDataMixin, View):
 class ProjectListView(UserDataMixin, TemplateView):
     """ Base View of all active projects
     """
+    model = Project
     template_name = 'base/projects-list.html'
 
     def get_context_data(self, **kwargs):
@@ -140,6 +156,7 @@ class ProjectListView(UserDataMixin, TemplateView):
         context["active_projects"] = active
         context["is_reinvestment"] = False
         return context
+
 
 
 class SignInView(TemplateView):
@@ -290,8 +307,30 @@ class LogoutView(UserDataMixin, View):
         messages.success(self.request, 'Logged out successfully')
         return redirect('home')
 
+class ReinvestmentRedirect(UserDataMixin, TemplateView):
+
+    model = Project
+    template_name = 'base/projects-list.html'
+
+    def get_object(self):
+        return self.model.objects.get(pk=self.request.user.pk)
+
+    def get_context_data(self, **kwargs):
+        context = super(ReinvestmentRedirect, self).get_context_data(**kwargs)
+        active = Project.objects.get_active()
+        context["active_projects"] = active
+        if self.user_profile and self.user_profile.reinvest_pool > 0.0:
+            context["is_reinvestment"] = True
+            context["reinvestment_amount"] = self.user_profile.reinvest_pool
+
+        return context
+
+    # def get(self, request, *args, **kwargs):
+    #     if self.is_administrator:
+    #         return render_to_response('base/partials/project.html',context_instance=RequestContext(request))
 
 class DashboardRedirect(UserDataMixin, View):
+
     """
     Redirects user to appropriate dashboard. (e.g. Administrators automagically
     go to the /my-portfolio/admin endpoint)
@@ -390,3 +429,4 @@ def social_exception(request):
     message = request.GET.get('message')
     return render_to_response('base/minimal_message.html',
                               context_instance=RequestContext(request, {'msg': message}))
+

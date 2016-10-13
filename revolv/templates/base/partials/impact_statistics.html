@@ -1,12 +1,21 @@
 {% load staticfiles %}
 {% load humanize %}
 {% load revolv_cms_tags %}
-
 <div class="impact">
   <h2>Thank you for investing in clean energy!</h2>
   <h3>Your impact to date:</h3>
 
   <div class="row stats">
+       <div class="col-sm-4 col-md-2 col-xs-6">
+<div class="bgcircle" style=" background-image: url({% static "images/dashboard/Kiva_circle.jpg" %});">
+				<div class="top">  <span class="number_caption" >AMOUNT DONATED</span>
+				<div  class="number_sans_featured" ><span class="topnum">${{ statistics.total_donated }}</span></div></div>
+				<div class="bottom">
+					<div class="number_sans number_sans_featured">${{statistics.reinvestment}}</div>
+					<div class="number_caption"><span>AMOUNT REINVESTED</span></div>
+				</div>
+</div>
+</div>
       <div class="col-sm-4 col-md-2 col-xs-6">
         <div class="stats-img">
           <img src="{% static "images/dashboard/solar-panel-desktop.png" %}" />
@@ -36,7 +45,7 @@
         <div class="info">
             <div>Equivalent to planting</div>
             <!--<span class="val">{{ statistics.trees }} </span>-->
-	   <span class="val">1.15</span> 
+	   <span class="val">1.15</span>
             <span class="units">acres</span>
             <div>of trees</div>
         </div>
@@ -62,18 +71,10 @@
             <div>in their community</div>
         </div>
       </div>
-      <div class="col-sm-4 col-md-2 col-xs-6">
-        <div class="stats-img">
-          <img src="{% static "images/dashboard/money-desktop.png" %}" />
-        </div>
-        <div class="info">
-            <div>Total amount donated</div>
-            <span class="val">{{ statistics.total_donated }}</span>
-        </div>
-      </div>
+
   </div>
-  <a href="https://re-volv.org/what-we-do/projects">
-  <div class="btn-blue btn-reinvest">REINVEST $0 IN ADDITIONAL SOLAR PROJECTS</div>
+  <a href="{% url "projects_list" %}">
+  <div class="btn-blue">REINVEST ${{reinvestment_amount}} IN ADDITIONAL SOLAR PROJECTS</div>
   </a>
 {% if donated_projects %}
   <div class="row">
