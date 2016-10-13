@@ -4,18 +4,21 @@
 <div class="impact">
   <h2>Thank you for investing in clean energy!</h2>
   <h3>Your impact to date:</h3>
-
   <div class="row stats">
-       <div class="col-sm-4 col-md-2 col-xs-6">
-<div class="bgcircle" style=" background-image: url({% static "images/dashboard/Kiva_circle.jpg" %});">
-				<div class="top">  <span class="number_caption" >AMOUNT DONATED</span>
-				<div  class="number_sans_featured" ><span class="topnum">${{ statistics.total_donated }}</span></div></div>
-				<div class="bottom">
-					<div class="number_sans number_sans_featured">${{statistics.reinvestment}}</div>
-					<div class="number_caption"><span>AMOUNT REINVESTED</span></div>
-				</div>
-</div>
-</div>
+      <div class="col-sm-4 col-md-2 col-xs-6">
+            <div class="info1">
+             <div>AMOUNT DONATED</div>
+            <span class="num2">${{ statistics.total_donated }}</span>
+        </div>
+          <div class="x1">
+          <img src="{% static "images/dashboard/Kiva_circle.jpg" %}" />
+        </div>
+        <div class="info">
+            <span class="val">${{statistics.reinvestment}} </span>
+            <div>AMOUNT REINVESTED</div>
+        </div>
+      </div>
+
       <div class="col-sm-4 col-md-2 col-xs-6">
         <div class="stats-img">
           <img src="{% static "images/dashboard/solar-panel-desktop.png" %}" />
