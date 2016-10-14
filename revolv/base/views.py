@@ -67,6 +67,7 @@ class HomePageView(UserDataMixin, TemplateView):
         context = super(HomePageView, self).get_context_data(**kwargs)
         featured_projects = Project.objects.get_featured(HomePageView.FEATURED_PROJECT_TO_SHOW)
         active_projects = Project.objects.get_active()
+        context["active_projects"] = filter(lambda p: p.amount_left > 0.0, active_projects)
         completed_projects = Project.objects.get_completed()
         context["first_project"] = active_projects[0] if len(active_projects) > 0 else None
         # Get top 6 featured projects, Changed to active Projects in final fix
@@ -153,7 +154,8 @@ class ProjectListView(UserDataMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(ProjectListView, self).get_context_data(**kwargs)
         active = Project.objects.get_active()
-        context["active_projects"] = active
+        context["active_projects"] = filter(lambda p: p.amount_left > 0.0, active)
+        # context["active_projects"] = active
         context["is_reinvestment"] = False
         return context
 
@@ -318,7 +320,7 @@ class ReinvestmentRedirect(UserDataMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(ReinvestmentRedirect, self).get_context_data(**kwargs)
         active = Project.objects.get_active()
-        context["active_projects"] = active
+        context["active_projects"] = filter(lambda p: p.amount_left > 0.0, active)
         if self.user_profile and self.user_profile.reinvest_pool > 0.0:
             context["is_reinvestment"] = True
             context["reinvestment_amount"] = self.user_profile.reinvest_pool

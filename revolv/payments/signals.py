@@ -228,7 +228,7 @@ def pre_save_user_reinvestment(**kwargs):
     instance = kwargs.get('instance')
     project = instance.project
 
-    total_left = project.reinvest_amount_left
+    total_left = project.amount_left
     if total_left <= 0.0:
         raise ProjectNotEligibleException()
     if total_left < float(instance.amount):
