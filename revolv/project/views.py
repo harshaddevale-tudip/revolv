@@ -6,9 +6,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import JsonResponse
-from django.template.context import RequestContext
-from django.http.response import HttpResponseBadRequest, HttpResponseRedirect
-from django.shortcuts import redirect, render, get_object_or_404, render_to_response
+from django.http.response import HttpResponseBadRequest
+from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic import CreateView, DetailView, UpdateView, TemplateView
 from django.views.generic.edit import FormView
 from django.views.decorators.http import require_http_methods
@@ -72,21 +71,20 @@ def stripe_payment(request, pk):
             "msg": error_msg, "project": project
         })
 
+    if tip_cents > 0:
+        tip = Tip.objects.create(
+            amount=tip_cents / 100.0,
+            user=request.user.revolvuserprofile,
+        )
+
     Payment.objects.create(
         user=request.user.revolvuserprofile,
         entrant=request.user.revolvuserprofile,
-        amount=donation_cents/100.0,
+        amount=donation_cents / 100.0,
         project=project,
+        tip=tip,
         payment_type=PaymentType.objects.get_stripe(),
     )
-    if tip_cents > 0:
-        Tip.objects.create(
-            amount=tip_cents/100.0,
-            user=request.user.revolvuserprofile,
-        )
-    # return redirect('project:view', pk=project.pk)
-    return redirect('dashboard')
-
 
 class DonationLevelFormSetMixin(object):
     """
@@ -303,11 +301,6 @@ class ProjectReinvestView(UserDataMixin, DetailView):
             context["reinvestment_amount"] = self.user_profile.reinvest_pool
         return context
 
-
-
-
-
-
 class ProjectView(UserDataMixin, DetailView):
     """
     The project view. Displays project details and allows for editing.
@@ -421,12 +414,5 @@ def reinvest(request, pk):
                                         amount=amount,
                                         project=project)
 
-
-    res = {'amount_donated': project.amount_donated,
-           'partial_completeness': project.partial_completeness_as_js(),
-           'num_donors': project.donors.count()}
-    # return JsonResponse({'success': True, 'project': res})
     messages.success(request, 'Reinvestment Successful')
     return redirect("project:project_reinvest" ,pk=pk)
-
-    # return render_to_response('project/project.html', {'project': res}, pk=project.pk)
