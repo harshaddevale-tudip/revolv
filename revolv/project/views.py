@@ -85,6 +85,7 @@ def stripe_payment(request, pk):
         tip=tip,
         payment_type=PaymentType.objects.get_stripe(),
     )
+    return redirect('dashboard')
 
 class DonationLevelFormSetMixin(object):
     """
