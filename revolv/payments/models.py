@@ -506,6 +506,7 @@ class Payment(models.Model):
 
     admin_reinvestment = models.ForeignKey(AdminReinvestment, blank=True, null=True)
     user_reinvestment = models.ForeignKey(UserReinvestment, blank=True, null=True)
+    tip = models.ForeignKey('payments.Tip', blank=True, null=True)
 
     amount = models.FloatField()
 
