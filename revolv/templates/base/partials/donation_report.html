@@ -1,6 +1,7 @@
 {% extends "base/base.html" %}
 {% load staticfiles %}
 {% load widget_tweaks %}
+{% load mathfilters %}
 
 {% block head %}
 <link rel="stylesheet" href="{% static "typeahead/typeahead.css" %}" />
@@ -8,6 +9,8 @@
 <link rel="stylesheet" href="{% static 'dist/css/pages/project-edit/index.css' %}" />
 <link href='//fonts.googleapis.com/css?family=Lato:300,500,800' rel='stylesheet' type='text/css'>
 <link href='//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css' rel='stylesheet' type='text/css'>
+<link href='//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css' rel='stylesheet' type='text/css'>
+<link href='//cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css' rel='stylesheet' type='text/css'>
 <style type="text/css">
     #map-canvas { width: 100%; height: 300px; margin-bottom: 20px; padding: 0;}
     #map-canvas img {max-width: none;}
@@ -16,39 +19,30 @@
 <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
 <script src="http://cdn.datatables.net/plug-ins/1.10.9/sorting/datetime-moment.js"></script>
+<script src="//code.jquery.com/jquery-1.12.3.js"></script>
+<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+<script src="//cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+<script src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+<script src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+<script src="//cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+<script src="//cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
+<script src="//cdn.datatables.net/plug-ins/1.10.12/api/sum().js"></script>
 
 <script>
-    $(document).ready( function () {
-    console.log($.fn.dataTable.moment( 'HH:mm MMM D, YY' ));
-    <!--$.fn.dataTable.moment( 'DD-MM-YYYY HH:mm:ss' );-->
-     <!--$.fn.dataTable.moment( 'dddd, MMMM Do, YYYY' );-->
-
-    <!--$.fn.dataTable.moment( 'DD-MM-YYYY HH:mm:ss' );-->
-    $('#example').DataTable();
-	 <!--$('#donation_report').dataTable();-->
+    $(document).ready(function () {
+    table=$('#example').DataTable({
+       <!--"dom": "Bfrtip",-->
+       "dom": "lfrtBip",
+        buttons: [
+           'csv', 'excel', 'pdf', 'print'
+        ],
+         "order": [[ 1, "desc" ]]
+    })
 
 } );
-<!--$(document).ready(function() {-->
-<!--$.fn.dataTable.moment('DD.MM.YYYY');-->
-    <!--$('#example').DataTable(-->
-    <!--{-->
-     <!--"sPaginationType": "full_numbers",-->
-            <!--"aLengthMenu": [[10, 20, 50, -1], [10, 20, 50, "Wszystkie"]],-->
-            <!--"bStateSave": true,-->
-            <!--"order": [0, 'desc'],-->
-            <!--"ordering": true,    -->
-    <!--&lt;!&ndash;{&ndash;&gt;-->
-       <!--"render": function ( data, type, row )-->
-        <!--var rowvalue = row["Date"];-->
-        <!--return ($.format.date(rowvalue, "E dd/MM/yyyy"));-->
-        <!--},-->
-    <!--"targets": 1-->
-        <!--&lt;!&ndash;}&ndash;&gt;-->
-        <!--});-->
-        <!--&lt;!&ndash;$.fn.dataTable.moment( 'HH:mm MMM D, YY' );&ndash;&gt;-->
-        <!--&lt;!&ndash;$.fn.dataTable.moment( 'mm/dd/yyyy' );&ndash;&gt;-->
 
-<!--} );-->
 
 </script>
 {% endblock %}
@@ -56,27 +50,32 @@
 {% block body %}
 
 <div class="container after-header">
-  <table id="example" class="display" cellspacing="0" width="100%">
+  <table id="example" class="display nowrap" cellspacing="0" width="100%">
   <thead >
       <tr>
         <th>Donor</th>
          <th>Date</th>
-        <th>Amount Donated</th>
-
         <th>Name of Project</th>
         <th>Donation to solar Fund</th>
-<th>Donation to Operation</th>
+        <th>Donation to Operation</th>
+        <th>Total Donation</th>
+
       </tr>
     </thead>
     <tbody>
     {% for payment in payments %}
       <tr>
         <td>{{ payment.user }}</td>
-        <td>{{ payment.created_at }}</td>
-        <td>${{ payment.amount }}</td>
-        <td>{{ payment.project }}</td>
-        <td>$</td>
-        <td>$</td>
+        <td>{{ payment.created_at|date:'m-d-Y H:i' }}</td>
+        <td >{{ payment.project }}</td>
+          <td>${{ payment.amount }}</td>
+          <td>${{ payment.tip.amount }}</td>
+          {% if payment.tip.amount  == None %}
+            <td>${{ payment.amount }}</td>
+          {% else %}
+              <td>${{ payment.amount|addition:payment.tip.amount }}</td>
+          {% endif %}
+
       </tr>
     {% endfor %}
     </tbody>
