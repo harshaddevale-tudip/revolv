@@ -118,6 +118,18 @@ class RevolvUserProfile(FacebookModel):
         self.user.groups.remove(get_group_by_name(self.AMBASSADOR_GROUP))
         self.user.save()
 
+    def user_impact_for_carbon_dioxide(self):
+        all_payments = Payment.objects.payments(user=self)
+        user_impact = 0
+        for payment in all_payments:
+            project = payment.project
+            user_financial_contribution = payment.amount
+            project_funding_total = (int)(project.funding_goal)
+            project_actual_enery = project.actual_energy
+            user_impact_for_carbon_dioxide = user_financial_contribution * project_actual_enery / project_funding_total
+            user_impact += user_impact_for_carbon_dioxide
+        return user_impact
+
     def get_statistic_for_user(self, attr):
         """Calculates a user's individual impact by iterating through all the users payments, calculating
         what fraction of that project comprises of this user's donation, and calculates individual

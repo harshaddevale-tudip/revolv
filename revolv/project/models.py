@@ -327,7 +327,7 @@ class Project(models.Model):
     ambassador = models.ForeignKey(RevolvUserProfile, related_name='ambassador', null=True)
 
     # energy produced in kilowatt hours
-    actual_energy = models.FloatField(default=0.0)
+    actual_energy = models.FloatField()
     internal_rate_return = models.DecimalField(
         'Internal Rate of Return',
         max_digits=6,
@@ -682,6 +682,16 @@ class Project(models.Model):
         :return max reinvestment can be receive
         """
         return min(self.amount_left, self.monthly_reinvestment_cap)
+
+    def get_statistic_for_project(self):
+        all_payments = Payment.objects.payments(self)
+        user_impact = 0
+        project_funding_total = (int)(self.funding_goal)
+        amount_donated = (int)(self.amount_donated)
+        project_actual_enery = self.actual_energy
+        user_impact_for_project = project_actual_enery * amount_donated / project_funding_total
+        user_impact += user_impact_for_project
+        return user_impact
 
     def paid_off(self):
         """Set the project PAID_OFF flag

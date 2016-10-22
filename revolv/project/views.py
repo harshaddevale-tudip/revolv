@@ -72,7 +72,7 @@ def stripe_payment(request, pk):
         })
 
     if tip_cents > 0:
-        tip = Tip.objects.create(
+        tip=Tip.objects.create(
             amount=tip_cents / 100.0,
             user=request.user.revolvuserprofile,
         )
@@ -80,12 +80,13 @@ def stripe_payment(request, pk):
     Payment.objects.create(
         user=request.user.revolvuserprofile,
         entrant=request.user.revolvuserprofile,
-        amount=donation_cents / 100.0,
+        amount=donation_cents/100.0,
         project=project,
         tip=tip,
         payment_type=PaymentType.objects.get_stripe(),
     )
     return redirect('dashboard')
+
 
 class DonationLevelFormSetMixin(object):
     """
@@ -416,4 +417,5 @@ def reinvest(request, pk):
                                         project=project)
 
     messages.success(request, 'Reinvestment Successful')
-    return redirect("project:project_reinvest" ,pk=pk)
+    return redirect("project:view" ,pk=pk)
+

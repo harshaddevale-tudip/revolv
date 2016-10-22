@@ -38,6 +38,6 @@ def aggregate_stats(user_profile):
     stat_dict['reinvestment'] = UserReinvestment.objects.filter(user_id=user_profile.user_id).aggregate(Sum('amount'))['amount__sum'] or 0
     stat_dict['trees'] = user_profile.get_statistic_for_user("acres_of_trees_saved_per_year")
     stat_dict['kwh'] = user_profile.get_statistic_for_user("kilowatt_hours_per_month")
-    stat_dict['carbon_dioxide'] = user_profile.get_statistic_for_user("pounds_carbon_saved_per_month")
+    stat_dict['carbon_dioxide'] = user_profile.user_impact_for_carbon_dioxide()
     return stat_dict
 

@@ -55,13 +55,13 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                   <div class="input-group">
                     <label for="value">Reinvestment In this Project</label>
                     <div class="input-group">
-                      <input type="number" class="form-control" id = "amt" step="1" value="{{reinvestment_amount}}" min="1" max="{{reinvestment_amount}}" name="value" pattern="^[1-9][0-9]?$|^{{reinvestment_amount}}$">
+                      <input type="number" class="form-control" id = "amt" step="0.01" value="{{reinvestment_amount|floatformat:2}}" min="0.01" max="{{reinvestment_amount|floatformat:2}}" name="value" pattern="^[1-9][0-9]?$|^{{reinvestment_amount}}$">
                       <span class="input-group-addon">$</span>
                     </div>
                   </div>
                   <div >
                     <!-- Trigger the modal with a button -->
-                    <button type="button" class="btn-reinvest" style="visibility: visible" data-toggle="modal" onclick="invest_amt(event);" data-target="#myModal">REINVEST NOW</button>
+                    <button type="button" class="btn-reinvest" style="visibility: visible" data-toggle="modal" onclick="invest_amt(event);" data-target="#confirmModal">REINVEST NOW</button>
                   </div>
               </div>
             </div>
@@ -75,7 +75,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
           <!-- end .blue-bar -->
           <div class="dark-blue-bar">
             <span class="pull-left actual-energy">
-              <span class="bold">{{ project.actual_energy }}</span> lbs CO<sub>2</sub> Avoided</span><span class="pull-right">
+              <span class="bold">{{ project.get_statistic_for_project|floatformat:2 }}</span> lbs CO<sub>2</sub> Avoided</span><span class="pull-right">
               <span class="bold">{{ donor_count }}</span> {{ settings.revolv_cms.ProjectPageSettings.donors_wording }}</span>
           </div>
           <div class="banner-section">
@@ -274,7 +274,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
           <!-- end .blue-bar -->
           <div class="dark-blue-bar">
             <span class="pull-left actual-energy">
-              <span class="bold">{{ project.actual_energy }}</span> lbs CO<sub>2</sub> Avoided</span><span class="pull-right">
+              <span class="bold">{{ project.get_statistic_for_project|floatformat:2 }}</span> lbs CO<sub>2</sub> Avoided</span><span class="pull-right">
               <span class="bold">{{ donor_count }}</span> {{ settings.revolv_cms.ProjectPageSettings.donors_wording }}</span>
           </div>
           <div class="banner-section">
@@ -662,18 +662,5 @@ input:invalid {box-shadow: 0 0 5px 1px red;
   }
    );
 </script>
-     <!--<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>-->
-
-    <!--{% if messages %}-->
-        <!--<script>-->
-            <!--toastr.options.positionClass = "toast-bottom-right";-->
-        <!--</script>-->
-        <!--{% for message in messages %}-->
-        <!--<script>-->
-            <!--console.log("reinvest msg");-->
-            <!--&lt;!&ndash;toastr.{{ message.tags }}('{{ message }}')&ndash;&gt;-->
-        <!--</script>-->
-        <!--{% endfor %}-->
-    <!--{% endif %}-->
 
 {% endblock %}

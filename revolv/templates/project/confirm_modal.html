@@ -1,4 +1,4 @@
- <div class="modal fade" id="myModal" role="dialog">
+ <div class="modal fade" id="confirmModal" role="dialog">
     <div class="modal-dialog">
 
       <!-- Modal content-->
@@ -27,11 +27,11 @@
             function invest_amt(e){
                  document.getElementById("amt_pop").innerHTML = ' $' + document.getElementById("amt").value;
                  document.getElementById("amount").value = document.getElementById("amt").value;
-                 if (parseInt($("#amt").val()) > {{reinvestment_amount}}){
+                 if (parseFloat($("#amt").val()) > {{reinvestment_amount}} || parseFloat($("#amt").val()) < 0.01 ){
                         toastr.options.positionClass = "toast-bottom-right";
                         toastr.error('Invalid amount');
                          e.stopPropagation();
                  }
             }
-       </script>
+ </script>
 
