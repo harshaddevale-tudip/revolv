@@ -50,17 +50,17 @@ class DonorDashboardView(UserDataMixin, TemplateView):
 
         project_dict = {}
         project_dict[ProjectGroup('My Projects', "donated")] = Project.objects.donated_projects(self.user_profile)
-        context["project_dict"] = project_dict
 
+        context["project_dict"] = project_dict
         active = Project.objects.get_active()
         context["first_project"] = active[0] if active.count() > 0 else None
         context["role"] = "donor"
         context["donor_has_no_donated_projects"] = Project.objects.donated_projects(self.user_profile).count() == 0
-
+        total_people_affected = Project.objects.donated_completed_projects(self.user_profile)
         context['donated_projects'] = Project.objects.donated_projects(self.user_profile)
         statistics_dictionary = aggregate_stats(self.user_profile)
         statistics_dictionary['total_donated'] = total_donations(self.user_profile)
-        statistics_dictionary['people_served'] = Project.objects.aggregate(n=Sum('people_affected'))['n']
+        statistics_dictionary['people_served'] = total_people_affected
         humanize_integers(statistics_dictionary)
         context['statistics'] = statistics_dictionary
         if self.user_profile and self.user_profile.reinvest_pool > 0.0:

@@ -18,7 +18,7 @@ from django.template.context import RequestContext
 from revolv.base.forms import SignupForm
 from revolv.base.users import UserDataMixin
 from revolv.base.utils import ProjectGroup
-from revolv.payments.models import Payment
+from revolv.payments.models import Payment, Tip
 from revolv.project.models import Category, Project
 from revolv.project.utils import aggregate_stats
 from revolv.donor.views import humanize_integers, total_donations
@@ -26,6 +26,7 @@ from revolv.base.models import RevolvUserProfile
 from revolv.tasks.sfdc import send_signup_info
 
 from social.apps.django_app.default.models import UserSocialAuth
+
 
 
 class HomePageView(UserDataMixin, TemplateView):
@@ -91,7 +92,7 @@ class DonationReportView(UserDataMixin, TemplateView):
     # pass in Project Categories and Maps API key
     def get_context_data(self, **kwargs):
         context = super(DonationReportView, self).get_context_data(**kwargs)
-        context["payments"] = Payment.objects.all()
+        context['payments'] = Payment.objects.all()
         return context
 
 class BaseStaffDashboardView(UserDataMixin, TemplateView):
@@ -122,7 +123,8 @@ class BaseStaffDashboardView(UserDataMixin, TemplateView):
         context['donated_projects'] = Project.objects.donated_projects(self.user_profile)
         statistics_dictionary = aggregate_stats(self.user_profile)
         statistics_dictionary['total_donated'] = total_donations(self.user_profile)
-        statistics_dictionary['people_served'] = Project.objects.aggregate(n=Sum('people_affected'))['n']
+        total_people_affected = Project.objects.donated_completed_projects(self.user_profile)
+        statistics_dictionary['people_served'] = total_people_affected
         humanize_integers(statistics_dictionary)
         context['statistics'] = statistics_dictionary
 
@@ -288,6 +290,7 @@ class SignupView(RedirectToSigninOrHomeMixin, FormView):
         # log in the newly created user model. if there is a problem, error
         auth_login(self.request, u)
         messages.success(self.request, 'Signed up successfully!')
+
         return redirect("dashboard")
 
     def get_context_data(self, *args, **kwargs):

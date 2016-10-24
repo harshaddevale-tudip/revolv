@@ -12,7 +12,6 @@ from revolv.lib.utils import ImportProxy
 from revolv.payments.models import Payment, PaymentType
 from revolv.project.stats import KilowattStatsAggregator
 
-
 class ProjectManager(models.Manager):
     """
     Manager for running custom operations on the Projects.
@@ -132,6 +131,18 @@ class ProjectManager(models.Manager):
         :return: Projects to which this RevolvUserProfile has donated
         """
         return user_profile.project_set.all()
+
+    def donated_completed_projects(self, user_profile):
+        """
+        :return: Completed projects to which this RevolvUserProfile has donated
+        """
+        all_payments = Payment.objects.filter(user=user_profile).distinct('project')
+        user_impact = 0
+        for payment in all_payments:
+            project = payment.project
+            if project.project_status == 'CO':
+                user_impact = user_impact+ project.people_affected
+        return user_impact
 
     def create_from_form(self, form, creator):
         """ Creates project from form and sets created_by_user to a RevolvUserProfile.
@@ -684,13 +695,12 @@ class Project(models.Model):
         return min(self.amount_left, self.monthly_reinvestment_cap)
 
     def get_statistic_for_project(self):
-        all_payments = Payment.objects.payments(self)
         user_impact = 0
         project_funding_total = (int)(self.funding_goal)
         amount_donated = (int)(self.amount_donated)
         project_actual_enery = self.actual_energy
-        user_impact_for_project = project_actual_enery * amount_donated / project_funding_total
-        user_impact += user_impact_for_project
+        project_impact = project_actual_enery * amount_donated / project_funding_total
+        user_impact += project_impact
         return user_impact
 
     def paid_off(self):
