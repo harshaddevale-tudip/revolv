@@ -40,7 +40,7 @@
                     <div class="medium-6 small-12 columns">
                         {% include "base/partials/tooltip_formfield.html" with field=form.title %}
                         {% include "base/partials/tooltip_formfield.html" with field=form.tagline %}
-                        {% include "base/partials/tooltip_formfield.html" with field=form.actual_energy %}
+                        {% include "base/partials/tooltip_formfield.html" with field=form.total_kwh_value %}
                         <span>Categories</span>
                         {{ form.categories_select|add_class:"chosen-select" }}
                         {% for error in form.categories_select.errors %}

@@ -51,13 +51,12 @@
   <div class="section-video">
     <div class="section-video-area">
       <div class="video-opacity"></div>
-       <iframe width="100%"
+      <img src="{% static 'images/top-section-video.jpg' %}" class="hide" alt="Video">
+      <iframe width="100%"
         src="https://www.youtube.com/embed/th_u9EdzCYw/embed/th_u9EdzCYw?autoplay=1&controls=0&loop=1&showinfo=0&playlist=th_u9EdzCYw" >
        </iframe>
-      <img src="{% static 'images/top-section-video.jpg' %}" class="hide" alt="Video">
     </div>
   </div>
-   <!--end .section-video-->
      <div class="section-video-overlay">
     <div class="wrapper">
       <div class="titles">
@@ -118,7 +117,7 @@
             </div>
             <!-- end .blue-bar -->
             <div class="dark-blue-bar">
-              <span class="pull-left actual-energy">{{  active_project.get_statistic_for_project|floatformat:2  }} lbs CO<sub>2</sub></span>
+              <span class="pull-left actual-energy">{{ active_project.get_statistic_for_project|floatformat:"2" }} lbs CO<sub>2</sub></span>
               <span class="pull-right">{{ active_project.donors.count }} Donors</span>
             </div>
             <!-- end .blue-bar -->
@@ -179,7 +178,7 @@
             </div>
             <!-- end .blue-bar -->
             <div class="dark-blue-bar">
-              <span class="pull-left actual-energy">{{ completed_project.actual_energy }} lbs CO<sub>2</sub></span>
+              <span class="pull-left actual-energy">{{ completed_project.get_statistic_for_project|floatformat:"2" }} lbs CO<sub>2</sub></span>
               <span class="pull-right">{{ completed_project.donors.count }} Donors</span>
             </div>
             <!-- end .blue-bar -->
@@ -211,7 +210,7 @@
           <span class="icons icon-home-ok"></span>
           <span class="titles font72">{{ global_impacts.num_projects }}</span>
           <p class="txt">
-			solar projects 
+			solar projects
 			installed
 		  </p>
         </div>
@@ -220,7 +219,7 @@
       <div class="col-md-3">
         <div class="module-box">
           <span class="icons icon-tree"></span>
-          <span class="titles font48">{{ global_impacts.co2_avoided }}<span class="font20">lbs</span></span>
+          <span class="titles font48">{{ global_impacts.co2_avoided  }}<span class="font20">lbs</span></span>
           <p class="txt">CO<span class="position"><span class="font10">2</span></span> AVOIDED</p>
         </div>
         <!-- end .module-box -->
@@ -379,7 +378,7 @@
     {% with testimonial_name="Ralph Silber" testimonial_position="Greening Committee Chair, Kehilla Community Synagogue" testimonial_text="One of our basic values is about community and community building and the importance of that. And because of the crowdfunding model that RE-volv uses, it fit perfectly with our idea. Even if somebody would have handed us a check for the money we needed, that wouldn’t have been our first choice, because by doing the fundraising we were accomplishing one of our other goals which is informing more people about the availability of solar." %}
       {% include "base/partials/testimonial-info-area.html" %}
     {% endwith %}
-	
+
 	{% with testimonial_name="Nathan Chan" testimonial_position="Donor" testimonial_text="I support RE-volv because after meeting with the team, I could not imagine working with a more sincere, dedicated, and knowledgeable set of people, especially on the scale of the climate problem. They are also solving a very unique problem in the transition to clean energy, targeting the non-profits who do not benefit from current subsidies, while figuring out a way to empower those of us who want to do something, but are not sure how." %}
       {% include "base/partials/testimonial-info-area.html" %}
     {% endwith %}
@@ -516,3 +515,4 @@
 <!-- end .newsletter-module -->
 
 {% endblock %}
+

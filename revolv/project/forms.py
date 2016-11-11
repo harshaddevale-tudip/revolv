@@ -37,6 +37,7 @@ class ProjectForm(forms.ModelForm):
             'description': forms.Textarea(attrs={'placeholder': "e.g. The solar energy system will be a 36kW project that provides 33% of Other Avenue's electricity needs."}),
             'people_affected': forms.NumberInput(attrs={'placeholder': 'e.g. 12'}),
             'actual_energy': forms.TextInput(attrs={'placeholder': 'e.g. 10000', 'min_value': 0, 'decimal_places': 2}),
+            'total_kwh_value': forms.NumberInput(attrs={'placeholder': 'e.g. 50000'}),
         }
 
         fields = (
@@ -56,7 +57,8 @@ class ProjectForm(forms.ModelForm):
             'categories_select',
             'description',
             'people_affected',
-            'actual_energy'
+            'actual_energy',
+            'total_kwh_value'
         )
 
     def clean_categories_select(self):

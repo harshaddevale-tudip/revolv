@@ -24,7 +24,7 @@ from revolv.project.utils import aggregate_stats
 from revolv.donor.views import humanize_integers, total_donations
 from revolv.base.models import RevolvUserProfile
 from revolv.tasks.sfdc import send_signup_info
-
+from revolv.lib.mailer import send_revolv_email
 from social.apps.django_app.default.models import UserSocialAuth
 
 
@@ -57,10 +57,11 @@ class HomePageView(UserDataMixin, TemplateView):
         global_impacts = {
             # Users who have backed at least one project:
             'num_people_donated': people_donated_stat_Count,
-            'num_projects': Project.objects.get_completed().count(),
-            'num_people_affected': Project.objects.filter(project_status=Project.COMPLETED).aggregate(n=Sum('people_affected'))['n'],
-            #'co2_avoided': final_carbon_avoided,
-	   	'co2_avoided': 7452670, 
+            'num_projects': len(Project.objects.get_completed()),
+            'num_people_affected':
+                Project.objects.filter(project_status=Project.COMPLETED).aggregate(n=Sum('people_affected'))['n'],
+            'co2_avoided': str(int(Project.objects.get_total_avoided_co2())),
+            #	'co2_avoided': 7452670,
         }
         return global_impacts
 

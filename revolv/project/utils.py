@@ -36,8 +36,9 @@ def aggregate_stats(user_profile):
     stat_dict['project_count'] = Project.objects.donated_projects(user_profile).count()
     stat_dict['repayments'] = Payment.objects.repayment_fragments(user=user_profile).aggregate(Sum('amount'))['amount__sum'] or 0
     stat_dict['reinvestment'] = UserReinvestment.objects.filter(user_id=user_profile.user_id).aggregate(Sum('amount'))['amount__sum'] or 0
-    stat_dict['trees'] = user_profile.get_statistic_for_user("acres_of_trees_saved_per_year")
-    stat_dict['kwh'] = user_profile.get_statistic_for_user("kilowatt_hours_per_month")
+    stat_dict['trees'] = user_profile.user_impact_of_acr_of_tree_save()
+    stat_dict['kwh'] = user_profile.user_impact_for_watts()
     stat_dict['carbon_dioxide'] = user_profile.user_impact_for_carbon_dioxide()
+
     return stat_dict
 
