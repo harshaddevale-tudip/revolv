@@ -39,7 +39,7 @@ class ProjectManager(models.Manager):
             return list(chain(featured_projects, completed_projects))
         else:
             return featured_projects
-        
+
     def get_total_avoided_co2(self, queryset=None):
         """ Gets all the projects that have been completed funding.
 
@@ -716,8 +716,9 @@ class Project(models.Model):
         user_impact = 0
         project_funding_total = (int)(self.funding_goal)
         amount_donated = (int)(self.amount_donated)
-        project_actual_enery = self.actual_energy
-        project_impact = project_actual_enery * amount_donated / project_funding_total
+        project_total_kwh_value = self.total_kwh_value
+        per_doller_co2_avoided = project_total_kwh_value/project_funding_total
+        project_impact = per_doller_co2_avoided * amount_donated
         user_impact += project_impact
         return user_impact
 
