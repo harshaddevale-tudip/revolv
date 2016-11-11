@@ -39,6 +39,25 @@ class ProjectManager(models.Manager):
             return list(chain(featured_projects, completed_projects))
         else:
             return featured_projects
+        
+    def get_total_avoided_co2(self, queryset=None):
+        """ Gets all the projects that have been completed funding.
+
+        :queryset: The queryset in which to search for projects
+        :return: A list of completed project objects
+        """
+        user_impact = 0
+        POUNDS_CARBON_PER_KWH = 1.5
+        if queryset is None:
+            projects = super(ProjectManager, self).get_queryset()
+        for project in projects:
+            project_funding_total = (int)(project.funding_goal)
+            amount_donated = (int)(project.amount_donated)
+            project_total_kwh_value = project.total_kwh_value
+            per_project_avoided_co2 = float(project_total_kwh_value) * POUNDS_CARBON_PER_KWH
+            project_impact = float(per_project_avoided_co2 * amount_donated) / float(project_funding_total)
+            user_impact += project_impact
+        return user_impact
 
     def get_completed(self, queryset=None):
         """ Gets all the projects that have been completed funding.
