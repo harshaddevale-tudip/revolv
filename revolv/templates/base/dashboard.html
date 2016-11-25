@@ -17,13 +17,16 @@
 
     <link rel="stylesheet" type="text/css" href="{% static 'dist/css/pages/projects-list/index.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static "css/dashboard.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/screen.css" %}">
     <script type="text/javascript" src="{% static "js/vendor/d3.min.js" %}"></script>
     <script type="text/javascript" src="{% static "js/base/util/util.js" %}"></script>
     <script type="text/javascript" src="{% static "js/base/partialcircle.js" %}"></script>
     <script type="text/javascript" src="{% static "js/base/projects-list.js" %}"></script>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
 
 {% endblock %}
 {% block body %}
+{% include "project/success_modal.html" with project=project %}
 <div class='main-row dashboard'>
 
     <div class="container-fluid after-header">
@@ -42,7 +45,7 @@
           <div class="no-donations">
             <div class="row">
               <div class="col-md-12">
-                  <h2>Thanks for signing up with RE-volv! Looks like you haven't supported any solar projects yet.</h2>
+                  <h2>Thanks for signing up with RE-volv! Looks like you haven't supported any solar projects yet.{{ request.GET.q }}</h2>
                   {% if first_project %}
                   <p><a class="btn btn-blue" href="{% url "projects_list" %}">Start contributing now!</a></p>
                   {% endif %}
@@ -61,20 +64,28 @@
 
     {% block body-bottom %}
     {% endblock %}
+<script>
+    $( document ).ready(function() {
+        if ({{ request.GET.social }})
+        {
+            $("#share-signup-modal").modal("show");
+        }
+    })
+</script>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
-
-    <script src="{% static "js/base/dashboard.js" %}"></script>
-    <script src="{% static "js/base/dashboard_project.js" %}"></script>
-
-    <!--{% if messages %}-->
-        <!--<script>-->
-            <!--toastr.options.positionClass = "toast-bottom-right";-->
-        <!--</script>-->
-        <!--{% for message in messages %}-->
-        <!--<script>-->
-            <!--toastr.{{ message.tags }}('{{ message }}')-->
-        <!--</script>-->
-        <!--{% endfor %}-->
-    <!--{% endif %}-->
+<script>
+     <!--$('#share-modal #sharethis-button').remove();-->
+    $('#share-modal .sharethis-placeholder').append('<span id="sharethis-button"></span>');
+      stWidget.addEntry({
+                  <!--type:'custom',-->
+                 "service":"sharethis",
+                 "element":document.getElementById('sharethis-signup-button'),
+                 "url":document.URL,
+                 "title":$('h1.title-h1').text(),
+                 "type":"large",
+                 "text":"ShareThis" ,
+                 "image":$('meta[property="og:image"]').attr("content"),
+                 "summary":"I just donated {0} to RE-volv in support of clean energy! Join me!"
+         });
+</script>
 {% endblock %}

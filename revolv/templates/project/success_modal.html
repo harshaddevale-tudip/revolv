@@ -1,0 +1,177 @@
+{% load staticfiles %}
+<!--<script>-->
+<!--var options={ "publisher": "66a4b2f6-b5ce-42be-ba87-d062df2cb070", "position": "left", "ad": { "visible": false, "openDelay": 5, "closeDelay": 0}, "chicklets": { "items": ["", "sharethis"]}};-->
+<!--var st_hover_widget = new sharethis.widgets.hoverbuttons(options);-->
+<!--</script>-->
+<!--<style>-->
+<!--.stLarge {-->
+    <!--display: inline-block;-->
+    <!--height: 32px;-->
+    <!--width: 32px;-->
+    <!--position: relative;-->
+<!--}-->
+
+ <!--.success-modal-content {-->
+  <!--width: 100%;-->
+  <!--float: left;-->
+  <!--}-->
+
+  <!--.confirm-text {-->
+    <!--text-align: center;-->
+    <!--padding: ($column-gutter / 2) 0;-->
+    <!--font-family: "Lato", sans-serif;-->
+    <!--font-weight: normal;-->
+    <!--font-style: normal;-->
+    <!--color: #222222;-->
+    <!--font-size: 2.5vmin;-->
+<!--}-->
+<!--.submit-button {-->
+    <!--margin: 0;-->
+    <!--width: 100%;-->
+    <!--height: 37px;-->
+    <!--line-height: 0px;-->
+    <!--cursor: pointer;-->
+    <!--background-color: transparent;-->
+    <!--color: #11ade5;-->
+    <!--border: 1px solid #11ade5;-->
+<!--}-->
+<!--.submit-button:hover {-->
+    <!--background-color: #11ade5;-->
+    <!--color: white;-->
+    <!--transition: background-color 0.2s;-->
+    <!--transition: color 0.1s;-->
+    <!-- -webkit-transition: background-color 0.2s;-->
+    <!-- -webkit-transition: color 0.1s;-->
+<!--}-->
+<!--.submit-button.gray:hover {-->
+  <!--background-color: #b3b3c0;-->
+  <!--border: 1px solid #b3b3c0;-->
+  <!--color: white;-->
+  <!--transition: background-color 0.2s;-->
+  <!--transition: color 0.1s;-->
+  <!-- -webkit-transition: background-color 0.2s;-->
+  <!-- -webkit-transition: color 0.1s; }-->
+<!--<style>-->
+
+<!--</style>-->
+
+{% block head %}
+
+    <link rel="stylesheet" type="text/css" href="{% static "css/dashboard.css" %}">
+
+{% endblock %}
+
+<!--</style>-->
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<!--<script type="text/javascript">-->
+        <!--stLight.options({-->
+                <!--publisher:'12345',-->
+        <!--});-->
+ <!--</script>-->
+ <div class="modal fade" id="success-modal" role="dialog">
+    <div class="modal-dialog modal-dialog-success" >
+      <!-- Modal content-->
+      <div class="modal-content success-modal-content">
+            <div class="modal-header" style="background-color: #e9f6fc;">
+                <span class="modal-title">Success!</span>
+            </div>
+            <div class="modal-section" style="padding-top: 5vmin;">
+                <label for="checkmark" class="checkmark animate"></label>
+            </div>
+            <div class="modal-section">
+                <div class="table-cell-middle confirm-text" style=" height: 7vmin;border-top: 1px solid #ccc;">
+                    <span>Thank you! You've successfully donated <span id="amount-donated"></span> to <br/>{{ project.title }}.</span>
+                </div>
+            </div>
+            <div class="modal-section">
+                <div class="medium-12 columns">
+                    <div class="modal-footer">
+                        <button data-toggle="modal" data-dismiss="modal" data-target="#share-modal" class="submit-button">Hooray!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+  </div>
+
+<!--<div id="success-modal" class="modal revolv-reveal-modal-table fade" >-->
+    <!--<div class="modal-cell">-->
+        <!--<div class="modal-content success-modal-content">-->
+            <!--<div class="modal-header">-->
+                <!--<span class="modal-title">Success!</span>-->
+            <!--</div>-->
+            <!--<div class="modal-section text-center">-->
+                <!--<label for="checkmark" class="checkmark"></label>-->
+            <!--</div>-->
+            <!--<div class="modal-section table">-->
+                <!--<div class="table-cell-middle confirm-text">-->
+                    <!--<span>Thank you! You've successfully donated <span id="amount-donated"></span> to <br/>{{ project.title }}.</span>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="modal-section">-->
+                <!--<div class="medium-12 columns">-->
+                    <!--<div class="modal-footer-button-group center">-->
+                        <!--<button class="submit-button">Hooray!</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+<div class="modal fade" id="share-modal" role="dialog">
+    <div class="modal-dialog modal-dialog-success" >
+      <!-- Modal content-->
+      <div class="modal-content success-modal-content">
+            <div class="modal-header modal-success-header" >
+                <span class="modal-title">Share!</span>
+            </div>
+            <div class="modal-section">
+                <div class="table-cell-middle confirm-text">
+                    <span>Thanks for your donation! Could you please do a favor and share this with your friends?</span>
+                    <div class="sharethis-placeholder"><span id="sharethis-button"></span>
+                        <!--<span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton">-->
+                            <!--<span class="stLarge" style="background-image: url(&quot;http://w.sharethis.com/images/sharethis_32.png&quot;);"></span>-->
+                        <!--</span>-->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-section">
+                <div class="medium-12 columns">
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="close-revolv-reveal-modal submit-button gray">Not Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="share-signup-modal" role="dialog">
+    <div class="modal-dialog modal-dialog-success" >
+      <!-- Modal content-->
+      <div class="modal-content success-modal-content">
+            <div class="modal-header modal-success-header" >
+                <span class="modal-title">Share!</span>
+            </div>
+            <div class="modal-section">
+                <div class="table-cell-middle confirm-text">
+                    <span>Thanks for create re-volv account! Could you please do a favor and share this with your friends?</span>
+                    <div class="sharethis-placeholder"><span id="sharethis-signup-button"></span>
+                        <!--<span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton">-->
+                            <!--<span class="stLarge" style="background-image: url(&quot;http://w.sharethis.com/images/sharethis_32.png&quot;);"></span>-->
+                        <!--</span>-->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-section">
+                <div class="medium-12 columns">
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="close-revolv-reveal-modal submit-button gray">Not Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

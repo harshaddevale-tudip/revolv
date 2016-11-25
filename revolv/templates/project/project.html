@@ -13,6 +13,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
 {% block title %}Project | {% endblock %}
 {% block body %}
 {% include "project/confirm_modal.html" %}
+{% include "project/success_modal.html" with project=project %}
 {%  if is_draft_mode == True %}
 <div class="draft-mode-div">
   <span class="draft-mode-title">Pending</span>
@@ -227,7 +228,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                   <div class="input-group">
                     <label for="value">Donation to the project</label>
                     <div class="input-group">
-                      <input type="number" class="form-control" step="1" value="50" min="0" name="value">
+                      <input type="number" id="donate_amount" class="form-control" step="1" value="50" min="0" name="value">
                       <span class="input-group-addon">$</span>
                     </div>
                   </div>
@@ -503,6 +504,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
 <!-- tab start here -->
 <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key={{GOOGLEMAPS_API_KEY}}">
 </script>
+      <script src="http://malsup.github.com/jquery.form.js"></script>
 <script src="https://checkout.stripe.com/checkout.js">
 </script>
 <script>
@@ -548,10 +550,25 @@ input:invalid {box-shadow: 0 0 5px 1px red;
             .val(email);
           $id.appendTo($form);
           $email.appendTo($form);
-          $form.trigger('submit');
-        }
-      });
-    }
+         var options = {
+                          // post-submit callback when success returns
+                          success: donationResponseHandler,
+                          complete: function() {
+                              document.getElementById('amount-donated').innerHTML = "$"+ document.getElementById('donate_amount').value;
+                              $("#success-modal").modal("show");
+                          },
+                          contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                          dataType: 'json'
+                      };
+                      // Doing AJAX form submit to your server.
+          $form.ajaxSubmit(options);
+          return false;
+          }
+        });
+        function donationResponseHandler(responseJSON) {
+                  window.location.replace(responseJSON.forward);
+              }
+      }
   });
 });
 </script>
@@ -662,5 +679,22 @@ input:invalid {box-shadow: 0 0 5px 1px red;
   }
    );
 </script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script>
+     $('#share-modal #sharethis-button').remove();
+    $('#share-modal .sharethis-placeholder').append('<span id="sharethis-button"></span>');
+      stWidget.addEntry({
+                  <!--type:'custom',-->
+                 "service":"sharethis",
+                 "element":document.getElementById('sharethis-button'),
+                 "url":document.URL,
+                 "title":$('h1.title-h1').text(),
+                 "type":"large",
+                 "text":"ShareThis" ,
+                 "image":$('meta[property="og:image"]').attr("content"),
+                 "summary":"I just donated {0} to RE-volv in support of clean energy! Join me!"
+         });
+</script>
+
 
 {% endblock %}

@@ -21,7 +21,6 @@
     padding-bottom: 20px;
 }
 
-
 /*For background logo_circle on dashboard*/
 
 .donation_info {
@@ -39,4 +38,64 @@
 .amount_donated {
     font-size: 52px;
     font-weight: bold;
+}
+.stLarge {
+    display: inline-block;
+    height: 32px;
+    width: 32px;
+    position: relative;
+}
+
+ .success-modal-content {
+  width: 100%;
+  float: left;
+  }
+
+  .confirm-text {
+    text-align: center;
+    padding: ($column-gutter / 2) 0;
+    font-family: "Lato", sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    color: #222222;
+    font-size: 2.5vmin;
+}
+.submit-button {
+    margin: 0;
+    width: 100%;
+    height: 37px;
+    line-height: 0px;
+    cursor: pointer;
+    background-color: transparent;
+    color: #11ade5;
+    border: 1px solid #11ade5;
+}
+.submit-button:hover {
+    background-color: #11ade5;
+    color: white;
+    transition: background-color 0.2s;
+    transition: color 0.1s;
+    -webkit-transition: background-color 0.2s;
+    -webkit-transition: color 0.1s;
+}
+.submit-button.gray:hover {
+  background-color: #b3b3c0;
+  border: 1px solid #b3b3c0;
+  color: white;
+  transition: background-color 0.2s;
+  transition: color 0.1s;
+  -webkit-transition: background-color 0.2s;
+  -webkit-transition: color 0.1s; }
+
+  .modal-success-header {
+    background-color: #e9f6fc;
+    margin-bottom: 2vmin;
+}
+
+.modal-dialog-success {
+    margin: 0;
+    width: 30%;
+    position: fixed;
+    left: 32%;
+    top: 24%;
 }

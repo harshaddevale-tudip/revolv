@@ -9,6 +9,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.core.urlresolvers import reverse
 from django.db.models import Sum
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render_to_response
 from django.utils.decorators import method_decorator
 from django.views.decorators.debug import sensitive_post_parameters
@@ -291,8 +292,8 @@ class SignupView(RedirectToSigninOrHomeMixin, FormView):
         # log in the newly created user model. if there is a problem, error
         auth_login(self.request, u)
         messages.success(self.request, 'Signed up successfully!')
-
-        return redirect("dashboard")
+        # return redirect("dashboard" +'?social=true')
+        return HttpResponseRedirect(reverse("dashboard") + '?social=true')
 
     def get_context_data(self, *args, **kwargs):
         context = super(SignupView, self).get_context_data(**kwargs)
@@ -336,7 +337,6 @@ class ReinvestmentRedirect(UserDataMixin, TemplateView):
     #         return render_to_response('base/partials/project.html',context_instance=RequestContext(request))
 
 class DashboardRedirect(UserDataMixin, View):
-
     """
     Redirects user to appropriate dashboard. (e.g. Administrators automagically
     go to the /my-portfolio/admin endpoint)
@@ -345,13 +345,23 @@ class DashboardRedirect(UserDataMixin, View):
     """
 
     def get(self, request, *args, **kwargs):
-        if not self.is_authenticated:
-            return redirect('home')
-        if self.is_administrator:
-            return redirect('administrator:dashboard')
-        if self.is_ambassador:
-            return redirect('ambassador:dashboard')
-        return redirect('donor:dashboard')
+        if bool(request.GET) is False :
+            if not self.is_authenticated:
+                return redirect('home')
+            if self.is_administrator:
+                return redirect('administrator:dashboard')
+            if self.is_ambassador:
+                return redirect('ambassador:dashboard')
+            return redirect(reverse('donor:dashboard'))
+
+        else:
+            if not self.is_authenticated:
+                return redirect('home')
+            if self.is_administrator:
+                return redirect('administrator:dashboard'+'?social=true')
+            if self.is_ambassador:
+                return redirect('ambassador:dashboard'+'?social=true')
+            return redirect(reverse('donor:dashboard')+'?social=true')
 
 
 # password reset/change views: thin wrappers around django's built in password
