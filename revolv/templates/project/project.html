@@ -514,6 +514,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
     , image: '{% static "images/revolv-logo.png" %}'
     , locale: 'auto'
     , name: 'RE-volv'
+    , email: '{{request.user.email}}'
   });
   $(window).on('popstate', function () {
     handler.close();
