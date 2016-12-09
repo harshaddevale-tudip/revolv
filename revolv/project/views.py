@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import JsonResponse
-from django.http.response import HttpResponseBadRequest
+from django.http.response import HttpResponseBadRequest, HttpResponseRedirect
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic import CreateView, DetailView, UpdateView, TemplateView
 from django.views.generic.edit import FormView
@@ -22,6 +22,7 @@ from revolv.payments.services import PaymentService
 from revolv.project import forms
 from revolv.project.models import Category, Project, ProjectUpdate
 from revolv.tasks.sfdc import send_donation_info
+from revolv.lib.mailer import send_revolv_email
 
 
 logger = logging.getLogger(__name__)
@@ -85,7 +86,19 @@ def stripe_payment(request, pk):
         tip=tip,
         payment_type=PaymentType.objects.get_stripe(),
     )
-    return redirect('dashboard')
+    context = {}
+    context['user'] = request.user
+    context['project'] = project
+    context['amount'] = tip_cents/100.0
+
+    # send_revolv_email(
+    #     'post_donation',
+    #     context, [request.user.email]
+    # )
+
+    # return redirect('project:view', pk=project.pk)
+    return HttpResponseRedirect(reverse("dashboard") + '?social=donation')
+    # return redirect('dashboard')
 
 
 class DonationLevelFormSetMixin(object):

@@ -66,11 +66,32 @@
     {% endblock %}
 <script>
     $( document ).ready(function() {
-        if ({{ request.GET.social }})
+    var str = "donation";
+        if ('{{ request.GET.social }}' == 'donation')
+        {
+            $("#share-modal").modal("show");
+        }
+        else if('{{ request.GET.social }}' == 'signup')
         {
             $("#share-signup-modal").modal("show");
         }
     })
+</script>
+
+<script>
+     <!--$('#share-modal #sharethis-button').remove();-->
+    $('#share-signup-modal .sharethis-placeholder').append('<span id="sharethis-button"></span>');
+      stWidget.addEntry({
+                  <!--type:'custom',-->
+                 "service":"sharethis",
+                 "element":document.getElementById('sharethis-button'),
+                 "url":document.URL,
+                 "title":$('h1.title-h1').text(),
+                 "type":"large",
+                 "text":"ShareThis" ,
+                 "image":$('meta[property="og:image"]').attr("content"),
+                 "summary":"I just donated {0} to RE-volv in support of clean energy! Join me!"
+         });
 </script>
 
 <script>

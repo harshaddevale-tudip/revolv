@@ -293,7 +293,7 @@ class SignupView(RedirectToSigninOrHomeMixin, FormView):
         auth_login(self.request, u)
         messages.success(self.request, 'Signed up successfully!')
         # return redirect("dashboard" +'?social=true')
-        return HttpResponseRedirect(reverse("dashboard") + '?social=true')
+        return HttpResponseRedirect(reverse("dashboard") + '?social=signup')
 
     def get_context_data(self, *args, **kwargs):
         context = super(SignupView, self).get_context_data(**kwargs)
@@ -345,6 +345,7 @@ class DashboardRedirect(UserDataMixin, View):
     """
 
     def get(self, request, *args, **kwargs):
+        social = request.GET.get('social', '')
         if bool(request.GET) is False :
             if not self.is_authenticated:
                 return redirect('home')
@@ -357,11 +358,14 @@ class DashboardRedirect(UserDataMixin, View):
         else:
             if not self.is_authenticated:
                 return redirect('home')
+
             if self.is_administrator:
-                return redirect('administrator:dashboard'+'?social=true')
+                return redirect('administrator:dashboard' + '?social=' + social)
+
             if self.is_ambassador:
-                return redirect('ambassador:dashboard'+'?social=true')
-            return redirect(reverse('donor:dashboard')+'?social=true')
+                return redirect('ambassador:dashboard' + '?social=' + social)
+
+            return redirect(reverse('donor:dashboard') + '?social=' + social)
 
 
 # password reset/change views: thin wrappers around django's built in password

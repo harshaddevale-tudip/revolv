@@ -551,25 +551,10 @@ input:invalid {box-shadow: 0 0 5px 1px red;
             .val(email);
           $id.appendTo($form);
           $email.appendTo($form);
-         var options = {
-                          // post-submit callback when success returns
-                          success: donationResponseHandler,
-                          complete: function() {
-                              document.getElementById('amount-donated').innerHTML = "$"+ document.getElementById('donate_amount').value;
-                              $("#success-modal").modal("show");
-                          },
-                          contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                          dataType: 'json'
-                      };
-                      // Doing AJAX form submit to your server.
-          $form.ajaxSubmit(options);
-          return false;
-          }
-        });
-        function donationResponseHandler(responseJSON) {
-                  window.location.replace(responseJSON.forward);
-              }
-      }
+          $form.trigger('submit');
+        }
+      });
+    }
   });
 });
 </script>
