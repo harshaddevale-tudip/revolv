@@ -3,6 +3,7 @@ from django.conf import settings
 from revolv.project.models import Project
 from revolv.payments.models import ProjectMontlyRepaymentConfig, AdminReinvestment
 from revolv.base.models import RevolvUserProfile
+from django.db.models import Sum
 
 from celery.task import task
 
@@ -35,8 +36,11 @@ def distribute_reinvestment_fund():
         logger.error("Can't find admin user: {0}. System exiting!".format(ADMIN_PAYMENT_USERNAME))
         sys.exit()
 
-    for project in Project.objects.get_eligible_projects_for_reinvestment():
-        amount_to_reinvest = project.reinvest_amount_left
+    reinvest_amount_left = RevolvUserProfile.objects.all().aggregate(total=Sum('reinvest_pool'))['total']
+    recipient = filter(lambda p: p.amount_left > 0.0, Project.objects.get_active())
+    amount_to_reinvest = reinvest_amount_left / len(recipient)
+
+    for project in Project.objects.get_active():
         if amount_to_reinvest > 0.0:
             logger.info('Trying to reinvest {0} to {1}-{2}'.format(amount_to_reinvest, project.id, project.title))
             AdminReinvestment.objects.create(
@@ -44,5 +48,5 @@ def distribute_reinvestment_fund():
                 admin=admin,
                 project=project
             )
-        project.monthly_reinvestment_cap = 0.0
+        #project.monthly_reinvestment_cap = 0.0
         project.save()
