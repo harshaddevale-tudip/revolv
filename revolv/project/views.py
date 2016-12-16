@@ -12,7 +12,7 @@ from django.views.generic import CreateView, DetailView, UpdateView, TemplateVie
 from django.views.generic.edit import FormView
 from django.views.decorators.http import require_http_methods
 import stripe
-
+from revolv.base.models import RevolvUserProfile
 from revolv.base.users import UserDataMixin
 from revolv.base.utils import is_user_reinvestment_period
 from revolv.lib.mailer import send_revolv_email
@@ -23,6 +23,7 @@ from revolv.project import forms
 from revolv.project.models import Category, Project, ProjectUpdate
 from revolv.tasks.sfdc import send_donation_info
 from revolv.lib.mailer import send_revolv_email
+from django.contrib.auth.models import User
 
 
 logger = logging.getLogger(__name__)
@@ -30,7 +31,7 @@ MAX_PAYMENT_CENTS = 99999999
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
-@login_required
+# @login_required
 def stripe_payment(request, pk):
     try:
         token = request.POST['stripeToken']
@@ -72,20 +73,52 @@ def stripe_payment(request, pk):
             "msg": error_msg, "project": project
         })
 
-    if tip_cents > 0:
-        tip=Tip.objects.create(
-            amount=tip_cents / 100.0,
+    if request.user.is_authenticated():
+        if tip_cents > 0:
+            tip = Tip.objects.create(
+                amount=tip_cents / 100.0,
+                user=request.user.revolvuserprofile,
+            )
+
+        Payment.objects.create(
             user=request.user.revolvuserprofile,
+            entrant=request.user.revolvuserprofile,
+            amount=donation_cents / 100.0,
+            project=project,
+            tip=tip,
+            payment_type=PaymentType.objects.get_stripe(),
+        )
+        amount = donation_cents / 100.0
+        # send_donation_info.delay(request.user.revolvuserprofile.get_full_name(), amount,
+        #                          project.title, request.user.revolvuserprofile.address)
+
+
+    else:
+        user_id = User.objects.get(username='Guest').pk
+        user = RevolvUserProfile.objects.get(user_id=user_id)
+        if tip_cents > 0:
+            tip = Tip.objects.create(
+                amount=tip_cents / 100.0,
+                user=user,
+            )
+
+        Payment.objects.create(
+            user=user,
+            entrant=user,
+            amount=donation_cents / 100.0,
+            project=project,
+            tip=tip,
+            payment_type=PaymentType.objects.get_stripe(),
         )
 
-    Payment.objects.create(
-        user=request.user.revolvuserprofile,
-        entrant=request.user.revolvuserprofile,
-        amount=donation_cents/100.0,
-        project=project,
-        tip=tip,
-        payment_type=PaymentType.objects.get_stripe(),
-    )
+        amount = donation_cents / 100.0
+        # send_signup_info.delay('Guest', email)
+        # send_donation_info.delay(email,'Guest', amount,
+        #                            project.title,'' )
+
+    if project.amount_donated >= project.funding_goal:
+        project.project_status = project.COMPLETED
+        project.save()
     context = {}
     context['user'] = request.user
     context['project'] = project
