@@ -130,6 +130,7 @@ def stripe_payment(request, pk):
     # )
 
     # return redirect('project:view', pk=project.pk)
+    messages.success(request, 'Donation Successful')
     return HttpResponseRedirect(reverse("dashboard") + '?social=donation')
     # return redirect('dashboard')
 
