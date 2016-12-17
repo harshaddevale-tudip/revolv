@@ -360,7 +360,7 @@ class DashboardRedirect(UserDataMixin, View):
                 return redirect('home')
 
             if self.is_administrator:
-                return redirect('administrator:dashboard' + '?social=' + social)
+                return redirect('administrator:dashboard')
 
             if self.is_ambassador:
                 return redirect('ambassador:dashboard' + '?social=' + social)
