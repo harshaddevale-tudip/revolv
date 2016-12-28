@@ -163,7 +163,8 @@ def post_save_payment(**kwargs):
         return
     instance = kwargs.get('instance')
     #if instance.is_organic:
-    instance.project.donors.add(instance.user)
+    if instance.project:
+        instance.project.donors.add(instance.user)
     if instance.payment_type == PaymentType.objects.get_reinvestment_fragment():
         instance.user.reinvest_pool -= float(instance.amount)
         instance.project.monthly_reinvestment_cap -= float(instance.amount)
