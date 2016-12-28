@@ -498,7 +498,7 @@ class Payment(models.Model):
         already completed projects.
     """
     user = models.ForeignKey('base.RevolvUserProfile', blank=True, null=True)
-    project = models.ForeignKey("project.Project")
+    project = models.ForeignKey("project.Project",blank=True, null=True)
 
     entrant = models.ForeignKey('base.RevolvUserProfile', related_name='entrant')
     payment_type = models.ForeignKey(PaymentType)
@@ -507,8 +507,7 @@ class Payment(models.Model):
     admin_reinvestment = models.ForeignKey(AdminReinvestment, blank=True, null=True)
     user_reinvestment = models.ForeignKey(UserReinvestment, blank=True, null=True)
     tip = models.ForeignKey('payments.Tip', blank=True, null=True)
-
-    amount = models.FloatField()
+    amount = models.FloatField(blank=True, null=True)
 
     objects = PaymentManager()
     factories = ImportProxy("revolv.payments.factories", "PaymentFactories")
