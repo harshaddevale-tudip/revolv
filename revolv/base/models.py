@@ -118,74 +118,67 @@ class RevolvUserProfile(FacebookModel):
         self.user.groups.remove(get_group_by_name(self.AMBASSADOR_GROUP))
         self.user.save()
 
-    def user_impact_for_carbon_dioxide(self):
-        all_payments = Payment.objects.payments(user=self)
-        user_impact = 0
-        for payment in all_payments:
-            project = payment.project
-            user_financial_contribution = payment.amount
-            project_funding_total = (int)(project.funding_goal)
-            project_actual_enery = project.actual_energy
-            user_impact_for_carbon_dioxide = user_financial_contribution * project_actual_enery / project_funding_total
-            user_impact += user_impact_for_carbon_dioxide
-        return user_impact
-
     def user_impact_for_watts(self):
-        all_payments = Payment.objects.payments(user=self)
+        all_payments = Payment.objects.payments(user=self).exclude(project__isnull=True)
         user_impact = 0
         for payment in all_payments:
             project = payment.project
-            user_financial_contribution = payment.amount
-            project_funding_total = (int)(project.funding_goal)
-            total_kwh_value = project.total_kwh_value
-            per_dollor_generated_energy = total_kwh_value / project_funding_total
-            user_impact_for_watt = float(per_dollor_generated_energy) * float(user_financial_contribution)
-            user_impact += user_impact_for_watt
+            if project:
+                user_financial_contribution = payment.amount
+                project_funding_total = (int)(project.funding_goal)
+                total_kwh_value = project.total_kwh_value
+                per_dollor_generated_energy = total_kwh_value / project_funding_total
+                user_impact_for_watt = float(per_dollor_generated_energy) * float(user_financial_contribution)
+                user_impact += user_impact_for_watt
         return user_impact
 
     def user_impact_for_carbon_dioxide(self):
-        all_payments = Payment.objects.payments(user=self)
+        all_payments = Payment.objects.payments(user=self).exclude(project__isnull=True)
         user_impact = 0
         POUNDS_CARBON_PER_KWH = 1.5
         for payment in all_payments:
             project = payment.project
-            user_financial_contribution = payment.amount
-            project_funding_total = (int)(project.funding_goal)
-            total_kwh_value = project.total_kwh_value
-            carbon_dioxide_avoided_by_project = float(POUNDS_CARBON_PER_KWH) * float(total_kwh_value)
-            per_dollor_avoided_co2 = carbon_dioxide_avoided_by_project/project_funding_total
-            user_impact_for_carbon_dioxide = per_dollor_avoided_co2 * user_financial_contribution
-            user_impact += user_impact_for_carbon_dioxide
+            if project:
+                user_financial_contribution = payment.amount
+                project_funding_total = (int)(project.funding_goal)
+                total_kwh_value = project.total_kwh_value
+                carbon_dioxide_avoided_by_project = float(POUNDS_CARBON_PER_KWH) * float(total_kwh_value)
+                per_dollor_avoided_co2 = carbon_dioxide_avoided_by_project/project_funding_total
+                user_impact_for_carbon_dioxide = per_dollor_avoided_co2 * user_financial_contribution
+                user_impact += user_impact_for_carbon_dioxide
         return user_impact
 
     def user_impact_of_acr_of_tree_save(self):
-        all_payments = Payment.objects.payments(user=self)
+        all_payments = Payment.objects.payments(user=self).exclude(project__isnull=True)
         user_impact = 0
         ACRE_OF_TREES_PER_KWH = 0.0006
         for payment in all_payments:
             project = payment.project
-            user_financial_contribution = payment.amount
-            project_funding_total = (int)(project.funding_goal)
-            total_kwh_value = project.total_kwh_value
-            acr_of_tree_save_by_project = float(ACRE_OF_TREES_PER_KWH) * float(total_kwh_value)
-            per_dollor_saved_trees = acr_of_tree_save_by_project / project_funding_total
-            user_impact_for_saved_trees = per_dollor_saved_trees * user_financial_contribution
-            user_impact += user_impact_for_saved_trees
+            if project:
+                user_financial_contribution = payment.amount
+                project_funding_total = (int)(project.funding_goal)
+                total_kwh_value = project.total_kwh_value
+                acre_of_tree_save_by_project = float(ACRE_OF_TREES_PER_KWH) * float(total_kwh_value)
+                per_dollor_saved_trees = acre_of_tree_save_by_project / project_funding_total
+                # print ("aaaa", acr_of_tree_save_by_project,per_dollor_saved_trees)
+                user_impact_for_saved_trees = per_dollor_saved_trees * user_financial_contribution
+                user_impact += user_impact_for_saved_trees
         return user_impact
 
     def get_statistic_for_user(self, attr):
         """Calculates a user's individual impact by iterating through all the users payments, calculating
         what fraction of that project comprises of this user's donation, and calculates individual
         user impact using the statistics attribute (a KilowattStatsAggregator) and the fraction."""
-        all_payments = Payment.objects.payments(user=self)
+        all_payments = Payment.objects.payments(user=self).exclude(project__isnull=True)
         user_impact = 0
         for payment in all_payments:
-            project = payment.project
-            user_financial_contribution = payment.amount
-            project_funding_total = (int)(project.funding_goal)
-            project_impact = getattr(project.statistics, attr)
-            user_impact_for_project = project_impact * user_financial_contribution * 1.0 / project_funding_total
-            user_impact += user_impact_for_project
+            if project:
+                project = payment.project
+                user_financial_contribution = payment.amount
+                project_funding_total = (int)(project.funding_goal)
+                project_impact = getattr(project.statistics, attr)
+                user_impact_for_project = project_impact * user_financial_contribution * 1.0 / project_funding_total
+                user_impact += user_impact_for_project
         return user_impact
 
     def get_full_name(self):
