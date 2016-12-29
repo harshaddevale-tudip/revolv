@@ -172,13 +172,13 @@ class RevolvUserProfile(FacebookModel):
         all_payments = Payment.objects.payments(user=self).exclude(project__isnull=True)
         user_impact = 0
         for payment in all_payments:
-            if project:
                 project = payment.project
-                user_financial_contribution = payment.amount
-                project_funding_total = (int)(project.funding_goal)
-                project_impact = getattr(project.statistics, attr)
-                user_impact_for_project = project_impact * user_financial_contribution * 1.0 / project_funding_total
-                user_impact += user_impact_for_project
+                if project:
+                    user_financial_contribution = payment.amount
+                    project_funding_total = (int)(project.funding_goal)
+                    project_impact = getattr(project.statistics, attr)
+                    user_impact_for_project = project_impact * user_financial_contribution * 1.0 / project_funding_total
+                    user_impact += user_impact_for_project
         return user_impact
 
     def get_full_name(self):
