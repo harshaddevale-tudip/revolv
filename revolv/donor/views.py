@@ -27,7 +27,7 @@ def humanize_integers(d):
         d[k] = humanize_int(int(d[k]))
 
 def total_donations(profile):
-    payments = Payment.objects.filter(entrant=profile, user=profile)
+    payments = Payment.objects.filter(entrant=profile, user=profile).exclude(project__isnull=True)
     if payments:
         return payments.aggregate(Sum('amount'))['amount__sum']
     else:
