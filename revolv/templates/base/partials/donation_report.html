@@ -67,18 +67,34 @@
       <tr>
         <td>{{ payment.user }}</td>
         <td>{{ payment.created_at|date:'m-d-Y H:i' }}</td>
-        <td >{{ payment.project }}</td>
+        {% if payment.project %}
+          <td >{{ payment.project }}</td>
+        {% else %}
+          <td >Revolv Oprations</td>
+        {% endif %}
+        {% if payment.amount %}
+         <td>${{ payment.amount|floatformat:2 }}</td>
+        {% else %}
+          <td>$0.00</td>
+         {% endif %}
+        {% if payment.tip.amount %}
+          <td>${{ payment.tip.amount|floatformat:2 }}</td>
+        {% else %}
+          <td>$0.00</td>
+         {% endif %}
+        {% if payment.tip.amount and payment.amount%}
+          <td>${{ payment.amount|addition:payment.tip.amount|floatformat:2 }}</td>
+        {% endif %}
+        {% if payment.tip.amount and not payment.amount%}
+          <td>${{ payment.tip.amount|floatformat:2 }}</td>
+        {% endif %}
+         {% if payment.amount and not payment.tip.amount %}
           <td>${{ payment.amount|floatformat:2 }}</td>
-          {% if payment.tip.amount %}
-            <td>${{ payment.tip.amount|floatformat:2 }}</td>
-          {% else %}
-            <td>$0.00</td>
-           {% endif %}
-          {% if payment.tip.amount %}
-            <td>${{ payment.amount|addition:payment.tip.amount|floatformat:2 }}</td>
-          {% else %}
-              <td>${{ payment.amount|floatformat:2 }}</td>
-          {% endif %}
+        {% endif %}
+        {% if not payment.amount and not payment.tip.amount %}
+          <td>$0.00</td>
+        {% endif %}
+
 
       </tr>
     {% endfor %}
