@@ -336,6 +336,10 @@ class ReinvestmentRedirect(UserDataMixin, TemplateView):
     #     if self.is_administrator:
     #         return render_to_response('base/partials/project.html',context_instance=RequestContext(request))
 
+def solarathome(request):
+    return render_to_response('base/solar_at_home.html',
+                              context_instance=RequestContext(request))
+
 class DashboardRedirect(UserDataMixin, View):
     """
     Redirects user to appropriate dashboard. (e.g. Administrators automagically

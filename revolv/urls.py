@@ -8,6 +8,7 @@ from wagtail.wagtailcore import urls as wagtail_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
 
 from revolv.base import views as base_views
+from revolv.base.views import solarathome
 
 urlpatterns = patterns(
     '',
@@ -31,6 +32,7 @@ urlpatterns = patterns(
     url(r'^signup/$', base_views.SignupView.as_view(), name='signup'),
     url(r'^logout/$', base_views.LogoutView.as_view(), name='logout'),
     url(r'^unsubscribe/(?P<action>\w+)/$', 'revolv.base.views.unsubscribe', name='unsubscribe'),
+    url(r'^solar_at_home/$',solarathome, name='solar_at_home'),
     url(r'^my_social_account/$', 'revolv.base.views.social_connection', name='social-connection'),
     url(r'^social_connect_failed/$', 'revolv.base.views.social_exception', name='social-exception'),
 
