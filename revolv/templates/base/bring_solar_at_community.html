@@ -1,0 +1,432 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% load humanize %}
+{% load wagtailimages_tags %}
+
+{% block title %}Home | {% endblock %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="/static/css/bring_solar_at_community.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script src="/static/js/base/bring_solar_at_home.js"></script>
+		<title>Revolve</title>
+    <script>
+    $(document).ready(function() {
+        $('.dropdown-title').on('click', function() {
+    $('.dropdown-menu').toggle();
+    });
+    $('.option').on('click', function() {
+        $(this).closest('.dropdown-menu').hide();
+        $(this).parents('.dropdown').find('.dropdown-title span:first-child').text($(this).html());
+        $(this).parents('.dropdown').find('.dropdown-select').val($(this).html());
+        selectedValue=$(this).data("selected-state");
+        changeFunc(selectedValue);
+    });
+
+     function changeFunc(selectedValue) {
+       var states = ["AL","AK", "AZ"];
+       var images = ["/static/images/EnergySale.png", "/static/images/Sungevity.png", "/static/images/Pick_my_Solar.png"];
+        for (i=0;i<4;i++)
+        {
+            if (selectedValue == states[i])
+            {
+                $("#img").attr("src",images[i]);
+            }
+        }
+   }
+    $(document).click(function (event) {
+        var clickover = $(event.target);
+        var _opened = $(".navbar-collapse").hasClass("collapse in");
+        if (_opened === true ) {
+            $("button.navbar-toggle").click();
+        }
+    });
+
+    });
+
+
+  </script>
+
+    <style>
+    .dropdown-triangle {
+        float: right;
+        padding-right: 2%;
+
+    }
+
+a.How_it_Works:hover {
+    text-decoration: none;
+    color: #fff;
+}
+
+.header.top-section-header {
+    background-color: rgba(0, 0, 0, 0);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0);
+    margin-top: 0;
+    position: absolute;
+}
+
+.menu-list {
+    position: absolute;
+    width: 100%;
+    background-image: linear-gradient(to bottom,transparent 0,transparent 100%);
+    background-color: transparent;
+    border: transparent;
+    border-radius: 0;
+    box-shadow: none;
+}
+.burger-sub-menu {
+  display: block;
+}
+.header .solar_at_home_rights .btn-yellow {
+    <!--background-color: rgb(255, 204, 0);-->
+    <!--padding: 0px 84px 0 0;-->
+        border-radius: 6%;
+    background-color: rgb(255, 204, 0);
+    color: black;
+    /* width: 30%; */
+    height: auto;
+    line-height: normal;
+    padding: 2vmin 1%;
+}
+.header .solar_at_home_rights {
+     padding: 3vmin 2vmin 0 0;
+}
+<!--.header a.btn-yellow, .header.after-scroll-header a.btn-yellow {-->
+    <!--text-decoration: none;-->
+    <!--color: #333;-->
+    <!--}-->
+
+    .hamburger_color {
+        border-color: transparent;
+        color: white;
+    }
+    .background-collapse-color {
+            background-color: white;
+    }
+
+    </style>
+
+{%endblock%}
+{% block nav %}
+<div class="modal fade" id="popup" role="dialog">
+    <div class="modal-dialog" style="padding:14vmin 8% 0">
+
+      <!-- Modal content-->
+      <div class="modal-content" >
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"><b>Donation to Operations</b></h4>
+        </div>
+        <form action="{% url 'project:stripe_operation_donation' %}" method="POST">
+          {% csrf_token %}
+           <div class="modal-body input-group">
+                        <input type="number" name="amount_cents" value="10" step="1" class="form-control" >
+                          <span class="input-group-addon">$</span>
+                      </div>
+          <!--<div class="modal-body">-->
+            <!--<input type="email" style="width:100%" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Donation Amount">-->
+          <!--</div>-->
+          <div class="modal-section">
+          <label class="checkbox-field-label" style="margin-left:5%;margin-bottom:5%">
+            <input  id="subscribe-check" name="check" type="checkbox"><span><b>Subscribe me 					to the RE-volv donate operations.</b></span>
+                </label>
+          </div>
+          <div class="modal-footer" style="text-align: center;">
+            <button type="submit" class="stripe-button-el btn btn-primary" data-dismiss="modal">Next</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+{%endblock%}
+{% block body %}
+    <div style="height: 60vmin;
+    background-image: url(/static/images/Header_image.png);
+    background-size: 100vw 60vmin;
+    background-repeat: no-repeat;">
+       <header class="header top-section-header">
+  <div class="container">
+        <div class="container">
+        <!-- Static navbar -->
+        <div class="navbar navbar-default menu-list">
+            <div class="navbar-header">
+                <button type="button" id="collbtn" class="navbar-toggle hamburger_color" data-toggle="collapse" data-target=".navbar-collapse"> <span class="icon-bar"></span>
+ <span class="icon-bar"></span>
+ <span class="icon-bar"></span>
+
+                </button> <a class="navbar-brand logo-solar-at-home" href="/"></a>
+
+            </div>
+            <div class="navbar-collapse collapse background-collapse-color">
+                <ul class="nav navbar-nav">
+                    {% if request.user.is_authenticated %}
+                        <li><a href="{% url 'dashboard' %}" class="dropdown">MY PORTFOLIO</a>
+                        </li>
+                        <li class="dropdown this-works"> <a href="{% url 'logout' %}" class="dropdown">SIGN OUT</a>
+                        </li>
+                    {% else %}
+                         <li><a href="{% url 'dashboard' %}" class="dropdown">MY PORTFOLIO</a>
+                        </li>
+                        <li class="dropdown this-works"> <a href="{% url 'logout' %}" class="dropdown">SIGN OUT</a>
+                        </li>
+                    {% endif %}
+                    <li class="dropdown this-doesnt"> <a href="#" class="dropdown" data-toggle="modal" data-target="#popup">DONATE</a>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    <!-- end .logo -->
+            <div class="solar_at_home_rights pull-right">
+              <div class="txt pull-left">
+
+                {% if request.user.is_authenticated %}
+                  <li class="user-controls has-dropdown">
+                    <a href="{% url 'dashboard' %}" class="btn-blue pull-left btn-donate btn-yellow">MY PORTFOLIO</a>
+                    <a href="{% url 'logout' %}" class="btn-blue pull-left btn-donate btn-yellow" >SIGN OUT</a>
+                  </li>
+                  {% else %}
+                    <a href="{% url 'signin' %}#signup" class="component-link btn-blue pull-left btn-donate btn-yellow" data-component="signup" >SIGN UP</a>
+                    <a href="{% url 'signin' %}#login" class="component-link btn-blue pull-left btn-donate btn-yellow" data-component="login" >SIGN IN</a>
+                {% endif %}
+              </div>
+              <a href="#" class="component-link btn-blue btn-donate btn-yellow" data-toggle="modal" data-target="#popup" >DONATE</a>
+              <!--<a #data-target="popup" data-toggle="modal" class=" btn-blue btn-donate pull-left after-scroll">DONATE NOW</a>-->
+            </div>
+          </div>
+             <div style="width:100%;float:left;padding-top: 7vmin;">
+                <div style="width:100%;padding: 0 1%;float: left;">
+                  <div style="float: left;width: 70%;">
+                      <div class="go_solar_at_home">
+                        HOW TO BRING <br> A SOLAR ENERGY PROJECT <br> TO YOUR COMMUNITY.
+                       </div>
+                      <div class="we_can_help_you">
+                         A step by step guide for you to lead a solar energy crowdfunding campaign <br>
+                         for a community-serving organization you care about.
+                      </div>
+
+                  </div>
+                  <div style="float: left;width: 29%;">
+                        <div class="logo-size" >
+                          <img class="background-image-size" src="/static/images/Logo_Header.png">
+                        </div>
+                  </div>
+                </div>
+
+            </div>
+           </div>
+        </header>
+
+</div>
+<div class="video-row" style="background-image: url(/static/images/rectangle_lined.png);">
+			<div class="video-cntnr-txt">
+				Solar Champion Introductory Video Series
+			</div>
+			<div class="video-series hidden-xs">
+				<div class="vid-cntnr">
+					<div class="show-video" onmouseenter="playPause('desk-vid-1')" onmouseleave="playPause('desk-vid-1')" onclick="showDesktopFullscreen('desk-vid-1')">
+						<video class="video" id="desk-vid-1">
+						    <source src="/static/videos/mov_bbb.mp4" type="video/mp4">
+						    Your browser does not support HTML5 video.
+						</video>
+						<div class="play-desktop-video-img">
+							<img src="/static/images/playVideoImg.png" alt="">
+						</div>
+					</div>
+
+					<div class="video-desc"><b>1. Intro to the Re-Volv</b></div>
+				</div>
+				<div class="vid-cntnr">
+					<div class="show-video" onmouseenter="playPause('desk-vid-2')" onmouseleave="playPause('desk-vid-2')" onclick="showDesktopFullscreen('desk-vid-2')">
+						<video class="video" id="desk-vid-2">
+						    <source src="/static/videos/mov_bbb.mp4" type="video/mp4">
+						    Your browser does not support HTML5 video.
+						</video>
+						<div class="play-desktop-video-img">
+							<img src="/static/images/playVideoImg.png" alt="">
+						</div>
+					</div>
+					<div class="video-desc"><b>2. The Role of A Solar Chsmpion</b></div>
+				</div>
+				<div class="vid-cntnr">
+					<div class="show-video" onmouseenter="playPause('desk-vid-3')" onmouseleave="playPause('desk-vid-3')" onclick="showDesktopFullscreen('desk-vid-3')">
+						<video class="video" id="desk-vid-3">
+						    <source src="/static/videos/mov_bbb.mp4" type="video/mp4">
+						    Your browser does not support HTML5 video.
+						</video>
+						<div class="play-desktop-video-img">
+							<img src="/static/images/playVideoImg.png" alt="">
+						</div>
+					</div>
+					<div class="video-desc"><b>3. Intro to the Re-Volv</b></div>
+				</div>
+				<div class="vid-cntnr">
+					<div class="show-video" onmouseenter="playPause('desk-vid-4')" onmouseleave="playPause('desk-vid-4')" onclick="showDesktopFullscreen('desk-vid-4')">
+						<video class="video" id="desk-vid-4">
+						    <source src="/static/videos/mov_bbb.mp4" type="video/mp4">
+						    Your browser does not support HTML5 video.
+						</video>
+						<div class="play-desktop-video-img">
+							<img src="/static/images/playVideoImg.png" alt="">
+						</div>
+					</div>
+					<div class="video-desc"><b>4. Intro to the Re-Volv</b></div>
+				</div>
+				<div class="vid-cntnr">
+					<div class="show-video" onmouseenter="playPause('desk-vid-5')" onmouseleave="playPause('desk-vid-5')" onclick="showDesktopFullscreen('desk-vid-5')">
+						<video class="video" id="desk-vid-5">
+						    <source src="/static/videos/mov_bbb.mp4" type="video/mp4">
+						    Your browser does not support HTML5 video.
+						</video>
+						<div class="play-desktop-video-img">
+							<img src="/static/images/playVideoImg.png" alt="">
+						</div>
+					</div>
+					<div class="video-desc"><b>5. Intro to the Re-Volv</b></div>
+				</div>
+			</div>
+
+
+			<div>
+				<div id="champion-carousel" class="carousel slide hidden-sm hidden-md hidden-lg" data-ride="carousel">
+				  <!-- Indicators -->
+				  <ol class="carousel-indicators">
+				    <li data-target="#champion-carousel" data-slide-to="0" class="active"></li>
+				    <li data-target="#champion-carousel" data-slide-to="1"></li>
+				    <li data-target="#champion-carousel" data-slide-to="2"></li>
+				    <li data-target="#champion-carousel" data-slide-to="3"></li>
+				    <li data-target="#champion-carousel" data-slide-to="4"></li>
+				  </ol>
+
+				  <!-- Wrapper for slides -->
+				  <div class="carousel-inner" role="listbox">
+				    <div class="item active" onclick="goFullscreen('video-1')">
+				      <video class="video" id="video-1">
+					    <source src="/static/videos/mov_bbb.mp4" type="video/mp4">
+					    Your browser does not support HTML5 video.
+					 </video>
+					 <div class="mobile-video-desc">1. Intro to the Re-Volve</div>
+					 <img src="/static/images/playVideoImg.png" alt="" class="play-video-img">
+				    </div>
+
+				    <div class="item" onclick="goFullscreen('video-2')">
+					     <video class="video" id="video-2">
+						    <source src="/static/videos/mov_bbb.mp4" type="video/mp4">
+						    Your browser does not support HTML5 video.
+						</video>
+						<div class="mobile-video-desc">1. Intro to the Re-Volve</div>
+						<img src="/static/images/playVideoImg.png" alt="" class="play-video-img">
+				    </div>
+
+				    <div class="item" onclick="goFullscreen('video-3')">
+				      <video class="video" id="video-3">
+					    <source src="/static/videos/mov_bbb.mp4" type="video/mp4">
+					    Your browser does not support HTML5 video.
+					</video>
+					<div class="mobile-video-desc">1. Intro to the Re-Volve</div>
+					<img src="/static/images/playVideoImg.png" alt="" class="play-video-img">
+				    </div>
+
+				    <div class="item" onclick="goFullscreen('video-4')">
+				      <video class="video" id="video-4">
+					    <source src="/static/videos/mov_bbb.mp4" type="video/mp4">
+					    Your browser does not support HTML5 video.
+					</video>
+					<div class="mobile-video-desc">1. Intro to the Re-Volve</div>
+					<img src="/static/images/playVideoImg.png" alt="" class="play-video-img">
+				    </div>
+				    <div class="item" onclick="goFullscreen('video-5')">
+				      <video class="video" id="video-5">
+					    <source src="/static/videos/mov_bbb.mp4" type="video/mp4">
+					    Your browser does not support HTML5 video.
+					</video>
+					<div class="mobile-video-desc">1. Intro to the Re-Volve</div>
+					<img src="/static/images/playVideoImg.png" alt="" class="play-video-img">
+				    </div>
+				  </div>
+
+				  <!-- Left and right controls -->
+				  <a class="left carousel-control" href="#champion-carousel" role="button" data-slide="prev">
+				    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+
+				  </a>
+				  <a class="right carousel-control" href="#champion-carousel" role="button" data-slide="next">
+				    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+
+				  </a>
+				</div>
+			</div>
+
+			<div class="btn-cntnr">
+				<div class="get-start-btn">
+					GET STARTED
+				</div>
+			</div>
+		</div>
+		<div class="grid-contnr">
+			<div class="col-xs-12 col-sm-4 grid-component">
+				<div class="grid-data">
+					<div class="data-heading">
+						1. The Benefits of Crowdfunding
+					</div>
+					<div class="data-text">
+						Whether your passion is film, design, technology or social causes, there's a path to launch on Re-Volve
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-4 grid-component">
+				<div class="grid-data">
+					<div class="data-heading">
+						1. The Benefits of Crowdfunding
+					</div>
+					<div class="data-text">
+						Whether your passion is film, design, technology or social causes, there's a path to launch on Re-Volve
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-4 grid-component">
+				<div class="grid-data">
+					<div class="data-heading">
+						1. The Benefits of Crowdfunding
+					</div>
+					<div class="data-text">
+						Whether your passion is film, design, technology or social causes, there's a path to launch on Re-Volve
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-4 grid-component">
+				<div class="grid-data">
+					<div class="data-heading">
+						1. The Benefits of Crowdfunding
+					</div>
+					<div class="data-text">
+						Whether your passion is film, design, technology or social causes, there's a path to launch on Re-Volve
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-4 grid-component">
+				<div class="grid-data">
+					<div class="data-heading">
+						1. The Benefits of Crowdfunding
+					</div>
+					<div class="data-text">
+						Whether your passion is film, design, technology or social causes, there's a path to launch on Re-Volve
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-4 grid-component">
+				<div class="grid-data">
+					<div class="data-heading">
+						1. The Benefits of Crowdfunding
+					</div>
+					<div class="data-text">
+						Whether your passion is film, design, technology or social causes, there's a path to launch on Re-Volve
+					</div>
+				</div>
+			</div>
+		</div>
+{%endblock%}
