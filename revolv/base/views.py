@@ -340,6 +340,10 @@ def solarathome(request):
     return render_to_response('base/solar_at_home.html',
                               context_instance=RequestContext(request))
 
+def bring_solar_tou_your_community(request):
+    return render_to_response('base/bring_solar_at_community.html',
+                              context_instance=RequestContext(request))
+
 class DashboardRedirect(UserDataMixin, View):
     """
     Redirects user to appropriate dashboard. (e.g. Administrators automagically

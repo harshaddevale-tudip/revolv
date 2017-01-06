@@ -1,0 +1,203 @@
+body {
+    float: left;
+    margin: 0;
+    width: 100%;
+}
+.video-row {
+    float: left;
+    position: relative;
+    width: 100%;
+    padding-bottom: 6vmin;
+}
+.video-cntnr-txt {
+    float: left;
+    position: relative;
+    width: 100%;
+    text-align: center;
+    font-size: 4.5vmin;
+    padding: 3vmin 0;
+}
+.video-series {
+    float: left;
+    position: relative;
+    width: 100%;
+    padding: 0 5vmin;
+}
+.vid-cntnr {
+    float: left;
+    position: relative;
+    width: 20%;
+    padding: 0 1%;
+}
+.full-width {
+    width: 100%;
+    float: left;
+    position: relative;
+}
+.video-series .video {
+    float: left;
+    position: relative;
+    width: 100%;
+
+}
+#champion-carousel .video {
+	 width: 100%;
+	 cursor: pointer;
+}
+#champion-carousel .item {
+    padding: 0 9%;
+}
+.video-desc {
+    float: left;
+    position: relative;
+    width: 100%;
+    font-size: 3.1vmin;
+    text-align: center;
+}
+.btn-cntnr {
+    float: left;
+    position: relative;
+    width: 100%;
+    padding: 5vmin 33% 0;
+}
+.get-start-btn {
+    float: left;
+    position: relative;
+    background-color: rgb(20, 177, 231);
+    color: #fff;
+    border-radius: 3%;
+    width: 100%;
+    text-align: center;
+    line-height: 8vmin;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 3.2vmin;
+}
+.grid-data {
+    background-color: #f3f5f9;
+    padding: 4vmin 8%;
+    border: 1px solid #f1ebeb;
+    border-radius: 1%;
+    float: left;
+    position: relative;
+    width: 100%;
+    font-size: 3vmin;
+}
+.grid-component {
+    padding: 1vmin 1.6vmin 3vmin;
+    float: left;
+    position: relative;
+}
+.grid-contnr {
+    float: left;
+    width: 100%;
+    position: relative;
+    padding: 5vmin;
+}
+.data-heading {
+    font-weight: bold;
+    float: left;
+    width: 100%;
+    position: relative;
+    padding: 1vmin 0;
+}
+.data-text {
+    float: left;
+    line-height: 4.5vmin;
+    position: relative;
+    width: 100%;
+}
+#champion-carousel .carousel-control.right, #champion-carousel .carousel-control.left {
+    background-image: none;
+}
+#champion-carousel .carousel-control .glyphicon-chevron-left {
+    margin: 0;
+    left: 8%;
+    width: 6vmin;
+    height: 6vmin;
+    border: 0.7vmin solid grey;
+    border-radius: 50%;
+    font-size: 3vmin;
+    color: grey;
+    padding: 0.9vmin 0 0 0;
+}
+#champion-carousel .carousel-control .glyphicon-chevron-right {
+    margin: 0;
+    right: 10%;
+    border: 0.7vmin solid grey;
+    border-radius: 50%;
+    font-size: 3vmin;
+    padding-left: 0%;
+    width: 6vmin;
+    height: 6vmin;
+    padding: 0.9vmin 0 0 0;
+    color: grey;
+}
+#champion-carousel .carousel-indicators > li {
+	border-radius: 0;
+	border: 0;
+}
+#champion-carousel .carousel-indicators .active {
+	background-color: grey;
+}
+#champion-carousel .carousel-indicators li{
+	background-color: #ccc;
+}
+@media only screen and (max-width: 767px) {
+    .btn-cntnr {
+    	padding: 9vmin 9% 0;
+	}
+}
+#champion-carousel .carousel-indicators {
+    margin-bottom: 0;
+    bottom: -13%;
+}
+#champion-carousel .carousel-indicators li {
+	width: 2.5vmin;
+    height: 2.5vmin;
+}
+.mobile-video-desc {
+    position: absolute;
+    top: 21vmin;
+    left: 26%;
+    font-size: 4.5vmin;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+}
+#champion-carousel img.play-video-img {
+    position: absolute;
+    top: 32vmin;
+    width: 8vmin;
+    left: 45%;
+    cursor: pointer;
+}
+.play-desktop-video-img {
+    position: absolute;
+    width: 100%;
+    background-color: rgba(0,0,0,0.5);
+    top: 0;
+    bottom: 0;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+.play-desktop-video-img img {
+    width: 6vmin;
+
+}
+.video-series .show-video {
+    float: left;
+    position: relative;
+    width: 100%;
+}
