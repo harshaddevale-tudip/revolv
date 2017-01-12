@@ -588,7 +588,7 @@ z-index: 448;
     margin-top: 102px;
 }
 .header .container {
-
+padding: 0;
     margin: 0;
     width: 100%;
 }
@@ -9701,6 +9701,7 @@ width: 580px;
     }
     .container {
         width: auto;
+        padding: 0;
     }
     .active-projects-module .container {
         max-width: 375px;
@@ -12716,6 +12717,7 @@ label.checkmark.animate:after {
 
 .text_overlay {
     top: 11%;
+    padding: 0;
 }
 .How_it_Works {
     font-size: 2.2vmin;
