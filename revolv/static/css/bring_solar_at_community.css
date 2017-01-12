@@ -15,7 +15,7 @@ body {
     width: 100%;
     text-align: center;
     font-size: 4.5vmin;
-    padding: 3vmin 0;
+    padding: 4vmin 0;
 }
 .video-series {
     float: left;
@@ -65,7 +65,7 @@ body {
     position: relative;
     background-color: rgb(20, 177, 231);
     color: #fff;
-    border-radius: 3%;
+    border-radius: 3px;
     width: 100%;
     text-align: center;
     line-height: 8vmin;

@@ -3,21 +3,32 @@ $(document).ready(function() {
      $(".grid-data").click(function(){
      var $this = $(this);
       var chapterUrl= 'chapter';
-      console.log($this.data('chapter-url'));
       window.location.href = chapterUrl;
  });
+  $(".grid-data").mouseenter(function(){
+   $(this).find(".data-text").css("color","#fff");
+});
+$(".grid-data").mouseleave(function(){
+   $(this).find(".data-text").css("color","#666");
+});
 
 });
 var streamVideo = 0, element;
 function play(vidId) {
-	var instance = document.getElementById(vidId);
+//    vidId.onloadeddata = function() {
+    console.log("video loaded play")
+        var instance = document.getElementById(vidId);
         instance.play();
         $(instance).next().css('display', 'none');
+//    }
+
  }
 function pause(vidId) {
-	var instance = document.getElementById(vidId);
-        instance.pause();
-        $(instance).next().css('display','flex');
+//     vidId.onloadeddata = function() {
+        var instance = document.getElementById(vidId);
+            instance.pause();
+            $(instance).next().css('display','flex');
+//      }
 }
  function showDesktopFullscreen(vidId) {
       element = document.getElementById(vidId);

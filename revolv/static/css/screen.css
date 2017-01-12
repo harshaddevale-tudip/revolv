@@ -24,6 +24,7 @@ button {
 .grid-contnr .grid-data:hover {
     background-color: rgb(20, 177, 231);;
     color:#fff;
+    cursor: pointer;
 }
 a.How_it_Works:hover {
     text-decoration: none;
@@ -45,12 +46,12 @@ a:hover {
 
   .arrow-left {
     left:2%;
-    top:92%;
+    top:89%;
 }
 
  .arrow-right {
     right:2% !important;
-    top:92%;
+    top:89%;
 }
 .logo-size {
        width: 100%;
@@ -110,9 +111,10 @@ a:hover {
   <!--z-index: 447;-->
 }
   .text_overlay {
-    width: 100%;
+        width: 100%;
     position: absolute;
     top: 18vmin;
+    padding: 4vmin calc(8.5% + 15px) 0 0;
   }
 
   .text_content {
@@ -120,7 +122,7 @@ a:hover {
     float: right;
     width: 30%;
     text-align: right;
-    margin-right: 12%;
+    margin-right: 3rem;
   }
 
   .space_btn_element {
@@ -209,7 +211,7 @@ a:hover {
     /* line-height: 0.875; */
     text-align: center;
     z-index: 428;
-    padding: 2vmin 1%;
+    padding: 3vmin 1%;
 
 }
 
@@ -397,7 +399,7 @@ height: 14px;
 z-index: 448;
 }
 .background-image-size {
-    width: 37vmin;
+    width: 38vmin;
     position: relative;
     float: right;
 }
@@ -586,7 +588,12 @@ z-index: 448;
     margin-top: 102px;
 }
 .header .container {
-    padding: 0;
+
+    margin: 0;
+    width: 100%;
+}
+#home-page  > .container > .container {
+    padding: 0 8.5% 0 0;
 }
 .header .logo {
     background: url(../images/logo.png);
@@ -602,7 +609,7 @@ z-index: 448;
     min-width: 132px;
 }
 .header .rights {
-        padding: 1.9% 7% 0 0;
+        padding: 3.4vmin 0 0 0;
 }
 .header .txt {
     font-size: 14px;
@@ -934,12 +941,14 @@ z-index: 448;
 .dropdown-select-text {
         border: 1px solid #ccc;
     width: 100%;
-    padding: 1.5vmin 0;
+    padding: 2vmin 0;
+    border-radius: 3px;
     background-color: rgb(242, 242, 242);
     border-color: rgb(230, 230, 230);
     font-family: "Source Sans Pro";
     color: rgb(128, 128, 128);
     float: left;
+    cursor: pointer;
 }
 .dropdown-menu {
         width: 44%;
@@ -955,6 +964,7 @@ z-index: 448;
 .option {
     text-align: center;
     padding: 3px;
+    cursor: pointer;
 }
         .how_it_works_rectangle.space_btn_element:hover {
     background-color: #2c3691;
@@ -4479,9 +4489,7 @@ display: none;
     .header .btn-donate {
         min-width: 110px;
     }
-    .header .rights {
-        padding: 15px 54px 0 0;
-    }
+
     .header .txt {
         font-size: 11.57px;
         padding: 0 0 3px 0;
@@ -6703,6 +6711,9 @@ width: 580px;
     .header a.btn-blue:last-child, .header a.btn-blue:first-child {
       margin-right: 1rem;
     }
+    .text_content {
+     margin-right: 1rem;
+}
     .icons {
         background-size: 672px auto;
     }
@@ -6802,9 +6813,7 @@ width: 580px;
     .header .btn-donate {
         min-width: 132px;
     }
-    .header .rights {
-        padding: 24px 24px 0 0;
-    }
+
     .header .txt {
         font-size: 16.38px;
         padding: 0 0 3px 0;
