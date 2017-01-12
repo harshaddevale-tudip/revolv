@@ -7,7 +7,7 @@
 {% block head %}
     <script>
     $(document).ready(function() {
-        $('.dropdown-title').on('click', function() {
+        $('#dropdown-select-text').on('click', function() {
     $('.dropdown-menu').toggle();
     });
     $('.option').on('click', function() {
@@ -64,6 +64,15 @@
         if (_opened === true ) {
             $("button.navbar-toggle").click();
         }
+    });
+
+    $('#dropdown-select-text, .option').on('click', function() {
+    if ($('.dropdown-triangle').html() == '▾') {
+        $('.dropdown-triangle').html('▴');
+    }
+    else if ($('.dropdown-triangle').html() == '▴'){
+        $('.dropdown-triangle').html('▾');
+    }
     });
 
     });
@@ -247,7 +256,7 @@ a.How_it_Works:hover {
 <!--onchange="changeFunc();"-->
 <div style="width:100%;">
     <div>
-        <div class="tell_us_state_where_you_live"><span>Tell us the State you lived in and we can help help you find some vetted solar installers in your area.</span></div>
+        <div class="tell_us_state_where_you_live"><span>Tell us the State you lived in and we can help you find some vetted solar installers in your area.</span></div>
         <div class="dropdown">
             <div id="dropdown-select-text" class="dropdown-select-text">
                 <div id="dropdown-title" class="dropdown-title">
@@ -407,11 +416,4 @@ a.How_it_Works:hover {
   });
 });
 </script>
-<script>
-  $(document).ready(function() {
-    $('#mobile-burger-icon').click(function() {
-      $('.navbar-collapse').toggleClass('burger-sub-menu');
-    });
-  });
-  </script>
 {%endblock%}
