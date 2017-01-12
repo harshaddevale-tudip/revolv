@@ -106,32 +106,49 @@ body {
     line-height: 4.5vmin;
     position: relative;
     width: 100%;
+    color: #666666;
+    font-size: 2.3vmin;
 }
 #champion-carousel .carousel-control.right, #champion-carousel .carousel-control.left {
     background-image: none;
+     outline: 0;
+    opacity: 0.9;
 }
+#champion-carousel .carousel-control.right:hover, #champion-carousel .carousel-control.left:hover {
+    text-decoration: none;
+    color: #000;
+    outline: 0;
+    opacity: 0.9;
+}
+
 #champion-carousel .carousel-control .glyphicon-chevron-left {
     margin: 0;
     left: 8%;
     width: 6vmin;
     height: 6vmin;
-    border: 0.7vmin solid grey;
+    border: 2px solid #000;
     border-radius: 50%;
     font-size: 3vmin;
-    color: grey;
+    color: #000;
     padding: 0.9vmin 0 0 0;
+    background-color: rgba(75,75,75,0.3);
+    outline: 0;
+    opacity: 0.9;
 }
 #champion-carousel .carousel-control .glyphicon-chevron-right {
     margin: 0;
     right: 10%;
-    border: 0.7vmin solid grey;
+    border: 2px solid #000;
     border-radius: 50%;
     font-size: 3vmin;
     padding-left: 0%;
     width: 6vmin;
     height: 6vmin;
     padding: 0.9vmin 0 0 0;
-    color: grey;
+    color: #000;
+    background-color: rgba(75,75,75,0.3);
+    outline: 0;
+    opacity: 0.9;
 }
 #champion-carousel .carousel-indicators > li {
 	border-radius: 0;
@@ -144,6 +161,9 @@ body {
 	background-color: #ccc;
 }
 @media only screen and (max-width: 767px) {
+    .grid-data {
+     font-size: 4vmin;
+    }
     .btn-cntnr {
     	padding: 9vmin 9% 0;
 	}
@@ -191,6 +211,7 @@ body {
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
+
 }
 .play-desktop-video-img img {
     width: 6vmin;

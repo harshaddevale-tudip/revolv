@@ -1,0 +1,275 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% load humanize %}
+{% load wagtailimages_tags %}
+
+{% block title %}Home | {% endblock %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="/static/css/bring_solar_at_community.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script src="/static/js/base/bring_solar_at_home.js"></script>
+		<title>RE-volv</title>
+    <script>
+
+
+          $(document).ready(function() {
+          $(document).click(function (event) {
+          var clickover = $(event.target);
+          var _opened = $(".navbar-collapse").hasClass("collapse in");
+          if (_opened === true ) {
+              $('.navbar-collapse').collapse('hide');
+            }
+          });
+            $(".navbar-toggle").click(function (event) {
+          var clickover = $(event.target);
+          var _opened = $(".navbar-collapse").hasClass("collapse in");
+          if (_opened === true ) {
+          	  $('.navbar-collapse').removeClass('in');
+			  event.stopPropagation();
+            }
+          });
+        });
+
+
+  </script>
+
+    <style>
+    .dropdown-triangle {
+        float: right;
+        padding-right: 2%;
+
+    }
+
+a.How_it_Works:hover {
+    text-decoration: none;
+    color: #fff;
+}
+
+.header.top-section-header {
+    background-color: rgba(0, 0, 0, 0);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0);
+    margin-top: 0;
+    position: absolute;
+}
+
+.menu-list {
+    position: absolute;
+    width: 100%;
+    background-image: linear-gradient(to bottom,transparent 0,transparent 100%);
+    background-color: transparent;
+    border: transparent;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.header .solar_at_home_rights .btn-yellow {
+    <!--background-color: rgb(255, 204, 0);-->
+    <!--padding: 0px 84px 0 0;-->
+        border-radius: 6%;
+    background-color: rgb(255, 204, 0);
+    color: black;
+    /* width: 30%; */
+    height: auto;
+    line-height: normal;
+    padding: 2vmin 1%;
+}
+.header .solar_at_home_rights {
+     padding: 3vmin 2vmin 0 0;
+}
+
+
+    .hamburger_color {
+        border-color: transparent;
+        color: white;
+    }
+    .background-collapse-color {
+            background-color: white;
+    }
+
+    </style>
+
+{%endblock%}
+{% block nav %}
+<div class="modal fade" id="popup" role="dialog">
+    <div class="modal-dialog" style="padding:14vmin 8% 0">
+
+      <!-- Modal content-->
+      <div class="modal-content" >
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"><b>Donation to Operations</b></h4>
+        </div>
+        <form action="{% url 'project:stripe_operation_donation' %}" method="POST">
+          {% csrf_token %}
+           <div class="modal-body input-group">
+                        <input type="number" name="amount_cents" value="10" step="1" class="form-control" >
+                          <span class="input-group-addon">$</span>
+                      </div>
+          <!--<div class="modal-body">-->
+            <!--<input type="email" style="width:100%" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Donation Amount">-->
+          <!--</div>-->
+          <div class="modal-section">
+          <label class="checkbox-field-label" style="margin-left:5%;margin-bottom:5%">
+            <input  id="subscribe-check" name="check" type="checkbox"><span><b>Subscribe me 					to the RE-volv donate operations.</b></span>
+                </label>
+          </div>
+          <div class="modal-footer" style="text-align: center;">
+            <button type="submit" class="stripe-button-el btn btn-primary" data-dismiss="modal">Next</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+{%endblock%}
+{% block body %}
+    <div style="height: 60vmin;
+    background-image: url(/static/images/champion_background_image.png);
+    background-size: 100vw 60vmin;
+    background-repeat: no-repeat;">
+       <header class="header top-section-header">
+  <div class="container">
+        <div class="container">
+        <!-- Static navbar -->
+        <div class="navbar navbar-default menu-list">
+            <div class="navbar-header">
+                <button type="button" id="collbtn" class="navbar-toggle hamburger_color" data-toggle="collapse" data-target=".navbar-collapse"> <span class="icon-bar"></span>
+ <span class="icon-bar"></span>
+ <span class="icon-bar"></span>
+
+                </button> <a class="navbar-brand logo-solar-at-home" href="/"></a>
+
+            </div>
+            <div class="navbar-collapse collapse background-collapse-color">
+                <ul class="nav navbar-nav">
+                    {% if request.user.is_authenticated %}
+                        <li><a href="{% url 'dashboard' %}" class="dropdown">MY PORTFOLIO</a>
+                        </li>
+                        <li class="dropdown this-works"> <a href="{% url 'logout' %}" class="dropdown">SIGN OUT</a>
+                        </li>
+                    {% else %}
+                         <li><a href="{% url 'dashboard' %}" class="dropdown">MY PORTFOLIO</a>
+                        </li>
+                        <li class="dropdown this-works"> <a href="{% url 'logout' %}" class="dropdown">SIGN OUT</a>
+                        </li>
+                    {% endif %}
+                    <li class="dropdown this-doesnt"> <a href="#" class="dropdown" data-toggle="modal" data-target="#popup">DONATE</a>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    <!-- end .logo -->
+            <div class="solar_at_home_rights pull-right">
+              <div class="txt pull-left">
+
+                {% if request.user.is_authenticated %}
+                  <li class="user-controls has-dropdown">
+                    <a href="{% url 'dashboard' %}" class="btn-blue pull-left btn-donate btn-yellow">MY PORTFOLIO</a>
+                    <a href="{% url 'logout' %}" class="btn-blue pull-left btn-donate btn-yellow" >SIGN OUT</a>
+                  </li>
+                  {% else %}
+                    <a href="{% url 'signin' %}#signup" class="component-link btn-blue pull-left btn-donate btn-yellow" data-component="signup" >SIGN UP</a>
+                    <a href="{% url 'signin' %}#login" class="component-link btn-blue pull-left btn-donate btn-yellow" data-component="login" >SIGN IN</a>
+                {% endif %}
+              </div>
+              <a href="#" class="component-link btn-blue btn-donate btn-yellow" data-toggle="modal" data-target="#popup" >DONATE</a>
+              <!--<a #data-target="popup" data-toggle="modal" class=" btn-blue btn-donate pull-left after-scroll">DONATE NOW</a>-->
+            </div>
+          </div>
+             <div style="width:100%;float:left;padding-top: 7vmin;">
+                <div style="width:100%;padding: 0 1%;float: left;">
+                  <div style="float: left;width: 70%;">
+                      <div class="go_solar_at_home">
+                        CHAPTER 1: <br> THE BENEFITS OF <br> CROWDFUNDING.
+                       </div>
+                      <div class="we_can_help_you">
+                         Wheather your passion film, design, technology <br>
+                          or social causes there's a path to launch on Indiegogo.
+                      </div>
+
+                  </div>
+                  <div style="float: left;width: 29%;">
+                        <div class="logo-size" >
+                          <img class="background-image-size" src="/static/images/Logo_Header.png">
+                        </div>
+                  </div>
+                </div>
+                 <div class="go-to-solar-link">
+                         <a href="{% url 'bring_solar_to_your_community' %}" class="back_button_link"><img class="back-button-arrow" src="/static/images/arrow-left.png"><span class="back-button-link">Go to Solar Champion Portal.</span></a>
+                      </div>
+            </div>
+           </div>
+        </header>
+
+</div>
+<div class="all-chapters-list hidden-sm hidden-md hidden-lg">
+    <div class="mobile-chapter-name-list">
+        <div class="chapter-list-size">
+				<span class="sm-chapter-name right-list active-chapter-color">
+					1. First chapter
+				</span>
+				<span class="sm-chapter-name right-list">
+					2. First chapter
+				</span>
+				<span class="sm-chapter-name right-list">
+					3. First chapter
+				</span>
+				<span class="sm-chapter-name right-list">
+					4. First chapter
+				</span>
+				<span class="sm-chapter-name right-list">
+					5. First chapter
+				</span>
+				<span class="sm-chapter-name right-list">
+					6. First chapter
+				</span>
+			</div>
+        </div>
+</div>
+
+<div class="chapter-main-div">
+    <div class="col-sm-8 chapter-content">
+        <div class="chapter-content-text chapter-divide-line">
+            Crowdfunding with RE-volv in the Riverwest community is the best way to go because the Riverwest community, in general, is really passionate, really energetic and really acts as a community,” says Jacob Ebben, a senior at the University of Wisconsin-Milwaukee and the marketing lead of their Solar Ambassador team. “And to offer the model of crowdfunding to fund the solar panels here at the co-op really gives everyone the chance to feel empowered.
+        </div>
+        <div class="chapter-content-text">
+            <div class="chapter-name">BENEFIT ONE: FUNDING</div>
+            <div class="content-heading-div">
+                <span class="content-heading">Raise the fund you needs to bring your idea to life</span><br>
+            </div>
+                Each community-serving organization has signed a 20-year lease agreement with RE-volv for the solar equipment. The lease allows each organization to enjoy the benefits of solar without any up-front cost, thanks to tax-deductible donations crowdfunded on RE-volv’s site. RE-volv owns and operates each system while the organization makes lease payments over time. The nonprofit says it invests the majority of lease payments back into its revolving fund called the Solar Seed Fund to help pay for additional solar installations for other community-serving organizations.
+            <div class="chapter-img-container">
+                <img class="content-img" src="/static/images/chapter_content_img.png">
+            </div>
+                Students at Swarthmore College, the University of Wisconsin-Milwaukee, and the University of California at Santa Barbara are leading the crowdfunding efforts for the Serenity House, Riverwest Co-op Grocery & Café, and Isla Vista Food Cooperative projects. The students are members of RE-volv’s Solar Ambassador college fellowship program. The program educates college students about solar energy and teaches them to run a successful solar crowdfunding campaign in their local community.
+
+
+        </div>
+    </div>
+    <div class="chapter-list col-sm-4 padding-zero hidden-xs">
+        <div class="right-list active-chapter-color">1. Funding</div>
+        <div class="right-list">2. Validation</div>
+        <div class="right-list">3. Market Insights</div>
+        <div class="right-list">4. Marketing and Awareness</div>
+    </div>
+</div>
+<div class="footer-next-button">
+    <div class="col-xs-12 col-sm-6 footer-content">
+        <div class="footer-heading">
+            2. Planning your campaign
+        </div>
+        <div class="footer-content-text">
+            Successful planning requires great planning.<br>
+            We'll walk you through the key elements of a campaign plan.
+        </div>
+    </div>
+        <div class="col-xs-12 col-sm-6">
+        <a href="#how_it_works" class="next-button">Next Chapter</a>
+    </div>
+</div>
+{%endblock%}
+

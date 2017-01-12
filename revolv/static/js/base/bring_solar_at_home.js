@@ -1,19 +1,23 @@
-document.getElementById('#desk-vid-1').onmouseout = function () {
-   console.log("Hello")
 
-}
+$(document).ready(function() {
+     $(".grid-data").click(function(){
+     var $this = $(this);
+      var chapterUrl= 'chapter';
+      console.log($this.data('chapter-url'));
+      window.location.href = chapterUrl;
+ });
+
+});
 var streamVideo = 0, element;
-function playPause(vidId) {
-
+function play(vidId) {
 	var instance = document.getElementById(vidId);
-    if (instance.paused) {
         instance.play();
         $(instance).next().css('display', 'none');
-    }
-    else  {
+ }
+function pause(vidId) {
+	var instance = document.getElementById(vidId);
         instance.pause();
         $(instance).next().css('display','flex');
- 	}
 }
  function showDesktopFullscreen(vidId) {
       element = document.getElementById(vidId);
@@ -63,3 +67,10 @@ $(document).on ('webkitfullscreenchange',function(){
       	element.load();
       }
  });
+/* $(".grid-data").on('click',function(){
+ console.log("helllo");
+      var $this = $(this);
+      var chapterUrl= '/base/chapter.html'
+      console.log($this.data('chapter-url'));
+      window.location.href = chapterUrl;
+ });*/
