@@ -4,30 +4,88 @@
     http://stackoverflow.com/questions/22650371/django-is-it-impossible-to-static-tag-into-block-tag
 {% endcomment %}
 {% load staticfiles revolv_cms_tags %}
+{% block head %}
+<script>
+  $(document).ready(function() {
+    $('#mobile-burger-icon').click(function() {
+      $('.navbar-collapse').toggleClass('burger-sub-menu');
+    });
+  });
+  </script>
+<style>
+    .menu-list {
+position: absolute;
+    width: 100%;
+    background-image: linear-gradient(to bottom,transparent 0,transparent 100%);
+    background-color: transparent;
+    border: transparent;
+}
+.burger-sub-menu {
+  display: block;
+}
 
-<header id="demo" class="header after-scroll-header after-scroll-header-fixed {% block "header-classes" %}{% endblock "header-classes" %}">
-    <div class="container">
-        <div class="lefts pull-left">
-            <a href="/" class="logo"></a>
-        </div>
-        {% block "extra-header" %}{% endblock %}
-        <!-- end .logo -->
-        <div class="rights pull-right">
-            <div class="pull-left">
-                {% if request.user.is_authenticated %}
-                    <li class="user-controls has-dropdown">
-                        <a href="{% url 'dashboard' %}" class="btn-blue pull-left btn-donate">MY PORTFOLIO</a>
-                        <a href="{% url 'logout' %}" class="btn-blue pull-left btn-donate">SIGN OUT</a>
-                    </li>
-                {% else %}
-                        <a href="{% url 'signin' %}#login" class="component-link btn-blue pull-left btn-donate" data-component="login">SIGN IN</a>
-                        <a href="{% url 'signin' %}#signup" class="component-link btn-blue pull-left btn-donate" data-component="signup">SIGN UP</a>
-                {% endif %}
+    .hamburger_color {
+        border-color: transparent;
+        color: white;
+    }
+    .background-collapse-color {
+            background-color: white;
+    }
+
+
+</style>
+{% endblock %}
+
+<header class="header top-section-header">
+   <div class="container">
+        <a class="navbar-brand logo" href="#"></a>
+        <!-- Static navbar -->
+        <div class="navbar navbar-default menu-list">
+            <div class="navbar-header">
+                <button type="button" id="collbtn" class="navbar-toggle hamburger_color" data-toggle="collapse" data-target=".navbar-collapse"> <span class="icon-bar"></span>
+ <span class="icon-bar"></span>
+ <span class="icon-bar"></span>
+
+                </button>
+
             </div>
-             <a href="#" class="btn-blue btn-donate pull-left after-scroll" data-toggle="modal" data-target="#popup">DONATE NOW</a>
+            <div class="navbar-collapse collapse background-collapse-color">
+                <ul class="nav navbar-nav">
+                    {% if request.user.is_authenticated %}
+                        <li><a href="{% url 'dashboard' %}" class="dropdown">MY PORTFOLIO</a>
+                        </li>
+                        <li class="dropdown this-works"> <a href="{% url 'logout' %}" class="dropdown">SIGN OUT</a>
+                        </li>
+                    {% else %}
+                         <li><a href="{% url 'dashboard' %}" class="dropdown">MY PORTFOLIO</a>
+                        </li>
+                        <li class="dropdown this-works"> <a href="{% url 'logout' %}" class="dropdown">SIGN OUT</a>
+                        </li>
+                    {% endif %}
+                    <li class="dropdown this-doesnt"> <a href="#" class="dropdown" data-toggle="modal" data-target="#popup">DONATE</a>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
         </div>
-    </div>
+    <!-- end .logo -->
+    <div class="rights pull-right">
+      <div class="txt pull-left">
 
+        {% if request.user.is_authenticated %}
+          <li class="user-controls has-dropdown">
+            <a href="{% url 'dashboard' %}" class="btn-blue pull-left btn-donate">MY PORTFOLIO</a>
+            <a href="{% url 'logout' %}" class="btn-blue pull-left btn-donate">SIGN OUT</a>
+          </li>
+          {% else %}
+            <a href="{% url 'signin' %}#signup" class="component-link btn-blue pull-left btn-donate" data-component="signup">SIGN UP</a>
+            <a href="{% url 'signin' %}#login" class="component-link btn-blue pull-left btn-donate" data-component="login">SIGN IN</a>
+        {% endif %}
+      </div>
+      <a href="#" class="component-link btn-blue btn-donate" data-toggle="modal" data-target="#popup">DONATE</a>
+      <!--<a #data-target="popup" data-toggle="modal" class=" btn-blue btn-donate pull-left after-scroll">DONATE NOW</a>-->
+    </div>
+  </div>
 </header>
 <div class="modal fade" id="popup" role="dialog">
     <div class="modal-dialog" style="padding:14vmin 8% 0">
@@ -112,5 +170,6 @@
   });
 });
 </script>
+
 <!-- end .header -->
 <!-- end .top-section -->
