@@ -193,7 +193,7 @@ a.How_it_Works:hover {
                 </button> <a class="navbar-brand logo-solar-at-home" href="/"></a>
 
             </div>
-            <div class="navbar-collapse collapse background-collapse-color">
+             <div class="navbar-collapse collapse background-collapse-color">
                 <ul class="nav navbar-nav">
                     {% if request.user.is_authenticated %}
                         <li><a href="{% url 'dashboard' %}" class="dropdown">MY PORTFOLIO</a>
@@ -201,9 +201,9 @@ a.How_it_Works:hover {
                         <li class="dropdown this-works"> <a href="{% url 'logout' %}" class="dropdown">SIGN OUT</a>
                         </li>
                     {% else %}
-                         <li><a href="{% url 'dashboard' %}" class="dropdown">MY PORTFOLIO</a>
+                         <li><a href="{% url 'signin' %}#signup" class="dropdown">SIGN UP</a>
                         </li>
-                        <li class="dropdown this-works"> <a href="{% url 'logout' %}" class="dropdown">SIGN OUT</a>
+                        <li class="dropdown this-works"> <a href="{% url 'signin' %}#login" class="dropdown">SIGN IN</a>
                         </li>
                     {% endif %}
                     <li class="dropdown this-doesnt"> <a href="#" class="dropdown" data-toggle="modal" data-target="#popup">DONATE</a>
