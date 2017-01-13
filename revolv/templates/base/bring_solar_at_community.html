@@ -155,9 +155,9 @@ a.How_it_Works:hover {
                         <li class="dropdown this-works"> <a href="{% url 'logout' %}" class="dropdown">SIGN OUT</a>
                         </li>
                     {% else %}
-                         <li><a href="{% url 'dashboard' %}" class="dropdown">MY PORTFOLIO</a>
+                         <li><a href="{% url 'signin' %}#signup" class="dropdown">SIGN UP</a>
                         </li>
-                        <li class="dropdown this-works"> <a href="{% url 'logout' %}" class="dropdown">SIGN OUT</a>
+                        <li class="dropdown this-works"> <a href="{% url 'signin' %}#login" class="dropdown">SIGN IN</a>
                         </li>
                     {% endif %}
                     <li class="dropdown this-doesnt"> <a href="#" class="dropdown" data-toggle="modal" data-target="#popup">DONATE</a>
@@ -292,7 +292,7 @@ a.How_it_Works:hover {
 				  <div class="carousel-inner" role="listbox">
 				    <div class="item active" onclick="goFullscreen('video-1')">
 				      <video class="video" poster="/static/images/Number1.png" id="video-1">
-					    <source src="/static/videos/Number1.mp4" preload="none" type="video/mp4">
+					    <source src="/static/videos/mov_bbb.mp4"  type="video/mp4">
 					    Your browser does not support HTML5 video.
 					 </video>
 					 <!--<div class="mobile-video-desc">1. Welcome to the Solar Champion Program</div>-->
