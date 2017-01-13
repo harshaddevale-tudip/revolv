@@ -54,10 +54,18 @@ a:hover {
     top:89%;
 }
 .logo-size {
-       width: 100%;
+       width: 36vmin;
     /* height: 50%; */
     float: left;
     }
+
+.yellow-buttons {
+
+    width: 100%;
+    float: left;
+    position: relative;
+    font-size: 2.1vmin;
+}
  .we_can_help_you {
        float: left;
     font-size: 2.4vmin;
@@ -406,7 +414,7 @@ z-index: 448;
 
  #myCarousel .background-image-size_home {
        width: 100vw;
-    height: 70vmin;
+    height: 70vh;
     right: 0;
 }
 
@@ -12704,7 +12712,16 @@ label.checkmark.animate:after {
 }
 
 }
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .yellow-buttons {
+    font-size: 1.6vmin;
+}
+}
+
 @media (max-width: 767px){
+.yellow-buttons {
+    font-size: 1.4vmin;
+}
 .dropdown-title {
     font-size: 4vmin;
 }
