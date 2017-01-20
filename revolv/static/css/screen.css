@@ -601,7 +601,7 @@ padding: 0;
     width: 100%;
 }
 #home-page  > .container > .container {
-    padding: 0 8.5% 0 0;
+    padding: 3vmin 4% 0 0;
 }
 .header .logo {
     background: url(../images/logo.png);
@@ -617,7 +617,7 @@ padding: 0;
     min-width: 132px;
 }
 .header .rights {
-        padding: 3.4vmin 0 0 0;
+        padding: 3.4vmin 6% 0 0;
 }
 .header .txt {
     font-size: 14px;
@@ -669,7 +669,7 @@ padding: 0;
     position: fixed;
     background-color: white;
     margin-top: 0;
-    padding-top: 3vmin;
+    padding-top: 0;
 }
 .home-page-content .header {
     background-color: rgba(0, 0, 0, 0.15);
@@ -12562,6 +12562,7 @@ label.checkmark.animate:after {
     padding-right: 5em;
     text-align: center;
     margin-top: -13px;
+    top: 18vmin;
 }
 @media (max-width: 550px) {
     .top-section.nav-margins .section-video-overlay .titles {
