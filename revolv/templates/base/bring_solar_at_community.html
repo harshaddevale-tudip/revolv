@@ -130,6 +130,18 @@ a.How_it_Works:hover {
 
 {%endblock%}
 {% block body %}
+    <div id="video-popup">
+            <div class="video-popup-body">
+                <div class="play-main-video">
+                    <div class="pop-up-vid-cntnr">
+						<video poster="" id="pop-up-video" controls>
+						    <source src="" type="video/mp4">
+						    Your browser does not support HTML5 video.
+						</video>
+					</div>
+                </div>
+            </div>
+        </div>
     <div style="height: 60vmin;
     background-image: url(/static/images/champion_background_image.png);
     background-size: 100vw 60vmin;
@@ -216,7 +228,7 @@ a.How_it_Works:hover {
 				<div class="vid-cntnr">
 					<div class="show-video" onmousemove="play('desk-vid-1')" onmouseout="pause('desk-vid-1')" onclick="showDesktopFullscreen('desk-vid-1')">
 						<video class="video" poster="/static/images/Number1.png"  preload="none" id="desk-vid-1">
-						    <source src="/static/videos/Number1.mp4" type="video/mp4">
+						    <source src="http://52.32.51.133/videos/Number1.mp4" type="video/mp4">
 						    Your browser does not support HTML5 video.
 						</video>
 						<div class="play-desktop-video-img">
@@ -229,7 +241,7 @@ a.How_it_Works:hover {
 				<div class="vid-cntnr">
 					<div class="show-video" onmousemove="play('desk-vid-2')" onmouseout="pause('desk-vid-2')" onclick="showDesktopFullscreen('desk-vid-2')">
 						<video class="video" poster="/static/images/Number2.png" preload="none" id="desk-vid-2">
-						    <source src="/static/videos/Number2.mp4" type="video/mp4">
+						    <source src="http://52.32.51.133/videos/Number2.mp4" type="video/mp4">
 						    Your browser does not support HTML5 video.
 						</video>
 						<div class="play-desktop-video-img">
@@ -241,7 +253,7 @@ a.How_it_Works:hover {
 				<div class="vid-cntnr">
 					<div class="show-video" onmousemove="play('desk-vid-3')" onmouseout="pause('desk-vid-3')" onclick="showDesktopFullscreen('desk-vid-3')">
 						<video class="video" poster="/static/images/Number3.png" preload="none" id="desk-vid-3">
-						    <source src="/static/videos/Number3.mp4" type="video/mp4">
+						    <source src="http://52.32.51.133/videos/Number3.mp4" type="video/mp4">
 						    Your browser does not support HTML5 video.
 						</video>
 						<div class="play-desktop-video-img">
@@ -253,7 +265,7 @@ a.How_it_Works:hover {
 				<div class="vid-cntnr">
 					<div class="show-video" onmousemove="play('desk-vid-4')" onmouseout="pause('desk-vid-4')" onclick="showDesktopFullscreen('desk-vid-4')">
 						<video class="video" poster="/static/images/Number4.png" preload="none" id="desk-vid-4">
-						    <source src="/static/videos/Number4.mp4" type="video/mp4">
+						    <source src="http://52.32.51.133/videos/Number4.mp4" type="video/mp4">
 						    Your browser does not support HTML5 video.
 						</video>
 						<div class="play-desktop-video-img">
@@ -265,7 +277,7 @@ a.How_it_Works:hover {
 				<div class="vid-cntnr">
 					<div class="show-video" onmousemove="play('desk-vid-5')" onmouseout="pause('desk-vid-5')" onclick="showDesktopFullscreen('desk-vid-5')">
 						<video class="video" poster="/static/images/Number5.png" preload="none" id="desk-vid-5">
-						    <source src="/static/videos/Number5.mp4" type="video/mp4">
+						    <source src="http://52.32.51.133/videos/Number5.mp4" type="video/mp4">
 						    Your browser does not support HTML5 video.
 						</video>
 						<div class="play-desktop-video-img">
@@ -292,7 +304,7 @@ a.How_it_Works:hover {
 				  <div class="carousel-inner" role="listbox">
 				    <div class="item active" onclick="goFullscreen('video-1')">
 				      <video class="video" poster="/static/images/Number1.png" preload="none" id="video-1">
-					    <source src="/static/videos/Number1.mp4"  type="video/mp4">
+					    <source src="http://52.32.51.133/videos/Number1.mp4"  type="video/mp4">
 					    Your browser does not support HTML5 video.
 					 </video>
 					 <!--<div class="mobile-video-desc">1. Welcome to the Solar Champion Program</div>-->
@@ -301,7 +313,7 @@ a.How_it_Works:hover {
 
 				    <div class="item" onclick="goFullscreen('video-2')">
 					     <video class="video" poster="/static/images/Number2.png" preload="none" id="video-2">
-						    <source src="/static/videos/Number2.mp4" type="video/mp4">
+						    <source src="http://52.32.51.133/videos/Number2.mp4" type="video/mp4">
 						    Your browser does not support HTML5 video.
 						</video>
 						<!--<div class="mobile-video-desc">1. Intro to the Re-Volve</div>-->
@@ -310,7 +322,7 @@ a.How_it_Works:hover {
 
 				    <div class="item" onclick="goFullscreen('video-3')">
 				      <video class="video" poster="/static/images/Number3.png" preload="none" id="video-3">
-					    <source src="/static/videos/Number3.mp4" type="video/mp4">
+					    <source src="http://52.32.51.133/videos/Number3.mp4" type="video/mp4">
 					    Your browser does not support HTML5 video.
 					</video>
 					<!--<div class="mobile-video-desc">1. Intro to the Re-Volve</div>-->
@@ -319,7 +331,7 @@ a.How_it_Works:hover {
 
 				    <div class="item" onclick="goFullscreen('video-4')">
 				      <video class="video" poster="/static/images/Number4.png" preload="none" id="video-4">
-					    <source src="/static/videos/Number4.mp4" type="video/mp4">
+					    <source src="http://52.32.51.133/videos/Number4.mp4" type="video/mp4">
 					    Your browser does not support HTML5 video.
 					</video>
 					<!--<div class="mobile-video-desc">1. Intro to the Re-Volve</div>-->
@@ -327,7 +339,7 @@ a.How_it_Works:hover {
 				    </div>
 				    <div class="item" onclick="goFullscreen('video-5')">
 				      <video class="video" poster="/static/images/Number5.png" preload="none" id="video-5">
-					    <source src="/static/videos/Number5.mp4" type="video/mp4">
+					    <source src="http://52.32.51.133/videos/Number5.mp4" type="video/mp4">
 					    Your browser does not support HTML5 video.
 					</video>
 					<!--<div class="mobile-video-desc">1. Intro to the Re-Volve</div>-->
@@ -348,7 +360,7 @@ a.How_it_Works:hover {
 			</div>
 
 			<div class="btn-cntnr">
-				<div class="get-start-btn">
+				<div class="get-start-btn" data-form-url="{% url 'intake_form' %}">
 					GET STARTED
 				</div>
 			</div>
@@ -415,6 +427,7 @@ a.How_it_Works:hover {
 				</div>
 			</div>
 		</div>
+
 <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key={{GOOGLEMAPS_API_KEY}}">
 </script>
   <!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js">-->
@@ -473,3 +486,4 @@ a.How_it_Works:hover {
 });
 </script>
 {%endblock%}
+
