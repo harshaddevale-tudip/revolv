@@ -4,7 +4,7 @@ $(document).ready(function() {
      var $this = $(this);
       var chapterUrl= 'chapter';
       window.location.href = chapterUrl;
- });
+     });
       $(".grid-data").mouseenter(function(){
         $(this).find(".data-text").css("color","#fff");
       });
@@ -12,25 +12,27 @@ $(document).ready(function() {
        $(this).find(".data-text").css("color","#666");
     });
 
-    $(".get-start-btn").click(function(e){
+   /* $(".get-start-btn").click(function(e){
         window.location.href = $(this).data('form-url');
-    });
+    });*/
      $(".sign-up-revolve-update .form-checkbox").click(function(e){
          e.stopPropagation();
-         console.log("clicked", $(this), $(this).find(".mark-checkbox"))
-         var $this = $(this).find(".mark-checkbox");
+         var $this = $(this).find("div:first-child");
          var checkboxSatus = $this.parent().data('checkbox-status');
-         console.log(checkboxSatus)
          if(checkboxSatus == "checked") {
-             $this.addClass('unmarked-checkbox');
-             $this.removeClass('mark-checkbox');
+             $this.removeClass('mark-checkbox').addClass('unmarked-checkbox');
              $this.parent().data('checkbox-status', "unchecked");
          } else {
-             console.log("inside else")
-                $this.addClass('mark-checkbox');
-                $this.removeClass('unmarked-checkbox');
+                $this.removeClass('unmarked-checkbox').addClass('mark-checkbox');
                 $this.parent().data('checkbox-status', "checked");
          }
+    });
+    $(".from-nxt-btn").click(function(e){
+        var $this = $(this);
+        var formNumber = parseInt($this.parent().prop('className').substr($this.parent().prop('className').length - 1));
+	    (++formNumber).toString();
+        $this.parent().hide();
+        $(".form-step-"+formNumber).show();
     });
 });
 var streamVideo = 0, element, instance;
@@ -77,7 +79,15 @@ function pause(vidId) {
          e.stopPropagation();
          if (e.target !== this)
             return;
+          popUpVideoId.load();
           $("#video-popup").hide();
+    });
+    $(document).keydown(function(e) {
+        // ESCAPE key pressed
+        if (e.keyCode == 27) {
+            popUpVideoId.load();
+             $("#video-popup").hide();
+        }
     });
 }
 function goFullscreen(id) {
@@ -112,15 +122,18 @@ function goFullscreen(id) {
          e.stopPropagation();
           if (e.target !== this)
             return;
+          popUpVideoId.load();
           $("#video-popup").hide();
     });
-}
-$(document).keydown(function(e) {
+ $(document).keydown(function(e) {
     // ESCAPE key pressed
     if (e.keyCode == 27) {
+        popUpVideoId.load();
          $("#video-popup").hide();
     }
 });
+}
+
 /*$(document).on ('webkitfullscreenchange',function(){
       if(streamVideo == 0) {
       	streamVideo = 1;
