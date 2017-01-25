@@ -1,9 +1,8 @@
 
 $(document).ready(function() {
      $(".grid-data").click(function(){
-     var $this = $(this);
-      var chapterUrl= 'chapter';
-      window.location.href = chapterUrl;
+    console.log($(this).data('chapter-url'))
+      window.location.href = $(this).data('chapter-url');
      });
       $(".grid-data").mouseenter(function(){
         $(this).find(".data-text").css("color","#fff");
