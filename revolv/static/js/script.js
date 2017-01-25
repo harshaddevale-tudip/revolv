@@ -94,6 +94,25 @@ function format(number){
 }
 
 $(document).ready(function(){
+      $(document).click(function (event) {
+          var clickover = $(event.target);
+          var _opened = $(".navbar-collapse").hasClass("collapse in");
+          if (_opened === true ) {
+              $('.navbar-collapse').collapse('hide');
+            }
+          });
+            $(".navbar-toggle").click(function (event) {
+          var clickover = $(event.target);
+          var _opened = $(".navbar-collapse").hasClass("collapse in");
+          if (_opened === true ) {
+          	  $('.navbar-collapse').removeClass('in');
+			  event.stopPropagation();
+            }
+          });
+          $(".right-list").click(function() {
+              window.location.href = $(this).data('chapter-url');
+
+          });
 
   //style the form elements
   if($(".form-container").length>0){

@@ -11,53 +11,9 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		<script src="/static/js/base/bring_solar_at_home.js"></script>
 		<title>Revolv</title>
-    <script>
-    $(document).ready(function() {
-      $(".navbar-toggle").click(function (event) {
-          var clickover = $(event.target);
-          var _opened = $(".navbar-collapse").hasClass("collapse in");
-          if (_opened === true ) {
-          	  $('.navbar-collapse').removeClass('in');
-			  event.stopPropagation();
-              <!--$('.navbar-collapse').collapse('hide');-->
-            }
-          });
-        $(document).click(function (event) {
-          var clickover = $(event.target);
-          var _opened = $(".navbar-collapse").hasClass("collapse in");
-          if (_opened === true ) {
-          	  $('.navbar-collapse').removeClass('in');
-			  event.stopPropagation();
-            }
-          });
 
-        $('.dropdown-title').on('click', function() {
-    $('.dropdown-menu').toggle();
-    });
-    });
-
-
-
-  </script>
 
     <style>
-    .dropdown-triangle {
-        float: right;
-        padding-right: 2%;
-
-    }
-
-a.How_it_Works:hover {
-    text-decoration: none;
-    color: #fff;
-}
-
-.header.top-section-header {
-    background-color: rgba(0, 0, 0, 0);
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 0);
-    margin-top: 0;
-    position: absolute;
-}
 
 .menu-list {
     position: absolute;
@@ -69,28 +25,6 @@ a.How_it_Works:hover {
     box-shadow: none;
 }
 
-.header .solar_at_home_rights .btn-yellow {
-    <!--background-color: rgb(255, 204, 0);-->
-    <!--padding: 0px 84px 0 0;-->
-        border-radius: 6%;
-    background-color: rgb(255, 204, 0);
-    color: black;
-    /* width: 30%; */
-    height: auto;
-    line-height: normal;
-    padding: 2vmin 1%;
-}
-.header .solar_at_home_rights {
-     padding: 3vmin 2vmin 0 0;
-}
-
-    .hamburger_color {
-        border-color: transparent;
-        color: white;
-    }
-    .background-collapse-color {
-            background-color: white;
-    }
 
     </style>
 
