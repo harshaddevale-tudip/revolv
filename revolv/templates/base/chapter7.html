@@ -11,34 +11,6 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		<script src="/static/js/base/bring_solar_at_home.js"></script>
 		<title>RE-volv</title>
-    <script>
-
-
-          $(document).ready(function() {
-          $(document).click(function (event) {
-          var clickover = $(event.target);
-          var _opened = $(".navbar-collapse").hasClass("collapse in");
-          if (_opened === true ) {
-              $('.navbar-collapse').collapse('hide');
-            }
-          });
-            $(".navbar-toggle").click(function (event) {
-          var clickover = $(event.target);
-          var _opened = $(".navbar-collapse").hasClass("collapse in");
-          if (_opened === true ) {
-          	  $('.navbar-collapse').removeClass('in');
-			  event.stopPropagation();
-            }
-          });
-          console.log($(this).data('chapter-url'));
-          $(".right-list").click(function() {
-              window.location.href = $(this).data('chapter-url');
-
-          });
-        });
-
-
-  </script>
 
     <style>
     .dropdown-triangle {
@@ -308,7 +280,7 @@ a.How_it_Works:hover {
         </div>
     </div>
         <div class="col-xs-12 col-sm-6">
-        <a href="/bring_solar_to_your_community/chapter/7/" class="next-button">Next Chapter</a>
+        <a href="/bring_solar_to_your_community/chapter/8/" class="next-button">Next Chapter</a>
     </div>
 </div>
 {%endblock%}

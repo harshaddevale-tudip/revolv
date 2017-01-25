@@ -1,7 +1,26 @@
 
 $(document).ready(function() {
+     $(".navbar-toggle").click(function (event) {
+          var clickover = $(event.target);
+          var _opened = $(".navbar-collapse").hasClass("collapse in");
+          if (_opened === true ) {
+          	  $('.navbar-collapse').removeClass('in');
+			  event.stopPropagation();
+            }
+          });
+        $(document).click(function (event) {
+          var clickover = $(event.target);
+          var _opened = $(".navbar-collapse").hasClass("collapse in");
+          if (_opened === true ) {
+          	  $('.navbar-collapse').removeClass('in');
+			  event.stopPropagation();
+            }
+          });
+
+        $('.dropdown-title').on('click', function() {
+    $('.dropdown-menu').toggle();
+    });
      $(".grid-data").click(function(){
-    console.log($(this).data('chapter-url'))
       window.location.href = $(this).data('chapter-url');
      });
       $(".grid-data").mouseenter(function(){

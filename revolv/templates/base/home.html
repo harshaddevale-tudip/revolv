@@ -11,16 +11,7 @@
             'newsletter-bg.jpg': '{% static "images/newsletter-bg.jpg" %}',
             'small-newsletter-bg.jpg': '{% static "images/small/small-newsletter-bg.jpg" %}'
         };
-        $(document).ready(function() {
 
-          $(document).click(function (event) {
-          var clickover = $(event.target);
-          var _opened = $(".navbar-collapse").hasClass("collapse in");
-          if (_opened === true ) {
-              $("button.navbar-toggle").click();
-            }
-          });
-        });
     </script>
     <script src="{% static 'js/mediaelement-and-player.min.js' %}"></script>
     <link href="{% static 'css/mediaelementplayer.min.css' %}" rel="stylesheet" />
