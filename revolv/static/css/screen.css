@@ -565,6 +565,15 @@ z-index: 448;
     -webkit-box-shadow: 0 3px 5px rgba(34, 34, 33, 0.19);
     box-shadow: 0 3px 5px rgba(34, 34, 33, 0.19);
 }
+
+  .header.after-scroll-header .logo {
+        background: url(../images/logo.png) no-repeat;
+        background-size: 141px auto;
+    }
+
+p.attribution.footer-text {
+    color: #337ab7;
+}
 .dropdown-default .dropdown-menu>li>a {
     font-weight: normal;
     color: #4b4b4b;
@@ -601,7 +610,7 @@ padding: 0;
     width: 100%;
 }
 #home-page  > .container > .container {
-    padding: 3vmin 4% 0 0;
+    padding: 0vmin 4% 0 0;
 }
 .header .logo {
     background: url(../images/logo.png);
@@ -617,7 +626,7 @@ padding: 0;
     min-width: 132px;
 }
 .header .rights {
-        padding: 3.4vmin 6% 0 0;
+        padding: 4.3vmin 6% 0 0;
 }
 .header .txt {
     font-size: 14px;
@@ -12890,6 +12899,14 @@ label.checkmark.animate:after {
     font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
     font-size: 3.5vmin;
 }
+.chapter-content-header {
+       /* padding: 2vmin; */
+       /* padding: 2vmin; */
+    padding-right: 2vmin;
+    padding-bottom: 5vmin;
+        line-height: 5vmin;
+    font-size: 2.8vmin;
+}
 .chapter-content-text {
        /* padding: 2vmin; */
        /* padding: 2vmin; */
@@ -12911,8 +12928,12 @@ label.checkmark.animate:after {
     padding-bottom: 2.7vmin;
     font-size: 2.8vmin;
     font-weight: bold;
+    cursor: pointer;
 }
 
+.chapter-left-padding {
+    padding-left: 5vmin;
+}
 .active-chapter-color {
     color: rgb(20, 177, 231);
 }
@@ -12978,10 +12999,20 @@ a.back_button_link:hover {
     text-decoration: none;
     color: rgb(255, 204, 0);
 }
+.chapter-content-div {
+    padding-left: 7.1vmin;
+}
+.chapter-subpoint-align {
+    padding-left: 3vmin;
+}
+.chapter-page-image {
+    width:84vmin;
+}
 .chapter-name {
-        font-size: 2.3vmin;
+        font-size: 2.8vmin;
     font-family: "Source Sans Pro";
-    color: rgb(128, 128, 128);
+    color: #333;
+    padding-left: 4vmin;
     font-weight: bold;
 }
 .mobile-chapter-name-list {
@@ -13025,6 +13056,8 @@ a.back_button_link:hover {
     width: 100%;
     white-space: nowrap;
 }
-
+.footer > .container > .row > .col-info:last-child > dl:first-child {
+    margin-bottom: 0;
+}
 
 

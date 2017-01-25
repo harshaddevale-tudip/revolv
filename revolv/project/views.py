@@ -13,10 +13,12 @@ from django.views.generic.edit import FormView
 from django.views.decorators.http import require_http_methods
 import stripe
 
+from django.contrib.auth.models import User
 from revolv.base.users import UserDataMixin
 from revolv.base.utils import is_user_reinvestment_period
 from revolv.lib.mailer import send_revolv_email
 from revolv.payments.forms import CreditCardDonationForm
+from revolv.base.models import RevolvUserProfile
 from revolv.payments.models import UserReinvestment, Payment, PaymentType, Tip
 from revolv.payments.services import PaymentService
 from revolv.project import forms
@@ -30,12 +32,13 @@ MAX_PAYMENT_CENTS = 99999999
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
-@login_required
+#@login_required
 def stripe_payment(request, pk):
     try:
         token = request.POST['stripeToken']
         tip_cents = request.POST['metadata']
         amount_cents = request.POST['amount_cents']
+        email = request.POST['stripeEmail']
     except KeyError:
         logger.exception('stripe_payment called without required POST data')
         return HttpResponseBadRequest('bad POST data')
@@ -72,33 +75,78 @@ def stripe_payment(request, pk):
             "msg": error_msg, "project": project
         })
 
-    if tip_cents > 0:
-        tip=Tip.objects.create(
-            amount=tip_cents / 100.0,
+
+    if request.user.is_authenticated():
+        if tip_cents > 0:
+            tip = Tip.objects.create(
+                amount=tip_cents / 100.0,
+                user=request.user.revolvuserprofile,
+            )
+
+        Payment.objects.create(
             user=request.user.revolvuserprofile,
+            entrant=request.user.revolvuserprofile,
+            amount=donation_cents/100.0,
+            project=project,
+            tip=tip,
+            payment_type=PaymentType.objects.get_stripe(),
+        )
+        amount = donation_cents / 100.0
+        # send_donation_info.delay(request.user.revolvuserprofile.get_full_name(), amount,
+        #                          project.title, request.user.revolvuserprofile.address)
+        if project.amount_donated >= project.funding_goal:
+            project.project_status = project.COMPLETED
+            project.save()
+
+        context = {}
+        context['user'] = request.user
+        context['project'] = project
+        context['amount'] = tip_cents / 100.0
+        # send_revolv_email(
+        #     'post_donation',
+        #     context, [request.user.email]
+        # )
+        messages.success(request, 'Donation Successful')
+        return HttpResponseRedirect(reverse("dashboard") + '?social=donation')
+
+
+    else:
+        user_id = User.objects.get(username='Guest').pk
+        user = RevolvUserProfile.objects.get(user_id=user_id)
+        if tip_cents > 0:
+            tip = Tip.objects.create(
+                amount=tip_cents / 100.0,
+                user=user,
+            )
+
+        Payment.objects.create(
+            user=user,
+            entrant=user,
+            amount=donation_cents / 100.0,
+            project=project,
+            tip=tip,
+            payment_type=PaymentType.objects.get_stripe(),
         )
 
-    Payment.objects.create(
-        user=request.user.revolvuserprofile,
-        entrant=request.user.revolvuserprofile,
-        amount=donation_cents/100.0,
-        project=project,
-        tip=tip,
-        payment_type=PaymentType.objects.get_stripe(),
-    )
-    context = {}
-    context['user'] = request.user
-    context['project'] = project
-    context['amount'] = tip_cents/100.0
+        amount = donation_cents / 100.0
+        # send_signup_info.delay('Guest', email)
+        # send_donation_info.delay(email,'Guest', amount,
+        #                            project.title,'' )
 
-    # send_revolv_email(
-    #     'post_donation',
-    #     context, [request.user.email]
-    # )
+        if project.amount_donated >= project.funding_goal:
+            project.project_status = project.COMPLETED
+            project.save()
 
-    # return redirect('project:view', pk=project.pk)
-    return HttpResponseRedirect(reverse("dashboard") + '?social=donation')
-    # return redirect('dashboard')
+        context = {}
+        context['user'] = request.user
+        context['project'] = project
+        context['amount'] = tip_cents/100.0
+        # send_revolv_email(
+        #     'post_donation',
+        #     context, [request.user.email]
+        # )
+        messages.success(request, 'Donation Successful')
+        return redirect('/signin/#signup')
 
 def stripe_operation_donation(request):
     try:
@@ -109,10 +157,12 @@ def stripe_operation_donation(request):
     except KeyError:
         logger.exception('stripe_payment called without required POST data')
         return HttpResponseBadRequest('bad POST data')
+
+    # print ("wwwwwww", (int(amount_cents)*100))
     if request.user.is_authenticated():
         if check==None:
             try:
-                stripe.Charge.create(source=token, currency="usd", amount=amount_cents)
+                stripe.Charge.create(source=token, currency="usd", amount=(int(amount_cents)*100))
             except stripe.error.CardError as e:
                 body = e.json_body
                 error_msg = body['error']['message']
@@ -131,13 +181,49 @@ def stripe_operation_donation(request):
             Payment.objects.create(
                 user=request.user.revolvuserprofile,
                 entrant=request.user.revolvuserprofile,
-                # amount=float(amount_cents) / 100.0,
+                amount=0,
                 # project=project,
                 tip=tip,
                 payment_type=PaymentType.objects.get_stripe(),
             )
+            messages.success(request, 'Donation Successful')
+            return redirect('home')
 
+        else:
+            try:
+                plan=stripe.Plan.create(
+                    amount=amount_cents,
+                    interval="month",
+                    name="Revolv Donation "+str(request.user),
+                    currency="usd",
+                    id="revolv_donation"+"_"+str(request.user))
+                customer = stripe.Customer.create(
+                    description="Customer for emma.martin@example.com",
+                    plan="revolv_donation",
+                    source=token  # obtained with Stripe.js
+                )
+
+            except stripe.error.CardError as e:
+                body = e.json_body
+                error_msg = body['error']['message']
+            except stripe.error.APIConnectionError as e:
+                body = e.json_body
+                error_msg = body['error']['message']
+            except Exception:
+                error_msg = "Payment error. Re-volv has been notified."
+                logger.exception(error_msg)
     else:
+        try:
+            stripe.Charge.create(source=token, currency="usd", amount=amount_cents)
+        except stripe.error.CardError as e:
+            body = e.json_body
+            error_msg = body['error']['message']
+        except stripe.error.APIConnectionError as e:
+            body = e.json_body
+            error_msg = body['error']['message']
+        except Exception:
+            error_msg = "Payment error. Re-volv has been notified."
+            logger.exception(error_msg)
         user_id = User.objects.get(username='Guest').pk
         user = RevolvUserProfile.objects.get(user_id=user_id)
         if amount_cents > 0:
@@ -149,14 +235,14 @@ def stripe_operation_donation(request):
         Payment.objects.create(
             user=user,
             entrant=user,
-            amount=amount_cents,
+            amount=0,
             # project=project,
             tip=tip,
             payment_type=PaymentType.objects.get_stripe(),
         )
 
     messages.success(request, 'Donation Successful')
-    return redirect('home')
+    return redirect('/signin/#signup')
 
 class DonationLevelFormSetMixin(object):
     """

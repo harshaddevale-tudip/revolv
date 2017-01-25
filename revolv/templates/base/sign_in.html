@@ -67,6 +67,13 @@
                     <span class="hidden-xs">Google</span>
                 </button>
             </a>
+              <a href="{% url "social:begin" "facebook" %}?next={% if login_redirect_url %}{{ login_redirect_url }}
+                        {% else %}{% url "home" %}{% endif %}" class="slb-btn-facebook">
+                <button class="row slb_socialButtons slb-facebook">
+                    <i class="fa fa-facebook visible-xs"></i>
+                    <span class="hidden-xs">Facebook</span>
+                </button>
+            </a>
         </div>
     </div>
   </div>
@@ -90,6 +97,13 @@
                         <span class="hidden-xs">Google</span>
                     </button>
                 </a>
+                <a href="{% url "social:begin" "facebook" %}?next={% if login_redirect_url %}{{ login_redirect_url }}
+                        {% else %}{% url "home" %}{% endif %}" class="slb-btn-facebook">
+                <button class="row slb_socialButtons slb-facebook">
+                    <i class="fa fa-facebook visible-xs"></i>
+                    <span class="hidden-xs">Facebook</span>
+                </button>
+            </a>
         </div>
       </div>
 

@@ -344,10 +344,44 @@ def bring_solar_tou_your_community(request):
     return render_to_response('base/bring_solar_at_community.html',
                               context_instance=RequestContext(request))
 
-def select_chapter(request):
-    return render_to_response('base/chapter.html',
+def select_chapter(request, chapter):
+    if chapter == '1':
+        return render_to_response('base/chapter.html',
                               context_instance=RequestContext(request))
-
+    if chapter == '2':
+        return render_to_response('base/chapter2.html',
+                                  context_instance=RequestContext(request))
+    if chapter == '3':
+        return render_to_response('base/chapter3.html',
+                                  context_instance=RequestContext(request))
+    if chapter == '4':
+        return render_to_response('base/chapter4.html',
+                                  context_instance=RequestContext(request))
+    if chapter == '5':
+        return render_to_response('base/chapter5.html',
+                                  context_instance=RequestContext(request))
+    if chapter == '6':
+        return render_to_response('base/chapter6.html',
+                                  context_instance=RequestContext(request))
+    if chapter == '7':
+        return render_to_response('base/chapter7.html',
+                                  context_instance=RequestContext(request))
+    if chapter == '8':
+        return render_to_response('base/chapter8.html',
+                                  context_instance=RequestContext(request))
+    if chapter == '9':
+        return render_to_response('base/chapter9.html',
+                                  context_instance=RequestContext(request))
+    if chapter == '10':
+        return render_to_response('base/chapter10.html',
+                                  context_instance=RequestContext(request))
+    if chapter == '11':
+        return render_to_response('base/chapter11.html',
+                                  context_instance=RequestContext(request))
+    if chapter == '12':
+        return render_to_response('base/chapter1'
+                                  '2.html',
+                                  context_instance=RequestContext(request))
 class DashboardRedirect(UserDataMixin, View):
     """
     Redirects user to appropriate dashboard. (e.g. Administrators automagically
