@@ -34,7 +34,7 @@ urlpatterns = patterns(
     url(r'^unsubscribe/(?P<action>\w+)/$', 'revolv.base.views.unsubscribe', name='unsubscribe'),
     url(r'^solar_at_home/$',solarathome, name='solar_at_home'),
     url(r'^bring_solar_to_your_community/$',bring_solar_tou_your_community, name='bring_solar_to_your_community'),
-    url(r'^bring_solar_to_your_community/chapter/$',select_chapter, name='chapter'),
+    url(r'^bring_solar_to_your_community/chapter/(?P<chapter>\d+)/$',select_chapter, name='chapter'),
     url(r'^my_social_account/$', 'revolv.base.views.social_connection', name='social-connection'),
     url(r'^social_connect_failed/$', 'revolv.base.views.social_exception', name='social-exception'),
 

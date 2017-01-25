@@ -247,6 +247,7 @@ $(document).ready(function(){
         {
           $("header").removeClass("top-section-header").addClass("after-scroll-header");
           $("header").hide();
+          $(".logo-home").css("background",'url(/static/images/logo.png)');
           $("header").slideDown();
         }
       }
@@ -257,6 +258,7 @@ $(document).ready(function(){
           $("header").slideUp();
           setTimeout(function(){
             $("header").removeClass("after-scroll-header").addClass("top-section-header");
+            $(".logo-home").css("background",'url(/static/images/logo-white.png)');
             $("header").show();
           },500);
         }
@@ -312,7 +314,8 @@ $(document).ready(function(){
     animateKnob($(this));
   });
 
-  //show pecentage value animate  function animateKnob ($elem) {
+  //show pecentage value animate
+  function animateKnob ($elem) {
     var endval = parseInt($elem.attr("data-oldvalue"));
     var m1 = 0;
     var tmr1;

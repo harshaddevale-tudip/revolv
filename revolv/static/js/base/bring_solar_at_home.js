@@ -12,9 +12,6 @@ $(document).ready(function() {
        $(this).find(".data-text").css("color","#666");
     });
 
-   /* $(".get-start-btn").click(function(e){
-        window.location.href = $(this).data('form-url');
-    });*/
      $(".sign-up-revolve-update .form-checkbox").click(function(e){
          e.stopPropagation();
          var $this = $(this).find("div:first-child");
