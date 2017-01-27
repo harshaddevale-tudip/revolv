@@ -54,7 +54,7 @@ a:hover {
     top:89%;
 }
 .logo-size {
-       width: 36vmin;
+       width: 26vmin;
     /* height: 50%; */
     float: left;
     }
@@ -407,7 +407,7 @@ height: 14px;
 z-index: 448;
 }
 .background-image-size {
-    width: 36vmin;
+    width: 26vmin;
     position: relative;
     float: right;
 }
@@ -12718,7 +12718,7 @@ label.checkmark.animate:after {
 }
 
 #myCarousel .carousel-prev-button {
-    left: -10%;
+    left: -6%;
 }
 
 }
@@ -12882,7 +12882,7 @@ label.checkmark.animate:after {
     float: left;
     position: relative;
     width: 100%;
-    padding: 7vmin 5% 4vmin 6%;
+    padding: 7vmin 5% 4vmin 5%;
 }
 .content-img {
     width: 100%;
@@ -12908,11 +12908,8 @@ label.checkmark.animate:after {
     font-size: 2.8vmin;
 }
 .chapter-content-text {
-       /* padding: 2vmin; */
-       /* padding: 2vmin; */
-    padding-right: 2vmin;
-    padding-bottom: 5vmin;
-        line-height: 5vmin;
+    padding: 4vmin 2vmin 0vmin 0;
+    line-height: 5vmin;
     font-size: 2.8vmin;
 }
 .chapter-content-text:last-child {
@@ -13032,6 +13029,7 @@ a.back_button_link:hover {
 .back-button-arrow {
     width: 12%;
     padding-right: 5%;
+    margin-bottom: 0.4vmin;
 }
 .back-button-link {
     color: rgb(255, 204, 0);

@@ -257,7 +257,6 @@ $(document).ready(function() {
         if ($this.parents('.form-step-3').length) {
             status = step3Validation();
         }
-        console.log(status)
         if (status == "success") {
                 var formNumber = parseInt($this.parent().prop('className').substr($this.parent().prop('className').length - 1));
                 (++formNumber).toString();
@@ -326,13 +325,6 @@ function pause(vidId) {
 }
  function showDesktopFullscreen(vidId) {
       element = document.getElementById(vidId);
-  /*if (element.mozRequestFullScreen) {
-    element.mozRequestFullScreen();
-     element.play();
-  } else if (element.webkitRequestFullScreen) {
-    element.webkitRequestFullScreen();
-    element.play();
-  }*/
     $("#video-popup").show();
     instance.load();
     var popUpVideoId = document.getElementById("pop-up-video");
@@ -341,7 +333,7 @@ function pause(vidId) {
     $(popUpVideoId).find("source").attr('src', $(element).find("source").attr('src'));
     popUpVideoId.load();
     popUpVideoId.play();
-  var vidNumber = parseInt($(element).attr('id').substr($(element).attr('id').length - 1));
+  /*var vidNumber = parseInt($(element).attr('id').substr($(element).attr('id').length - 1));
     popUpVideoId.onended = function(e) {
 	    (++vidNumber).toString();
 	 	if(vidNumber < 6) {
@@ -351,7 +343,7 @@ function pause(vidId) {
 		    popUpVideoId.load();
 		    popUpVideoId.play();
 		}
-    };
+    };*/
     $(".video-popup-body, #video-popup").click(function(e){
          e.stopPropagation();
          if (e.target !== this)
@@ -369,13 +361,6 @@ function pause(vidId) {
 }
 function goFullscreen(id) {
       element = document.getElementById(id);
- /* if (element.mozRequestFullScreen) {
-    element.mozRequestFullScreen();
-     element.play();
-  } else if (element.webkitRequestFullScreen) {
-    element.webkitRequestFullScreen();
-    element.play();
-  }*/
     $("#video-popup").show();
 
     var popUpVideoId = document.getElementById("pop-up-video");
@@ -384,7 +369,7 @@ function goFullscreen(id) {
     $(popUpVideoId).find("source").attr('src', $(element).find("source").attr('src'));
     popUpVideoId.load();
     popUpVideoId.play();
-  var vidNumber = parseInt($(element).attr('id').substr($(element).attr('id').length - 1));
+  /*var vidNumber = parseInt($(element).attr('id').substr($(element).attr('id').length - 1));
     popUpVideoId.onended = function(e) {
 	    (++vidNumber).toString();
 	 	if(vidNumber < 6) {
@@ -394,7 +379,7 @@ function goFullscreen(id) {
 		    popUpVideoId.load();
 		    popUpVideoId.play();
 		}
-    };
+    };*/
  $(".video-popup-body, #video-popup").click(function(e){
          e.stopPropagation();
           if (e.target !== this)
@@ -419,11 +404,5 @@ function goFullscreen(id) {
       	element.load();
       }
  });*/
-/* $(".grid-data").on('click',function(){
- console.log("helllo");
-      var $this = $(this);
-      var chapterUrl= '/base/chapter.html'
-      console.log($this.data('chapter-url'));
-      window.location.href = chapterUrl;
- });*/
+
 
