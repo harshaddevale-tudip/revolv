@@ -1,0 +1,349 @@
+.full-width {
+    float: left;
+    position: relative;
+    width: 100%;
+}
+.form-container {
+    background-color: rgb(230, 230,229);
+    padding: 4vmin 48% 6vmin 5%;
+    font-family: "Source Sans Pro";
+    font-size: 2vmin;
+}
+.padding-zero {
+    padding: 0;
+}
+.form-step-1, .form-step-2, .form-step-3, .form-step-4, .form-step-5 {
+    float: left;
+    position: relative;
+    width: 100%;
+}
+.form-step-2, .form-step-3, .form-step-4, .form-step-5 {
+    display: none;
+}
+.form-checkbox {
+    float: left;
+    width: 4vmin;
+    height: 4vmin;
+    border: 1px solid rgb(230, 230, 229);
+    position: relative;
+    background-color: #fff;
+    border-radius: 22%;
+    cursor: pointer;
+}
+.show-step-number {
+    font-weight: bold;
+    color: #7B7B7B;
+    font-size: 2vmin;
+}
+.step-1-heading {
+    color: #2B2B2B;
+    font-size: 4vmin;
+    padding: 0.3vmin 0 3vmin;
+}
+.form-container input[type='text'] {
+    outline: 0;
+}
+.form-container input[type='text'] {
+    padding: 1.7vmin 2.4vmin;
+    font-size: 3vmin;
+    border: none;
+    border-radius: 3px;
+    width: 100%;
+}
+.input-email-code {
+    padding: 3vmin 0;
+}
+.input-email-code div:first-child {
+    padding-right: 6%;
+}
+.mark-checkbox {
+    float: left;
+    width: 2vmin;
+    height: 2vmin;
+    background-color: #14B1E7;
+    border-radius: 50%;
+}
+.unmarked-checkbox {
+    float: left;
+    width: 2vmin;
+    height: 2vmin;
+    background-color: #fff;
+    border-radius: 50%;
+}
+.know-interest-cntnr, .get-to-know-revolv-block, .proj-intrest-desc-block, .lead-exp-desc-block, .affiliation-org-block,
+    .solar-proj-need-cntnr, .annual-budget-cntnr, .own-building-block, .org-building-years, .org-intrest-solar-block,
+    .get-building-roof-year, .roof-replace-plan {
+    background-color: #fff;
+    padding: 3vmin 5% 3vmin 5%;
+}
+.get-to-know-revolv-cntnr {
+    padding: 4vmin 0 5vmin;
+}
+.affiliation-org-cntnr {
+    padding: 2.2vmin 0 5vmin;
+}
+.solar-proj-need-block {
+    padding: 0 0 5vmin;
+}
+.sign-up-revolve-update {
+    color: #3D3D3D;
+    font-size: 2.6vmin;
+    padding: 0.5vmin 0 3vmin 0;
+}
+.sign-up-revolve-update > div:last-child {
+    padding-left: 3%;
+    float: left;
+    position: relative;
+    width: calc(100% - 4vmin);
+}
+.interest-text, .get-to-know-text {
+    float: left;
+    position: relative;
+    width: calc(100% - 4vmin);
+    padding-left: 4%;
+    font-size: 2.5vmin;
+    color: #818181;
+}
+.know-interest-cntnr > div:first-child, .get-to-know-revolv-block > div:first-child, .proj-intrest-desc-block > div:first-child,
+            .lead-exp-desc-block > div:first-child, .affiliation-org-block > div:first-child, .solar-proj-need-cntnr > div:first-child,
+            .annual-budget-cntnr > div:first-child, .own-building-block > div:first-child, .org-building-years > div:first-child,
+            .org-intrest-solar-block > div:first-child, .get-building-roof-year > div:first-child, .roof-replace-plan > div:first-child {
+    font-size: 3.2vmin;
+    color: #7E7E7E;
+    font-weight: bold;
+    float: left;
+    position: relative;
+    width: 100%;
+    padding-bottom: 1.3vmin;
+}
+
+.interest-block, .get-to-know-block {
+    padding: 1.3vmin 0;
+}
+.from-nxt-btn, .form-submit-btn {
+    background-color: #14B1E7;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    padding: 1.4vmin 0;
+    font-size: 3.5vmin;
+    border-radius: 2%;
+    cursor: pointer;
+}
+.form-container input[type=text]::-webkit-input-placeholder {
+   font-size: 3.0vmin;
+   color: #8D8D8D;
+}
+
+.form-container input[type=text]:-moz-placeholder {
+   font-size: 3.0vmin;
+   color: #8D8D8D;
+}
+.proj-intrest-desc-block textarea.text-area, .lead-exp-desc-block textarea.text-area, .org-intrest-solar-block textarea.text-area {
+    outline: 0;
+    width: 100%;
+    border: 0;
+    resize: none;
+    padding: 2vmin 0 0;
+    font-size: 2.6vmin;
+}
+.lead-exp-desc-main-block {
+    padding: 3.5vmin 0;
+}
+.organization-details > div {
+    padding: 2.2vmin 0;
+}
+.submit-btn-ctnr {
+    padding-top: 2.2vmin;
+}
+.organization-details .website-name, .organization-details .organization-name {
+    padding-right: 5%;
+}
+.get-building-roof-year {
+    border-bottom: 1px solid rgb(230, 230, 229);
+}
+.form-step-2 .form-submit-btn {
+    display: none;
+}
+.field-error {
+    color: #ff0039;
+    float: left;
+    position: relative;
+    width: 100%;
+    font-size: 2.3vmin;
+    padding: 1vmin 0 0;
+}
+.flex {
+    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.flex-row {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.flex-row-rev {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+  -webkit-flex-direction: row-reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+}
+
+.flex-col {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.flex-col-rev {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: reverse;
+  -webkit-flex-direction: column-reverse;
+      -ms-flex-direction: column-reverse;
+          flex-direction: column-reverse;
+}
+
+.flex-aln-itm-cnt {
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.flex-aln-itm-srt {
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.flex-aln-itm-end {
+  -webkit-box-align: end;
+  -webkit-align-items: flex-end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.flex-aln-itm-baseline {
+  -webkit-box-align: baseline;
+  -webkit-align-items: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+}
+
+.flex-aln-itm-stretch {
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+}
+
+.flex-aln-con-cnt {
+  -webkit-align-content: center;
+      -ms-flex-line-pack: center;
+          align-content: center;
+}
+
+.flex-aln-con-end {
+  -webkit-align-content: flex-end;
+      -ms-flex-line-pack: end;
+          align-content: flex-end;
+}
+
+.flex-aln-con-srt {
+  -webkit-align-content: flex-start;
+      -ms-flex-line-pack: start;
+          align-content: flex-start;
+}
+
+.flex-aln-con-around {
+  -webkit-align-content: space-around;
+      -ms-flex-line-pack: distribute;
+          align-content: space-around;
+}
+
+.flex-aln-con-btw {
+  -webkit-align-content: space-between;
+      -ms-flex-line-pack: justify;
+          align-content: space-between;
+}
+
+.flex-aln-con-stretch {
+  -webkit-align-content: stretch;
+      -ms-flex-line-pack: stretch;
+          align-content: stretch;
+}
+
+.flex-jty-con-cnt {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.flex-jty-con-end {
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+.flex-jty-con-space-betwn {
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.flex-jty-con-srt {
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.flex-jty-con-around {
+  -webkit-justify-content: space-around;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
+}
+
+.flex-jty-con-btw {
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.flex-jty-con-stretch {
+  -webkit-box-pack: stretch;
+  -webkit-justify-content: stretch;
+      -ms-flex-pack: stretch;
+          justify-content: stretch;
+}
+
+.flex-wrap {
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+}
+
+.flex-wrap-rev {
+  -webkit-flex-wrap: wrap-reverse;
+      -ms-flex-wrap: wrap-reverse;
+          flex-wrap: wrap-reverse;
+}
+
+.flex-no-wrap {
+  -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
+          flex-wrap: nowrap;
+}

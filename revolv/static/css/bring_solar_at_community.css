@@ -108,6 +108,7 @@ body {
     width: 100%;
     color: #666666;
     font-size: 2.3vmin;
+    display: none;
 }
 #champion-carousel .carousel-control.right, #champion-carousel .carousel-control.left {
     background-image: none;
@@ -250,4 +251,21 @@ body {
     float: left;
     position: relative;
     width: 100%;
+}
+.flex {
+    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+.flex-no-wrap {
+  -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
+          flex-wrap: nowrap;
+}
+.flex-wrap {
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
 }

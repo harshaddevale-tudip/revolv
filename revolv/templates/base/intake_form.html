@@ -1,0 +1,735 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% load humanize %}
+{% load wagtailimages_tags %}
+
+{% block title %}Home | {% endblock %}
+{% block head %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/bring_solar_at_community.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/intake_form.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script src="/static/js/base/bring_solar_at_home.js"></script>
+		<title>Revolv</title>
+    <script>
+    $(document).ready(function() {
+      $(".navbar-toggle").click(function (event) {
+          var clickover = $(event.target);
+          var _opened = $(".navbar-collapse").hasClass("collapse in");
+          if (_opened === true ) {
+          	  $('.navbar-collapse').removeClass('in');
+			  event.stopPropagation();
+              <!--$('.navbar-collapse').collapse('hide');-->
+            }
+          });
+        $(document).click(function (event) {
+          var clickover = $(event.target);
+          var _opened = $(".navbar-collapse").hasClass("collapse in");
+          if (_opened === true ) {
+          	  $('.navbar-collapse').removeClass('in');
+			  event.stopPropagation();
+            }
+          });
+
+        $('.dropdown-title').on('click', function() {
+    $('.dropdown-menu').toggle();
+    });
+    });
+
+
+
+  </script>
+
+    <style>
+    .dropdown-triangle {
+        float: right;
+        padding-right: 2%;
+
+    }
+
+a.How_it_Works:hover {
+    text-decoration: none;
+    color: #fff;
+}
+
+.header.top-section-header {
+    background-color: rgba(0, 0, 0, 0);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0);
+    margin-top: 0;
+    position: absolute;
+}
+
+.menu-list {
+    position: absolute;
+    width: 100%;
+    background-image: linear-gradient(to bottom,transparent 0,transparent 100%);
+    background-color: transparent;
+    border: transparent;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.header .solar_at_home_rights .btn-yellow {
+    <!--background-color: rgb(255, 204, 0);-->
+    <!--padding: 0px 84px 0 0;-->
+        border-radius: 6%;
+    background-color: rgb(255, 204, 0);
+    color: black;
+    /* width: 30%; */
+    height: auto;
+    line-height: normal;
+    padding: 2vmin 1%;
+}
+.header .solar_at_home_rights {
+     padding: 3vmin 2vmin 0 0;
+}
+
+    .hamburger_color {
+        border-color: transparent;
+        color: white;
+    }
+    .background-collapse-color {
+            background-color: white;
+    }
+
+    </style>
+
+{%endblock%}
+{% block nav %}
+<div class="modal fade" id="popup" role="dialog">
+    <div class="modal-dialog" style="padding:14vmin 8% 0">
+
+      <!-- Modal content-->
+      <div class="modal-content" >
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"><b>Donation to Operations</b></h4>
+        </div>
+        <form action="{% url 'project:stripe_operation_donation' %}" method="POST">
+          {% csrf_token %}
+           <div class="modal-body input-group">
+                        <input type="number" name="amount_cents" value="10" step="1" class="form-control" >
+                          <span class="input-group-addon">$</span>
+                      </div>
+          <!--<div class="modal-body">-->
+            <!--<input type="email" style="width:100%" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Donation Amount">-->
+          <!--</div>-->
+          <div class="modal-section">
+          <label class="checkbox-field-label" style="margin-left:5%;margin-bottom:5%">
+            <input  id="subscribe-check" name="check" type="checkbox"><span><b>Subscribe me 					to the RE-volv donate operations.</b></span>
+                </label>
+          </div>
+          <div class="modal-footer" style="text-align: center;">
+            <button type="submit" class="stripe-button-el btn btn-primary" data-dismiss="modal">Next</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+{%endblock%}
+{% block body %}
+    <div id="video-popup">
+            <div class="video-popup-body">
+                <div class="play-main-video">
+                    <div class="pop-up-vid-cntnr">
+						<video poster="" id="pop-up-video" controls>
+						    <source src="" type="video/mp4">
+						    Your browser does not support HTML5 video.
+						</video>
+					</div>
+                </div>
+            </div>
+        </div>
+    <div style="height: 60vmin;
+    background-image: url(/static/images/champion_background_image.png);
+    background-size: 100vw 60vmin;
+    background-repeat: no-repeat;">
+       <header class="header top-section-header">
+              <div class="container">
+                    <div class="container">
+                    <!-- Static navbar -->
+                    <div class="navbar navbar-default menu-list">
+                        <div class="navbar-header">
+                            <button type="button" id="collbtn" class="navbar-toggle hamburger_color" data-toggle="collapse" data-target=".navbar-collapse"> <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+
+                </button> <a class="navbar-brand logo-solar-at-home" href="/"></a>
+
+            </div>
+            <div class="navbar-collapse collapse background-collapse-color">
+                <ul class="nav navbar-nav">
+                    {% if request.user.is_authenticated %}
+                        <li><a href="{% url 'dashboard' %}" class="dropdown">MY PORTFOLIO</a>
+                        </li>
+                        <li class="dropdown this-works"> <a href="{% url 'logout' %}" class="dropdown">SIGN OUT</a>
+                        </li>
+                    {% else %}
+                         <li><a href="{% url 'signin' %}#signup" class="dropdown">SIGN UP</a>
+                        </li>
+                        <li class="dropdown this-works"> <a href="{% url 'signin' %}#login" class="dropdown">SIGN IN</a>
+                        </li>
+                    {% endif %}
+                    <li class="dropdown this-doesnt"> <a href="#" class="dropdown" data-toggle="modal" data-target="#popup">DONATE</a>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    <!-- end .logo -->
+            <div style="float: left;width: 53vmin;padding-left: 4%;">
+                        <div class="logo-size" >
+                          <img class="background-image-size" src="/static/images/Logo_Header.png">
+                        </div>
+                  </div>
+            <div class="solar_at_home_rights pull-right">
+              <div class="txt pull-left">
+
+                {% if request.user.is_authenticated %}
+                  <li class="user-controls has-dropdown">
+                    <a href="{% url 'dashboard' %}" class="btn-blue pull-left btn-donate btn-yellow">MY PORTFOLIO</a>
+                    <a href="{% url 'logout' %}" class="btn-blue pull-left btn-donate btn-yellow" >SIGN OUT</a>
+                  </li>
+                  {% else %}
+                    <a href="{% url 'signin' %}#signup" class="component-link btn-blue pull-left btn-donate btn-yellow" data-component="signup" >SIGN UP</a>
+                    <a href="{% url 'signin' %}#login" class="component-link btn-blue pull-left btn-donate btn-yellow" data-component="login" >SIGN IN</a>
+                {% endif %}
+              </div>
+              <a href="#" class="component-link btn-blue btn-donate btn-yellow" data-toggle="modal" data-target="#popup" >DONATE</a>
+              <!--<a #data-target="popup" data-toggle="modal" class=" btn-blue btn-donate pull-left after-scroll">DONATE NOW</a>-->
+            </div>
+
+          </div>
+             <div style="width:100%;float:left;padding-top: 7vmin;">
+                <div style="width:100%;padding: 0 4% 0 1%;float: left;">
+
+                </div>
+
+            </div>
+           </div>
+        </header>
+
+</div>
+    <div class="full-width form-container">
+        <div class="form-step-1">
+            <div class="full-width show-step-number">
+                STEP 1 OF 3
+            </div>
+            <div class="full-width step-1-heading">
+                Tell Us About What Are You Interested In?
+            </div>
+            <div class="full-width step-1-input">
+                <div class="full-width input-full-name">
+                    <input type="text" placeholder="Your Name" class="full-width">
+                </div>
+                <div class="full-width input-email-code">
+                    <div class="col-xs-12 col-sm-8 padding-zero">
+                        <input type="text" placeholder="Your Email">
+                    </div>
+                    <div class="col-xs-12 col-sm-4 padding-zero">
+                        <input type="text" placeholder="ZIP Code">
+                    </div>
+                </div>
+            </div>
+            <div class="full-width sign-up-revolve-update">
+                <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                    <div class="mark-checkbox" data-checkbox-status="checked"></div>
+                </div>
+                <div>
+                    Sign me up for updates from RE-volv.
+                </div>
+            </div>
+            <div class="full-width know-interest-cntnr">
+                <div>
+                    What is your interest in this program?
+                </div>
+                <div class="full-width interest-block flex flex-aln-itm-cnt">
+                    <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                        <div class="mark-checkbox" data-checkbox-status="checked" data-form-filter=""></div>
+                    </div>
+                    <div class="interest-text">
+                         I am interested in helping a local nonprofit I know of go solar!
+                    </div>
+                </div>
+                <div class="full-width interest-block flex flex-aln-itm-cnt">
+                    <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                        <div class="unmarked-checkbox" data-checkbox-status="unchecked" data-form-filter="addFilter"></div>
+                    </div>
+                    <div class="interest-text">
+                        I am interested in helping a nonprofit go solar (I don’t have one in mind yet, but I’m open to suggestions!).
+                    </div>
+                </div>
+                <div class="full-width interest-block flex flex-aln-itm-cnt">
+                    <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                        <div class="unmarked-checkbox" data-checkbox-status="unchecked" data-form-filter=""></div>
+                    </div>
+                    <div class="interest-text">
+                        I am a representative of a nonprofit interested in solar for our building!
+                    </div>
+                </div>
+            </div>
+            <div class="full-width get-to-know-revolv-cntnr">
+                <div class="full-width get-to-know-revolv-block">
+                    <div>
+                        I heard about Re-volv from?
+                    </div>
+                    <div class="get-to-know-block col-xs-12 col-sm-6 padding-zero flex flex-aln-itm-cnt">
+                        <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                            <div class="mark-checkbox" data-checkbox-status="checked"></div>
+                        </div>
+                        <div class="get-to-know-text">
+                            RE-volv staff or board member.
+                        </div>
+                    </div>
+                    <div class="get-to-know-block col-xs-12 col-sm-6 padding-zero flex flex-aln-itm-cnt">
+                        <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                            <div class="unmarked-checkbox" data-checkbox-status="unchecked"></div>
+                        </div>
+                        <div class="get-to-know-text">
+                            News story.
+                        </div>
+                    </div>
+                    <div class="get-to-know-block col-xs-12 col-sm-6 padding-zero flex flex-aln-itm-cnt">
+                        <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                            <div class="unmarked-checkbox" data-checkbox-status="unchecked"></div>
+                        </div>
+                        <div class="get-to-know-text">
+                            Friend or supporter of RE-volv.
+                        </div>
+                    </div>
+                    <div class="get-to-know-block col-xs-12 col-sm-6 padding-zero flex flex-aln-itm-cnt">
+                         <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                            <div class="unmarked-checkbox" data-checkbox-status="unchecked"></div>
+                        </div>
+                        <div class="get-to-know-text">
+                            Social Media.
+                        </div>
+                    </div>
+                    <div class="get-to-know-block col-xs-12 col-sm-6 padding-zero flex flex-aln-itm-cnt">
+                         <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                            <div class="unmarked-checkbox" data-checkbox-status="unchecked"></div>
+                        </div>
+                        <div class="get-to-know-text">
+                             Online Search.
+                        </div>
+                    </div>
+                    <div class="get-to-know-block col-xs-12 col-sm-6 padding-zero flex flex-aln-itm-cnt">
+                         <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                            <div class="unmarked-checkbox" data-checkbox-status="unchecked"></div>
+                        </div>
+                        <div class="get-to-know-text">
+                            Others.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="full-width from-nxt-btn">
+                NEXT
+            </div>
+        </div>
+        <div class="form-step-2">
+            <div class="full-width show-step-number">
+                STEP 2A OF 3
+            </div>
+            <div class="full-width step-1-heading">
+                Tell Us About Yourself
+            </div>
+            <div class="full-width proj-intrest-desc-block">
+                <div>
+                    Why are you personally interested in spearheading a solar project in your community?
+                </div>
+                <div>
+                    <textarea rows="7" placeholder="Write it here..." class="text-area"></textarea>
+                </div>
+            </div>
+            <div class="full-width lead-exp-desc-main-block">
+                <div class="full-width lead-exp-desc-block">
+                    <div>
+                       What experience do you have leading community-based projects?
+                    </div>
+                    <div>
+                        <textarea rows="7" placeholder="Write it here..." class="text-area"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="full-width from-nxt-btn">
+                NEXT
+            </div>
+            <div class="full-width form-submit-btn">
+                SUBMIT
+            </div>
+        </div>
+        <div class="form-step-3">
+            <div class="full-width show-step-number">
+                STEP 2B OF 3
+            </div>
+            <div class="full-width step-1-heading">
+                Tell Us More About The Organization
+            </div>
+            <div class="full-width organization-details">
+                <div class="full-width org-name-taxid">
+                    <div class="col-xs-8 padding-zero organization-name">
+                        <input type="text" placeholder="Organization Name">
+                    </div>
+                    <div class="col-xs-4 padding-zero">
+                        <input type="text" placeholder="Tax Id">
+                    </div>
+                </div>
+                <div class="full-width org-address">
+                    <input type="text" placeholder="Organization Address">
+                </div>
+                <div class="full-width billing-addr">
+                    <input type="text" placeholder="Billing Address (if different)">
+                </div>
+                 <div class="full-width webite-and-phone">
+                    <div class="col-xs-8 padding-zero website-name">
+                        <input type="text" placeholder="Website">
+                    </div>
+                    <div class="col-xs-4 padding-zero">
+                        <input type="text" placeholder="Phone Number">
+                    </div>
+                </div>
+                <div class="full-width mission-stmnt">
+                    <input type="text" placeholder="Mission Statement">
+                </div>
+                <div class="full-width org-strt-year">
+                    <input type="text" placeholder="Year Organization Started">
+                </div>
+            </div>
+            <div class="full-width affiliation-org-cntnr">
+                <div class="full-width affiliation-org-block">
+                    <div>
+                        What is your affiliation to this organization?
+                    </div>
+                    <div class="get-to-know-block col-xs-12 col-sm-6 padding-zero flex flex-aln-itm-cnt">
+                        <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                            <div class="mark-checkbox" data-checkbox-status="checked"></div>
+                        </div>
+                        <div class="get-to-know-text">
+                            Executive Director.
+                        </div>
+                    </div>
+                    <div class="get-to-know-block col-xs-12 col-sm-6 padding-zero flex flex-aln-itm-cnt">
+                        <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                            <div class="unmarked-checkbox" data-checkbox-status="unchecked"></div>
+                        </div>
+                        <div class="get-to-know-text">
+                            Volunteer/Donor.
+                        </div>
+                    </div>
+                    <div class="get-to-know-block col-xs-12 col-sm-6 padding-zero flex flex-aln-itm-cnt">
+                        <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                            <div class="unmarked-checkbox" data-checkbox-status="unchecked"></div>
+                        </div>
+                        <div class="get-to-know-text">
+                            Board Member.
+                        </div>
+                    </div>
+                    <div class="get-to-know-block col-xs-12 col-sm-6 padding-zero flex flex-aln-itm-cnt">
+                        <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                            <div class="unmarked-checkbox" data-checkbox-status="unchecked"></div>
+                        </div>
+                        <div class="get-to-know-text">
+                            Client of Organization.
+                        </div>
+                    </div>
+                    <div class="get-to-know-block col-xs-12 col-sm-6 padding-zero flex flex-aln-itm-cnt">
+                        <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                            <div class="unmarked-checkbox" data-checkbox-status="unchecked"></div>
+                        </div>
+                        <div class="get-to-know-text">
+                             Staff Member.
+                        </div>
+                    </div>
+                    <div class="get-to-know-block col-xs-12 col-sm-6 padding-zero flex flex-aln-itm-cnt">
+                        <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                            <div class="unmarked-checkbox" data-checkbox-status="unchecked"></div>
+                        </div>
+                        <div class="get-to-know-text">
+                            Others.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="full-width solar-proj-need-block">
+                <div class="full-width solar-proj-need-cntnr">
+                    <div>
+                       Is your solar project for a:
+                    </div>
+                    <div class="full-width interest-block flex flex-aln-itm-cnt">
+                        <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                            <div class="mark-checkbox" data-checkbox-status="checked"></div>
+                        </div>
+                        <div class="interest-text">
+                             501(c)(3) nonprofit organization.
+                        </div>
+                    </div>
+                    <div class="full-width interest-block flex flex-aln-itm-cnt">
+                        <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                            <div class="unmarked-checkbox" data-checkbox-status="unchecked"></div>
+                        </div>
+                        <div class="interest-text">
+                            A legally recognized cooperative.
+                        </div>
+                    </div>
+                    <div class="full-width interest-block flex flex-aln-itm-cnt">
+                        <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                            <div class="unmarked-checkbox" data-checkbox-status="unchecked"></div>
+                        </div>
+                        <div class="interest-text">
+                            Others.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="full-width from-nxt-btn">
+                NEXT
+            </div>
+        </div>
+        <div class="form-step-4">
+            <div class="full-width show-step-number">
+                STEP 2B OF 3
+            </div>
+            <div class="full-width step-1-heading">
+                Tell Us More About The Organization
+            </div>
+            <div class="full-width organization-details">
+                <div class="full-width">
+                    <div class="full-width annual-budget-cntnr">
+                        <div>
+                           What is the annual budget of the organization?
+                        </div>
+                        <div class="full-width interest-block flex flex-aln-itm-cnt">
+                            <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                                <div class="mark-checkbox" data-checkbox-status="checked"></div>
+                            </div>
+                            <div class="interest-text">
+                                 $0-1M
+                            </div>
+                        </div>
+                        <div class="full-width interest-block flex flex-aln-itm-cnt">
+                            <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                                <div class="unmarked-checkbox" data-checkbox-status="unchecked"></div>
+                            </div>
+                            <div class="interest-text">
+                                $1-3M
+                            </div>
+                        </div>
+                        <div class="full-width interest-block flex flex-aln-itm-cnt">
+                            <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                                <div class="unmarked-checkbox" data-checkbox-status="unchecked"></div>
+                            </div>
+                            <div class="interest-text">
+                                $3M+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="full-width">
+                     <div class="full-width own-building-block">
+                        <div>
+                            Does the organization own its own building?
+                        </div>
+                        <div class="get-to-know-block col-xs-6 padding-zero flex flex-aln-itm-cnt">
+                            <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                                <div class="mark-checkbox" data-checkbox-status="checked"></div>
+                            </div>
+                            <div class="get-to-know-text">
+                                Yes
+                            </div>
+                        </div>
+                        <div class="get-to-know-block col-xs-6 padding-zero flex flex-aln-itm-cnt">
+                            <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                                <div class="unmarked-checkbox" data-checkbox-status="unchecked"></div>
+                            </div>
+                            <div class="get-to-know-text">
+                                No
+                            </div>
+                        </div>
+                     </div>
+                </div>
+                <div class="full-width">
+                    <div class="full-width org-building-years">
+                        <div>
+                            How long has the organization been in its building?
+                        </div>
+                        <div class="get-to-know-block col-xs-6 padding-zero flex flex-aln-itm-cnt">
+                            <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                                <div class="mark-checkbox" data-checkbox-status="checked"></div>
+                            </div>
+                            <div class="get-to-know-text">
+                                0-5 Years
+                            </div>
+                        </div>
+                        <div class="get-to-know-block col-xs-6 padding-zero flex flex-aln-itm-cnt">
+                            <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                                <div class="unmarked-checkbox" data-checkbox-status="unchecked"></div>
+                            </div>
+                            <div class="get-to-know-text">
+                                11-20 Years
+                            </div>
+                        </div>
+                        <div class="get-to-know-block col-xs-6 padding-zero flex flex-aln-itm-cnt">
+                            <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                                <div class="unmarked-checkbox" data-checkbox-status="unchecked"></div>
+                            </div>
+                            <div class="get-to-know-text">
+                                6-10 Years
+                            </div>
+                        </div>
+                        <div class="get-to-know-block col-xs-6 padding-zero flex flex-aln-itm-cnt">
+                            <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                                <div class="unmarked-checkbox" data-checkbox-status="unchecked"></div>
+                            </div>
+                            <div class="get-to-know-text">
+                                20+ Years
+                            </div>
+                        </div>
+                     </div>
+                </div>
+                <div class="full-width folk-count">
+                    <input type="text" placeholder="Approximately how many people do you serve each year?">
+                </div>
+                <div class="full-width">
+                    <div class="full-width get-building-roof-year">
+                        <div>
+                            How old is the roof of the building?
+                        </div>
+                        <div class="get-to-know-block col-xs-12 col-sm-6 padding-zero flex flex-aln-itm-cnt">
+                            <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                                <div class="mark-checkbox" data-checkbox-status="checked"></div>
+                            </div>
+                            <div class="get-to-know-text">
+                                0-5 Years
+                            </div>
+                        </div>
+                        <div class="get-to-know-block col-xs-12 col-sm-6 padding-zero flex flex-aln-itm-cnt">
+                            <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                                <div class="unmarked-checkbox" data-checkbox-status="unchecked"></div>
+                            </div>
+                            <div class="get-to-know-text">
+                                11-20 Years
+                            </div>
+                        </div>
+                        <div class="get-to-know-block col-xs-12 col-sm-6 padding-zero flex flex-aln-itm-cnt">
+                            <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                                <div class="unmarked-checkbox" data-checkbox-status="unchecked"></div>
+                            </div>
+                            <div class="get-to-know-text">
+                                6-10 Years
+                            </div>
+                        </div>
+                        <div class="get-to-know-block col-xs-12 col-sm-6 padding-zero flex flex-aln-itm-cnt">
+                            <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                                <div class="unmarked-checkbox" data-checkbox-status="unchecked"></div>
+                            </div>
+                            <div class="get-to-know-text">
+                                20+ Years
+                            </div>
+                        </div>
+                    </div>
+                    <div class="full-width roof-replace-plan">
+                        <div>
+                            If 11-20 or 21+, are there plans to replace the roof soon?
+                        </div>
+                        <div class="get-to-know-block col-xs-12 col-sm-6 padding-zero flex flex-aln-itm-cnt">
+                            <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                                <div class="unmarked-checkbox" data-checkbox-status="unchecked"></div>
+                            </div>
+                            <div class="get-to-know-text">
+                                Yes
+                            </div>
+                        </div>
+                        <div class="get-to-know-block col-xs-12 col-sm-6 padding-zero flex flex-aln-itm-cnt">
+                            <div class="form-checkbox flex flex-aln-itm-cnt flex-jty-con-cnt">
+                                <div class="mark-checkbox" data-checkbox-status="checked"></div>
+                            </div>
+                            <div class="get-to-know-text">
+                                No
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="full-width electricity-provider">
+                    <input type="text" placeholder="What electric utility provider serves the building?">
+                </div>
+                <div class="full-width">
+                    <div class="full-width org-intrest-solar-block">
+                        <div>
+                           Why is the organization interested in going solar ?
+                        </div>
+                        <div>
+                            <textarea rows="7" placeholder="Write it here..." class="text-area"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="full-width submit-btn-ctnr">
+                <div class="full-width form-submit-btn">
+                    SUBMIT
+                </div>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key={{GOOGLEMAPS_API_KEY}}">
+</script>
+  <!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js">-->
+<!--</script>-->
+      <!--<script src="http://malsup.githubt.com/jquery.form.js"></script>-->
+<script src="https://checkout.stripe.com/checkout.js"></script>
+<script>
+  $(function ($) {
+  var handler = StripeCheckout.configure({
+    key: '{{ stripe_publishable_key }}'
+    , image: '{% static "images/revolv-logo.png" %}'
+    , locale: 'auto'
+    , name: 'RE-volv'
+    , email: '{{request.user.email}}'
+  });
+  $(window).on('popstate', function () {
+    handler.close();
+  });
+  $('.stripe-button-el').on('click', function (e) {
+    e.preventDefault();
+    var $form = $(this).closest('form');
+    var serialized = $form.serializeArray();
+    var endpoint = $form.attr('action');
+    var amount, metadata;
+    $.each(serialized, function () {
+      if (this.name === 'amount_cents') {
+        amount = this.value*100;
+      }
+      <!--if (this.name === 'metadata') {-->
+        <!--metadata = this.value;-->
+      <!--}-->
+    });
+    if (typeof amount !== 'undefined') {
+      handler.open({
+        description: 'Donate $' + parseFloat((amount / 100).toFixed(2)).toLocaleString()
+        , amount: amount
+        <!--, metadata: metadata-->
+        , token: function (token) {
+          var id = token.id;
+          var email = token.email;
+          var $id = $('<input>')
+            .attr('type', 'hidden')
+            .attr('name', 'stripeToken')
+            .val(id);
+          var $email = $('<input>')
+            .attr('type', 'hidden')
+            .attr('name', 'stripeEmail')
+            .val(email);
+          $id.appendTo($form);
+          $email.appendTo($form);
+          $form.trigger('submit');
+        }
+      });
+    }
+  });
+});
+</script>
+{%endblock%}
+

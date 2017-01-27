@@ -18,8 +18,8 @@ $(document).ready(function() {
           });
 
         $('.dropdown-title').on('click', function() {
-    $('.dropdown-menu').toggle();
-    });
+        $('.dropdown-menu').toggle();
+        });
      $(".grid-data").click(function(){
       window.location.href = $(this).data('chapter-url');
      });
@@ -30,25 +30,287 @@ $(document).ready(function() {
        $(this).find(".data-text").css("color","#666");
     });
 
-     $(".sign-up-revolve-update .form-checkbox").click(function(e){
-         e.stopPropagation();
-         var $this = $(this).find("div:first-child");
-         var checkboxSatus = $this.parent().data('checkbox-status');
-         if(checkboxSatus == "checked") {
-             $this.removeClass('mark-checkbox').addClass('unmarked-checkbox');
-             $this.parent().data('checkbox-status', "unchecked");
-         } else {
-                $this.removeClass('unmarked-checkbox').addClass('mark-checkbox');
-                $this.parent().data('checkbox-status', "checked");
-         }
+    $(".get-start-btn").click(function(e){
+        window.location.href = $(this).data('form-url');
     });
+     $(".form-checkbox").click(function(e){
+         e.stopPropagation();
+         var findParent = $(this);
+         if(findParent.parents('.know-interest-cntnr').length) {
+            var $this = $(this).find("div:first-child");
+            var checkboxSatus = $this.data('checkbox-status');
+            if(checkboxSatus == "unchecked") {
+                findParent.closest('.know-interest-cntnr').find('.form-checkbox div:first-child').addClass('unmarked-checkbox').removeClass('mark-checkbox');
+                findParent.closest('.know-interest-cntnr').find('.form-checkbox div:first-child').data('checkbox-status', "unchecked");
+                $this.removeClass('unmarked-checkbox').addClass('mark-checkbox');
+                $this.data('checkbox-status', "checked");
+             }
+         } else if (findParent.parents('.get-to-know-revolv-block').length){
+            var $this = $(this).find("div:first-child");
+            var checkboxSatus = $this.data('checkbox-status');
+            if(checkboxSatus == "unchecked") {
+                findParent.closest('.get-to-know-revolv-block').find('.form-checkbox div:first-child').addClass('unmarked-checkbox').removeClass('mark-checkbox');
+                findParent.closest('.get-to-know-revolv-block').find('.form-checkbox div:first-child').data('checkbox-status', "unchecked");
+                $this.removeClass('unmarked-checkbox').addClass('mark-checkbox');
+                $this.data('checkbox-status', "checked");
+            }
+         } else if (findParent.parents('.affiliation-org-block').length){
+            var $this = $(this).find("div:first-child");
+            var checkboxSatus = $this.data('checkbox-status');
+            if(checkboxSatus == "unchecked") {
+                findParent.closest('.affiliation-org-block').find('.form-checkbox div:first-child').addClass('unmarked-checkbox').removeClass('mark-checkbox');
+                findParent.closest('.affiliation-org-block').find('.form-checkbox div:first-child').data('checkbox-status', "unchecked");
+                $this.removeClass('unmarked-checkbox').addClass('mark-checkbox');
+                $this.data('checkbox-status', "checked");
+            }
+         } else if (findParent.parents('.solar-proj-need-block').length){
+            var $this = $(this).find("div:first-child");
+            var checkboxSatus = $this.data('checkbox-status');
+            if(checkboxSatus == "unchecked") {
+                findParent.closest('.solar-proj-need-block').find('.form-checkbox div:first-child').addClass('unmarked-checkbox').removeClass('mark-checkbox');
+                findParent.closest('.solar-proj-need-block').find('.form-checkbox div:first-child').data('checkbox-status', "unchecked");
+                $this.removeClass('unmarked-checkbox').addClass('mark-checkbox');
+                $this.data('checkbox-status', "checked");
+            }
+         } else if (findParent.parents('.annual-budget-cntnr').length){
+            var $this = $(this).find("div:first-child");
+            var checkboxSatus = $this.data('checkbox-status');
+            if(checkboxSatus == "unchecked") {
+                findParent.closest('.annual-budget-cntnr').find('.form-checkbox div:first-child').addClass('unmarked-checkbox').removeClass('mark-checkbox');
+                findParent.closest('.annual-budget-cntnr').find('.form-checkbox div:first-child').data('checkbox-status', "unchecked");
+                $this.removeClass('unmarked-checkbox').addClass('mark-checkbox');
+                $this.data('checkbox-status', "checked");
+            }
+         } else if (findParent.parents('.own-building-block').length){
+            var $this = $(this).find("div:first-child");
+            var checkboxSatus = $this.data('checkbox-status');
+            if(checkboxSatus == "unchecked") {
+                findParent.closest('.own-building-block').find('.form-checkbox div:first-child').addClass('unmarked-checkbox').removeClass('mark-checkbox');
+                findParent.closest('.own-building-block').find('.form-checkbox div:first-child').data('checkbox-status', "unchecked");
+                $this.removeClass('unmarked-checkbox').addClass('mark-checkbox');
+                $this.data('checkbox-status', "checked");
+            }
+         } else if (findParent.parents('.org-building-years').length){
+            var $this = $(this).find("div:first-child");
+            var checkboxSatus = $this.data('checkbox-status');
+            if(checkboxSatus == "unchecked") {
+                findParent.closest('.org-building-years').find('.form-checkbox div:first-child').addClass('unmarked-checkbox').removeClass('mark-checkbox');
+                findParent.closest('.org-building-years').find('.form-checkbox div:first-child').data('checkbox-status', "unchecked");
+                $this.removeClass('unmarked-checkbox').addClass('mark-checkbox');
+                $this.data('checkbox-status', "checked");
+            }
+         } else if (findParent.parents('.get-building-roof-year').length){
+            var $this = $(this).find("div:first-child");
+            var checkboxSatus = $this.data('checkbox-status');
+            if(checkboxSatus == "unchecked") {
+                findParent.closest('.get-building-roof-year').find('.form-checkbox div:first-child').addClass('unmarked-checkbox').removeClass('mark-checkbox');
+                findParent.closest('.get-building-roof-year').find('.form-checkbox div:first-child').data('checkbox-status', "unchecked");
+                $this.removeClass('unmarked-checkbox').addClass('mark-checkbox');
+                $this.data('checkbox-status', "checked");
+            }
+         } else if (findParent.parents('.roof-replace-plan').length){
+            var $this = $(this).find("div:first-child");
+            var checkboxSatus = $this.data('checkbox-status');
+            if(checkboxSatus == "unchecked") {
+                findParent.closest('.roof-replace-plan').find('.form-checkbox div:first-child').addClass('unmarked-checkbox').removeClass('mark-checkbox');
+                findParent.closest('.roof-replace-plan').find('.form-checkbox div:first-child').data('checkbox-status', "unchecked");
+                $this.removeClass('unmarked-checkbox').addClass('mark-checkbox');
+                $this.data('checkbox-status', "checked");
+            }
+         }
+             /*var $this = $(this).find("div:first-child");
+             var checkboxSatus = $this.data('checkbox-status');
+             if(checkboxSatus == "checked") {
+                 $this.removeClass('mark-checkbox').addClass('unmarked-checkbox');
+                 $this.data('checkbox-status', "unchecked");
+             } else {
+                    $this.removeClass('unmarked-checkbox').addClass('mark-checkbox');
+                    $this.data('checkbox-status', "checked");
+             }*/
+    });
+     function step1Validation() {
+            var name = $('.input-full-name input[type=text]').val().trim();
+            var email = $('.input-email-code > div:first-child input[type=text]').val().trim();
+            var zipCode = $('.input-email-code > div:last-child input[type=text]').val().trim();
+            console.log(name.length)
+            var status = "success";
+            $(".field-error").remove();
+            if(name.length <= 0) {
+                var errorMsg = '<div class="field-error">Please enter your name.</div>';
+                $(".input-full-name").append(errorMsg);
+                status = "error";
+            } if(email.length <= 0) {
+                var errorMsg = '<div class="field-error">Please enter your email.</div>';
+                $(".input-email-code > div:first-child").append(errorMsg);
+                status = "error";
+            } if(zipCode.length <= 0) {
+                var errorMsg = '<div class="field-error">Please enter zip code.</div>';
+                $(".input-email-code > div:last-child").append(errorMsg);
+                status = "error";
+            }
+            return status;
+     }
+     function step2Validation() {
+            var personalDesc = $(".proj-intrest-desc-block .text-area").val().trim();
+            var leadDesc = $(".lead-exp-desc-block .text-area").val().trim();
+            var status = "success";
+            $(".field-error").remove();
+            if(personalDesc.length <= 0) {
+                var errorMsg = '<div class="field-error">Please tell us why are you personally interested in spearheading a solar project in your community?</div>';
+                $(".proj-intrest-desc-block").after(errorMsg);
+                status = "error";
+            } if(leadDesc.length <= 0) {
+                var errorMsg = '<div class="field-error">Please tell us what experience do you have leading community-based projects?</div>';
+                $(".lead-exp-desc-main-block").append(errorMsg);
+                status = "error";
+            }
+            return status;
+     }
+     function step3Validation() {
+            var organisationName = $('.org-name-taxid > div:first-child input[type=text]').val().trim();
+            var organisationTaxId = $('.org-name-taxid > div:last-child input[type=text]').val().trim();
+            var organisationAddress = $('.org-address input[type=text]').val().trim();
+
+            var billingAddress = $('.billing-addr input[type=text]').val().trim();
+            var websiteName = $('.webite-and-phone > div:first-child input[type=text]').val().trim();
+            var phoneNumber = $('.webite-and-phone > div:last-child input[type=text]').val().trim();
+
+            var missionStatement = $('.mission-stmnt input[type=text]').val().trim();
+            var orgStartYear = $('.org-strt-year input[type=text]').val().trim();
+            var status = "success";
+            $(".field-error").remove();
+            if(organisationName.length <= 0) {
+                var errorMsg = '<div class="field-error">Please enter organization name.</div>';
+                $(".org-name-taxid > div:first-child").append(errorMsg);
+                status = "error";
+            } if(organisationTaxId.length <= 0) {
+                var errorMsg = '<div class="field-error">Please enter tax id.</div>';
+                $(".org-name-taxid > div:last-child").append(errorMsg);
+                status = "error";
+            } if(organisationAddress.length <= 0) {
+                var errorMsg = '<div class="field-error">Please enter organization address.</div>';
+                $(".org-address").append(errorMsg);
+                status = "error";
+            }
+            if(billingAddress.length <= 0) {
+                var errorMsg = '<div class="field-error">Please enter billing address.</div>';
+                $(".billing-addr").append(errorMsg);
+                status = "error";
+            } if(websiteName.length <= 0) {
+                var errorMsg = '<div class="field-error">Please enter your website name.</div>';
+                $(".webite-and-phone > div:first-child").append(errorMsg);
+                status = "error";
+            } if(phoneNumber.length <= 0) {
+                var errorMsg = '<div class="field-error">Please enter your phone number.</div>';
+                $(".webite-and-phone > div:last-child").append(errorMsg);
+                status = "error";
+            }
+            if(missionStatement.length <= 0) {
+                var errorMsg = '<div class="field-error">Please enter mission statement.</div>';
+                $(".mission-stmnt").append(errorMsg);
+                status = "error";
+            } if(orgStartYear.length <= 0) {
+                var errorMsg = '<div class="field-error">Please enter organization start year.</div>';
+                $(".org-strt-year").append(errorMsg);
+                status = "error";
+            }
+            return status;
+     }
+     function step4Validation() {
+            var folkCounts = $('.folk-count input[type=text]').val().trim();
+            var electricityProvider = $('.electricity-provider input[type=text]').val().trim();
+            var orgInterestBlock = $(".org-intrest-solar-block .text-area").val().trim();
+            var status = "success";
+            $(".field-error").remove();
+            if(folkCounts.length <= 0) {
+                var errorMsg = '<div class="field-error">Please enter people count.</div>';
+                $(".folk-count").append(errorMsg);
+                status = "error";
+            } if(electricityProvider.length <= 0) {
+                var errorMsg = '<div class="field-error">Please enter electric utility provider. </div>';
+                $(".electricity-provider").append(errorMsg);
+                status = "error";
+            }
+            if(orgInterestBlock.length <= 0) {
+                var errorMsg = '<div class="field-error">Please tell us why is the organization interested in going solar?</div>';
+                $(".org-intrest-solar-block").after(errorMsg);
+                status = "error";
+            }
+            return status;
+     }
     $(".from-nxt-btn").click(function(e){
         var $this = $(this);
-        var formNumber = parseInt($this.parent().prop('className').substr($this.parent().prop('className').length - 1));
-	    (++formNumber).toString();
-        $this.parent().hide();
-        $(".form-step-"+formNumber).show();
+        var status;
+        if ($this.parents('.form-step-1').length) {
+            status = step1Validation();
+            if (status == "success") {
+                var checkFilter = $this.closest('.form-step-1').find(".know-interest-cntnr .mark-checkbox").data('form-filter');
+                if (checkFilter == "addFilter") {
+                    $(".form-step-2 .from-nxt-btn").hide();
+                    $(".form-step-2 .form-submit-btn").show();
+                }
+            }
+        }
+        if ($this.parents('.form-step-2').length) {
+            status = step2Validation();
+        }
+        if ($this.parents('.form-step-3').length) {
+            status = step3Validation();
+        }
+        console.log(status)
+        if (status == "success") {
+                var formNumber = parseInt($this.parent().prop('className').substr($this.parent().prop('className').length - 1));
+                (++formNumber).toString();
+                $this.parent().hide();
+                $(".form-step-"+formNumber).show();
+        }
+
     });
+     $(".form-submit-btn").click(function(e){
+         var $this = $(this);
+         var status;
+        var name = $('.input-full-name input[type=text]').val().trim();
+        var email = $('.input-email-code > div:first-child input[type=text]').val().trim();
+        var zipCode = $('.input-email-code > div:last-child input[type=text]').val().trim();
+        var signUp = $(".sign-up-revolve-update div:last-child").text();
+        var interest = $(".know-interest-cntnr .mark-checkbox").parent().next().text();
+        var heardSource = $(".get-to-know-revolv-block .mark-checkbox").parent().next().text();
+        console.log(name, email, zipCode, signUp, interest, heardSource)
+        var personalDesc = $(".proj-intrest-desc-block .text-area").val().trim();
+        var leadDesc = $(".lead-exp-desc-block .text-area").val().trim();
+        if ($this.parents('.form-step-2').length) {
+            status = step2Validation();
+            return;
+        }
+        console.log(personalDesc, leadDesc)
+         if ($this.parents('.form-step-4').length) {
+            status = step4Validation();
+            if(status == "error")
+             return;
+        }
+        var organisationName = $('.org-name-taxid > div:first-child input[type=text]').val().trim();
+        var organisationTaxId = $('.org-name-taxid > div:last-child input[type=text]').val().trim();
+        var organisationAddress = $('.org-address input[type=text]').val().trim();
+        var billingAddress = $('.billing-addr input[type=text]').val().trim();
+        var websiteName = $('.webite-and-phone > div:first-child input[type=text]').val().trim();
+        var phoneNumber = $('.webite-and-phone > div:last-child input[type=text]').val().trim();
+        var missionStatement = $('.mission-stmnt input[type=text]').val().trim();
+        var orgStartYear = $('.org-strt-year input[type=text]').val().trim();
+        var affiliation = $(".affiliation-org-block .mark-checkbox").parent().next().text();
+        var solarProjNeed = $(".solar-proj-need-cntnr .mark-checkbox").parent().next().text();
+        console.log(organisationName, organisationTaxId, organisationAddress, billingAddress, websiteName, phoneNumber,
+        missionStatement, orgStartYear, affiliation, solarProjNeed);
+        var annualBudget = $(".annual-budget-cntnr .mark-checkbox").parent().next().text();
+        var checkOwnBuulding = $(".own-building-block .mark-checkbox").parent().next().text();
+        var orgBuildingYears = $(".org-building-years .mark-checkbox").parent().next().text();
+        var folkCounts = $('.folk-count input[type=text]').val().trim();
+        var buildingRoofYear = $(".get-building-roof-year .mark-checkbox").parent().next().text();
+        var roofReplace = $(".roof-replace-plan .mark-checkbox").parent().next().text();
+        var electricityProvider = $('.electricity-provider input[type=text]').val().trim();
+        var orgInterestBlock = $(".org-intrest-solar-block .text-area").val().trim();
+         console.log(annualBudget, checkOwnBuulding, orgBuildingYears, folkCounts, buildingRoofYear, roofReplace,
+        electricityProvider, orgInterestBlock);
+     });
 });
 var streamVideo = 0, element, instance;
 function play(vidId) {
