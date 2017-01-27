@@ -382,6 +382,11 @@ def select_chapter(request, chapter):
         return render_to_response('base/chapter1'
                                   '2.html',
                                   context_instance=RequestContext(request))
+
+def intake_form(request):
+    return render_to_response('base/intake_form.html',
+                              context_instance=RequestContext(request))
+
 class DashboardRedirect(UserDataMixin, View):
     """
     Redirects user to appropriate dashboard. (e.g. Administrators automagically
