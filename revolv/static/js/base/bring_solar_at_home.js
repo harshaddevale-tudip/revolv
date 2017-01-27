@@ -132,15 +132,15 @@ $(document).ready(function() {
             var name = $('.input-full-name input[type=text]').val().trim();
             var email = $('.input-email-code > div:first-child input[type=text]').val().trim();
             var zipCode = $('.input-email-code > div:last-child input[type=text]').val().trim();
-            console.log(name.length)
+            var regExp = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
             var status = "success";
             $(".field-error").remove();
             if(name.length <= 0) {
                 var errorMsg = '<div class="field-error">Please enter your name.</div>';
                 $(".input-full-name").append(errorMsg);
                 status = "error";
-            } if(email.length <= 0) {
-                var errorMsg = '<div class="field-error">Please enter your email.</div>';
+            } if(email.length <= 0 || regExp.test(email) == false) {
+                var errorMsg = '<div class="field-error">Please enter valid email.</div>';
                 $(".input-email-code > div:first-child").append(errorMsg);
                 status = "error";
             } if(zipCode.length <= 0) {
@@ -177,6 +177,7 @@ $(document).ready(function() {
 
             var missionStatement = $('.mission-stmnt input[type=text]').val().trim();
             var orgStartYear = $('.org-strt-year input[type=text]').val().trim();
+            var urlRegEx = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
             var status = "success";
             $(".field-error").remove();
             if(organisationName.length <= 0) {
@@ -196,7 +197,7 @@ $(document).ready(function() {
                 var errorMsg = '<div class="field-error">Please enter billing address.</div>';
                 $(".billing-addr").append(errorMsg);
                 status = "error";
-            } if(websiteName.length <= 0) {
+            } if(websiteName.length <= 0 || urlRegEx.test(websiteName) == false) {
                 var errorMsg = '<div class="field-error">Please enter your website name.</div>';
                 $(".webite-and-phone > div:first-child").append(errorMsg);
                 status = "error";
