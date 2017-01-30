@@ -102,12 +102,12 @@ def stripe_payment(request, pk):
         context['user'] = request.user
         context['project'] = project
         context['amount'] = tip_cents / 100.0
-        # send_revolv_email(
-        #     'post_donation',
-        #     context, [request.user.email]
-        # )
+        send_revolv_email(
+            'post_donation',
+            context, [request.user.email]
+        )
         messages.success(request, 'Donation Successful')
-        return HttpResponseRedirect(reverse("dashboard") + '?social=donation')
+        return HttpResponseRedirect(reverse("project:view", kwargs={'pk':pk}) + '?social=donation')
 
 
     else:
@@ -212,6 +212,10 @@ def stripe_operation_donation(request):
             except Exception:
                 error_msg = "Payment error. Re-volv has been notified."
                 logger.exception(error_msg)
+
+                messages.success(request, 'Donation Successful')
+                return redirect('home')
+
     else:
         try:
             stripe.Charge.create(source=token, currency="usd", amount=amount_cents)
@@ -241,8 +245,8 @@ def stripe_operation_donation(request):
             payment_type=PaymentType.objects.get_stripe(),
         )
 
-    messages.success(request, 'Donation Successful')
-    return redirect('/signin/#signup')
+        messages.success(request, 'Donation Successful')
+        return redirect('/signin/#signup')
 
 class DonationLevelFormSetMixin(object):
     """
