@@ -1,5 +1,8 @@
 
 $(document).ready(function() {
+      $.ajaxSetup({
+        data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+        });
      $(".navbar-toggle").click(function (event) {
           var clickover = $(event.target);
           var _opened = $(".navbar-collapse").hasClass("collapse in");
@@ -267,7 +270,7 @@ $(document).ready(function() {
         }
 
     });
-     $(".form-submit-btn").click(function(e){
+    $(".form-submit-btn").click(function(e){
          var $this = $(this);
          var status, data= {};
         data.name = $('.input-full-name input[type=text]').val().trim();
@@ -278,6 +281,7 @@ $(document).ready(function() {
         data.heardSource = $(".get-to-know-revolv-block .mark-checkbox").parent().next().text().trim();
         data.personalDesc = $(".proj-intrest-desc-block .text-area").val().trim();
         data.leadDesc = $(".lead-exp-desc-block .text-area").val().trim();
+
         if ($this.parents('.form-step-2').length) {
             status = step2Validation();
             if(status == "error")
@@ -288,6 +292,7 @@ $(document).ready(function() {
             if(status == "error")
              return;
         }
+
         data.organisationName = $('.org-name-taxid > div:first-child input[type=text]').val().trim();
         data.organisationTaxId = $('.org-name-taxid > div:last-child input[type=text]').val().trim();
         data.organisationAddress = $('.org-address input[type=text]').val().trim();
@@ -312,8 +317,10 @@ $(document).ready(function() {
                 type: 'POST',
                 url: urlData,
                 data: {
-                    projectData: JSON.stringify(data)
+                    projectData: JSON.stringify(data),
+                    csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value
                 }
+
             })
             .done(function (response) {
                 console.log(response)

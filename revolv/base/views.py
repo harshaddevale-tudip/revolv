@@ -1,4 +1,5 @@
 from collections import OrderedDict
+import logging
 
 from django.contrib import messages
 from django.contrib.auth import login as auth_login
@@ -10,6 +11,7 @@ from django.core.urlresolvers import reverse
 from django.db.models import Sum
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
+from django.http.response import HttpResponseBadRequest, HttpResponseRedirect
 from django.shortcuts import redirect, render_to_response
 from django.utils.decorators import method_decorator
 from django.views.decorators.debug import sensitive_post_parameters
@@ -28,7 +30,7 @@ from revolv.tasks.sfdc import send_signup_info
 from revolv.lib.mailer import send_revolv_email
 from social.apps.django_app.default.models import UserSocialAuth
 
-
+logger = logging.getLogger(__name__)
 
 class HomePageView(UserDataMixin, TemplateView):
     """
@@ -289,8 +291,15 @@ class SignupView(RedirectToSigninOrHomeMixin, FormView):
         u = form.ensure_authenticated_user()
         name = u.revolvuserprofile.get_full_name()
         send_signup_info.delay(name, u.email, u.revolvuserprofile.address)
+
         # log in the newly created user model. if there is a problem, error
         auth_login(self.request, u)
+        context = {}
+        context['user'] = self.request.user
+        send_revolv_email(
+            'post_donation',
+            context, [self.request.user.email]
+        )
         messages.success(self.request, 'Signed up successfully!')
         # return redirect("dashboard" +'?social=true')
         return HttpResponseRedirect(reverse("dashboard") + '?social=signup')
@@ -343,6 +352,49 @@ def solarathome(request):
 def bring_solar_tou_your_community(request):
     return render_to_response('base/bring_solar_at_community.html',
                               context_instance=RequestContext(request))
+
+def intake_form_submit(request):
+    try:
+        print ("Hiiiiiiiiiiiiiii")
+        projectData = request.POST['projectData']
+        print ("Hiiiiiiiiiiiiiii",projectData )
+
+    except:
+        logger.exception('Form values are not valid')
+        return HttpResponseBadRequest('bad POST data')
+
+    context = {}
+    context['projectData'] = projectData
+    # context['email'] = projectData.email
+    # context['zipCode'] = zipCode
+    # context['signUp'] = signUp
+    # context['interest'] = interest
+    # context['heardSource'] = heardSource
+    # context['personalDesc'] = personalDesc
+    # context['leadDesc'] = leadDesc
+    # context['organisationName'] = organisationName
+    # context['organisationTaxId'] = organisationTaxId
+    # context['organisationAddress'] = organisationAddress
+    # context['billingAddress'] = billingAddress
+    # context['phoneNumber'] = phoneNumber
+    # context['missionStatement'] = missionStatement
+    # context['orgStartYear'] = orgStartYear
+    # context['affiliation'] = affiliation
+    # context['solarProjNeed'] = solarProjNeed
+    # context['annualBudget'] = annualBudget
+    # context['checkOwnBuilding'] = checkOwnBuilding
+    # context['orgBuildingYears'] = orgBuildingYears
+    # context['orgBuildingYears'] = orgBuildingYears
+    # context['buildingRoofYear'] = buildingRoofYear
+    # context['roofReplace'] = roofReplace
+    # context['electricityProvider'] = electricityProvider
+    # context['orgInterestBlock'] = orgInterestBlock
+
+    send_revolv_email(
+        'Intake_form',
+        context, ['info@re-volv.org']
+    )
+
 
 def select_chapter(request, chapter):
     if chapter == '1':

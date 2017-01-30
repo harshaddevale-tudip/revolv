@@ -8,7 +8,7 @@ from wagtail.wagtailcore import urls as wagtail_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
 
 from revolv.base import views as base_views
-from revolv.base.views import solarathome, bring_solar_tou_your_community, select_chapter, intake_form
+from revolv.base.views import solarathome, bring_solar_tou_your_community, select_chapter, intake_form, intake_form_submit
 
 urlpatterns = patterns(
     '',
@@ -35,7 +35,8 @@ urlpatterns = patterns(
     url(r'^solar_at_home/$',solarathome, name='solar_at_home'),
     url(r'^bring_solar_to_your_community/$',bring_solar_tou_your_community, name='bring_solar_to_your_community'),
     url(r'^bring_solar_to_your_community/chapter/(?P<chapter>\d+)/$',select_chapter, name='chapter'),
-    url(r'^intake_form/$',intake_form, name='intake_form'),
+    url(r'^bring_solar_to_your_community/intake_form/$',intake_form, name='intake_form'),
+    url(r'^bring_solar_to_your_community/intake_form/submit/$',intake_form_submit, name='intake_form_submit'),
     url(r'^my_social_account/$', 'revolv.base.views.social_connection', name='social-connection'),
     url(r'^social_connect_failed/$', 'revolv.base.views.social_exception', name='social-exception'),
 

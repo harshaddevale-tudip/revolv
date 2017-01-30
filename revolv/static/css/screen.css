@@ -56,7 +56,7 @@ a:hover {
 .logo-size {
        width: 26vmin;
     /* height: 50%; */
-    float: left;
+    float: right;
     }
 
 .yellow-buttons {
@@ -407,7 +407,7 @@ height: 14px;
 z-index: 448;
 }
 .background-image-size {
-    width: 26vmin;
+    width: 39vmin;
     position: relative;
     float: right;
 }

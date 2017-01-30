@@ -108,7 +108,7 @@ body {
     width: 100%;
     color: #666666;
     font-size: 2.3vmin;
-    display: none;
+    #display: none;
 }
 #champion-carousel .carousel-control.right, #champion-carousel .carousel-control.left {
     background-image: none;
