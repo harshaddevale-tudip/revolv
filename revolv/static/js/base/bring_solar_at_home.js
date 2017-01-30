@@ -179,6 +179,7 @@ $(document).ready(function() {
             var orgStartYear = $('.org-strt-year input[type=text]').val().trim();
             var urlRegEx = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
             var status = "success";
+            console.log(organisationTaxId)
             $(".field-error").remove();
             if(organisationName.length <= 0) {
                 var errorMsg = '<div class="field-error">Please enter organization name.</div>';
@@ -210,8 +211,8 @@ $(document).ready(function() {
                 var errorMsg = '<div class="field-error">Please enter mission statement.</div>';
                 $(".mission-stmnt").append(errorMsg);
                 status = "error";
-            } if(orgStartYear.length <= 0) {
-                var errorMsg = '<div class="field-error">Please enter organization start year.</div>';
+            } if(orgStartYear.length <= 0 || orgStartYear > 2017) {
+                var errorMsg = '<div class="field-error">Please enter valid organization start year.</div>';
                 $(".org-strt-year").append(errorMsg);
                 status = "error";
             }
@@ -268,49 +269,65 @@ $(document).ready(function() {
     });
      $(".form-submit-btn").click(function(e){
          var $this = $(this);
-         var status;
-        var name = $('.input-full-name input[type=text]').val().trim();
-        var email = $('.input-email-code > div:first-child input[type=text]').val().trim();
-        var zipCode = $('.input-email-code > div:last-child input[type=text]').val().trim();
-        var signUp = $(".sign-up-revolve-update div:last-child").text();
-        var interest = $(".know-interest-cntnr .mark-checkbox").parent().next().text();
-        var heardSource = $(".get-to-know-revolv-block .mark-checkbox").parent().next().text();
-        console.log(name, email, zipCode, signUp, interest, heardSource)
-        var personalDesc = $(".proj-intrest-desc-block .text-area").val().trim();
-        var leadDesc = $(".lead-exp-desc-block .text-area").val().trim();
+         var status, data= {};
+        data.name = $('.input-full-name input[type=text]').val().trim();
+        data.email = $('.input-email-code > div:first-child input[type=text]').val().trim();
+        data.zipCode = $('.input-email-code > div:last-child input[type=text]').val().trim();
+        data.signUp = $(".sign-up-revolve-update div:last-child").text().trim();
+        data.interest = $(".know-interest-cntnr .mark-checkbox").parent().next().text().trim();
+        data.heardSource = $(".get-to-know-revolv-block .mark-checkbox").parent().next().text().trim();
+        data.personalDesc = $(".proj-intrest-desc-block .text-area").val().trim();
+        data.leadDesc = $(".lead-exp-desc-block .text-area").val().trim();
         if ($this.parents('.form-step-2').length) {
             status = step2Validation();
-            return;
+            if(status == "error")
+             return;
         }
-        console.log(personalDesc, leadDesc)
          if ($this.parents('.form-step-4').length) {
             status = step4Validation();
             if(status == "error")
              return;
         }
-        var organisationName = $('.org-name-taxid > div:first-child input[type=text]').val().trim();
-        var organisationTaxId = $('.org-name-taxid > div:last-child input[type=text]').val().trim();
-        var organisationAddress = $('.org-address input[type=text]').val().trim();
-        var billingAddress = $('.billing-addr input[type=text]').val().trim();
-        var websiteName = $('.webite-and-phone > div:first-child input[type=text]').val().trim();
-        var phoneNumber = $('.webite-and-phone > div:last-child input[type=text]').val().trim();
-        var missionStatement = $('.mission-stmnt input[type=text]').val().trim();
-        var orgStartYear = $('.org-strt-year input[type=text]').val().trim();
-        var affiliation = $(".affiliation-org-block .mark-checkbox").parent().next().text();
-        var solarProjNeed = $(".solar-proj-need-cntnr .mark-checkbox").parent().next().text();
-        console.log(organisationName, organisationTaxId, organisationAddress, billingAddress, websiteName, phoneNumber,
-        missionStatement, orgStartYear, affiliation, solarProjNeed);
-        var annualBudget = $(".annual-budget-cntnr .mark-checkbox").parent().next().text();
-        var checkOwnBuulding = $(".own-building-block .mark-checkbox").parent().next().text();
-        var orgBuildingYears = $(".org-building-years .mark-checkbox").parent().next().text();
-        var folkCounts = $('.folk-count input[type=text]').val().trim();
-        var buildingRoofYear = $(".get-building-roof-year .mark-checkbox").parent().next().text();
-        var roofReplace = $(".roof-replace-plan .mark-checkbox").parent().next().text();
-        var electricityProvider = $('.electricity-provider input[type=text]').val().trim();
-        var orgInterestBlock = $(".org-intrest-solar-block .text-area").val().trim();
-         console.log(annualBudget, checkOwnBuulding, orgBuildingYears, folkCounts, buildingRoofYear, roofReplace,
-        electricityProvider, orgInterestBlock);
+        data.organisationName = $('.org-name-taxid > div:first-child input[type=text]').val().trim();
+        data.organisationTaxId = $('.org-name-taxid > div:last-child input[type=text]').val().trim();
+        data.organisationAddress = $('.org-address input[type=text]').val().trim();
+        data.billingAddress = $('.billing-addr input[type=text]').val().trim();
+        data.websiteName = $('.webite-and-phone > div:first-child input[type=text]').val().trim();
+        data.phoneNumber = $('.webite-and-phone > div:last-child input[type=text]').val().trim();
+        data.missionStatement = $('.mission-stmnt input[type=text]').val().trim();
+        data.orgStartYear = $('.org-strt-year input[type=text]').val().trim();
+        data.affiliation = $(".affiliation-org-block .mark-checkbox").parent().next().text().trim();
+        data.solarProjNeed = $(".solar-proj-need-cntnr .mark-checkbox").parent().next().text().trim();
+        data.annualBudget = $(".annual-budget-cntnr .mark-checkbox").parent().next().text().trim();
+        data.checkOwnBulding = $(".own-building-block .mark-checkbox").parent().next().text().trim();
+        data.orgBuildingYears = $(".org-building-years .mark-checkbox").parent().next().text().trim();
+        data.folkCounts = $('.folk-count input[type=text]').val().trim().trim();
+        data.buildingRoofYear = $(".get-building-roof-year .mark-checkbox").parent().next().text().trim();
+        data.roofReplace = $(".roof-replace-plan .mark-checkbox").parent().next().text().trim();
+        data.electricityProvider = $('.electricity-provider input[type=text]').val().trim();
+        data.orgInterestBlock = $(".org-intrest-solar-block .text-area").val().trim();
+        console.log(data)
+        var urlData = [location.protocol, '//', location.host, '/bring_solar_to_your_community/intake_form/submit/'].join('');
+        $.ajax({
+                type: 'POST',
+                url: urlData,
+                data: {
+                    projectData: JSON.stringify(data)
+                }
+            })
+            .done(function (response) {
+                console.log(response)
+            })
+            .fail(function (msg) {
+
+            });
      });
+     $(".webite-and-phone > div:last-child input[type=text]").mask("(999) 999-9999",{placeholder:"x"});
+     $.mask.definitions['h'] = "[0-9]";
+     $('.org-name-taxid > div:last-child input[type=text]').mask("hh-hhhhhhh",{placeholder:"x"});
+     $('.org-strt-year input[type=text]').mask("hhhh",{placeholder:""});
+     /*$('.input-email-code > div:last-child input[type=text]').mask("hhhhh-hhhh?-hh",{placeholder:"x"});*/
+
 });
 var streamVideo = 0, element, instance;
 function play(vidId) {
