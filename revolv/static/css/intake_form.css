@@ -174,6 +174,16 @@
     padding: 1vmin 0 0;
 }
 
+#intake-form-logo-img {
+    width: 26vmin;
+    position: relative;
+    float: left;
+}
+.logo-size {
+    width: 26vmin;
+    /* height: 50%; */
+    float: left;
+}
 @media (max-width: 767px) {
     .form-container {
         padding: 4vmin 5% 6vmin 5%;
