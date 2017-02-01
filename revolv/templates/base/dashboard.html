@@ -14,6 +14,7 @@
 
 {% block title %}My Portfolio - {% endblock %}
 {% block head %}
+
 <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'dist/css/pages/projects-list/index.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static "css/dashboard.css" %}">
@@ -67,6 +68,7 @@
     {% block body-bottom %}
     {% endblock %}
 <script>
+
     $( document ).ready(function() {
     var str = "donation";
         if ('{{ request.GET.social }}' == 'donation')
@@ -88,11 +90,11 @@
                  "service":"sharethis",
                  "element":document.getElementById('sharethis-button'),
                  "url":"https://re-volv.org",
-                 "title":$('h1.title-h1').text(),
+                 "title":'{{ request.GET.project }}',
                  "type":"large",
                  <!--"text":"ShareThis" ,-->
-                 "image":'https://re-volv.org/static/images/revolv-logo.png',
-                 "summary":"I just donated {0} to RE-volv in support of clean energy! Join me!"
+                 "image":'https://re-volv.org/media/{{request.GET.cover_photo}}',
+                 "summary":"I just donated $" + {{ request.GET.amount }}+ " to RE-volv in support of clean energy! Join me!"
          });
 </script>
 

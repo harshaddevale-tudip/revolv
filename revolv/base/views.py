@@ -355,9 +355,7 @@ def bring_solar_tou_your_community(request):
 
 def intake_form_submit(request):
     try:
-        print ("Hiiiiiiiiiiiiiii")
         projectData = request.POST['projectData']
-        print ("Hiiiiiiiiiiiiiii",projectData )
 
     except:
         logger.exception('Form values are not valid')
@@ -449,6 +447,9 @@ class DashboardRedirect(UserDataMixin, View):
 
     def get(self, request, *args, **kwargs):
         social = request.GET.get('social', '')
+        amount = request.session.get('amount')
+        project = request.session.get('project')
+        cover_photo = request.session.get('cover_photo','')
         if bool(request.GET) is False :
             if not self.is_authenticated:
                 return redirect('home')
@@ -466,9 +467,9 @@ class DashboardRedirect(UserDataMixin, View):
                 return redirect('administrator:dashboard')
 
             if self.is_ambassador:
-                return redirect('ambassador:dashboard' + '?social=' + social)
-
-            return redirect(reverse('donor:dashboard') + '?social=' + social)
+                return redirect(reverse('ambassador:dashboard') + '?social=' + social+'&amount='+amount+'&project='+project+'&cover_photo='+''.join(cover_photo))
+            else:
+                return redirect(reverse('donor:dashboard') + '?social=' + social+'&amount='+amount+'&project='+project+'&cover_photo='+''.join(cover_photo))
 
 
 # password reset/change views: thin wrappers around django's built in password

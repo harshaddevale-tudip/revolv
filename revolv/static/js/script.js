@@ -94,6 +94,30 @@ function format(number){
 }
 
 $(document).ready(function(){
+     $(".stripe-button-el").click(function(){
+         if($(this).find("span:last-child").text() != "Next") {
+            $(".input-custom-amount input[type=number]").val($(this).find("span:last-child").text());
+         }
+     });
+    // $(".u-background--grey div:first-child").off();
+     $(".u-background--grey label").click(function() {
+       console.log("clicked")
+          $(".monthly-plan-msg").toggle();
+     });
+     $(".input-custom-amount input[type=number]").change(function(){
+       if($(this).val().trim() > 0) {
+           $(".donate-popup .next-button").addClass("stripe-button-el");
+           $(".donate-popup .next-button").css("background-color", "#4EB181");
+           $(".donate-popup .next-button").removeClass("disable-donation-btn");
+       } else {
+          $(".donate-popup .next-button").css("background-color", "#9a9a9a");
+           $(".donate-popup .next-button").removeClass("stripe-button-el");
+           $(".donate-popup .next-button").addClass("disable-donation-btn");
+       }
+     });
+     $(document).on('click','.stripe-button-el',function (e) {
+          $(this).closest(".modal").hide();
+     });
       $(document).click(function (event) {
           var clickover = $(event.target);
           var _opened = $(".navbar-collapse").hasClass("collapse in");

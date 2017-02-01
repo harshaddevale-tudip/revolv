@@ -1,6 +1,6 @@
 /* Reset HTML5
 */
-
+treehugger_logo
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
   font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
   margin: 0;
@@ -1632,14 +1632,24 @@ padding: 0;
     height: 102.075px;
     width: 150px;
 }
-.featured-on-module .logo-doe {
-    background: url(../images/logo-doe.png) no-repeat;
+
+.featured-on-module .logo-treehugger {
+    background: url(../images/treehugger_logo.png) no-repeat;
     background-position: top;
     background-size: 100% auto;
-    height: 113px;
-    width: 115px;
+    height: 66.075px;
+    width: 193px;
+}
+
+.featured-on-module .logo-doe {
+    background: url(../images/DOE_logo.jpg) no-repeat;
+    background-position: top;
+    background-size: 100% auto;
+    height: 65px;
+    width: 178px;
 }
 .featured-on-module .logo-forbes:hover,
+.featured-on-module .logo-treehugger:hover,
 .featured-on-module .logo-whitehouse:hover,
 .featured-on-module .logo-doe:hover {
     background-position: center 100%;
@@ -10285,8 +10295,12 @@ width: 580px;
         width: 76.5px;
     }
     .featured-on-module .logo-doe {
-        width: 75.7031247px;
-        height: 75px;
+        width: 88.703125px;
+        height: 29px;
+    }
+    .featured-on-module .logo-treehugger {
+        width: 103.703125px;
+        height: 37px;
     }
     .featured-on-module .carousel-control.left,
     .featured-on-module .carousel-control.right {
@@ -13098,4 +13112,156 @@ a.How_it_Works:hover {
     }
 
 
+.full-width {
+    float: left;
+    position: relative;
+    width: 100%;
+}
+.modal-content .donate-popup-header img.background-image-size {
+    float: left;
+    width: 7vmin;
+}
+.donate-popup .modal-header {
+    padding: 2vmin 0;
+    border: 0;
+}
+.donate-popup h4.modal-title {
+    float: left;
+    position: relative;
+    padding-left: 5%;
+    font-size: 3.2vmin;
+    font-weight: 100;
+}
+.modal-content {
+    background-color: #fff;
+    float: left;
+}
+.donate-popup .donation-value-suggestion {
+    background-color: #ebebeb;
+    text-align: center;
+    padding: 1vmin 0;
+    border-radius: 0.5em;
+    border-bottom: 2px solid rgba(0,0,0,0.1);
+    color: #494949;
+    cursor: pointer;
+    font-size: 2.6vmin;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
 
+.donate-popup .input-custom-amount span {
+    float: left;
+    font-size: 2.7vmin;
+    width: auto;
+     padding-left: 6%;
+}
+.donate-popup .input-custom-amount input[type=number] {
+    outline: 0;
+    border: 0;
+    width: 74%;
+    padding: 0;
+    margin: 0 !important;
+    height: auto;
+    box-shadow: none;
+    font-size: 2.7vmin;
+    padding-left: 2%;
+}
+.donate-popup .input-custom-amount {
+    border: 2px solid #C3E5D4;
+    padding: 0.8vmin 0;
+    width: 100%;
+}
+.donate-popup .donation-values > div > div {
+    margin: 0.7vmin 0 !important;
+}
+.donate-popup .next-button {
+    text-align: center;
+    padding: 1vmin 0;
+    border-radius: 0.5em;
+    border-bottom: 2px solid rgba(0,0,0,0.1);
+    color: #fff;
+    cursor: pointer;
+    font-family: 'Open Sans', 'Helvetica Neue', Arial, Verdana, 'Droid Sans', sans-serif;
+    font-size: 2.7vmin;
+    background-color: #9a9a9a;
+}
+.donate-popup .input-custom-amount input[type=number]::-webkit-input-placeholder {
+   font-size: 2.1vmin;
+}
+
+.donate-popup .input-custom-amount input[type=number]:-moz-placeholder {
+   font-size: 2.1vmin;
+}
+.donate-popup input[type='checkbox'] {
+    display: none;
+}
+.donate-popup input[type='checkbox']+label {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    font-weight: normal;
+    color: #494949;
+    margin: 0;
+    font-size: 2.3vmin;
+}
+.donate-popup input[type='checkbox']+label:before {
+    content: '';
+    vertical-align: text-bottom;
+    display: inline-block;
+    background: #fbfbfb;
+    border: 1px #ccc solid;
+    margin-right: 0.8vmin;
+    float: none;
+    width: 3.2vmin;
+    height: 3.2vmin;
+    line-height: 3.2vmin;
+    padding: 0;
+    text-align: center;
+    font-family: 'FontAwesome';
+    color: #669092;
+    font-size: 2.2vmin;
+}
+.donate-popup input[type='checkbox'] + label:before {
+    color: #5FB88D !important;
+}
+.donate-popup input[type='checkbox']:checked+label:before {
+    content: '\f00c';
+}
+.donate-popup .u-background--grey {
+    float: left;
+    width: 100%;
+    position: relative;
+    padding: 0 3% 0.5vmin;
+}
+.donate-popup .u-background--grey >div:first-child {
+    background-color: #fbfbfb;
+    line-height: 6vmin;
+    padding-left: 4%;
+}
+.donate-popup .monthly-plan-msg {
+    display: none;
+    float: left;
+    width: 100%;
+    position: relative;
+    padding: 1.4vmin 0% 2vmin;
+    color: #494949;
+    font-size: 2.1vmin;
+    padding-left: calc(4vmin + 4%);
+}
+.donation-values > div {
+    padding: 0 1.5%;
+}
+.donate-popup {
+    padding: 0 3.3% 2vmin;
+}
+.donate-popup-header > div:first-child {
+    padding: 0 0 0 2%;
+}
+
+.disable-donation-btn{
+    pointer-events:none;
+}

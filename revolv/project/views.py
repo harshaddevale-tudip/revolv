@@ -25,7 +25,7 @@ from revolv.project import forms
 from revolv.project.models import Category, Project, ProjectUpdate
 from revolv.tasks.sfdc import send_donation_info
 from revolv.lib.mailer import send_revolv_email
-
+import json
 
 logger = logging.getLogger(__name__)
 MAX_PAYMENT_CENTS = 99999999
@@ -102,12 +102,18 @@ def stripe_payment(request, pk):
         context['user'] = request.user
         context['project'] = project
         context['amount'] = tip_cents / 100.0
-        send_revolv_email(
-            'post_donation',
-            context, [request.user.email]
-        )
+        # send_revolv_email(
+        #     'post_donation',
+        #     context, [request.user.email]
+        # )
+        amount=donation_cents / 100.0
+        request.session['amount'] = str(amount)
+        request.session['project'] = project.title
+        cover_photo = Project.objects.values_list('cover_photo', flat=True).filter(pk=pk)
+        cover_photo=list(cover_photo)
+        request.session['cover_photo'] = cover_photo
         messages.success(request, 'Donation Successful')
-        return HttpResponseRedirect(reverse("project:view", kwargs={'pk':pk}) + '?social=donation')
+        return HttpResponseRedirect(reverse("dashboard") + '?social=donation')
 
 
     else:
@@ -159,66 +165,10 @@ def stripe_operation_donation(request):
         return HttpResponseBadRequest('bad POST data')
 
     # print ("wwwwwww", (int(amount_cents)*100))
-    if request.user.is_authenticated():
-        if check==None:
-            try:
-                stripe.Charge.create(source=token, currency="usd", amount=(int(amount_cents)*100))
-            except stripe.error.CardError as e:
-                body = e.json_body
-                error_msg = body['error']['message']
-            except stripe.error.APIConnectionError as e:
-                body = e.json_body
-                error_msg = body['error']['message']
-            except Exception:
-                error_msg = "Payment error. Re-volv has been notified."
-                logger.exception(error_msg)
-
-            tip = Tip.objects.create(
-                amount=amount_cents,
-                user=request.user.revolvuserprofile,
-            )
-
-            Payment.objects.create(
-                user=request.user.revolvuserprofile,
-                entrant=request.user.revolvuserprofile,
-                amount=0,
-                # project=project,
-                tip=tip,
-                payment_type=PaymentType.objects.get_stripe(),
-            )
-            messages.success(request, 'Donation Successful')
-            return redirect('home')
-
-        else:
-            try:
-                plan=stripe.Plan.create(
-                    amount=amount_cents,
-                    interval="month",
-                    name="Revolv Donation "+str(request.user),
-                    currency="usd",
-                    id="revolv_donation"+"_"+str(request.user))
-                customer = stripe.Customer.create(
-                    description="Customer for emma.martin@example.com",
-                    plan="revolv_donation",
-                    source=token  # obtained with Stripe.js
-                )
-
-            except stripe.error.CardError as e:
-                body = e.json_body
-                error_msg = body['error']['message']
-            except stripe.error.APIConnectionError as e:
-                body = e.json_body
-                error_msg = body['error']['message']
-            except Exception:
-                error_msg = "Payment error. Re-volv has been notified."
-                logger.exception(error_msg)
-
-                messages.success(request, 'Donation Successful')
-                return redirect('home')
-
-    else:
+    # if request.user.is_authenticated():
+    if check==None:
         try:
-            stripe.Charge.create(source=token, currency="usd", amount=amount_cents)
+            stripe.Charge.create(source=token, currency="usd", amount=(int(amount_cents)*100))
         except stripe.error.CardError as e:
             body = e.json_body
             error_msg = body['error']['message']
@@ -228,25 +178,136 @@ def stripe_operation_donation(request):
         except Exception:
             error_msg = "Payment error. Re-volv has been notified."
             logger.exception(error_msg)
-        user_id = User.objects.get(username='Guest').pk
-        user = RevolvUserProfile.objects.get(user_id=user_id)
-        if amount_cents > 0:
-            tip = Tip.objects.create(
-                amount=amount_cents,
-                user=user,
-            )
 
-        Payment.objects.create(
-            user=user,
-            entrant=user,
-            amount=0,
-            # project=project,
-            tip=tip,
-            payment_type=PaymentType.objects.get_stripe(),
-        )
-
+        # tip = Tip.objects.create(
+        #     amount=amount_cents,
+        #     user=request.user.revolvuserprofile,
+        # )
+        #
+        # Payment.objects.create(
+        #     user=request.user.revolvuserprofile,
+        #     entrant=request.user.revolvuserprofile,
+        #     amount=0,
+        #     # project=project,
+        #     tip=tip,
+        #     payment_type=PaymentType.objects.get_stripe(),
+        # )
         messages.success(request, 'Donation Successful')
-        return redirect('/signin/#signup')
+        return redirect('home')
+
+    else:
+        try:
+            plans=stripe.Plan.all()
+            plan = any(d['id'] == "revolv_donation"+"_"+str(amount_cents) for d in plans)
+            if not plan:
+                plan=stripe.Plan.create(
+                    amount=amount_cents,
+                    interval="month",
+                    name="Revolv Donation "+str(amount_cents),
+                    currency="usd",
+                    id="revolv_donation"+"_"+str(amount_cents))
+                stripe.Customer.create(
+                    email=email,
+                    description="Donation for RE-volv Operations",
+                    plan=plan,
+                    source=token  # obtained with Stripe.js
+                )
+            else:
+                stripe.Customer.create(
+                    email=email,
+                    description="Donation for RE-volv Operations",
+                    plan=stripe.Plan.retrieve("revolv_donation"+"_"+str(amount_cents)),
+                    source=token  # obtained with Stripe.js
+                )
+            messages.success(request, 'Donation Successful')
+            return redirect('home')
+
+        except stripe.error.CardError as e:
+            body = e.json_body
+            error_msg = body['error']['message']
+        except stripe.error.APIConnectionError as e:
+            body = e.json_body
+            error_msg = body['error']['message']
+        except Exception:
+            error_msg = "Payment error. Re-volv has been notified."
+            logger.exception(error_msg)
+
+            messages.success(request, 'Donation Successful')
+            return redirect('home')
+
+    # else:
+    #     if check == None:
+    #         try:
+    #             stripe.Charge.create(source=token, currency="usd", amount=amount_cents)
+    #         except stripe.error.CardError as e:
+    #             body = e.json_body
+    #             error_msg = body['error']['message']
+    #         except stripe.error.APIConnectionError as e:
+    #             body = e.json_body
+    #             error_msg = body['error']['message']
+    #         except Exception:
+    #             error_msg = "Payment error. Re-volv has been notified."
+    #             logger.exception(error_msg)
+    #         user_id = User.objects.get(username='Guest').pk
+    #         user = RevolvUserProfile.objects.get(user_id=user_id)
+    #         # if amount_cents > 0:
+    #         #     tip = Tip.objects.create(
+    #         #         amount=amount_cents,
+    #         #         user=user,
+    #         #     )
+    #         #
+    #         # Payment.objects.create(
+    #         #     user=user,
+    #         #     entrant=user,
+    #         #     amount=0,
+    #         #     # project=project,
+    #         #     tip=tip,
+    #         #     payment_type=PaymentType.objects.get_stripe(),
+    #         # )
+    #
+    #         messages.success(request, 'Donation Successful')
+    #         return redirect('/signin/#signup')
+    #
+    #     else:
+    #         try:
+    #             # user_id = User.objects.get(username='Guest').pk
+    #             # user = RevolvUserProfile.objects.get(user_id=user_id)
+    #             plans=stripe.Plan.all()
+    #             plan = any(d['id'] == "revolv_donation"+"_"+str(amount_cents) for d in plans)
+    #             if not plan:
+    #                 plan=stripe.Plan.create(
+    #                     amount=amount_cents,
+    #                     interval="month",
+    #                     name="Revolv Donation "+str(amount_cents),
+    #                     currency="usd",
+    #                     id="revolv_donation"+"_"+str(amount_cents))
+    #                 stripe.Customer.create(
+    #                     description="Donation for RE-volv Operations",
+    #                     plan=plan,
+    #                     source=token  # obtained with Stripe.js
+    #                 )
+    #             else:
+    #                 stripe.Customer.create(
+    #                     description="Donation for RE-volv Operations",
+    #                     plan=stripe.Plan.retrieve("revolv_donation"+"_"+str(amount_cents)),
+    #                     source=token  # obtained with Stripe.js
+    #                 )
+    #             messages.success(request, 'Donation Successful')
+    #             return redirect('home')
+    #
+    #         except stripe.error.CardError as e:
+    #             body = e.json_body
+    #             error_msg = body['error']['message']
+    #         except stripe.error.APIConnectionError as e:
+    #             body = e.json_body
+    #             error_msg = body['error']['message']
+    #         except Exception:
+    #             error_msg = "Payment error. Re-volv has been notified."
+    #             logger.exception(error_msg)
+    #
+    #             messages.success(request, 'Donation Successful')
+    #             return redirect('home')
+
 
 class DonationLevelFormSetMixin(object):
     """
