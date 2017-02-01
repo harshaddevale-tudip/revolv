@@ -1,6 +1,6 @@
 /* Reset HTML5
 */
-
+treehugger_logo
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
   font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
   margin: 0;
@@ -1632,14 +1632,24 @@ padding: 0;
     height: 102.075px;
     width: 150px;
 }
-.featured-on-module .logo-doe {
-    background: url(../images/logo-doe.png) no-repeat;
+
+.featured-on-module .logo-treehugger {
+    background: url(../images/treehugger_logo.png) no-repeat;
     background-position: top;
     background-size: 100% auto;
-    height: 113px;
-    width: 115px;
+    height: 66.075px;
+    width: 193px;
+}
+
+.featured-on-module .logo-doe {
+    background: url(../images/DOE_logo.jpg) no-repeat;
+    background-position: top;
+    background-size: 100% auto;
+    height: 65px;
+    width: 178px;
 }
 .featured-on-module .logo-forbes:hover,
+.featured-on-module .logo-treehugger:hover,
 .featured-on-module .logo-whitehouse:hover,
 .featured-on-module .logo-doe:hover {
     background-position: center 100%;
@@ -10285,8 +10295,12 @@ width: 580px;
         width: 76.5px;
     }
     .featured-on-module .logo-doe {
-        width: 75.7031247px;
-        height: 75px;
+        width: 88.703125px;
+        height: 29px;
+    }
+    .featured-on-module .logo-treehugger {
+        width: 103.703125px;
+        height: 37px;
     }
     .featured-on-module .carousel-control.left,
     .featured-on-module .carousel-control.right {
