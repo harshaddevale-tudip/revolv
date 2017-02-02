@@ -124,7 +124,41 @@ a:hover {
     top: 18vmin;
     padding: 4vmin calc(8.5% + 15px) 0 0;
   }
-
+   .carousel-second-img .text_overlay {
+        padding: 4vmin calc(20.5% + 15px) 0 calc(20.5% + 15px);
+    }
+   .carousel-second-img .text_content {
+        width: 100%;
+        text-align: center;
+        margin-right: 0;
+    }
+   .carousel-second-img  .how-it-works-button {
+        float: left;
+        width: 100%;
+        padding-top: 4vmin;
+    }
+   .carousel-second-img .How_it_Works {
+        font-size: 2.6vmin;
+        color: rgb(40, 40, 40);;
+        padding: 2vmin 10%;
+        float: none;
+        text-align: center;
+    }
+    .carousel-third-img .text_content {
+        float: left;
+        width: 53%;
+        text-align: left;
+        margin-right: 0;
+        padding-left: 10%;
+    }
+    .carousel-third-img .How_it_Works {
+        float: left;
+        font-size: 2.6vmin;
+        padding: 2vmin 11%;
+    }
+    .carousel-third-img .Bring_solar_energy__to_communities_around_the_c {
+        font-size: 2.9vmin;
+    }
   .text_content {
     position: relative;
     float: right;
@@ -140,7 +174,7 @@ a:hover {
   .CREATE_CLEAN_ENERGY {
     font-size: 6.1vmin;
     font-family: "Source Sans Pro";
-    color: rgb(51, 51, 51);
+    color: #fefefe;
     text-transform: uppercase;
     line-height: 5.8vmin;
     text-align: right;
@@ -153,7 +187,7 @@ a:hover {
 .Bring_solar_energy__to_communities_around_the_c {
     font-size: 2.3vmin;
     font-family: "Source Sans Pro";
-    color: rgb(51, 51, 51);
+    color: #fefefe;
     text-transform: uppercase;
     line-height: 3.7vmin;
     text-align: right;
@@ -163,13 +197,13 @@ a:hover {
 }
 
 .How_it_Works {
-  font-size: 2.2vmin;
+  font-size: 2.6vmin;
     font-weight: bold;
     font-family: "Source Sans Pro";
-    color: #f5f5f7;
+    color: rgb(40, 40, 40);;
     text-transform: uppercase;
     padding: 2vmin 14%;
-    background-color: rgb(20, 177, 231);
+    background-color: rgb(255, 204, 0);
     border-radius: 4px;
     float: right;
 }
@@ -342,7 +376,7 @@ a:hover {
 
 .logo-home {
      background: url(../images/logo-white.png);
-    margin: 17px 0 0 85px;
+    margin: 2.3vmin 0 0 13vmin;
     width: 171px;
     height: 68px;
     display: block;
@@ -372,19 +406,19 @@ left .carousel-controls{
 
 .column-left{
     float: left;
-    width: 25%;
+    width: 23.2%;
     position: absolute;
     left: 9vw;
 }
 .column-right{
     display: block;
-    width: 25%;
+    width: 23.2%;
     position: absolute;
     left: 36.5vw;
   }
   .column-center{
     float: right;
-    width: 25%;
+    width: 23.2%;
     position: absolute;
     left: 64vw;
 }
@@ -12233,6 +12267,7 @@ width: 580px;
     }
 }
 
+
 @media (min-width: 768px) and (max-width: 991px) and (-webkit-min-device-pixel-ratio: 1.5) {
     .header .logo,
     .footer .bottoms .logo {
@@ -12738,10 +12773,26 @@ label.checkmark.animate:after {
 }
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
     .yellow-buttons {
-    font-size: 1.6vmin;
+        font-size: 1.5vmin;
+    }
+    .video-desc {
+        font-size: 2.2vmin;
+    }
 }
-}
-
+/*@media only screen and (min-width: 1024px) and (max-width: 1366px) {
+    .yellow-buttons {
+        font-size: 1.4vmin;
+    }
+    #myCarousel .carousel-prev-button {
+        left: 11%;
+    }
+    #myCarousel .carousel-next-button {
+        left: 16%;
+    }
+    .video-desc {
+        font-size: 2.5vmin;
+    }
+}*/
 @media (max-width: 767px){
 .yellow-buttons {
     font-size: 1.4vmin;
@@ -12785,8 +12836,18 @@ label.checkmark.animate:after {
 
 .How_it_Works {
     font-size: 2.5vmin;
-        float: left;
+    float: left;
     width: 100%;
+}
+.carousel-second-img .How_it_Works {
+    padding: 2vmin 19%;
+    width: 100%;
+    color: #fff;
+}
+.carousel-second-img .how-it-works-button {
+    float: left;
+    width: 100%;
+    padding-top: 4vmin;
 }
 
 .Bring_solar_energy__to_communities_around_the_c {
@@ -12808,7 +12869,14 @@ label.checkmark.animate:after {
     float: none;
     margin: 0 auto;
     }
-
+.carousel-third-img .text_content {
+    width: 100%;
+    padding-left: 0;
+    text-align: center;
+}
+.carousel-third-img .text_overlay {
+    padding: 4vmin calc(20.5% + 15px) 0 calc(20.5% + 15px);
+}
 .how_it_works_rectangle{
   float: none;
     margin: 0 auto;

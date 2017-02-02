@@ -128,36 +128,72 @@ position: absolute;
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
     <div class="item active" >
-      <img class="background-image-size_home" src="static/images/revolv_background.png" alt="Chania">
+      <div class="text_overlay">
+        <div class="text_content">
+          <div class="space_btn_element">
+            <span class="CREATE_CLEAN_ENERGY">{{ settings.revolv_cms.MainPageSettings.site_tagline|safe }}</span>
+          </div>
+          <div class="space_btn_element">
+            <span class="Bring_solar_energy__to_communities_around_the_c">{{ settings.revolv_cms.MainPageSettings.site_subheading|safe }}</span>
+          </div>
+          <div class="how-it-works-button">
+            <a href="#how_it_works" class="How_it_Works space_btn_element">{{ settings.revolv_cms.MainPageSettings.how_it_works_heading|upper }}</a>
+          </div>
+        </div>
+      </div>
+      <img class="background-image-size_home" src="static/images/revolv_background1@1500*500.png" alt="Chania">
     </div>
 
-    <div class="item">
-      <img class="background-image-size_home"  src="static/images/revolv_background.png" alt="Chania">
+    <div class="item carousel-second-img">
+      <div class="text_overlay">
+        <div class="text_content">
+          <div class="space_btn_element">
+            <span class="CREATE_CLEAN_ENERGY">COMMUNITY-DRIVEN SOLUTIONS <br>TO CLIMATE CHANGE</span>
+          </div>
+          <div class="space_btn_element">
+            <span class="Bring_solar_energy__to_communities_around_the_c">We all can play a role in solving climate change</span>
+          </div>
+          <div class="how-it-works-button">
+            <a href="#how_it_works" class="How_it_Works space_btn_element">{{ settings.revolv_cms.MainPageSettings.how_it_works_heading|upper }}</a>
+          </div>
+        </div>
+      </div>
+      <img class="background-image-size_home"  src="static/images/revolv_background2@1500*500.png" alt="Chania">
     </div>
 
-    <div class="item">
-      <img class="background-image-size_home" src="static/images/revolv_background.png" alt="Flower">
+    <div class="item carousel-third-img">
+      <div class="text_overlay">
+        <div class="text_content">
+          <div class="space_btn_element">
+            <span class="CREATE_CLEAN_ENERGY">BUILDING COMMUNITY THROUGH SOLAR</span>
+          </div>
+          <div class="space_btn_element">
+            <span class="Bring_solar_energy__to_communities_around_the_c">Helping communities thrive.<br>One solar panel at a time.</span>
+          </div>
+          <div class="how-it-works-button">
+            <a href="#how_it_works" class="How_it_Works space_btn_element">{{ settings.revolv_cms.MainPageSettings.how_it_works_heading|upper }}</a>
+          </div>
+        </div>
+      </div>
+      <img class="background-image-size_home" src="static/images/revolv_background3@1500*500.png" alt="Flower">
     </div>
 
-    <div class="item">
-      <img class="background-image-size_home" src="static/images/revolv_background.png" alt="Flower">
-    </div>
   </div>
 
   <!-- Left and right controls -->
-  <div class="text_overlay">
-    <div class="text_content">
-      <div class="space_btn_element">
-        <span class="CREATE_CLEAN_ENERGY">{{ settings.revolv_cms.MainPageSettings.site_tagline|safe }}</span>
-      </div>
-      <div class="space_btn_element">
-        <span class="Bring_solar_energy__to_communities_around_the_c">{{ settings.revolv_cms.MainPageSettings.site_subheading|safe }}</span>
-      </div>
-      <div class="how-it-works-button">
-        <a href="#how_it_works" class="How_it_Works space_btn_element">{{ settings.revolv_cms.MainPageSettings.how_it_works_heading|upper }}</a>
-      </div>
-    </div>
-  </div>
+  <!--<div class="text_overlay">-->
+    <!--<div class="text_content">-->
+      <!--<div class="space_btn_element">-->
+        <!--<span class="CREATE_CLEAN_ENERGY">{{ settings.revolv_cms.MainPageSettings.site_tagline|safe }}</span>-->
+      <!--</div>-->
+      <!--<div class="space_btn_element">-->
+        <!--<span class="Bring_solar_energy__to_communities_around_the_c">{{ settings.revolv_cms.MainPageSettings.site_subheading|safe }}</span>-->
+      <!--</div>-->
+      <!--<div class="how-it-works-button">-->
+        <!--<a href="#how_it_works" class="How_it_Works space_btn_element">{{ settings.revolv_cms.MainPageSettings.how_it_works_heading|upper }}</a>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
   <a class="Ellipse_543 left carousel-control arrow-left"  href="#myCarousel" role="button" data-slide="prev">
     <span class=" glyphicon glyphicon-chevron-left next-button carousel-prev-button" aria-hidden="true"></span>
     <span class="sr-only">Previous</span>

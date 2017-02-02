@@ -45,7 +45,7 @@
 }
 .form-container input[type='text'] {
     padding: 1.7vmin 2.4vmin;
-    font-size: 3vmin;
+    font-size: 2.9vmin;
     border: none;
     border-radius: 2%;
     width: 100%;
@@ -130,7 +130,7 @@
     border-radius: 2%;
     cursor: pointer;
 }
-.form-container input[type=text]::-webkit-input-placeholder {
+.form-container input[type=text]::-webkit-input-placeholder, .form-container input[type=textarea]::-webkit-input-placeholder {
    font-size: 3.0vmin;
    color: #8D8D8D;
 }
@@ -145,7 +145,7 @@
     border: 0;
     resize: none;
     padding: 2vmin 0 0;
-    font-size: 2.6vmin;
+    font-size: 3vmin;
 }
 .lead-exp-desc-main-block {
     padding: 3.5vmin 0;
@@ -184,14 +184,37 @@
     /* height: 50%; */
     float: left;
 }
+@media (min-width: 768px) and (max-width: 1366px) {
+    .form-container {
+        padding: 4vmin 25% 6vmin 5%;
+    }
+}
 @media (max-width: 767px) {
     .form-container {
         padding: 4vmin 5% 6vmin 5%;
     }
-}
-@media (min-width: 768px) and (max-width: 1024px) {
-    .form-container {
-        padding: 4vmin 25% 6vmin 5%;
+    .input-email-code div:first-child {
+        padding-right: 0;
+        padding-bottom: 3vmin;
+    }
+    .organization-details .website-name, .organization-details .organization-name {
+        padding-right: 0;
+        padding-bottom: 4.4vmin;
+    }
+    .interest-text, .get-to-know-text {
+        font-size: 3.5vmin;
+    }
+    .know-interest-cntnr > div:first-child, .get-to-know-revolv-block > div:first-child, .proj-intrest-desc-block > div:first-child, .lead-exp-desc-block > div:first-child, .affiliation-org-block > div:first-child, .solar-proj-need-cntnr > div:first-child, .annual-budget-cntnr > div:first-child, .own-building-block > div:first-child, .org-building-years > div:first-child, .org-intrest-solar-block > div:first-child, .get-building-roof-year > div:first-child, .roof-replace-plan > div:first-child {
+        font-size: 3.7vmin;
+    }
+    .show-step-number {
+        font-size: 2.7vmin;
+    }
+    .step-1-heading {
+        font-size: 5vmin;
+    }
+    .sign-up-revolve-update {
+        font-size: 3.3vmin;
     }
 }
 .flex {

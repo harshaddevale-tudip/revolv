@@ -273,14 +273,14 @@ $(document).ready(function() {
     $(".form-submit-btn").click(function(e){
          var $this = $(this);
          var status, data= {};
-        data.name = $('.input-full-name input[type=text]').val().trim();
-        data.email = $('.input-email-code > div:first-child input[type=text]').val().trim();
-        data.zipCode = $('.input-email-code > div:last-child input[type=text]').val().trim();
-        data.signUp = $(".sign-up-revolve-update div:last-child").text().trim();
-        data.interest = $(".know-interest-cntnr .mark-checkbox").parent().next().text().trim();
-        data.heardSource = $(".get-to-know-revolv-block .mark-checkbox").parent().next().text().trim();
-        data.personalDesc = $(".proj-intrest-desc-block .text-area").val().trim();
-        data.leadDesc = $(".lead-exp-desc-block .text-area").val().trim();
+        var name = $('.input-full-name input[type=text]').val().trim();
+        var email = $('.input-email-code > div:first-child input[type=text]').val().trim();
+        var zipCode = $('.input-email-code > div:last-child input[type=text]').val().trim();
+        var signUp = $(".sign-up-revolve-update div:last-child").text().trim();
+        var interest = $(".know-interest-cntnr .mark-checkbox").parent().next().text().trim();
+        var heardSource = $(".get-to-know-revolv-block .mark-checkbox").parent().next().text().trim();
+        var personalDesc = $(".proj-intrest-desc-block .text-area").val().trim();
+        var leadDesc = $(".lead-exp-desc-block .text-area").val().trim();
 
         if ($this.parents('.form-step-2').length) {
             status = step2Validation();
@@ -293,31 +293,56 @@ $(document).ready(function() {
              return;
         }
 
-        data.organisationName = $('.org-name-taxid > div:first-child input[type=text]').val().trim();
-        data.organisationTaxId = $('.org-name-taxid > div:last-child input[type=text]').val().trim();
-        data.organisationAddress = $('.org-address input[type=text]').val().trim();
-        data.billingAddress = $('.billing-addr input[type=text]').val().trim();
-        data.websiteName = $('.webite-and-phone > div:first-child input[type=text]').val().trim();
-        data.phoneNumber = $('.webite-and-phone > div:last-child input[type=text]').val().trim();
-        data.missionStatement = $('.mission-stmnt input[type=text]').val().trim();
-        data.orgStartYear = $('.org-strt-year input[type=text]').val().trim();
-        data.affiliation = $(".affiliation-org-block .mark-checkbox").parent().next().text().trim();
-        data.solarProjNeed = $(".solar-proj-need-cntnr .mark-checkbox").parent().next().text().trim();
-        data.annualBudget = $(".annual-budget-cntnr .mark-checkbox").parent().next().text().trim();
-        data.checkOwnBulding = $(".own-building-block .mark-checkbox").parent().next().text().trim();
-        data.orgBuildingYears = $(".org-building-years .mark-checkbox").parent().next().text().trim();
-        data.folkCounts = $('.folk-count input[type=text]').val().trim().trim();
-        data.buildingRoofYear = $(".get-building-roof-year .mark-checkbox").parent().next().text().trim();
-        data.roofReplace = $(".roof-replace-plan .mark-checkbox").parent().next().text().trim();
-        data.electricityProvider = $('.electricity-provider input[type=text]').val().trim();
-        data.orgInterestBlock = $(".org-intrest-solar-block .text-area").val().trim();
+        var organisationName = $('.org-name-taxid > div:first-child input[type=text]').val().trim();
+        var organisationTaxId = $('.org-name-taxid > div:last-child input[type=text]').val().trim();
+        var organisationAddress = $('.org-address input[type=text]').val().trim();
+        var billingAddress = $('.billing-addr input[type=text]').val().trim();
+        var websiteName = $('.webite-and-phone > div:first-child input[type=text]').val().trim();
+        var phoneNumber = $('.webite-and-phone > div:last-child input[type=text]').val().trim();
+        var missionStatement = $('.mission-stmnt input[type=text]').val().trim();
+        var orgStartYear = $('.org-strt-year input[type=text]').val().trim();
+        var affiliation = $(".affiliation-org-block .mark-checkbox").parent().next().text().trim();
+        var solarProjNeed = $(".solar-proj-need-cntnr .mark-checkbox").parent().next().text().trim();
+        var annualBudget = $(".annual-budget-cntnr .mark-checkbox").parent().next().text().trim();
+        var checkOwnBulding = $(".own-building-block .mark-checkbox").parent().next().text().trim();
+        var orgBuildingYears = $(".org-building-years .mark-checkbox").parent().next().text().trim();
+        var folkCounts = $('.folk-count input[type=text]').val().trim().trim();
+        var buildingRoofYear = $(".get-building-roof-year .mark-checkbox").parent().next().text().trim();
+        var roofReplace = $(".roof-replace-plan .mark-checkbox").parent().next().text().trim();
+        var electricityProvider = $('.electricity-provider input[type=text]').val().trim();
+        var orgInterestBlock = $(".org-intrest-solar-block .text-area").val().trim();
         console.log(data)
         var urlData = [location.protocol, '//', location.host, '/bring_solar_to_your_community/intake_form/submit/'].join('');
         $.ajax({
                 type: 'POST',
                 url: urlData,
                 data: {
-                    projectData: JSON.stringify(data),
+                    name: name,
+                    email: email,
+                    zipCode: zipCode,
+                    signUp: signUp,
+                    interest: interest,
+                    heardSource: heardSource,
+                    personalDesc: personalDesc,
+                    leadDesc: leadDesc,
+                    organisationName: organisationName,
+                    organisationTaxId: organisationTaxId,
+                    organisationAddress: organisationAddress,
+                    billingAddress: billingAddress,
+                    websiteName: websiteName,
+                    phoneNumber: phoneNumber,
+                    missionStatement: missionStatement,
+                    orgStartYear: orgStartYear,
+                    affiliation: affiliation,
+                    solarProjNeed: solarProjNeed,
+                    annualBudget: annualBudget,
+                    checkOwnBulding: checkOwnBulding,
+                    orgBuildingYears: orgBuildingYears,
+                    folkCounts: folkCounts,
+                    buildingRoofYear: buildingRoofYear,
+                    roofReplace: roofReplace,
+                    electricityProvider: electricityProvider,
+                    orgInterestBlock: orgInterestBlock,
                     csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value
                 }
 

@@ -59,6 +59,7 @@
     font-style: normal;
     color: #222222;
     font-size: 2.5vmin;
+    padding: 0 2vmin;
 }
 .submit-button {
     margin: 0;
@@ -98,4 +99,17 @@
     position: fixed;
     left: 32%;
     top: 24%;
+}
+@media (max-width: 991px) {
+    .modal-dialog-success {
+        width: 40%;
+    }
+
+}
+@media (max-width: 441px) {
+ .submit-button {
+        padding: 1vmin 0;
+        font-size: 4.0vmin;
+}
+
 }

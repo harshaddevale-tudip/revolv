@@ -94,6 +94,21 @@ function format(number){
 }
 
 $(document).ready(function(){
+
+    $(document).on('click', '#stOverlay', function(e) {
+        window.location.href='/my-portfolio/';
+    });
+     $(document).on('click', '#share-modal', function(e) {
+        if(e.target!== this)
+        return;
+        window.location.href='/my-portfolio/';
+    });
+      $(document).on('click', '#share-signup-modal', function(e) {
+        if(e.target!== this)
+        return;
+        window.location.href='/my-portfolio/';
+    });
+
      $(".stripe-button-el").click(function(){
          if($(this).find("span:last-child").text() != "Next") {
             $(".input-custom-amount input[type=number]").val($(this).find("span:last-child").text());
