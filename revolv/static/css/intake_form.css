@@ -184,11 +184,11 @@
     /* height: 50%; */
     float: left;
 }
-@media (min-width: 768px) and (max-width: 1366px) {
+/*@media (min-width: 768px) and (max-width: 1366px) {
     .form-container {
         padding: 4vmin 25% 6vmin 5%;
     }
-}
+}*/
 @media (max-width: 767px) {
     .form-container {
         padding: 4vmin 5% 6vmin 5%;
