@@ -184,11 +184,11 @@
     /* height: 50%; */
     float: left;
 }
-/*@media (min-width: 768px) and (max-width: 1366px) {
+@media screen and (min-device-width : 1024px) and (max-device-width : 1024px) and (min-device-height : 1366px) and (max-device-height : 1366px) and (min-width: 1024px) and (max-width: 1024px) {
     .form-container {
         padding: 4vmin 25% 6vmin 5%;
     }
-}*/
+}
 @media (max-width: 767px) {
     .form-container {
         padding: 4vmin 5% 6vmin 5%;

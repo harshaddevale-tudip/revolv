@@ -12779,15 +12779,29 @@ label.checkmark.animate:after {
         font-size: 2.2vmin;
     }
 }
-/*@media only screen and (min-width: 1024px) and (max-width: 1366px) {
+@media only screen and (min-device-width : 1024px) and (max-device-width : 1024px) and (min-device-height : 1366px) and (max-device-height : 1366px) and (min-width: 1024px) and (max-width: 1024px) {
     .yellow-buttons {
-        font-size: 1.4vmin;
+        font-size: 1.3vmin;
     }
     #myCarousel .carousel-prev-button {
         left: 11%;
     }
     #myCarousel .carousel-next-button {
         left: 16%;
+    }
+    .video-desc {
+        font-size: 2.5vmin;
+    }
+}
+/*@media only screen and (min-device-width : 1024px) and (max-device-width : 1024px) and (min-device-height : 1366px) and (max-device-height : 1366px) and (min-width: 1366px) and (max-width: 1366px) {
+    .yellow-buttons {
+        font-size: 1.3vmin;
+    }
+    #myCarousel .carousel-prev-button {
+        left: 13%;
+    }
+    #myCarousel .carousel-next-button {
+        left: 18%;
     }
     .video-desc {
         font-size: 2.5vmin;
