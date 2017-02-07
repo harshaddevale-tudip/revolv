@@ -459,7 +459,7 @@ class DashboardRedirect(UserDataMixin, View):
                 return redirect('ambassador:dashboard')
             return redirect(reverse('donor:dashboard'))
 
-        elif social=='donation':
+        elif social is 'Donation':
             if not self.is_authenticated:
                 return redirect('home')
 
@@ -468,7 +468,7 @@ class DashboardRedirect(UserDataMixin, View):
 
             if self.is_ambassador:
                 return redirect(reverse('ambassador:dashboard') + '?social=' + social+'&amount='+amount+'&project='+project+'&cover_photo='+''.join(cover_photo))
-            else:
+            if self.is_donor:
                 return redirect(reverse('donor:dashboard') + '?social=' + social+'&amount='+amount+'&project='+project+'&cover_photo='+''.join(cover_photo))
 
         else:
@@ -480,8 +480,9 @@ class DashboardRedirect(UserDataMixin, View):
 
             if self.is_ambassador:
                 return redirect(reverse('ambassador:dashboard') + '?social=' + social)
-            else:
+            if self.is_donor:
                 return redirect(reverse('donor:dashboard') + '?social=' + social)
+
 
 # password reset/change views: thin wrappers around django's built in password
 # reset views, but with our own templates
