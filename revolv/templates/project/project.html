@@ -148,7 +148,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                   </div>
                   <form action="{% url 'project:stripe_payment' pk=project.pk %}" method="POST">
                     {% csrf_token %}
-                    <input type="hidden" name="amount_cents" value="{{ donation_level.amount }}">
+                    <input type="hidden" name="donate_amount_cents" value="{{ donation_level.amount }}">
                     <input name="metadata" value="1.00" type="hidden">
                     <button type="submit" class="stripe-button-el" style="visibility: visible;">
                       <span style="display: block; min-height: 30px;">Pay with Card</span>
@@ -185,7 +185,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                   {% endfor %}
                   <form action="{% url 'project:stripe_payment' pk=project.pk %}" method="POST">
                     {% csrf_token %}
-                    <input type="hidden" name="amount_cents" value="1000">
+                    <input type="hidden" name="donate_amount_cents" value="1000">
                     <input name="metadata" value="1.00" type="hidden">
                     <button type="submit" class="stripe-button-el" style="visibility: visible;">
                       <span style="display: block; min-height: 30px;">Pay with Card</span>
@@ -194,7 +194,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                 {% else %}
                   <form action="{% url 'project:stripe_payment' pk=project.pk %}" method="POST">
                     {% csrf_token %}
-                    <input type="hidden" name="amount_cents" value="{{ donation_level.amount }}">
+                    <input type="hidden" name="donate_amount_cents" value="{{ donation_level.amount }}">
                     <input name="metadata" value="1.00" type="hidden">
                     <button type="submit" class="stripe-button-el" style="visibility: visible;">
                       <span style="display: block; min-height: 30px;">DONATE</span>
@@ -243,7 +243,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                     </div>
                     <form action="{% url 'project:stripe_payment' pk=project.pk %}" method="POST" id="ipad">
                       {% csrf_token %}
-                      <input type="hidden" name="amount_cents" value="{{ donation_level.amount }}">
+                      <input type="hidden" name="donate_amount_cents" value="{{ donation_level.amount }}">
                       <input name="metadata" value="1.00" type="hidden">
                       <button type="submit" class="stripe-button-el" style="visibility: visible;">
                         <span style="display: block; min-height: 30px;" >DONATE</span>
@@ -260,7 +260,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                 </div>
                 <form action="{% url 'project:stripe_payment' pk=project.pk %}" method="POST" id="phone">
                   {% csrf_token %}
-                  <input type="hidden" name="amount_cents" value="{{ donation_level.amount }}">
+                  <input type="hidden" name="donate_amount_cents" value="{{ donation_level.amount }}">
                   <input name="metadata" value="1.00" type="hidden">
                   <button type="submit" class="stripe-button-el" style="visibility: visible;">
                     <span style="display: block; min-height: 30px;" >DONATE</span>
@@ -347,7 +347,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                   </div>
                   <form action="{% url 'project:stripe_payment' pk=project.pk %}" method="POST">
                     {% csrf_token %}
-                    <input type="hidden" name="amount_cents" value="{{ donation_level.amount }}">
+                    <input type="hidden" name="donate_amount_cents" value="{{ donation_level.amount }}">
                     <input name="metadata" value="1.00" type="hidden">
                     <button type="submit" class="stripe-button-el" style="visibility: visible;">
                       <span style="display: block; min-height: 30px;">Pay with Card</span>
@@ -383,7 +383,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                   {% endfor %}
                   <form action="{% url 'project:stripe_payment' pk=project.pk %}" method="POST">
                     {% csrf_token %}
-                    <input type="hidden" name="amount_cents" value="1000">
+                    <input type="hidden" name="donate_amount_cents" value="1000">
                     <input name="metadata" value="1.00" type="hidden">
                     <button type="submit" class="stripe-button-el" style="visibility: visible;">
                       <span style="display: block; min-height: 30px;">Pay with Card</span>
@@ -392,7 +392,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                 {% else %}
                   <form action="{% url 'project:stripe_payment' pk=project.pk %}" method="POST">
                     {% csrf_token %}
-                    <input type="hidden" name="amount_cents" value="{{ donation_level.amount }}">
+                    <input type="hidden" name="donate_amount_cents" value="{{ donation_level.amount }}">
                     <input name="metadata" value="1.00" type="hidden">
                     <button type="submit" class="stripe-button-el" style="visibility: visible;">
                       <span style="display: block; min-height: 30px;">DONATE</span>
@@ -511,7 +511,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
 <script src="https://checkout.stripe.com/checkout.js">
 </script>
 <script>
-  $(function ($) {
+ $(function ($) {
   var handler = StripeCheckout.configure({
     key: '{{ stripe_publishable_key }}'
     , image: '{% static "images/revolv-logo.png" %}'
@@ -529,7 +529,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
     var endpoint = $form.attr('action');
     var amount, metadata;
     $.each(serialized, function () {
-      if (this.name === 'amount_cents') {
+      if (this.name === 'donate_amount_cents') {
         amount = this.value;
       }
       if (this.name === 'metadata') {
@@ -537,9 +537,10 @@ input:invalid {box-shadow: 0 0 5px 1px red;
       }
     });
     if (typeof amount !== 'undefined') {
+      console.log("aaaaaaaa",((amount / 100)))
       handler.open({
-        description: 'Donate $' + parseFloat((amount / 100).toFixed(2)).toLocaleString()
-        , amount: amount
+        description: 'Donate $' + ((amount / 100).toFixed(2))
+        ,  amount: amount
         , metadata: metadata
         , token: function (token) {
           var id = token.id;
@@ -561,6 +562,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
   });
 });
 </script>
+
 
 {% if project.video_url %}
 <script type="text/javascript">
@@ -623,7 +625,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
       }
       var $tip = $module.find('input[name="tip_edit"]');
       var $total = $module.find('input[name="total"]');
-      var $amount = $module.find('input[name="amount_cents"]');
+      var $amount = $module.find('input[name="donate_amount_cents"]');
       var $meta = $module.find('input[name="metadata"]');
       function update () {
         var val = parseFloat($value.val() || $value.data('value'));
