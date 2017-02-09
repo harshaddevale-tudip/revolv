@@ -68,9 +68,9 @@ a:hover {
 }
  .we_can_help_you {
        float: left;
-    font-size: 2.4vmin;
+    font-size: 3vmin;
     width: 100%;
-    font-weight: 600;
+    font-weight: 500;
     position: relative;
     /* margin-top: 15vmin; */
     /* left: 0%; */
@@ -223,7 +223,7 @@ a:hover {
     width: 100%;
     float: left;
     font-weight: bold;
-    font-size: 5.5vmin;
+    font-size: 6.5vmin;
     font-family: "Source Sans Pro";
     color: rgb(255, 255, 255);
     text-transform: uppercase;
@@ -6726,6 +6726,15 @@ width: 580px;
     .top-section.nav-margins .section-video-overlay {
         padding-top: 25%;
     }
+    .go_solar_at_home{
+        font-size: 5.5vmin;
+    }
+    .background-image-size {
+        width: 34vmin;
+    }
+    .we_can_help_you {
+        font-size: 2.4vmin;
+    }
     .right-aside-new{
       padding: 0 0 0px;
     }
@@ -13136,11 +13145,19 @@ a.back_button_link:hover {
     font-size: 3.3vh;
 }
 .back-button-arrow {
-    width: 12%;
+
+        position: absolute;
+    top: 50vmin;
+    right: 18%;
+    width: 6.7%;
     padding-right: 5%;
     margin-bottom: 0.4vmin;
 }
 .back-button-link {
+  position: absolute;
+    top: 50vmin;
+    width: 22%;
+    right: 0;
     color: rgb(255, 204, 0);
     font-size: 2.5vmin;
 }
@@ -13195,7 +13212,7 @@ a.How_it_Works:hover {
     padding: 2vmin 1%;
 }
 .header .solar_at_home_rights {
-     padding: 3vmin 2vmin 0 0;
+     padding: 3vmin 4% 0 0;
 }
 
     .hamburger_color {
