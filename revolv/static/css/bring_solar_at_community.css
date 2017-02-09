@@ -21,7 +21,7 @@ body {
     float: left;
     position: relative;
     width: 100%;
-    padding: 0 5vmin;
+    padding: 0 calc(6.4vmin + 1%);
 }
 .vid-cntnr {
     float: left;
@@ -77,14 +77,14 @@ body {
     background-color: #f3f5f9;
     padding: 2.6vmin 8%;
     border: 1px solid #f1ebeb;
-    border-radius: 1%;
+    border-radius: 2%;
     float: left;
     position: relative;
     width: 100%;
     font-size: 3vmin;
 }
-.grid-component {
-    padding: 1vmin 1.6vmin 3vmin;
+.grid-contnr .grid-component {
+    padding: 1vmin 3vmin 5vmin;
     float: left;
     position: relative;
 }
@@ -92,7 +92,7 @@ body {
     float: left;
     width: 100%;
     position: relative;
-    padding: 5vmin;
+    padding: 5vmin 7vmin;
 }
 .data-heading {
     font-weight: bold;
