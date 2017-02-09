@@ -64,7 +64,7 @@ a:hover {
     width: 100%;
     float: left;
     position: relative;
-    font-size: 2.1vmin;
+    font-size: 2.3vmin;
 }
  .we_can_help_you {
        float: left;
@@ -121,11 +121,11 @@ a:hover {
   .text_overlay {
         width: 100%;
     position: absolute;
-    top: 18vmin;
+    top: 13vmin;
     padding: 4vmin calc(8.5% + 15px) 0 0;
   }
    .carousel-second-img .text_overlay {
-        padding: 4vmin calc(20.5% + 15px) 0 calc(20.5% + 15px);
+        padding: 4vmin calc(17.5% + 15px) 0 calc(17.5% + 15px);
     }
    .carousel-second-img .text_content {
         width: 100%;
@@ -135,18 +135,18 @@ a:hover {
    .carousel-second-img  .how-it-works-button {
         float: left;
         width: 100%;
-        padding-top: 4vmin;
+        padding-top: 7vmin;
     }
    .carousel-second-img .How_it_Works {
         font-size: 2.6vmin;
-        color: rgb(40, 40, 40);;
-        padding: 2vmin 10%;
-        float: none;
-        text-align: center;
+    color: #fff;
+    padding: 2.3vmin 8%;
+    float: none;
+    text-align: center;
     }
     .carousel-third-img .text_content {
         float: left;
-        width: 53%;
+        width: 68%;
         text-align: left;
         margin-right: 0;
         padding-left: 10%;
@@ -154,15 +154,16 @@ a:hover {
     .carousel-third-img .How_it_Works {
         float: left;
         font-size: 2.6vmin;
-        padding: 2vmin 11%;
+        padding: 2.3vmin 10%;
     }
     .carousel-third-img .Bring_solar_energy__to_communities_around_the_c {
-        font-size: 2.9vmin;
+            font-size: 3.6vmin;
+    line-height: 5.4vmin;
     }
   .text_content {
     position: relative;
     float: right;
-    width: 30%;
+    width: 40%;
     text-align: right;
     margin-right: 3rem;
   }
@@ -172,11 +173,11 @@ a:hover {
   }
 
   .CREATE_CLEAN_ENERGY {
-    font-size: 6.1vmin;
+    font-size: 8.2vmin;
     font-family: "Source Sans Pro";
     color: #fefefe;
     text-transform: uppercase;
-    line-height: 5.8vmin;
+    line-height: 8.2vmin;
     text-align: right;
     position: relative;
     z-index: 462;
@@ -185,11 +186,10 @@ a:hover {
 }
 
 .Bring_solar_energy__to_communities_around_the_c {
-    font-size: 2.3vmin;
+    font-size: 3.6vmin;
     font-family: "Source Sans Pro";
     color: #fefefe;
-    text-transform: uppercase;
-    line-height: 3.7vmin;
+    line-height: 5.4vmin;
     text-align: right;
     position: relative;
     z-index: 462;
@@ -200,10 +200,10 @@ a:hover {
   font-size: 2.6vmin;
     font-weight: bold;
     font-family: "Source Sans Pro";
-    color: rgb(40, 40, 40);;
+    color: #fff;
     text-transform: uppercase;
-    padding: 2vmin 14%;
-    background-color: rgb(255, 204, 0);
+    padding: 2.3vmin 16%;
+    background-color: rgb(20, 177, 231);
     border-radius: 4px;
     float: right;
 }
@@ -1026,18 +1026,26 @@ padding: 0;
 .active-projects-module {
     text-align: center;
     background-color: #ededed;
-    padding-bottom: 80px;
+    padding-bottom: 0;
 }
 .active-projects-module .container {
     padding: 0;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    background: url(../images/donatn-backgrnd.png);
+     background-repeat: no-repeat;
+    background-size: 100%;
 }
+
 .active-projects-module .title-active-projects {
     background: none;
     width: 370px;
-    margin: 55px auto 67px auto;
+    margin: 7vmin auto 7vmin;
 }
 .active-projects-module .row {
-    margin: 0 97px;
+    margin: 0 20vmin 0 calc(9vw - 3vmin);
+    padding-bottom: 6vmin;
 }
 .active-projects-module .col-md-4 {
     padding: 0;
@@ -1046,7 +1054,7 @@ padding: 0;
 
 .active-projects-module .module-box {
     background-color: #fff;
-    margin: 0 18px;
+    margin: 0 3vmin;
 }
 .active-projects-module .desktop-img {
     display: block;
@@ -1383,7 +1391,7 @@ padding: 0;
     line-height: 20px;
 }
 .how-it-works-module .info-row .txt-area .txt-td p {
-    font-size: 14px;
+    font-size: 2.3vmin;
     color: #4b4b4b;
     line-height: 28px;
     letter-spacing: -0.5px;
@@ -1453,6 +1461,7 @@ padding: 0;
     line-height: 20px;
     padding-bottom: 10px;
     margin-top: -4px;
+    color: #14b1e7;
 }
 .how-it-works-module .step-row .info-txt p {
     font-size: 14px;
@@ -1786,16 +1795,18 @@ padding: 0;
 }
 .newsletter-module .group-main .group {
     background-color: #fff;
-    min-height: 113px;
     margin: 0 168px 0 162px;
-    padding: 31px 30px 29px 67px;
+    padding: 3vmin 30px 3vmin 67px;
 }
 .newsletter-module .group-main .group .btn-sign-up {
-    letter-spacing: 4px;
     text-transform: uppercase;
     float: right;
     width: 132px;
     border: none;
+    text-align: center;
+    padding-top: 0.4vmin;
+    font-size: 2.6vmin;
+    margin-top: 0.8vmin;
 }
 .newsletter-module .group-main .group .inputs {
     margin-right: 147px;
@@ -4684,7 +4695,7 @@ display: none;
     /* .active-projects-module */
 
     .active-projects-module {
-        padding-bottom: 65px;
+        padding-bottom: 0;
     }
     .active-projects-module .title-active-projects {
         width: 326px;
@@ -12822,7 +12833,7 @@ label.checkmark.animate:after {
 }
 
 .text_overlay {
-    top: 11%;
+    top: 22%;
     padding: 0;
 }
 .How_it_Works {
@@ -12841,6 +12852,7 @@ label.checkmark.animate:after {
      background: url(../images/mobile/mobile-logo-white.png);
      margin: 2vmin 0 0 2vmin;
      background-repeat: no-repeat;
+    background-size: 22vmin;
 
 }
 
@@ -12865,14 +12877,15 @@ label.checkmark.animate:after {
 }
 
 .Bring_solar_energy__to_communities_around_the_c {
-    font-size: 2.5vmin;
+    font-size: 3.6vmin;
+    line-height: 5.4vmin;
 }
 
 .CREATE_CLEAN_ENERGY {
     font-size: 4vmin;
 }
 .how-it-works-button {
-    padding: 2vmin 22%;
+    padding: 2vmin 10%;
         float: left;
     width: 100%;
 }
