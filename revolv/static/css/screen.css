@@ -165,7 +165,7 @@ a:hover {
     float: right;
     width: 40%;
     text-align: right;
-    margin-right: 3rem;
+    margin-right: 0;
   }
 
   .space_btn_element {
@@ -404,23 +404,32 @@ left .carousel-controls{
   margin:0 auto;
 }
 
-.column-left{
+.column-left {
     float: left;
-    width: 23.2%;
-    position: absolute;
-    left: 9vw;
+    width: 100%;
+    position: relative;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
 }
 .column-right{
-    display: block;
-    width: 23.2%;
-    position: absolute;
-    left: 36.5vw;
+    float: left;
+    width: 100%;
+    position: relative;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
   }
-  .column-center{
-    float: right;
-    width: 23.2%;
-    position: absolute;
-    left: 64vw;
+  .column-center {
+    float: left;
+    width: 100%;
+    position: relative;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
 }
 
 .Right_Button {
@@ -431,6 +440,13 @@ left .carousel-controls{
   height: 4958px;
   z-index: 449;
   }
+
+.join-mov-btns-cntnr {
+    padding: 0 5.6%;
+}
+.join-mov-btns {
+    padding: 5vmin 2.9% 0;
+}
 
 .Shape {background-color: rgb(255, 255, 255);
 position: absolute;
@@ -746,6 +762,9 @@ padding: 0;
 .header a.btn-blue:last-child, .header a.btn-blue:first-child {
   margin-right: 3rem;
 }
+#home-page .rights > a.btn-blue:last-child {
+  margin-right: 0;
+}
 /* .top-section */
 
 .top-section {
@@ -1027,9 +1046,12 @@ padding: 0;
     text-align: center;
     background-color: #ededed;
     padding-bottom: 0;
+    float: left;
+    position: relative;
+    width: 100%;
 }
 .active-projects-module .container {
-    padding: 0;
+    padding: 0 15px;
     width: 100%;
     margin-left: 0;
     margin-right: 0;
@@ -1044,17 +1066,16 @@ padding: 0;
     margin: 7vmin auto 7vmin;
 }
 .active-projects-module .row {
-    margin: 0 20vmin 0 calc(9vw - 3vmin);
-    padding-bottom: 6vmin;
+    margin: 0;
+    padding: 0 5.6% 6vmin;
+    max-width: 100%;
 }
-.active-projects-module .col-md-4 {
-    padding: 0;
-}
+
 /* .active-projects-module .module-box */
 
 .active-projects-module .module-box {
     background-color: #fff;
-    margin: 0 3vmin;
+    margin: 0;
 }
 .active-projects-module .desktop-img {
     display: block;
@@ -13416,4 +13437,32 @@ a.How_it_Works:hover {
 }
 .zinnia footer li, .zinnia .header.top-section-header li {
     list-style-image: none;
+}
+.curnt-projct-lst-head {
+    float: left;
+    position: relative;
+    width: 100%;
+    padding: 18vmin calc(30px + 5.6%) 5vmin;
+}
+.curnt-projct-lst-head > .divider-title {
+    font-size: 24px;
+    margin: 30px calc(30px + 5.6%);
+    width: 100%;
+    color: #064f7e;
+    font-weight: 100;
+    margin-top: 110px;
+    display: block;
+    height: 0.5em;
+    line-height: 1em;
+    border: none;
+    border-bottom: 1px solid #064f7e;
+    margin-bottom: 0.5em;
+    text-align: center;
+    font-size: 25px;
+    margin-bottom: 1.5em;
+    margin: 0;
+    padding: 0;
+}
+.curnt-projct-lst-head + .active-projects-module .container {
+    background: none;
 }

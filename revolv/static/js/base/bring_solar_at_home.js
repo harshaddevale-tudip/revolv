@@ -182,7 +182,6 @@ $(document).ready(function() {
             var orgStartYear = $('.org-strt-year input[type=text]').val().trim();
             var urlRegEx = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
             var status = "success";
-            console.log(organisationTaxId)
             $(".field-error").remove();
             if(organisationName.length <= 0) {
                 var errorMsg = '<div class="field-error">Please enter organization name.</div>';
@@ -197,11 +196,7 @@ $(document).ready(function() {
                 $(".org-address").append(errorMsg);
                 status = "error";
             }
-            if(billingAddress.length <= 0) {
-                var errorMsg = '<div class="field-error">Please enter billing address.</div>';
-                $(".billing-addr").append(errorMsg);
-                status = "error";
-            } if(websiteName.length <= 0 || urlRegEx.test(websiteName) == false) {
+             if(websiteName.length <= 0 || urlRegEx.test(websiteName) == false) {
                 var errorMsg = '<div class="field-error">Please enter your website name.</div>';
                 $(".webite-and-phone > div:first-child").append(errorMsg);
                 status = "error";
