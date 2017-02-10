@@ -4010,6 +4010,7 @@ header.edit-project-header > .container > h1 {
 .footer .row {
     margin: 0;
     padding: 0 112px 0 115px;
+    max-width: 100%;
 }
 .footer .row .col-menu,
 .footer .row .col-info {
