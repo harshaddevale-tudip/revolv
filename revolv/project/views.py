@@ -37,7 +37,7 @@ def stripe_payment(request, pk):
     try:
         token = request.POST['stripeToken']
         tip_cents = request.POST['metadata']
-        amount_cents = request.POST['amount_cents']
+        amount_cents = request.POST['donate_amount_cents']
         email = request.POST['stripeEmail']
     except KeyError:
         logger.exception('stripe_payment called without required POST data')

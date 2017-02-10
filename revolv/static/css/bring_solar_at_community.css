@@ -21,7 +21,7 @@ body {
     float: left;
     position: relative;
     width: 100%;
-    padding: 0 calc(6.4vmin + 1%);
+    padding: 0 calc(8.3vmin + 1%);
 }
 .vid-cntnr {
     float: left;
@@ -92,7 +92,7 @@ body {
     float: left;
     width: 100%;
     position: relative;
-    padding: 5vmin 7vmin;
+    padding: 5vmin 8vmin 7vmin;
 }
 .data-heading {
     font-weight: bold;
