@@ -30,22 +30,25 @@
 
 {% block body %}
     {% spaceless %}
-        {% if is_reinvestment %}
-            {% if error_msg %}
-                <div class="divider-title "><h5>{{ error_msg }}</h5></div>
+        <div class="curnt-projct-lst-head">
+            {% if is_reinvestment %}
+                {% if error_msg %}
+                    <div class="divider-title "><h5>{{ error_msg }}</h5></div>
+                {% else %}
+                    <div class="divider-title ">You have ${{ reinvestment_amount|floatformat:2 }} to reinvest. Pick a project below to back!</div>
+                {% endif %}
             {% else %}
-                <div class="divider-title ">You have ${{ reinvestment_amount|floatformat:2 }} to reinvest. Pick a project below to back!</div>
+                {% if active_projects|length == 1%}
+                    <div class="divider-title ">{{ settings.revolv_cms.ActiveProjectsPageSettings.single_project_heading}}</div>
+                {% elif active_projects|length > 1 %}
+                    <div class="divider-title">{{ settings.revolv_cms.ActiveProjectsPageSettings.multiple_projects_heading}}</div>
+                {% endif %}
             {% endif %}
-        {% else %}
-            {% if active_projects|length == 1%}
-                <div class="divider-title ">{{ settings.revolv_cms.ActiveProjectsPageSettings.single_project_heading}}</div>
-            {% elif active_projects|length > 1 %}
-                <div class="divider-title">{{ settings.revolv_cms.ActiveProjectsPageSettings.multiple_projects_heading}}</div>
-            {% endif %}
-        {% endif %}
+        </div>
             {% if not error_msg %}
             {% include "base/partials/list_projects.html" %}
         {% endif %}
+
         <div class="row about">
             <div class="about-inset">
                 <!-- Call to action -->
@@ -55,6 +58,7 @@
                 {% endif %}
             </div>
         </div>
+
     {% endspaceless %}
 {% endblock %}
 
