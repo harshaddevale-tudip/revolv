@@ -12755,6 +12755,9 @@ label.checkmark.animate:after {
     a.Ellipse_543.right.carousel-control.arrow-right {
         top: 88%;
     }
+    .column-center {
+        padding: 4.3vmin 0;
+    }
     .text_on_blue_image {
         font-size: 2.2vh !important;
     }
