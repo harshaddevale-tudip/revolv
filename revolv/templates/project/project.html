@@ -537,7 +537,6 @@ input:invalid {box-shadow: 0 0 5px 1px red;
       }
     });
     if (typeof amount !== 'undefined') {
-      console.log("aaaaaaaa",((amount / 100)))
       handler.open({
         description: 'Donate $' + ((amount / 100).toFixed(2))
         ,  amount: amount
@@ -678,28 +677,6 @@ input:invalid {box-shadow: 0 0 5px 1px red;
         }
 
     });
-</script>
-
-    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-<script>
-         $('#share-modal #sharethis-button').remove();
-    $('#share-modal .sharethis-placeholder').append('<span id="sharethis-button"></span>');
-      stWidget.addEntry({
-                  <!--type:'custom',-->
-                 "service":"sharethis",
-                 "element":document.getElementById('sharethis-button'),
-                 "url":document.URL,
-                 "title":$('h1.title-h1').text(),
-                 "type":"large",
-                 "text":"ShareThis" ,
-                 "image":$('meta[property="og:image"]').attr("content"),
-                 "summary":"I just donated" +$('#donate_amount').val() + "to RE-volv in support of clean energy! Join me!"
-         });
-</script>
-<script type="text/javascript">stLight.options({publisher: "", doNotHash: false, doNotCopy: false, hashAddressBar: false, "servicePopup":true});</script>
-<script>
-var options={ "publisher": "", "logo": { "visible": true, "url": "", "img": "", "height": 45}, "ad": { "visible": false, "openDelay": "5", "closeDelay": "0"}, "livestream": { "domain": "", "type": "sharethis", "src": "", "customColors": { "widgetBackgroundColor": "#FFFFFF", "articleLinkColor": "#006fbb"}}, "ticker": { "visible": true, "domain": "", "title": "Share This", "type": "sharethis", "src": "", "customColors": { "widgetBackgroundColor": "#1d4161", "articleLinkColor": "#FFFFFF"}}, "facebook": { "visible": false, "profile": "sharethis"}, "fblike": { "visible": false, "url": ""}, "twitter": { "visible": false, "user": "sharethis"}, "twfollow": { "visible": false}, "custom": [{ "visible": false, "title": "Custom 1", "url": "", "img": "", "popup": false, "popupCustom": { "width": 300, "height": 250}}, { "visible": false, "title": "Custom 2", "url": "", "img": "", "popup": false, "popupCustom": { "width": 300, "height": 250}}, { "visible": false, "title": "Custom 3", "url": "", "img": "", "popup": false, "popupCustom": { "width": 300, "height": 250}}], "chicklets": { "items": ["facebook", "twitter", "linkedin", "pinterest", "email", "sharethis"]}, "background": "#558aca", "color": "#2150a5", "arrowStyle": "light"};
-var st_bar_widget = new sharethis.widgets.sharebar(options);
 </script>
 
 {% endblock %}
