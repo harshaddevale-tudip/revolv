@@ -12793,7 +12793,7 @@ label.checkmark.animate:after {
 }
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
     .yellow-buttons {
-        font-size: 1.5vmin;
+        font-size: 1.8vmin;
     }
     .video-desc {
         font-size: 2.2vmin;
@@ -12829,7 +12829,7 @@ label.checkmark.animate:after {
 }*/
 @media (max-width: 767px){
 .yellow-buttons {
-    font-size: 1.4vmin;
+    font-size: 2vmin;
 }
 .dropdown-title {
     font-size: 4vmin;
@@ -13376,4 +13376,43 @@ a.How_it_Works:hover {
 
 .disable-donation-btn{
     pointer-events:none;
+}
+
+.zinnia .header.top-section-header {
+    background-color: rgba(0, 0, 0, 0);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0);
+    margin-top: 0;
+    position: relative;
+    width: 100%;
+}
+.zinnia .header .container {
+    padding: 0 2% 0 4.7%;
+    margin: 0;
+    max-width: 100%;
+    float: left;
+    width: 100%;
+}
+.zinnia > .header:first-child a:visited {
+    color: #fff;
+}
+.zinnia > .header:first-child a:visited {
+    color: #fff;
+}
+.zinnia > .header:first-child a:hover {
+    color: #fff;
+}
+.zinnia #header form input[type=text] {
+    width: 85%;
+    background-image: url(../img/search.png);
+    background-repeat: no-repeat;
+    background-position: 5px center;
+    padding-left: 25px;
+    border-radius: 5px;
+    float: right;
+}
+.zinnia #header .top-navigation li:after {
+    content: "";
+}
+.zinnia footer li, .zinnia .header.top-section-header li {
+    list-style-image: none;
 }
