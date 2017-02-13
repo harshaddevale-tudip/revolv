@@ -447,7 +447,25 @@ left .carousel-controls{
 .join-mov-btns {
     padding: 5vmin 2.9% 0;
 }
-
+.header-content {
+    width:100%;
+    float:left;
+    padding-top: 7vmin;
+}
+.header-content-div {
+    width:100%;
+    padding: 0 5.6% 0 1%;
+    float: left;
+}
+.header-tagline {
+    float: left;
+    width: calc(100% - 36vmin);
+    padding-left: 4.6%;
+}
+.header-logo {
+    float: left;
+    width: 36vmin;
+}
 .Shape {background-color: rgb(255, 255, 255);
 position: absolute;
 left: 1165px;
@@ -1742,6 +1760,13 @@ padding: 0;
     border: 2px solid #fff;
     top: 60px;
 }
+.champion-background-image {
+    height: 60vmin;
+    background-image: url(/static/images/champion_background_image.png);
+    background-size: 100vw 60vmin;
+    background-repeat: no-repeat;
+}
+
 .featured-on-module .carousel-control.left {
     text-align: center;
     left: -76px;
