@@ -12780,15 +12780,14 @@ label.checkmark.animate:after {
     a.Ellipse_543.right.carousel-control.arrow-right {
         top: 88%;
     }
-    .column-center {
-        padding: 4.3vmin 0;
-    }
+
     .text_on_blue_image {
         font-size: 2.2vh !important;
     }
     .carousel-inner .item .background-image-size {
         height:70vh;
     }
+    
     .menu {
         display:block !important;
     }
@@ -12809,7 +12808,11 @@ label.checkmark.animate:after {
         width:96%;
     }
 }
-
+@media only screen and (max-width: 768px) and (min-width: 319px) and (orientation: portrait) {
+    .column-center {
+        padding: 4.3vmin 0;
+    }
+}
 @media (min-width: 768px){
  .header.header.after-scroll-header .logo {
     background-size: 30vmin 13vmin;
@@ -13488,4 +13491,7 @@ a.How_it_Works:hover {
 }
 .curnt-projct-lst-head + .active-projects-module .container {
     background: none;
+}
+.social-ul {
+    font-size: 3vmin;
 }
