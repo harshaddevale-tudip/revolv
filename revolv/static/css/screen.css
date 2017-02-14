@@ -1636,6 +1636,9 @@ padding: 0;
     background-color: #ededed;
     text-align: center;
     padding-bottom: 45px;
+    float: left;
+    position: relative;
+    width: 100%;
 }
 .featured-on-module .title-featured-on {
     letter-spacing: 8px;
@@ -4766,13 +4769,11 @@ display: none;
         margin: 45px auto 57px auto;
     }
     .active-projects-module .row {
-        margin: 0 80px;
+        margin: 0;
     }
     /* .active-projects-module .module-box */
 
-    .active-projects-module .module-box {
-        margin: 0 15px;
-    }
+
     .active-projects-module .img-main .txt-table {
         height: 241px;
     }
@@ -13690,4 +13691,16 @@ a.How_it_Works:hover {
   -webkit-flex-wrap: nowrap;
       -ms-flex-wrap: nowrap;
           flex-wrap: nowrap;
+}
+.home-page-content .container {
+    position: relative;
+    float: left;
+    width: 100%;
+    max-width: 100%;
+}
+.user-group .about-inset {
+    float: left;
+    position: relative;
+    width: 100%;
+    padding-bottom: 7vmin;
 }
