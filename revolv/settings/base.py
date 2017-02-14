@@ -25,6 +25,7 @@ ADMINS = (
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.sites',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -66,7 +67,12 @@ INSTALLED_APPS = [
     'wagtail.wagtailsearch',
     'wagtail.wagtailredirects',
     'wagtailsettings',
-    'revolv.revolv_cms'
+    'revolv.revolv_cms',
+
+    'django_comments',
+  'mptt',
+  'tagging',
+  'zinnia',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -96,6 +102,7 @@ ROOT_URLCONF = 'revolv.urls'
 
 TEMPLATE_DIRS = [
     os.path.join(BASE_DIR, 'templates'),
+    os.path.join(BASE_DIR, 'templates', 'zinnia'),
 ]
 TEMPLATE_CONTEXT_PROCESSORS = [
     'django.contrib.auth.context_processors.auth',
@@ -104,14 +111,16 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     'django.core.context_processors.tz',
     'django.core.context_processors.request',
     'django.contrib.messages.context_processors.messages',
+    'revolv.context_processors.global_settings',
 
     'django_facebook.context_processors.facebook',
     'social.apps.django_app.context_processors.backends',
     'social.apps.django_app.context_processors.login_redirect',
     'sekizai.context_processors.sekizai',
     'wagtailsettings.context_processors.settings',
+    'zinnia.context_processors.version',
 ]
-
+SITE_ID = 1
 WSGI_APPLICATION = 'revolv.wsgi.application'
 
 
@@ -395,6 +404,8 @@ SOCIAL_AUTH_DISCONNECT_PIPELINE = (
     'social.pipeline.disconnect.disconnect'
 )
 
+SOCIAL_AUTH_FACEBOOK_KEY = '373697319639095'
+SOCIAL_AUTH_FACEBOOK_SECRET = '7d843d9a0768d8cd45a12e975f80a84c'
 SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('SOCIAL_AUTH_FACEBOOK_KEY')
 SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('SOCIAL_AUTH_FACEBOOK_SECRET')
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['public_profile', 'email']
@@ -420,5 +431,8 @@ SFDC_REVOLV_SIGNUP = 'login'
 SFDC_REVOLV_DONATION = 'donation'
 
 # Stripe
-STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
-STRIPE_PUBLISHABLE = os.environ.get('STRIPE_PUBLISHABLE')
+#STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+#STRIPE_PUBLISHABLE = os.environ.get('STRIPE_PUBLISHABLE')
+
+STRIPE_SECRET_KEY = 'sk_test_vbQwIK5ECQMWvDtbteI6QWJa'
+STRIPE_PUBLISHABLE = 'pk_test_DQ2IZq0c2UbaDG75u4hWBEMC'

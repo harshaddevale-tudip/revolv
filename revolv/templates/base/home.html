@@ -670,7 +670,18 @@ position: absolute;
     <div class="title-white-border title-newsletter">NEWSLETTER SIGNUP</div>
     <div class="group-main">
       <p>Get all our updates</p>
-      <div class="group">
+      <div class="group hidden-xs">
+        <form id="form1" name="form1" class="wufoo  page" autocomplete="off" enctype="multipart/form-data" novalidate>
+		  <a href="{% url 'signin' %}#signup" class="btn-blue btn-sign-up" type="submit">sign up</a>
+          <span class="inputs"><input id="Field0" name="Field0" type="email" spellcheck="false" value="" maxlength="255" tabindex="1" placeholder="youareawesome@example.com" required /></span>
+          <div style='height: 0px; overflow: hidden'><label for="comment">Do Not Fill This Out</label>
+            <textarea name="comment" id="comment" rows="1" cols="1" ></textarea>
+          </div>
+          <input type="hidden" id="idstamp" name="idstamp" value="9X+cjERjxi6m2dDjRLw2bzjqm4tI/nry48G0TQb8qtk=" />
+        </form>
+
+      </div>
+        <div class="group hidden-sm hidden-md hidden-lg">
         <form id="form1" name="form1" class="wufoo  page" autocomplete="off" enctype="multipart/form-data" novalidate>
 		  <a href="{% url 'signin' %}#signup" class="btn-blue btn-sign-up" type="submit">sign up</a>
           <span class="inputs"><input id="Field0" name="Field0" type="email" spellcheck="false" value="" maxlength="255" tabindex="1" placeholder="youareawesome@example.com" required /></span>
