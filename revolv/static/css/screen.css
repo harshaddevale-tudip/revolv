@@ -1054,7 +1054,12 @@ padding: 0;
     padding: 3px;
     cursor: pointer;
 }
-        .how_it_works_rectangle.space_btn_element:hover {
+
+.option:hover {
+    color: #14b1e7;
+}
+
+.how_it_works_rectangle.space_btn_element:hover {
     background-color: #2c3691;
 }
 /* home page */

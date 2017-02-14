@@ -459,7 +459,7 @@ class DashboardRedirect(UserDataMixin, View):
                 return redirect('ambassador:dashboard')
             return redirect(reverse('donor:dashboard'))
 
-        elif social is 'Donation':
+        elif social == 'donation':
             if not self.is_authenticated:
                 return redirect('home')
 
