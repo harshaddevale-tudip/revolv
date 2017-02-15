@@ -13718,3 +13718,6 @@ a.How_it_Works:hover {
     font-weight: normal;
     text-transform: none;
 }
+.footer .container > .row:first-child a:hover {
+    color: #23527c;
+}
