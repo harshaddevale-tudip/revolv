@@ -1814,7 +1814,7 @@ padding: 0;
     overflow: hidden;
 }
 .newsletter-module .img-preload {
-    display: none;
+    display: block;
 }
 .newsletter-module .parallax-window {
     height: 448px;
@@ -1823,6 +1823,7 @@ padding: 0;
 .newsletter-module .small-img,
 .newsletter-module .mobile-img {
     display: none;
+    width: 100%;
 }
 .newsletter-module .title-newsletter {
     letter-spacing: 8.5px;
@@ -13702,6 +13703,18 @@ a.How_it_Works:hover {
     float: left;
     width: 100%;
     max-width: 100%;
+}
+.home-page-content .newsletter-module > .container {
+    position: absolute;
+    width: 100%;
+    max-width: 100%;
+}
+.home-page-content .newsletter-module {
+    float: left;
+    width: 100%;
+}
+.home-page-content .newsletter-module > .parallax-window{
+    float: left;
 }
 .user-group .about-inset {
     float: left;
