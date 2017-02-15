@@ -168,7 +168,8 @@ def stripe_operation_donation(request):
     # if request.user.is_authenticated():
     if check==None:
         try:
-            stripe.Charge.create(source=token, currency="usd", amount=(int(amount_cents)*100))
+            amount = float(amount_cents) * float(100)
+            stripe.Charge.create(source=token, currency="usd", amount=int(amount))
         except stripe.error.CardError as e:
             body = e.json_body
             error_msg = body['error']['message']
@@ -200,8 +201,9 @@ def stripe_operation_donation(request):
             plans=stripe.Plan.all()
             plan = any(d['id'] == "revolv_donation"+"_"+str(amount_cents) for d in plans)
             if not plan:
+                amount = float(amount_cents) * float(100)
                 plan=stripe.Plan.create(
-                    amount=amount_cents,
+                    amount=int(amount),
                     interval="month",
                     name="Revolv Donation "+str(amount_cents),
                     currency="usd",

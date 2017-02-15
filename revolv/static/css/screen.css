@@ -1822,7 +1822,7 @@ padding: 0;
 }
 .newsletter-module .small-img,
 .newsletter-module .mobile-img {
-    display: none;
+    display: block;
     width: 100%;
 }
 .newsletter-module .title-newsletter {
@@ -1838,8 +1838,8 @@ padding: 0;
     position: absolute;
     z-index: 999;
     top: 0;
-    left: 50%;
-    margin: 0 0 0 -600px;
+
+    margin: 0;
     padding: 0;
 }
 .newsletter-module .group-main p {

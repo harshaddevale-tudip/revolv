@@ -259,7 +259,7 @@ position: absolute;
           <!-- end .img-main -->
           <div class="info-main">
             <div class="blue-bar">
-              <span class="pull-left">${{ active_project.amount_donated|floatformat:"0"|intcomma }}</span>
+              <span class="pull-left">${{ active_project.amount_donated|floatformat:"2"|intcomma }}</span>
               <span class="pull-right">{{ active_project.days_left }} Days Left</span>
             </div>
             <!-- end .blue-bar -->
@@ -669,7 +669,7 @@ position: absolute;
   <div class="container animated">
     <div class="title-white-border title-newsletter">NEWSLETTER SIGNUP</div>
     <div class="group-main">
-      <p>Get all our updates</p>
+      <p>Get our all updates</p>
       <div class="group">
         <form id="form1" name="form1" class="wufoo  page" autocomplete="off" enctype="multipart/form-data" novalidate>
 		  <a href="{% url 'signin' %}#signup" class="btn-blue btn-sign-up" type="submit">sign up</a>
