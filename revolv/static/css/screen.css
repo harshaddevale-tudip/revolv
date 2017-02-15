@@ -4109,7 +4109,7 @@ header.edit-project-header > .container > h1 {
 .footer .row .col-menu a,
 .footer .row .col-info a {
     color: #8a8a8a;
-    font-size: 12px;
+    font-size: 14px;
 }
 .footer .row .col-info p {
     color: #8a8a8a;
@@ -13708,4 +13708,13 @@ a.How_it_Works:hover {
     position: relative;
     width: 100%;
     padding-bottom: 7vmin;
+}
+.user-group .about-inset a:hover {
+    text-decoration: none;
+    color: #00A1FC;
+}
+.footer .container .col-menu .footer-colmn-links {
+    color: #8a8a8a;
+    font-weight: normal;
+    text-transform: none;
 }
