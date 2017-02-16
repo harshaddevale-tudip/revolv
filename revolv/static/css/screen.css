@@ -377,8 +377,9 @@ a:hover {
 .logo-home {
      background: url(../images/logo-white.png);
     margin: 2.3vmin 0 0 13vmin;
+    background-repeat: no-repeat;
     width: 171px;
-    height: 68px;
+    height: 75px;
     display: block;
 }
  .imageContainer {
@@ -12225,7 +12226,7 @@ width: 580px;
         padding: 38px 24px 0 0;
     }
     header.header {
-        height: 95px;
+        height: 85px;
         margin-top: 10px;
     }
     .footer .bottoms ul.social-ul li .icon-g-plus.icons {
@@ -12427,7 +12428,7 @@ width: 580px;
         min-width: 51px;
     }
     header.header {
-        height: 75px;
+        height: 83px;
         margin-top: 5px;
     }
     .donors-module .mains-tabs .tab-content {
@@ -13301,6 +13302,7 @@ a.How_it_Works:hover {
     .hamburger_color {
         border-color: transparent;
         color: white;
+        margin-top: 6vmin;
     }
     .background-collapse-color {
             background-color: white;

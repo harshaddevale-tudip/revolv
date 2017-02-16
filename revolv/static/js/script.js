@@ -305,7 +305,7 @@ $(document).ready(function(){
         {
           $("header").removeClass("top-section-header").addClass("after-scroll-header");
           $("header").hide();
-          $(".logo-home").css("background",'url(/static/images/logo.png)');
+          $(".logo-home").css("background",'url(/static/images/logo.png) no-repeat');
           $("header").slideDown();
         }
       }
@@ -316,7 +316,7 @@ $(document).ready(function(){
           $("header").slideUp();
           setTimeout(function(){
             $("header").removeClass("after-scroll-header").addClass("top-section-header");
-            $(".logo-home").css("background",'url(/static/images/logo-white.png)');
+            $(".logo-home").css("background",'url(/static/images/logo-white.png) no-repeat');
             $("header").show();
           },500);
         }
