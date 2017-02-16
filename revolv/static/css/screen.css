@@ -10475,7 +10475,7 @@ width: 580px;
     .newsletter-module .group-main p {
         font-size: 10px;
         line-height: 12px;
-        padding: 25px 0 19px 0;
+        padding: 0 0 19px 0;
     }
     .newsletter-module .group-main .group {
         min-height: 56px;
@@ -10490,9 +10490,32 @@ width: 580px;
         line-height: 26px;
         border: none;
     }
+     .newsletter-module .group-main .mobile-form-group .btn-sign-up {
+        font-size: 3vmin;
+        width: 100%;
+        height: initial;
+        line-height: normal;
+        border: none;
+        margin-top: 3.3vmin;
+        padding: 2.7vmin 0;;
+    }
     .newsletter-module .group-main .group .inputs {
         margin-right: 85px;
         height: 26px;
+    }
+    .newsletter-module .group-main .mobile-form-group .inputs {
+        margin-right: 0;
+        height: 26px;
+    }
+    .newsletter-module .group-main .mobile-form-group .inputs input[type=email]{
+        width: 100%;
+        padding: 2.7vmin 19%;
+        outline: 0;
+        border: 0;
+        font-size: 3.4vmin;
+    }
+    .newsletter-module .group-main .mobile-form-group #form1 {
+        padding: 0 7%;
     }
     .newsletter-module .group-main .group .inputs input {
         font-size: 10px;
@@ -12943,10 +12966,9 @@ and (orientation : landscape) {
 
 .logo-home {
      background: url(../images/mobile/mobile-logo-white.png);
-     margin: 2vmin 0 0 2vmin;
+     margin: 6vmin 0 0 6vmin;
      background-repeat: no-repeat;
-    background-size: 22vmin;
-
+    background-size: 29vmin !important;
 }
 
 .space_btn_element {
@@ -12970,12 +12992,12 @@ and (orientation : landscape) {
 }
 
 .Bring_solar_energy__to_communities_around_the_c {
-    font-size: 3.6vmin;
+    font-size: 4.2vmin;
     line-height: 5.4vmin;
 }
 
 .CREATE_CLEAN_ENERGY {
-    font-size: 4vmin;
+    font-size: 7vmin;
 }
 .how-it-works-button {
     padding: 2vmin 10%;
@@ -13501,6 +13523,17 @@ a.How_it_Works:hover {
 .zinnia footer li, .zinnia .header.top-section-header li {
     list-style-image: none;
 }
+.zinnia .footer .container {
+    height: 100%;
+    position: relative;
+    padding: 0 2.7%;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+}
 .curnt-projct-lst-head {
     float: left;
     position: relative;
@@ -13761,3 +13794,21 @@ a.How_it_Works:hover {
         margin: 0 13%;
     }
 }
+@media (max-width: 414px) {
+    .carousel-third-img .text_overlay {
+        padding: 4vmin calc(8.5% + 15px) 0 calc(8.5% + 15px);
+    }
+    .carousel-third-img .how-it-works-button {
+        padding: 2vmin 25%;
+        float: left;
+        width: 100%;
+    }
+    .carousel-second-img .text_overlay {
+        padding: 4vmin calc(4.5% + 15px) 0 calc(4.5% + 15px);
+    }
+    .carousel-second-img .text_content .space_btn_element:nth-child(2) {
+        margin-top: 0;
+        padding: 0 18%;
+    }
+}
+
