@@ -681,10 +681,10 @@ padding: 0;
     padding: 0vmin 4% 0 0;
 }
 .header .logo {
-    background: url(../images/logo.png);
+    background: url(../images/logo.png) no-repeat;
     margin: 17px 0 0 85px;
     width: 171px;
-    height: 68px;
+    height: 70px;
     display: block;
 }
 #project .header .logo {
@@ -1816,13 +1816,26 @@ padding: 0;
 .newsletter-module .img-preload {
     display: block;
 }
+.newsletter-module .img-preload {
+    background-image: url(../images/small/small-newsletter-bg.jpg);
+    height: 500px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+@media only screen and (max-device-width: 1024px) {
+    .newsletter-module .img-preload {
+        background-attachment: scroll;
+    }
+}
 .newsletter-module .parallax-window {
     height: 448px;
     background: transparent;
 }
 .newsletter-module .small-img,
 .newsletter-module .mobile-img {
-    display: block;
+    display: none;
     width: 100%;
 }
 .newsletter-module .title-newsletter {
@@ -5154,7 +5167,7 @@ display: none;
         display: none;
     }
     .newsletter-module .small-img {
-        display: block;
+        display: none;
     }
     .newsletter-module .title-newsletter {
         height: 36px;
@@ -12299,11 +12312,7 @@ width: 580px;
 /* iPads (min-width : 992px) and (max-width : 1024px) */
 
 @media (min-width: 992px) and (max-width: 1024px) and (-webkit-min-device-pixel-ratio: 1.5) {
-    .header .logo,
-    .footer .bottoms .logo {
-        background: url(../images/logo-white@2x.png) no-repeat;
-        background-size: 141px auto;
-    }
+
     /* .after-scroll-header */
 
     .header.after-scroll-header .logo {
@@ -12338,11 +12347,11 @@ width: 580px;
 
 @media (min-width: 768px) and (max-width: 991px) and (-webkit-min-device-pixel-ratio: 1.5) {
     .header .logo {
-        background: url(../images/tablet/tablet-logo-white@2x.png);
+        background: url(../images/tablet/tablet-logo-white@2x.png) no-repeat;
     }
 
     .header .logo {
-        background: url(../images/tablet/tablet-logo@2x.png);
+        background: url(../images/tablet/tablet-logo@2x.png) no-repeat;
         background-size: 257px auto;
     }
 
@@ -12752,7 +12761,7 @@ label.checkmark.animate:after {
         padding-bottom: 5vmin;
     }
     .header .logo {
-        background: url(../images/mobile/mobile-logo.png);
+        background: url(../images/mobile/mobile-logo.png) no-repeat;
         margin: 1vmin 0 2px 3vmin;
         display: block;
     }
@@ -13733,4 +13742,20 @@ a.How_it_Works:hover {
 }
 .footer .container > .row:first-child a:hover {
     color: #23527c;
+}
+.component-row.password-reset > div {
+        margin: 0 33%;
+}
+.password-reset .placeholder-field-label {
+    position: relative;
+    width: 100%;
+    padding: 3vmin 0 1vmin;
+}
+.password-reset .submit-button {
+    margin-top: 2vmin;
+}
+@media (max-width: 767px) {
+    .component-row.password-reset > div {
+        margin: 0 13%;
+    }
 }
