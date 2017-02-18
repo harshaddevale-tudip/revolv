@@ -64,7 +64,6 @@ a:hover {
     width: 100%;
     float: left;
     position: relative;
-    font-size: 2.3vmin;
 }
  .we_can_help_you {
        float: left;
@@ -157,8 +156,8 @@ a:hover {
         padding: 0.9em 10.5%;
     }
     .carousel-third-img .Bring_solar_energy__to_communities_around_the_c {
-            font-size: 3.6vmin;
-    line-height: 5.4vmin;
+        font-size: 2.3rem;
+        line-height: 1.55em;
     }
   .text_content {
     position: relative;
@@ -245,7 +244,7 @@ a:hover {
     top: 15vh;
     /* height: 9vmin; */
     z-index: 427;
-    font-size: 0.9vmin;
+    font-size: 1.55rem;
     /* font-family: "Source Sans Pro"; */
     color: rgb(40, 40, 40);
     font-weight: bold;
@@ -253,7 +252,7 @@ a:hover {
     /* line-height: 0.875; */
     text-align: center;
     z-index: 428;
-    padding: 3vmin 1%;
+    padding: 1.25em 1%;
 
 }
 
@@ -391,9 +390,9 @@ a:hover {
 
  .text_on_blue_image {
     text-align: center;
-    font-size: 3vh;
-    color:white;
-    margin-top: 2%;
+    font-size: 1.9rem;
+    color: white;
+    margin-top: 1.4em;
  }
  .carousel-indicators > li {
   border-radius: 0;
@@ -446,7 +445,7 @@ left .carousel-controls{
     padding: 0 5.6%;
 }
 .join-mov-btns {
-    padding: 5vmin 2.9% 0;
+    padding: 2.3em 2.9% 0;
 }
 .header-content {
     width:100%;
@@ -502,7 +501,7 @@ z-index: 448;
 .btn-blue {
     font-family: 'Source Sans Pro';
     font-weight: 900;
-    font-size: 14px;
+    font-size: 1.5rem;
     color: #fff;
     height: 52px;
     line-height: 52px;
@@ -773,7 +772,7 @@ padding: 0;
     color: white;
      height: auto;
     line-height: normal;
-    padding: 2vmin 1%;
+    padding: 0.9em 1%;
 }
 .header a.btn-blue:hover {
     color: white;
@@ -13812,3 +13811,23 @@ a.How_it_Works:hover {
     }
 }
 
+@media only screen and (min-device-width: 1400px) {
+    .join-mov-btn-cntnr {
+        font-size: 14px;
+    }
+    .text_on_blue_image {
+        text-align: center;
+        font-size: 2.8rem;
+        color: white;
+        margin-top: 1em;
+    }
+    .join-mov-btns {
+        padding: 3.4em 2.9% 0;
+    }
+    .Go_Solar_at_Home {
+        padding: 3.5em 1%;
+    }
+    .yellow-buttons {
+        font-size: 2.5em;
+    }
+}
