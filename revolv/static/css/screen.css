@@ -173,7 +173,7 @@ a:hover {
   }
 
   .CREATE_CLEAN_ENERGY {
-    font-size: 5.3rem;
+    font-size: 5.5rem;
     line-height: 1em;
     font-family: "SourceSansProBold";
     color: #fefefe;
@@ -13918,9 +13918,9 @@ a.How_it_Works:hover {
     }
 }
 @media only screen and (min-width: 1600px) {
-    .yellow-buttons {
+    /*.yellow-buttons {
         font-size: 1.6em;
-    }
+    }*/
     .header a.btn-blue, .header.after-scroll-header a.btn-blue {
         padding: 1em 1%;
     }
