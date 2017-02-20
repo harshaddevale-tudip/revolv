@@ -19,7 +19,7 @@
     <link rel="home" href="{% url 'zinnia:entry_archive_index' %}" />
     <link rel="stylesheet" type="text/css" media="screen, projection" href="{% static "zinnia/theme/css/screen.css" %}" />
     <link rel="stylesheet" type="text/css" media="print" href="{% static "zinnia/theme/css/print.css" %}" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
 
@@ -35,15 +35,16 @@
     <!--[if lt IE 8]>
         <link rel="stylesheet" type="text/css" media="screen, projection" href="{% static "zinnia/theme/css/ie.css" %}" />
     <![endif]-->
-    {% block nav %}
-    {% include "base/partials/nav.html" %}
-    {% endblock %}
 
     {% block link %}{% endblock link %}
     {% block script %}{% endblock script %}
   </head>
   <body class="zinnia {% block theme-class %}default{% endblock theme-class %} {% block color-class %}blue{% endblock color-class %} {% block sidebar-class %}right-sidebar{% endblock sidebar-class %} {% block body-class %}{% endblock body-class %}">
+
     <div class="container">
+        {% block nav %}
+            {% include "base/partials/blog_header.html" %}
+        {% endblock %}
       <header id="header" role="banner">
         <nav>
           <ul class="top-navigation">

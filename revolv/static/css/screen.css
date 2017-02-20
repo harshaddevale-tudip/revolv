@@ -1,5 +1,10 @@
 /* Reset HTML5
 */
+@font-face {
+    font-family: SourceSansProBold;
+    src: url(../fonts/SourceSansPro-Bold.otf);
+}
+
 treehugger_logo
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
   font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
@@ -155,10 +160,6 @@ a:hover {
         font-size: 1.7rem;
         padding: 0.9em 10.5%;
     }
-    .carousel-third-img .Bring_solar_energy__to_communities_around_the_c {
-        font-size: 2.3rem;
-        line-height: 1.55em;
-    }
   .text_content {
     position: relative;
     float: right;
@@ -168,15 +169,15 @@ a:hover {
   }
 
   .space_btn_element {
-        margin-top: 2vmin;
+        margin-top: 0.9em;
   }
 
   .CREATE_CLEAN_ENERGY {
     font-size: 5.3rem;
-    font-family: "Source Sans Pro";
+    line-height: 1em;
+    font-family: "SourceSansProBold";
     color: #fefefe;
     text-transform: uppercase;
-    line-height: 1em;
     text-align: right;
     position: relative;
     z-index: 462;
@@ -501,7 +502,7 @@ z-index: 448;
 .btn-blue {
     font-family: 'Source Sans Pro';
     font-weight: 900;
-    font-size: 1.5rem;
+    font-size: 1em;
     color: #fff;
     height: 52px;
     line-height: 52px;
@@ -687,6 +688,18 @@ padding: 0;
     height: 70px;
     display: block;
 }
+.zinnia .header .logo {
+    margin: 17px 0 0 0;
+}
+.zinnia .header .rights {
+    padding: 1.9rem 0 0 0;
+}
+.zinnia .header .rights > a.btn-blue:last-child {
+    margin-right: 0;
+}
+.zinnia.blue a:visited {
+    color: #fff;
+}
 #project .header .logo {
     margin: 14px 0 0 60px;
 }
@@ -779,6 +792,12 @@ padding: 0;
 }
 .header a.btn-blue:last-child, .header a.btn-blue:first-child {
   margin-right: 3rem;
+}
+.zinnia .header a.btn-blue:last-child {
+    margin-right: 0;
+}
+.zinnia .header a.btn-blue:nth-child(2), .header a.btn-blue:first-child {
+    margin-right: 3rem;
 }
 #home-page .rights > a.btn-blue:last-child {
   margin-right: 0;
@@ -4072,6 +4091,8 @@ header.edit-project-header > .container > h1 {
     top: 0;
     left: 0;
     z-index: 99;
+    width: 100%;
+    max-width: 100%;
 }
 /* .footer .row */
 
@@ -6871,6 +6892,9 @@ width: 580px;
     .header a.btn-blue:last-child, .header a.btn-blue:first-child {
       margin-right: 1rem;
     }
+    .zinnia .header a.btn-blue:nth-child(2), .header a.btn-blue:first-child {
+        margin-right: 3rem;
+    }
     .text_content {
      margin-right: 1rem;
 }
@@ -6969,6 +6993,13 @@ width: 580px;
     width: 22vmin;
     /* height: 101px; */
     background-repeat: no-repeat;
+    }
+    .zinnia .header .logo {
+        background: url(../images/tablet/tablet-logo@2x.png);
+        background-size: 23vmin auto;
+        width: 22vmin;
+        height: 101px;
+        background-repeat: no-repeat;
     }
     .header .btn-donate {
         min-width: 132px;
@@ -9728,6 +9759,10 @@ width: 580px;
     }
     header.header {
         height: 155px;
+        margin-top: 10px;
+    }
+    .zinnia header.header {
+        height: 100px;
         margin-top: 10px;
     }
     header.header.after-scroll-header .logo {
@@ -13492,9 +13527,8 @@ a.How_it_Works:hover {
     width: 100%;
 }
 .zinnia .header .container {
-    padding: 0 2% 0 4.7%;
+    padding: 0;
     margin: 0;
-    max-width: 100%;
     float: left;
     width: 100%;
 }
@@ -13811,7 +13845,16 @@ a.How_it_Works:hover {
     }
 }
 
-@media only screen and (min-device-width: 1400px) {
+@media only screen and (min-width: 1400px) {
+    .logo-home {
+        background: url(../images/logo-white.png);
+        margin: 2.3vmin 0 0 13vmin;
+        background-repeat: no-repeat;
+        width: 12em;
+        height: 5em;
+        display: block;
+        background-size: 12em 5em !important;
+    }
     .join-mov-btn-cntnr {
         font-size: 14px;
     }
@@ -13825,9 +13868,67 @@ a.How_it_Works:hover {
         padding: 3.4em 2.9% 0;
     }
     .Go_Solar_at_Home {
-        padding: 3.5em 1%;
+        padding: 2.2em 1%;
+        font-size: 1em;
     }
     .yellow-buttons {
-        font-size: 2.5em;
+        font-size: 1.4em;
     }
+    #myCarousel .carousel-prev-button {
+        left: -0.1em;
+        top: 0.75em;
+    }
+    .carousel-third-img .text_content {
+        width: 70em;
+    }
+    .CREATE_CLEAN_ENERGY {
+        font-size: 7rem;
+    }
+    .Bring_solar_energy__to_communities_around_the_c  {
+        font-size: 4rem;
+    line-height: 1.45em;
+    }
+    .carousel-third-img .How_it_Works {
+        font-size: 2.7rem;
+        padding: 0.7em 8.1%;
+        font-family: SourceSansProBold;
+    }
+    .carousel-second-img .text_overlay {
+        padding: 1.9em calc(11.5% + 15px) 0 calc(11.5% + 15px);
+    }
+    .carousel-second-img .how-it-works-button {
+       padding-top: 3.1em;
+    }
+    .carousel-second-img .How_it_Works {
+        font-size: 2.7rem;
+    padding: 0.7em 7%;
+    }
+    .How_it_Works {
+        font-size: 2.7rem;
+    padding: 0.7em 13%;
+    }
+    .header {
+       height: 9em;
+    }
+    .header .rights {
+        padding: 3.9rem 5.2% 0 0;
+    }
+    .footer .row:last-child {
+        padding-bottom: 1em;
+    }
+}
+@media only screen and (min-width: 1600px) {
+    .yellow-buttons {
+        font-size: 1.6em;
+    }
+    .header a.btn-blue, .header.after-scroll-header a.btn-blue {
+        padding: 1em 1%;
+    }
+}
+.zinnia .container {
+    max-width: 100%;
+    width: 82%;
+}
+.zinnia dd {
+    margin-left: 0;
 }
