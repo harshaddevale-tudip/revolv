@@ -4662,7 +4662,7 @@ display: none;
         background-size: 141px auto;
         margin: 9px 0 0 70px;
         width: 141px;
-        height: 56px;
+        height: 70px;
     }
 
     .header .btn-donate {
@@ -13931,4 +13931,15 @@ a.How_it_Works:hover {
 }
 .zinnia dd {
     margin-left: 0;
+}
+@media (max-width: 500px) {
+    #myCarousel .carousel-third-img .background-image-size_home{
+        content:url(../images/mobile/mobile_slide1.png);
+    }
+    #myCarousel .carousel-second-img .background-image-size_home{
+        content:url(../images/mobile/mobile_slide2.png);
+    }
+    #myCarousel .carousel-first-img .background-image-size_home{
+        content:url(../images/mobile/mobile_slide3.png);
+    }
 }
