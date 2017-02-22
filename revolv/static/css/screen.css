@@ -1892,7 +1892,7 @@ padding: 0;
     border: none;
     text-align: center;
     padding-top: 0;
-    font-size: 2.1rem;
+    font-size: 1.7rem;
     margin-top: 0;
 }
 .newsletter-module .group-main .group .inputs {
@@ -13860,7 +13860,7 @@ a.How_it_Works:hover {
     }
     .text_on_blue_image {
         text-align: center;
-        font-size: 2.8rem;
+        font-size: 1.9rem;
         color: white;
         margin-top: 1em;
     }
@@ -13868,11 +13868,8 @@ a.How_it_Works:hover {
         padding: 3.4em 2.9% 0;
     }
     .Go_Solar_at_Home {
-        padding: 2.2em 1%;
-        font-size: 1em;
-    }
-    .yellow-buttons {
-        font-size: 1.4em;
+        padding: 1.25em 1%;
+        font-size: 1.55rem;
     }
     #myCarousel .carousel-prev-button {
         left: -0.1em;
@@ -13882,14 +13879,14 @@ a.How_it_Works:hover {
         width: 70em;
     }
     .CREATE_CLEAN_ENERGY {
-        font-size: 7rem;
+        font-size: 5.5rem;
     }
     .Bring_solar_energy__to_communities_around_the_c  {
-        font-size: 4rem;
+        font-size: 2.6rem;
     line-height: 1.45em;
     }
     .carousel-third-img .How_it_Works {
-        font-size: 2.7rem;
+        font-size: 1.7rem;
         padding: 0.7em 8.1%;
         font-family: SourceSansProBold;
     }
@@ -13900,11 +13897,11 @@ a.How_it_Works:hover {
        padding-top: 3.1em;
     }
     .carousel-second-img .How_it_Works {
-        font-size: 2.7rem;
+        font-size: 1.7rem;
     padding: 0.7em 7%;
     }
     .How_it_Works {
-        font-size: 2.7rem;
+        font-size: 1.7rem;
     padding: 0.7em 13%;
     }
     .header {
