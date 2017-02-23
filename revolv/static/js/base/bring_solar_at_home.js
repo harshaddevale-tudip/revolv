@@ -266,6 +266,17 @@ $(document).ready(function() {
 
     });
     $(".form-submit-btn").click(function(e){
+        var intakeForm = '<div class="intake-form-msg-cntnr">'
+                                +'<div class="intake-form-msg">'
+                                    +'<span>Thank you for your interest in becoming a Solar Champion!<br> We will be in touch soon!</span>'
+                                    +'<div class="form-submit-msg-btn-cntnr">'
+                                        +'<div class="form-submit-msg-btn">OK</div>'
+                                    +'</div>'
+                                +'</div>'
+                            +'</div>';
+        $("body").prepend(intakeForm);
+        $('body').css('overflow', 'hidden');
+        formMessage();
          var $this = $(this);
          var status, data= {};
         var name = $('.input-full-name input[type=text]').val().trim();
@@ -354,7 +365,19 @@ $(document).ready(function() {
      $('.org-name-taxid > div:last-child input[type=text]').mask("hh-hhhhhhh",{placeholder:"x"});
      $('.org-strt-year input[type=text]').mask("hhhh",{placeholder:""});
      /*$('.input-email-code > div:last-child input[type=text]').mask("hhhhh-hhhh?-hh",{placeholder:"x"});*/
-
+    function formMessage() {
+        $(".form-submit-msg-btn").click(function(e){
+            window.location.href = "/bring_solar_to_your_community/";
+        });
+        $(".intake-form-msg-cntnr").click(function(e){
+             e.stopPropagation();
+             if (e.target !== this)
+                return;
+              $(".intake-form-msg-cntnr").hide();
+              $('body').css('overflow', 'scroll');
+              $('body').css('overflow-x', 'hidden');
+        });
+    }
 });
 var streamVideo = 0, element, instance;
 function play(vidId) {

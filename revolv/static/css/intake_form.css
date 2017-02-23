@@ -144,8 +144,9 @@
     width: 100%;
     border: 0;
     resize: none;
-    padding: 2vmin 0 0;
     font-size: 3vmin;
+    padding: 1vmin;
+    border: 1px solid #ccc;
 }
 .lead-exp-desc-main-block {
     padding: 3.5vmin 0;

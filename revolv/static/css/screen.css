@@ -13242,6 +13242,9 @@ a.next-button {
     border-radius: 4px;
     float: right;
 }
+.chapter-nxt-btn-cntnr a.next-button {
+    padding: 3vmin 19%;
+}
 a.next-button:hover {
     text-decoration: none;
     color: #fff;
@@ -13261,7 +13264,8 @@ a.back_button_link:hover {
     padding-left: 3vmin;
 }
 .chapter-page-image {
-    width:84vmin;
+    width: 54vmin;
+    margin-left: 4vmin;
 }
 .chapter-name {
         font-size: 2.8vmin;
@@ -13939,4 +13943,41 @@ a.How_it_Works:hover {
     #myCarousel .carousel-first-img .background-image-size_home{
         content:url(../images/mobile/mobile_slide3.png);
     }
+}
+.intake-form-msg-cntnr {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.2);
+    z-index: 2222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.intake-form-msg {
+    background-color: #fff;
+    padding: 10vmin 2vmin 7vmin;
+    width: 50%;
+    font-size: 2.7vmin;
+    color: #7E7E7E;
+    font-weight: 600;
+    text-align: center;
+}
+.form-submit-msg-btn-cntnr {
+    padding: 6vmin 45% 0;
+    float: left;
+    position: relative;
+    width: 100%;
+}
+.form-submit-msg-btn{
+    background-color: #14B1E7;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    padding: 0.8vmin 0;
+    font-size: 2.8vmin;
+    border-radius: 2%;
+    cursor: pointer;
+    width: 100%;
 }
