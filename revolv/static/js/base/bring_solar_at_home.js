@@ -266,17 +266,6 @@ $(document).ready(function() {
 
     });
     $(".form-submit-btn").click(function(e){
-        var intakeForm = '<div class="intake-form-msg-cntnr">'
-                                +'<div class="intake-form-msg">'
-                                    +'<span>Thank you for your interest in becoming a Solar Champion!<br> We will be in touch soon!</span>'
-                                    +'<div class="form-submit-msg-btn-cntnr">'
-                                        +'<div class="form-submit-msg-btn">OK</div>'
-                                    +'</div>'
-                                +'</div>'
-                            +'</div>';
-        $("body").prepend(intakeForm);
-        $('body').css('overflow', 'hidden');
-        formMessage();
          var $this = $(this);
          var status, data= {};
         var name = $('.input-full-name input[type=text]').val().trim();
@@ -317,7 +306,19 @@ $(document).ready(function() {
         var roofReplace = $(".roof-replace-plan .mark-checkbox").parent().next().text().trim();
         var electricityProvider = $('.electricity-provider input[type=text]').val().trim();
         var orgInterestBlock = $(".org-intrest-solar-block .text-area").val().trim();
-        console.log(data)
+
+        var intakeForm = '<div class="intake-form-msg-cntnr">'
+                                +'<div class="intake-form-msg">'
+                                    +'<span>Thank you for your interest in becoming a Solar Champion!<br> We will be in touch soon!</span>'
+                                    +'<div class="form-submit-msg-btn-cntnr">'
+                                        +'<div class="form-submit-msg-btn">OK</div>'
+                                    +'</div>'
+                                +'</div>'
+                            +'</div>';
+        $("body").prepend(intakeForm);
+        $('body').css('overflow', 'hidden');
+        formMessage();
+
         var urlData = [location.protocol, '//', location.host, '/bring_solar_to_your_community/intake_form/submit/'].join('');
         $.ajax({
                 type: 'POST',
@@ -369,14 +370,7 @@ $(document).ready(function() {
         $(".form-submit-msg-btn").click(function(e){
             window.location.href = "/bring_solar_to_your_community/";
         });
-        $(".intake-form-msg-cntnr").click(function(e){
-             e.stopPropagation();
-             if (e.target !== this)
-                return;
-              $(".intake-form-msg-cntnr").hide();
-              $('body').css('overflow', 'scroll');
-              $('body').css('overflow-x', 'hidden');
-        });
+
     }
 });
 var streamVideo = 0, element, instance;
