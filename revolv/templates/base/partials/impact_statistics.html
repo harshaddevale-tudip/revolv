@@ -8,13 +8,13 @@
       <div class="col-sm-4 col-md-2 col-xs-6">
             <div class="donation_info">
              <div>AMOUNT DONATED</div>
-            <span class="amount_donated">${{ statistics.total_donated }}</span>
+            <span class="amount_donated">${{ statistics.total_donated|floatformat:"0"|intcomma }}</span>
         </div>
           <div class="logo_circle">
           <img src="{% static "images/dashboard/Kiva_circle.jpg" %}" />
         </div>
         <div class="info">
-            <span class="val">${{statistics.reinvestment}} </span>
+            <span class="val">${{statistics.reinvestment|floatformat:"2"}} </span>
             <div>AMOUNT REINVESTED</div>
         </div>
       </div>
@@ -25,7 +25,7 @@
         </div>
         <div class="info">
             <div>Built</div>
-            <span class="val">{{ statistics.kwh }} </span>
+            <span class="val">{{ statistics.kwh|floatformat:"0"|intcomma }} </span>
             <span class="units">watts</span>
             <div>of solar energy capacity</div>
         </div>
@@ -36,7 +36,7 @@
         </div>
         <div class="info">
             <div>Avoided</div>
-            <span class="val">{{ statistics.carbon_dioxide }} </span>
+            <span class="val">{{ statistics.carbon_dioxide|floatformat:"0"|intcomma }} </span>
             <span class="units">lbs</span>
             <div class="tall">of carbon dioxide emissions</div>
         </div>
@@ -48,7 +48,7 @@
         <div class="info">
             <div>Equivalent to planting</div>
             <!--<span class="val">{{ statistics.trees }} </span>-->
-	   <span class="val">{{ statistics.trees }}</span>
+	   <span class="val">{{ statistics.trees|floatformat:"0"|intcomma }}</span>
             <span class="units">acres</span>
             <div>of trees</div>
         </div>
@@ -59,7 +59,7 @@
         </div>
         <div class="info">
             <div>Supported</div>
-            <span class="val">{{ statistics.project_count }} </span>
+            <span class="val">{{ statistics.project_count|floatformat:"0"|intcomma }} </span>
             <div class="tall">community-serving organizations</div>
         </div>
       </div>

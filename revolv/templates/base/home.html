@@ -268,7 +268,7 @@ position: absolute;
             </div>
             <!-- end .blue-bar -->
             <div class="dark-blue-bar">
-              <span class="pull-left actual-energy">{{ active_project.get_statistic_for_project|floatformat:"2" }} lbs CO<sub>2</sub></span>
+              <span class="pull-left actual-energy">{{ active_project.get_statistic_for_project|floatformat:"0"|intcomma }} lbs CO<sub>2</sub></span>
               <span class="pull-right">{{ active_project.donors.count }} Donors</span>
             </div>
             <!-- end .blue-bar -->
@@ -329,7 +329,7 @@ position: absolute;
             </div>
             <!-- end .blue-bar -->
             <div class="dark-blue-bar">
-              <span class="pull-left actual-energy">{{ completed_project.get_statistic_for_project|floatformat:"2" }} lbs CO<sub>2</sub></span>
+              <span class="pull-left actual-energy">{{ completed_project.get_statistic_for_project|floatformat:"0"|intcomma}} lbs CO<sub>2</sub></span>
               <span class="pull-right">{{ completed_project.donors.count }} Donors</span>
             </div>
             <!-- end .blue-bar -->
