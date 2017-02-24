@@ -1743,12 +1743,27 @@ padding: 0;
 }
 
 .featured-on-module .logo-treehugger {
-    background: url(../images/treehugger_logo.png) no-repeat;
-    background-position: top;
-    background-size: 100% auto;
-    height: 66.075px;
+    background: url(../images/treehugger.png) no-repeat;
+    background-size: 100% 47px;
+    height: 60.075px;
     width: 193px;
 }
+
+.featured-on-module .logo-scientific-american {
+    background: url(../images/scientific-American.png) no-repeat;
+    background-position: top;
+    background-size: 100% 43px;
+    height: 49px;
+    width: 193px;
+}
+.featured-on-module .logo-grist {
+    background: url(../images/grist.png) no-repeat;
+    background-position: top;
+    background-size: 219px 62px;
+    height: 65px;
+    width: 220px;
+}
+
 
 .featured-on-module .logo-doe {
     background: url(../images/DOE_logo.jpg) no-repeat;
@@ -1758,7 +1773,6 @@ padding: 0;
     width: 178px;
 }
 .featured-on-module .logo-forbes:hover,
-.featured-on-module .logo-treehugger:hover,
 .featured-on-module .logo-whitehouse:hover,
 .featured-on-module .logo-doe:hover {
     background-position: center 100%;
