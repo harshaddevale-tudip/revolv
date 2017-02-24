@@ -12882,8 +12882,11 @@ label.checkmark.animate:after {
     }
 }
 @media only screen and (max-width: 768px) and (min-width: 319px) and (orientation: portrait) {
-    .column-center {
-        padding: 4.3vmin 0;
+    .Go_Solar_at_Home.column-center {
+        padding: 4vmin 0;
+    }
+    .Go_Solar_at_Home {
+        padding: 2.8vmin 1%;
     }
 }
 @media (min-width: 768px){
@@ -13029,16 +13032,21 @@ and (orientation : landscape) {
     width: 100%;
 }
 .carousel-second-img .How_it_Works {
-    padding: 2vmin 19%;
+    padding: 2vmin 16%;
     width: 100%;
     color: #fff;
+    font-size: 2.5vmin;
 }
 .carousel-second-img .how-it-works-button {
     float: left;
     width: 100%;
     padding-top: 4vmin;
 }
-
+.carousel-third-img .How_it_Works {
+    float: left;
+    font-size: 2.5vmin;
+    padding: 0.9em 10.5%;
+}
 .Bring_solar_energy__to_communities_around_the_c {
     font-size: 4.2vmin;
     line-height: 5.4vmin;
@@ -13280,6 +13288,9 @@ a.back_button_link:hover {
 .chapter-page-image {
     width: 54vmin;
     margin-left: 4vmin;
+}
+.chapter-page-image.chapter-four-image {
+    width: 74vmin;
 }
 .chapter-name {
         font-size: 2.8vmin;
@@ -13850,7 +13861,7 @@ a.How_it_Works:hover {
         padding: 4vmin calc(8.5% + 15px) 0 calc(8.5% + 15px);
     }
     .carousel-third-img .how-it-works-button {
-        padding: 2vmin 25%;
+        padding: 2vmin 19%;
         float: left;
         width: 100%;
     }

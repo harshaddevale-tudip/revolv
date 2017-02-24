@@ -306,7 +306,6 @@ $(document).ready(function() {
         var roofReplace = $(".roof-replace-plan .mark-checkbox").parent().next().text().trim();
         var electricityProvider = $('.electricity-provider input[type=text]').val().trim();
         var orgInterestBlock = $(".org-intrest-solar-block .text-area").val().trim();
-
         var intakeForm = '<div class="intake-form-msg-cntnr">'
                                 +'<div class="intake-form-msg">'
                                     +'<span>Thank you for your interest in becoming a Solar Champion!<br> We will be in touch soon!</span>'
