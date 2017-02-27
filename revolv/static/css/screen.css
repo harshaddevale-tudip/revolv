@@ -126,11 +126,9 @@ a:hover {
         width: 100%;
     position: absolute;
     top: 13vmin;
-    padding: 4vmin calc(8.5% + 15px) 0 0;
+    padding: 4vmin calc(8.5% + 15px) 0 9%;
   }
-   .carousel-second-img .text_overlay {
-        padding: 4vmin calc(17.5% + 15px) 0 calc(17.5% + 15px);
-    }
+
    .carousel-second-img .text_content {
         width: 100%;
         text-align: center;
@@ -138,13 +136,21 @@ a:hover {
     }
    .carousel-second-img  .how-it-works-button {
         float: left;
-        width: 100%;
-        padding-top: 7vmin;
+    text-align: center;
+       display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+     -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
     }
    .carousel-second-img .How_it_Works {
         font-size: 1.7rem;
     color: #fff;
-    padding: 0.9em 5.6%;
+    padding: 0.9em 0;
     float: none;
     text-align: center;
     }
@@ -153,12 +159,15 @@ a:hover {
         width: 65%;
         text-align: left;
         margin-right: 0;
-        padding-left: 10%;
     }
     .carousel-third-img .How_it_Works {
         float: left;
         font-size: 1.7rem;
-        padding: 1em 12.7%;
+        padding: 0.9em 0;
+        text-align: center;
+    }
+    .carousel-first-img .how-it-works-button {
+        bottom: 0;
     }
   .text_content {
     position: relative;
@@ -194,6 +203,7 @@ a:hover {
     position: relative;
     z-index: 462;
     right: 0;
+    width: 25%;
 }
 
 .How_it_Works {
@@ -202,10 +212,12 @@ a:hover {
     font-family: "Source Sans Pro";
     color: #fff;
     text-transform: uppercase;
-    padding: 0.9em 16%;
+    padding: 0.9em 0;
     background-color: rgb(20, 177, 231);
     border-radius: 4px;
     float: right;
+    width: 24%;
+    text-align: center;
 }
 
 .how_it_works_rectangle {
@@ -13333,6 +13345,7 @@ a.back_button_link:hover {
 .how-it-works-button {
     float: left;
     width: 100%;
+    position: relative;
 }
 .all-chapters-list {
     float: left;
@@ -13916,22 +13929,14 @@ a.How_it_Works:hover {
     }
     .carousel-third-img .How_it_Works {
         font-size: 1.7rem;
-        padding: 0.7em 8.1%;
         font-family: SourceSansProBold;
-    }
-    .carousel-second-img .text_overlay {
-        padding: 1.9em calc(11.5% + 15px) 0 calc(11.5% + 15px);
-    }
-    .carousel-second-img .how-it-works-button {
-       padding-top: 3.1em;
     }
     .carousel-second-img .How_it_Works {
         font-size: 1.7rem;
-    padding: 0.7em 7%;
     }
     .How_it_Works {
         font-size: 1.7rem;
-    padding: 0.7em 13%;
+        width: 22%;
     }
     .header {
        height: 9em;
