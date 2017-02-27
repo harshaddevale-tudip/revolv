@@ -13052,7 +13052,10 @@ and (orientation : landscape) {
 .carousel-second-img .how-it-works-button {
     float: left;
     width: 100%;
-    padding-top: 4vmin;
+    padding: 4vmin 25%;
+}
+.carousel-first-img .how-it-works-button {
+    padding: 4vmin 27% 0;
 }
 .carousel-third-img .How_it_Works {
     float: left;
@@ -14010,4 +14013,22 @@ a.How_it_Works:hover {
     border-radius: 2%;
     cursor: pointer;
     width: 100%;
+}
+@media only screen and (min-width: 1750px) {
+    .How_it_Works {
+        font-size: 1.7rem;
+        width: 18%;
+    }
+}
+@media only screen and (max-width: 767px) {
+    .row.component-row.password-reset-confirm {
+        padding: 0 7%;
+    }
+    form#password_reset_confirm_form .placeholder-field-label {
+        position: relative;
+        width: 100%;
+    }
+    form#password_reset_confirm_form label:last-child {
+        margin: 1em 0;
+    }
 }
