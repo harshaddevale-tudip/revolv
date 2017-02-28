@@ -372,98 +372,80 @@ $(document).ready(function() {
 
     }
 });
-var streamVideo = 0, element, instance;
+var streamVideo = 0, element, instance, playersrc;
 function play(vidId) {
         instance = document.getElementById(vidId);
-        instance.play();
-        $(instance).next().css('display', 'none');
+        playersrc=$(instance).attr('src');
+        console.log(playersrc);
+        $(instance).attr('src',playersrc+'&autoplay=1');
+
  }
 
 function pause(vidId) {
         instance = document.getElementById(vidId);
-            instance.pause();
-            $(instance).next().css('display','flex');
+        console.log(playersrc)
+        $(instance).attr('src',playersrc);
 }
  function showDesktopFullscreen(vidId) {
       element = document.getElementById(vidId);
+     $(element).attr('src',playersrc);
     $("#video-popup").show();
-    instance.load();
+    $( ".pop-up-vid-cntnr" ).remove();
     var popUpVideoId = document.getElementById("pop-up-video");
-    console.log(popUpVideoId, $(element).find("source").attr('src'), $(element).attr('poster'))
-    $(popUpVideoId).attr('poster', $(element).attr('poster'));
-    $(popUpVideoId).find("source").attr('src', $(element).find("source").attr('src'));
-    popUpVideoId.load();
-    popUpVideoId.play();
-  /*var vidNumber = parseInt($(element).attr('id').substr($(element).attr('id').length - 1));
-    popUpVideoId.onended = function(e) {
-	    (++vidNumber).toString();
-	 	if(vidNumber < 6) {
-	      	var nextVid = document.getElementById('video-'+ vidNumber);
-	      	$(popUpVideoId).attr('poster', $(nextVid).attr('poster'));
-		    $(popUpVideoId).find("source").attr('src', $(nextVid).find("source").attr('src'));
-		    popUpVideoId.load();
-		    popUpVideoId.play();
-		}
-    };*/
+    console.log(element, $(element).attr('src'))
+
+    var $iframe = $("<iframe id='pop-up-iframe-vid-id' frameborder='0'>").attr("src", $(element).attr('src')+'&autoplay=1');
+    $("#video-popup .play-main-video").append($iframe);
+    $iframe.wrap("<div class='pop-up-vid-cntnr'>");
+
     $(".video-popup-body, #video-popup").click(function(e){
          e.stopPropagation();
          if (e.target !== this)
             return;
-          popUpVideoId.load();
-          $("#video-popup").hide();
+
+        $("#pop-up-iframe-vid-id").attr("src", playersrc);
+        $("#video-popup").hide();
     });
-    $(document).keydown(function(e) {
-        // ESCAPE key pressed
+     $(document).keydown(function(e) {
         if (e.keyCode == 27) {
-            popUpVideoId.load();
+        $("#pop-up-iframe-vid-id").attr("src", playersrc);
              $("#video-popup").hide();
         }
     });
+    /* $('#video-popup').bind('keydown', function(event) {
+         console.log("key down")
+        if (event.keyCode == 27){
+            $("#pop-up-iframe-vid-id").attr("src", playersrc);
+             $("#video-popup").hide();
+        }
+     });*/
 }
 function goFullscreen(id) {
+    console.log(id)
       element = document.getElementById(id);
     $("#video-popup").show();
-
+    $( ".pop-up-vid-cntnr" ).remove();
     var popUpVideoId = document.getElementById("pop-up-video");
-    console.log(popUpVideoId, $(element).find("source").attr('src'), $(element).attr('poster'))
-    $(popUpVideoId).attr('poster', $(element).attr('poster'));
-    $(popUpVideoId).find("source").attr('src', $(element).find("source").attr('src'));
-    popUpVideoId.load();
-    popUpVideoId.play();
-  /*var vidNumber = parseInt($(element).attr('id').substr($(element).attr('id').length - 1));
-    popUpVideoId.onended = function(e) {
-	    (++vidNumber).toString();
-	 	if(vidNumber < 6) {
-	      	var nextVid = document.getElementById('video-'+ vidNumber);
-	      	$(popUpVideoId).attr('poster', $(nextVid).attr('poster'));
-		    $(popUpVideoId).find("source").attr('src', $(nextVid).find("source").attr('src'));
-		    popUpVideoId.load();
-		    popUpVideoId.play();
-		}
-    };*/
+
+    var $iframe = $("<iframe id='pop-up-iframe-vid-id' frameborder='0' allowfullscreen>").attr("src", $(element).attr('src')+'&autoplay=1');
+    $("#video-popup .play-main-video").append($iframe);
+    $iframe.wrap("<div class='pop-up-vid-cntnr'>");
+
+
  $(".video-popup-body, #video-popup").click(function(e){
          e.stopPropagation();
           if (e.target !== this)
             return;
-          popUpVideoId.load();
+            $("#pop-up-iframe-vid-id").attr("src", $(element).attr('src'));
           $("#video-popup").hide();
     });
  $(document).keydown(function(e) {
-    // ESCAPE key pressed
-    if (e.keyCode == 27) {
-        popUpVideoId.load();
-         $("#video-popup").hide();
-    }
-});
+        if (e.keyCode == 27) {
+        $("#pop-up-iframe-vid-id").attr("src", $(element).attr('src'));
+             $("#video-popup").hide();
+        }
+    });
 }
 
-/*$(document).on ('webkitfullscreenchange',function(){
-      if(streamVideo == 0) {
-      	streamVideo = 1;
-      } else {
-      	streamVideo = 0;
-      	element.load();
-      }
- });*/
 
 
