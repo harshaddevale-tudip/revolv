@@ -7525,7 +7525,7 @@ width: 580px;
     .testimonial-module .title-testimonial {
         letter-spacing: 10px;
         padding-left: 10px;
-        width: 253px;
+        width: 278px;
         margin: 48px auto 0 auto;
     }
     /* .testimonial-module .head-row */
@@ -14036,5 +14036,8 @@ a.How_it_Works:hover {
 @media only screen and (min-width: 768px) and (max-width: 1023px){
     .How_it_Works {
         width: 35%;
+    }
+    .header.after-scroll-header .logo-home {
+        margin: 5.1vmin 0 0 9%;
     }
 }
