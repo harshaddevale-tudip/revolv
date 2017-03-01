@@ -388,7 +388,7 @@ a:hover {
 
 .logo-home {
      background: url(../images/logo-white.png);
-    margin: 2.3vmin 0 0 13vmin;
+    margin: 2.3vmin 0 0 9%;
     background-repeat: no-repeat;
     width: 171px;
     height: 75px;
@@ -14030,5 +14030,11 @@ a.How_it_Works:hover {
     }
     form#password_reset_confirm_form label:last-child {
         margin: 1em 0;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px){
+    .How_it_Works {
+        width: 35%;
     }
 }
