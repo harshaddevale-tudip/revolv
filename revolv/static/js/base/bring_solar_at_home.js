@@ -412,6 +412,12 @@ function pause(vidId) {
              $("#video-popup").hide();
         }
     });
+     $(".close-video").click(function(e){
+         e.stopPropagation();
+
+        $("#pop-up-iframe-vid-id").attr("src", playersrc);
+        $("#video-popup").hide();
+    });
     /* $('#video-popup').bind('keydown', function(event) {
          console.log("key down")
         if (event.keyCode == 27){

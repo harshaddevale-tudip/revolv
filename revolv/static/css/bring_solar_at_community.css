@@ -218,6 +218,7 @@ body {
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
+    cursor: pointer;
 
 }
 .play-desktop-video-img img {
@@ -267,6 +268,13 @@ body {
     float: left;
     position: relative;
     width: 100%;
+}
+img.close-video {
+    position: absolute;
+    z-index: 2222;
+    right: -2%;
+    top: -2%;
+    cursor: pointer;
 }
 .flex {
     display: flex;
