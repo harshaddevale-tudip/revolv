@@ -514,7 +514,7 @@ z-index: 448;
 .btn-blue {
     font-family: 'Source Sans Pro';
     font-weight: 900;
-    font-size: 1em;
+    font-size: 1.4rem;
     color: #fff;
     height: 52px;
     line-height: 52px;
@@ -4599,7 +4599,7 @@ display: none;
       text-align: left;
     }
     .btn-blue {
-        font-size: 11.57px;
+        font-size: 1.4rem;
         height: 39px;
         line-height: 43px;
         padding: 0px 5px 0 5px;
@@ -4898,7 +4898,7 @@ display: none;
     }
     .active-projects-module .info-main .blue-bar,
     .active-projects-module .info-main .dark-blue-bar {
-        font-size: 13.23px;
+        font-size: 1.4rem;
         height: 50px;
         line-height: 50px;
         padding: 0 11px 0 19px;
@@ -6930,7 +6930,7 @@ width: 580px;
     /* btn */
 
     .btn-blue {
-        font-size: 14.34px;
+        font-size: 1.4rem;
 /*        height: 55px;
         line-height: 55px;
         padding: 0 5px;*/
@@ -14040,4 +14040,16 @@ a.How_it_Works:hover {
     .header.after-scroll-header .logo-home {
         margin: 5.1vmin 0 0 9%;
     }
+}
+html.skrollr.skrollr-desktop {
+    font-size: 10px;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+html.skrollr-desktop {
+    font-size: 10px;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+html.skrollr {
+    font-size: 10px;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
