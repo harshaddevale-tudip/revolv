@@ -12872,7 +12872,7 @@ label.checkmark.animate:after {
     .carousel-inner .item .background-image-size {
         height:70vh;
     }
-    
+
     .menu {
         display:block !important;
     }
@@ -13301,7 +13301,7 @@ a.back_button_link:hover {
     padding-left: 3vmin;
 }
 .chapter-page-image {
-    width: 54vmin;
+    width: 100%;
     margin-left: 4vmin;
 }
 .chapter-page-image.chapter-four-image {
@@ -14027,12 +14027,24 @@ a.How_it_Works:hover {
     form#password_reset_confirm_form .placeholder-field-label {
         position: relative;
         width: 100%;
+
     }
     form#password_reset_confirm_form label:last-child {
         margin: 1em 0;
     }
 }
+.row.component-row.password-reset-confirm {
+        padding: 0 33%;
+    }
 
+    form#password_reset_confirm_form .placeholder-field-label {
+        position: relative;
+        width: 100%;
+        margin: 0.5em 0;
+    }
+     form#password_reset_confirm_form .placeholder-field-label:last-child {
+        margin: 1em 0;
+    }
 @media only screen and (min-width: 768px) and (max-width: 1023px){
     .How_it_Works {
         width: 35%;
@@ -14052,4 +14064,58 @@ html.skrollr-desktop {
 html.app-root-element {
     font-size: 10px;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+.donate-on-sign-up {
+    background: #14b1e7 none repeat scroll 0 0;
+    border: medium none;
+    border-radius: 0;
+    color: white;
+    text-transform: uppercase;
+    width: 100%;
+    margin-top: 20px;
+}
+.donate-on-sign-up > span {
+    background: transparent none repeat scroll 0 0;
+    box-shadow: none;
+    font-family: "Source Sans Pro";
+    font-size: 16px;
+    font-weight: 900;
+    height: auto;
+    line-height: 43px;
+}
+@media (max-width: 991px){
+    #phone1{
+        display:none;
+    }
+    .donate-on-sign-up {
+        width: 150px !important
+    }
+}
+@media (min-width: 991px){
+    #ipad1 {
+        display:none;
+    }
+}
+@media (max-width: 767px){
+    #ipad1 {
+        display:none;
+    }
+    #phone1{
+        display:block;
+    }
+}
+.donation-welcome-msg {
+    text-align: center;
+    padding-bottom: 20px;
+    color: #337ab7;
+    float: left;
+    width: 100%;
+}
+body.main-body {
+    background-color: #fff;
+}
+
+.dashboard > .container-fluid > .col-md-9 > .row, .container-fluid > .impact > .row {
+    margin: 0 auto;
+    max-width: 100%;
 }
