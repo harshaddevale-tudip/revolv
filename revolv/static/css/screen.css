@@ -13044,7 +13044,7 @@ and (orientation : landscape) {
 
 .logo-home {
      background: url(../images/mobile/mobile-logo-white.png);
-     margin: 4.7vmin 0 0 6vmin;
+     margin: 5.7vmin 0 0 6vmin;
     background-repeat: no-repeat;
     background-size: 29vmin !important;
     padding: 0;
@@ -13171,6 +13171,8 @@ and (orientation : landscape) {
 
 .header .logo {
         display:block !important;
+        margin: 4vmin 0 2px 3vmin;
+        padding: 0;
     }
 
 }
