@@ -132,9 +132,9 @@ WSGI_APPLICATION = 'revolv.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'revolv_new_app',
-        'USER': 'pranay',
-        'PASSWORD': 'tudip123',
+        'NAME': 'revolv',
+        'USER': 'revolv',
+        'PASSWORD': 'revolv',
         # you have have to change this to "localhost";.
         'HOST': 'localhost',
         'PORT': '',
