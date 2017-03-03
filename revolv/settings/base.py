@@ -68,7 +68,6 @@ INSTALLED_APPS = [
     'wagtail.wagtailredirects',
     'wagtailsettings',
     'revolv.revolv_cms',
-
     'django_comments',
   'mptt',
   'tagging',
@@ -98,11 +97,14 @@ AUTHENTICATION_BACKENDS = [
     'sesame.backends.ModelBackend',
 ]
 
+SITE_ID = 1
+
 ROOT_URLCONF = 'revolv.urls'
 
 TEMPLATE_DIRS = [
     os.path.join(BASE_DIR, 'templates'),
     os.path.join(BASE_DIR, 'templates', 'zinnia'),
+
 ]
 TEMPLATE_CONTEXT_PROCESSORS = [
     'django.contrib.auth.context_processors.auth',
@@ -133,7 +135,7 @@ DATABASES = {
         'NAME': 'revolv',
         'USER': 'revolv',
         'PASSWORD': 'revolv',
-        # you have have to change this to "localhost"
+        # you have have to change this to "localhost";.
         'HOST': 'localhost',
         'PORT': '',
     }
@@ -313,6 +315,11 @@ EMAIL_TEMPLATES_PATH = os.path.join(
     'emails.yml'
 )
 
+MANDRILL_API_KEY = "smKmslFehEGIPxUWUVRBLQ"
+EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
+#SERVER_EMAIL = 'info@re-volv.org'
+EMAIL_HOST_USER = 'info@re-volv.org'
+
 # TODO: FIX THIS
 # Hard-coded urls: kind of ugly but we need these for when we
 # want to send links in emails
@@ -419,7 +426,7 @@ SOCIAL_AUTH_LOGIN_ERROR_URL = '/social_connect_failed/'
 SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email', 'first_name', 'last_name']
 
 # TODO: determine if this value is needed and if so what it should be
-# (This values does not exist in Heroku environment.)
+# (This values does not exist in Heroku environment.)s
 SHARETHIS_PUBLISHER_ID = os.environ.get('SHARETHIS_PUBLISHER_ID')
 
 # Salesforce TODO: obtain these account values
@@ -433,6 +440,7 @@ SFDC_REVOLV_DONATION = 'donation'
 # Stripe
 #STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
 #STRIPE_PUBLISHABLE = os.environ.get('STRIPE_PUBLISHABLE')
+
 
 STRIPE_SECRET_KEY = 'sk_test_vbQwIK5ECQMWvDtbteI6QWJa'
 STRIPE_PUBLISHABLE = 'pk_test_DQ2IZq0c2UbaDG75u4hWBEMC'
