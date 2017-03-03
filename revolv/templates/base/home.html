@@ -107,24 +107,15 @@ position: absolute;
 
 
 {% block body %}
-<!--<div class="menu">-->
-  <!--<ul>-->
-    <!--<a href="#"><li>LINK ONE</li></a>-->
-    <!--<a href="#"><li>LINK TWO</li></a>-->
-    <!--<a href="#"><li>LINK THREE</li></a>-->
-    <!--<a href="#"><li>LINK FOUR</li></a>-->
-    <!--<a href="#"><li>LINK FIVE</li></a>-->
-  <!--</ul>-->
-<!--</div>-->
+
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="10000">
-  <!-- Indicators -->
+
   <ol class="carousel-indicators">
     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
     <li data-target="#myCarousel"  data-slide-to="1"></li>
     <li data-target="#myCarousel" data-slide-to="2"></li>
   </ol>
 
-  <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
     <div class="item carousel-third-img active">
       <div class="text_overlay">
@@ -181,20 +172,6 @@ position: absolute;
 
   </div>
 
-  <!-- Left and right controls -->
-  <!--<div class="text_overlay">-->
-    <!--<div class="text_content">-->
-      <!--<div class="space_btn_element">-->
-        <!--<span class="CREATE_CLEAN_ENERGY">{{ settings.revolv_cms.MainPageSettings.site_tagline|safe }}</span>-->
-      <!--</div>-->
-      <!--<div class="space_btn_element">-->
-        <!--<span class="Bring_solar_energy__to_communities_around_the_c">{{ settings.revolv_cms.MainPageSettings.site_subheading|safe }}</span>-->
-      <!--</div>-->
-      <!--<div class="how-it-works-button">-->
-        <!--<a href="#how_it_works" class="How_it_Works space_btn_element">{{ settings.revolv_cms.MainPageSettings.how_it_works_heading|upper }}</a>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
   <a class="Ellipse_543 left carousel-control arrow-left"  href="#myCarousel" role="button" data-slide="prev">
       <div style="position:relative;">
           <span class=" glyphicon glyphicon-chevron-left next-button carousel-prev-button" aria-hidden="true"></span>
@@ -208,7 +185,7 @@ position: absolute;
       </div>
   </a>
 </div>
-<div class="modal-body imageContainer join-mov-btn-cntnr" style="background-image: url(static/images/revolv_blue_background.png);">
+<div class="modal-body imageContainer join-mov-btn-cntnr" style="background-image: url(static/images/revolv_blue_background.jpg);">
   <div class="text_on_blue_image"><span>Want to see solar energy spread rapidly across the country?</span><span><b> Join The Movement.</b></span></div>
   <div class="col-xs-12 join-mov-btns-cntnr">
       <div class="col-xs-4 join-mov-btns">
@@ -497,7 +474,7 @@ position: absolute;
         {% with testimonial_image="images/testimonials/darryl_dea.png" testimonial_image_mobile="images/testimonials/darryl_dea.png" %}
           {% include "base/partials/testimonial-head.html" %}
         {% endwith %}
-        {% with testimonial_image="images/testimonials/rebecca_johnson.png" testimonial_image_mobile="images/testimonials/rebecca_johnson.png" testimonial_active=True %}
+        {% with testimonial_image="images/testimonials/rebecca_johnson.png" testimonial_image_mobile="images/testimonials/rebecca_johnson.jpg" testimonial_active=True %}
           {% include "base/partials/testimonial-head.html" %}
         {% endwith %}
         {% with testimonial_image="images/testimonials/jennifer_martin.png" testimonial_image_mobile="images/testimonials/jennifer_martin.png" %}
