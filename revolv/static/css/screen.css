@@ -14114,7 +14114,9 @@ html.app-root-element {
 body.main-body {
     background-color: #fff;
 }
-
+.container-fluid > .no-donations > .row {
+    max-width: 80%;
+}
 .dashboard > .container-fluid > .col-md-9 > .row, .container-fluid > .impact > .row {
     margin: 0 auto;
     max-width: 100%;
