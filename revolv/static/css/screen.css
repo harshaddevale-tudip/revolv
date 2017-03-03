@@ -393,6 +393,7 @@ a:hover {
     width: 171px;
     height: 75px;
     display: block;
+    padding: 0;
 }
  .imageContainer {
     width: 100%;
@@ -714,6 +715,7 @@ padding: 0;
 }
 #project .header .logo {
     margin: 3rem 0 0 calc(5.6% + 30px);
+    padding: 0;
 }
 .header .btn-donate {
     min-width: 132px;
@@ -1125,7 +1127,7 @@ padding: 0;
     max-width: 100%;
 }
 #project .active-projects-module .row {
-    padding: 6em 5.6% 6em;
+    padding: 2em 5.6% 2em;
 }
 
 /* .active-projects-module .module-box */
@@ -13042,9 +13044,10 @@ and (orientation : landscape) {
 
 .logo-home {
      background: url(../images/mobile/mobile-logo-white.png);
-     margin: 6vmin 0 0 6vmin;
-     background-repeat: no-repeat;
+     margin: 4.7vmin 0 0 6vmin;
+    background-repeat: no-repeat;
     background-size: 29vmin !important;
+    padding: 0;
 }
 
 .space_btn_element {
@@ -13416,7 +13419,7 @@ a.How_it_Works:hover {
     .hamburger_color {
         border-color: transparent;
         color: white;
-        margin-top: 1.9rem;
+        margin-top: 2.5rem;
         margin-bottom: 1.6rem;
     }
     #project .hamburger_color {
