@@ -3,7 +3,7 @@
     position: relative;
     width: 100%;
 }
-.form-container {
+.intake-form-container {
     background-color: rgb(230, 230,229);
     padding: 4vmin 48% 6vmin 5%;
     font-family: "Source Sans Pro";
@@ -40,10 +40,10 @@
     font-size: 4vmin;
     padding: 0.3vmin 0 3vmin;
 }
-.form-container input[type='text'] {
+intake-form-containerform-container input[type='text'] {
     outline: 0;
 }
-.form-container input[type='text'] {
+.intake-form-container input[type='text'] {
     padding: 1.7vmin 2.4vmin;
     font-size: 2.9vmin;
     border: none;
@@ -133,12 +133,12 @@
     border-radius: 2%;
     cursor: pointer;
 }
-.form-container input[type=text]::-webkit-input-placeholder, .form-container input[type=textarea]::-webkit-input-placeholder {
+.intake-form-container input[type=text]::-webkit-input-placeholder, .intake-form-container input[type=textarea]::-webkit-input-placeholder {
    font-size: 3.0vmin;
    color: #8D8D8D;
 }
 
-.form-container input[type=text]:-moz-placeholder {
+.intake-form-container input[type=text]:-moz-placeholder {
    font-size: 3.0vmin;
    color: #8D8D8D;
 }
@@ -189,12 +189,12 @@
     float: left;
 }
 @media screen and (min-device-width : 1024px) and (max-device-width : 1024px) and (min-device-height : 1366px) and (max-device-height : 1366px) and (min-width: 1024px) and (max-width: 1024px) {
-    .form-container {
+    .intake-form-container {
         padding: 4vmin 25% 6vmin 5%;
     }
 }
 @media (max-width: 767px) {
-    .form-container {
+    .intake-form-container {
         padding: 4vmin 5% 6vmin 5%;
     }
     .input-email-code div:first-child {
