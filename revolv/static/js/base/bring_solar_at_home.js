@@ -354,7 +354,7 @@ $(document).ready(function() {
 
             })
             .done(function (response) {
-                console.log(response)
+
             })
             .fail(function (msg) {
 
