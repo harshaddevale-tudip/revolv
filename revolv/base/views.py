@@ -31,6 +31,7 @@ from revolv.tasks.sfdc import send_signup_info
 from revolv.lib.mailer import send_revolv_email
 from social.apps.django_app.default.models import UserSocialAuth
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import authenticate
 
 logger = logging.getLogger(__name__)
 
@@ -261,6 +262,11 @@ class LoginView(RedirectToSigninOrHomeMixin, FormView):
 
     def form_valid(self, form):
         """Log the user in and redirect them to the supplied next page."""
+        self.username = self.request.POST.get('username')
+        self.password = self.request.POST.get('password')
+        """Log the user in and redirect them to the supplied next page."""
+        user = authenticate(username=self.username, password=self.password)
+
         auth_login(self.request, form.get_user())
         messages.success(self.request, 'Logged in as ' + self.request.POST.get('username'))
         return redirect(self.next_url)
