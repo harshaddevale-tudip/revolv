@@ -14,6 +14,7 @@ from django.http import HttpResponseRedirect
 from django.http.response import HttpResponseBadRequest, HttpResponseRedirect
 from django.shortcuts import redirect, render_to_response
 from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.http import require_http_methods
 from django.views.generic import FormView, TemplateView, View
@@ -29,6 +30,7 @@ from revolv.base.models import RevolvUserProfile
 from revolv.tasks.sfdc import send_signup_info
 from revolv.lib.mailer import send_revolv_email
 from social.apps.django_app.default.models import UserSocialAuth
+from django.views.decorators.csrf import csrf_exempt
 
 logger = logging.getLogger(__name__)
 
@@ -251,6 +253,7 @@ class LoginView(RedirectToSigninOrHomeMixin, FormView):
     url_append = "#login"
     redirect_view = "signin"
 
+    @csrf_exempt
     @method_decorator(sensitive_post_parameters('password'))
     def dispatch(self, request, *args, **kwargs):
         self.next_url = request.POST.get("next", "home")
@@ -286,6 +289,7 @@ class SignupView(RedirectToSigninOrHomeMixin, FormView):
     url_append = "#signup"
     redirect_view = "signin"
 
+    @csrf_exempt
     def form_valid(self, form):
         form.save()
         u = form.ensure_authenticated_user()
@@ -355,14 +359,15 @@ def bring_solar_tou_your_community(request):
 
 def intake_form_submit(request):
     try:
-        projectData = request.POST['projectData']
+        # projectData = request.POST['projectData']
+        email = request.POST.get('email')
 
     except:
         logger.exception('Form values are not valid')
         return HttpResponseBadRequest('bad POST data')
 
     context = {}
-    context['projectData'] = projectData
+    # context['email'] = projectData
     # context['email'] = projectData.email
     # context['zipCode'] = zipCode
     # context['signUp'] = signUp
@@ -388,10 +393,10 @@ def intake_form_submit(request):
     # context['electricityProvider'] = electricityProvider
     # context['orgInterestBlock'] = orgInterestBlock
 
-    send_revolv_email(
-        'Intake_form',
-        context, ['info@re-volv.org']
-    )
+    # send_revolv_email(
+    #     'Intake_form',
+    #     context, ['info@re-volv.org']
+    # )
 
 
 def select_chapter(request, chapter):
