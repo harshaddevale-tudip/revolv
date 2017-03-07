@@ -1,3 +1,97 @@
+var js_urls = {};
+
+//count for 1st Number of "OUR IMPACTS" section in Home page
+function increaseCount1(currentValue1,step1,value1){
+  if((currentValue1+step1)<=value1)
+  {
+    currentValue1 = currentValue1+step1;
+    $(".our-impacts-module .module-box .titles").eq(0).html(format(currentValue1)+"");
+  }
+  else
+  {
+    return;
+  }
+  setTimeout(function () {
+    increaseCount1(currentValue1, step1, value1);
+  }, 100);
+}
+
+//count for 2nd Number of "OUR IMPACTS" section in Home page
+function increaseCount2(currentValue2,step2,value2){
+  if((currentValue2+step2)<=value2)
+  {
+    currentValue2 = currentValue2+step2;
+    $(".our-impacts-module .module-box .titles").eq(1).html(format(currentValue2)+"");
+  }
+  else
+  {
+    return;
+  }
+  setTimeout(function () {
+    increaseCount2(currentValue2, step2, value2);
+  }, 100);
+}
+
+//count for 3rd Number of "OUR IMPACTS" section in Home page
+function increaseCount3(currentValue3,step3,value3){
+  if((currentValue3+step3)<=value3)
+  {
+    currentValue3 = currentValue3+step3;
+    $(".our-impacts-module .module-box .titles").eq(2).html(format(currentValue3)+'<span class="font20">lbs</span>');
+  }
+  else
+  {
+    return;
+  }
+  setTimeout(function () {
+    increaseCount3(currentValue3, step3, value3);
+  }, 100);
+}
+
+//count for 4th Number of "OUR IMPACTS" section in Home page
+function increaseCount4(currentValue4,step4,value4){
+  if((currentValue4+step4)<=value4)
+  {
+    currentValue4 = currentValue4+step4;
+    $(".our-impacts-module .module-box .titles").eq(3).html(format(currentValue4)+"");
+  }
+  else
+  {
+    return;
+  }
+  setTimeout(function () {
+    increaseCount4(currentValue4, step4, value4);
+  }, 100);
+}
+
+//format the Number text
+function format(number){
+  number = number +"";
+  number = number.replace(/,/g, "");
+  var digit = number.indexOf(".");
+  var int = number.substr(0, digit);
+  var i;
+  var mag = new Array();
+  var word;
+  if (number.indexOf(".") === -1) {
+    i = number.length;
+    while (i > 0) {
+        word = number.substring(i, i - 3);
+        i -= 3;
+        mag.unshift(word);
+    }
+    number = mag;
+  } else {
+    i = int.length;
+    while (i > 0) {
+        word = int.substring(i, i - 3);
+        i -= 3;
+        mag.unshift(word);
+    }
+    number = mag + number.substring(digit);
+  }
+  return number;
+}
 
 $(document).ready(function() {
 
@@ -141,6 +235,7 @@ $(document).ready(function() {
 
 
 });
+
 
 
 
