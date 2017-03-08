@@ -17,31 +17,48 @@
     <script src="{% static 'js/mediaelement-and-player.min.js' %}"></script>
     <link href="{% static 'css/mediaelementplayer.min.css' %}" rel="stylesheet" />
     <link href="{% static 'dist/css/pages/home/index.css' %}" rel="stylesheet" />
-    <style>
+    <link href="{% static 'css/slick.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/slick-theme.css' %}" rel="stylesheet" />
+<style>
 
-.carousel-indicators li {
-  border: 0;
-  background-color: grey;
-}
-.carousel-indicators .active {
-    background-color: #fff;
-}
+    .carousel-indicators li {
+      border: 0;
+      background-color: grey;
+    }
+    .carousel-indicators .active {
+        background-color: #fff;
+    }
 
-.next-button {
-    margin-top: -10px !important;
-    font-size: 0.85em !important;
-}
+    .next-button {
+        margin-top: -10px !important;
+        font-size: 0.85em !important;
+    }
 
-.menu-list {
-position: absolute;
-    width: 100%;
-    background-image: linear-gradient(to bottom,transparent 0,transparent 100%);
-    background-color: transparent;
-    border: transparent;
-    border-radius: 0;
-    box-shadow: none;
-}
+    .menu-list {
+    position: absolute;
+        width: 100%;
+        background-image: linear-gradient(to bottom,transparent 0,transparent 100%);
+        background-color: transparent;
+        border: transparent;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    * {
+      box-sizing: border-box;
+    }
 
+    .slider {
+        width: 100%;
+    }
+
+    .slick-slide {
+      margin: 0px 20px;
+    }
+
+    .slick-prev:before,
+    .slick-next:before {
+        color: black;
+    }
 
 </style>
 
@@ -206,58 +223,63 @@ position: absolute;
   <div class="container">
     <div class="title-blue-border title-active-projects">ACTIVE PROJECTS</div>
     <div class="row">
+        <div class="regular slider">
 
-      {% for active_project in active_projects %}
-      <div class="col-md-4 join-mov-btns">
-        <div class="module-box">
-          <div class="img-main">
-            <a href="{% url "project:view" pk=active_project.pk %}" class="img-link">
-              <span class="txt-table">
-                <span class="txt">
-                    {{ active_project.title }}
-                </span>
-              </span>
-              <div class="img" style="background-image:url('{{MEDIA_URL}}{{active_project.cover_photo.url }}' )"></div>
-            </a>
-            <div class="funded-round">
-              <div class="status-circular">
-                <span class="status-text">
-                  <span class="round-depict"><span>OF</span> ${{ active_project.funding_goal|floatformat:0|intcomma }}</span>
-                </span>
-                <!-- end .status-text -->
-                <div class="status-indicator desktop-circle">
-                  <input type="text" value="{{ active_project.percent_complete }}" data-min="0" data-width="105" data-height="105" data-bgcolor="#fff" data-fgcolor="#14b1e7" data-max="100" data-readonly="true" data-thickness=".24">
+            {% for active_project in active_projects %}
+                <div>
+                  <div class="join-mov-btns">
+                    <div class="module-box">
+                      <div class="img-main">
+                        <a href="{% url "project:view" pk=active_project.pk %}" class="img-link">
+                          <span class="txt-table">
+                            <span class="txt">
+                                {{ active_project.title }}
+                            </span>
+                          </span>
+                          <div class="img" style="background-image:url('{{MEDIA_URL}}{{active_project.cover_photo.url }}' )"></div>
+                        </a>
+                        <div class="funded-round">
+                          <div class="status-circular">
+                            <span class="status-text">
+                              <span class="round-depict"><span>OF</span> ${{ active_project.funding_goal|floatformat:0|intcomma }}</span>
+                            </span>
+                            <!-- end .status-text -->
+                            <div class="status-indicator desktop-circle">
+                              <input type="text" value="{{ active_project.percent_complete }}" data-min="0" data-width="105" data-height="105" data-bgcolor="#fff" data-fgcolor="#14b1e7" data-max="100" data-readonly="true" data-thickness=".24">
+                            </div>
+                            <div class="status-indicator small-circle">
+                              <input type="text" value="{{ active_project.percent_complete }}" data-min="0" data-width="92" data-height="92" data-bgcolor="#fff" data-fgcolor="#14b1e7" data-max="100" data-readonly="true" data-thickness=".2">
+                            </div>
+                            <div class="status-indicator tablet-circle">
+                              <input type="text" value="{{ active_project.percent_complete }}" data-min="0" data-width="200" data-height="200" data-bgcolor="#fff" data-fgcolor="#14b1e7" data-max="100" data-readonly="true" data-thickness=".12">
+                            </div>
+                            <div class="status-indicator mobile-circle">
+                              <input type="text" value="{{ active_project.percent_complete }}" data-min="0" data-width="98" data-height="98" data-bgcolor="#fff" data-fgcolor="#14b1e7" data-max="100" data-readonly="true" data-thickness=".12">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- end .img-main -->
+                      <div class="info-main">
+                        <div class="blue-bar">
+                          <span class="pull-left">${{ active_project.amount_donated|floatformat:"2"|intcomma }}</span>
+                          <span class="pull-right">{{ active_project.days_left }} Days Left</span>
+                        </div>
+                        <!-- end .blue-bar -->
+                        <div class="dark-blue-bar">
+                          <span class="pull-left actual-energy">{{ active_project.get_statistic_for_project|floatformat:"0"|intcomma }} lbs CO<sub>2</sub></span>
+                          <span class="pull-right">{{ active_project.donors.count }} Donors</span>
+                        </div>
+                        <!-- end .blue-bar -->
+                      </div>
+                      <!-- end .info-main -->
+                    </div>
+                    <!-- end .module-box -->
+                  </div>
                 </div>
-                <div class="status-indicator small-circle">
-                  <input type="text" value="{{ active_project.percent_complete }}" data-min="0" data-width="92" data-height="92" data-bgcolor="#fff" data-fgcolor="#14b1e7" data-max="100" data-readonly="true" data-thickness=".2">
-                </div>
-                <div class="status-indicator tablet-circle">
-                  <input type="text" value="{{ active_project.percent_complete }}" data-min="0" data-width="200" data-height="200" data-bgcolor="#fff" data-fgcolor="#14b1e7" data-max="100" data-readonly="true" data-thickness=".12">
-                </div>
-                <div class="status-indicator mobile-circle">
-                  <input type="text" value="{{ active_project.percent_complete }}" data-min="0" data-width="98" data-height="98" data-bgcolor="#fff" data-fgcolor="#14b1e7" data-max="100" data-readonly="true" data-thickness=".12">
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- end .img-main -->
-          <div class="info-main">
-            <div class="blue-bar">
-              <span class="pull-left">${{ active_project.amount_donated|floatformat:"2"|intcomma }}</span>
-              <span class="pull-right">{{ active_project.days_left }} Days Left</span>
-            </div>
-            <!-- end .blue-bar -->
-            <div class="dark-blue-bar">
-              <span class="pull-left actual-energy">{{ active_project.get_statistic_for_project|floatformat:"0"|intcomma }} lbs CO<sub>2</sub></span>
-              <span class="pull-right">{{ active_project.donors.count }} Donors</span>
-            </div>
-            <!-- end .blue-bar -->
-          </div>
-          <!-- end .info-main -->
+            {% endfor %}
+
         </div>
-        <!-- end .module-box -->
-      </div>
-      {% endfor %}
     </div>
   </div>
 </div>
@@ -267,58 +289,63 @@ position: absolute;
   <div class="container">
       <div class="title-blue-border title-active-projects">COMPLETED PROJECTS</div>
     <div class="row">
+        <div class="regular slider">
 
-      {% for completed_project in completed_featured_projects %}
-      <div class="col-md-4 join-mov-btns">
-        <div class="module-box">
-          <div class="img-main">
-            <a href="{% url "project:view" pk=completed_project.pk %}" class="img-link">
-              <span class="txt-table">
-                <span class="txt">
-                    {{ completed_project.title }}
-                </span>
-              </span>
-              <div class="img" style="background-image:url('{{MEDIA_URL}}{{completed_project.cover_photo.url }}' )"><span class="completed_project"><img src="/static/images/COMPLETED.png" alt="Project is completed" ></span></div>
-            </a>
-            <div class="funded-round">
-              <div class="status-circular">
-                <span class="status-text">
-                  <span class="round-depict"><span>OF</span> ${{ completed_project.funding_goal|floatformat:0|intcomma }}</span>
-                </span>
-                <!-- end .status-text -->
-                <div class="status-indicator desktop-circle">
-                  <input type="text" value="{{ completed_project.percent_complete }}" data-min="0" data-width="105" data-height="105" data-bgcolor="#fff" data-fgcolor="#14b1e7" data-max="100" data-readonly="true" data-thickness=".24">
+            {% for completed_project in completed_featured_projects %}
+                <div>
+                  <div class="join-mov-btns">
+                    <div class="module-box">
+                      <div class="img-main">
+                        <a href="{% url "project:view" pk=completed_project.pk %}" class="img-link">
+                          <span class="txt-table">
+                            <span class="txt">
+                                {{ completed_project.title }}
+                            </span>
+                          </span>
+                          <div class="img" style="background-image:url('{{MEDIA_URL}}{{completed_project.cover_photo.url }}' )"><span class="completed_project"><img src="/static/images/COMPLETED.png" alt="Project is completed" ></span></div>
+                        </a>
+                        <div class="funded-round">
+                          <div class="status-circular">
+                            <span class="status-text">
+                              <span class="round-depict"><span>OF</span> ${{ completed_project.funding_goal|floatformat:0|intcomma }}</span>
+                            </span>
+                            <!-- end .status-text -->
+                            <div class="status-indicator desktop-circle">
+                              <input type="text" value="{{ completed_project.percent_complete }}" data-min="0" data-width="105" data-height="105" data-bgcolor="#fff" data-fgcolor="#14b1e7" data-max="100" data-readonly="true" data-thickness=".24">
+                            </div>
+                            <div class="status-indicator small-circle">
+                              <input type="text" value="{{ completed_project.percent_complete }}" data-min="0" data-width="92" data-height="92" data-bgcolor="#fff" data-fgcolor="#14b1e7" data-max="100" data-readonly="true" data-thickness=".2">
+                            </div>
+                            <div class="status-indicator tablet-circle">
+                              <input type="text" value="{{ completed_project.percent_complete }}" data-min="0" data-width="200" data-height="200" data-bgcolor="#fff" data-fgcolor="#14b1e7" data-max="100" data-readonly="true" data-thickness=".12">
+                            </div>
+                            <div class="status-indicator mobile-circle">
+                              <input type="text" value="{{ completed_project.percent_complete }}" data-min="0" data-width="98" data-height="98" data-bgcolor="#fff" data-fgcolor="#14b1e7" data-max="100" data-readonly="true" data-thickness=".12">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- end .img-main -->
+                      <div class="info-main">
+                        <div class="blue-bar">
+                          <span class="pull-left">${{ completed_project.amount_donated|floatformat:"0"|intcomma }}</span>
+                          <span class="pull-right">{{ completed_project.days_left }} Days Left</span>
+                        </div>
+                        <!-- end .blue-bar -->
+                        <div class="dark-blue-bar">
+                          <span class="pull-left actual-energy">{{ completed_project.get_statistic_for_project|floatformat:"0"|intcomma}} lbs CO<sub>2</sub></span>
+                          <span class="pull-right">{{ completed_project.donors.count }} Donors</span>
+                        </div>
+                        <!-- end .blue-bar -->
+                      </div>
+                      <!-- end .info-main -->
+                    </div>
+                    <!-- end .module-box -->
+                  </div>
                 </div>
-                <div class="status-indicator small-circle">
-                  <input type="text" value="{{ completed_project.percent_complete }}" data-min="0" data-width="92" data-height="92" data-bgcolor="#fff" data-fgcolor="#14b1e7" data-max="100" data-readonly="true" data-thickness=".2">
-                </div>
-                <div class="status-indicator tablet-circle">
-                  <input type="text" value="{{ completed_project.percent_complete }}" data-min="0" data-width="200" data-height="200" data-bgcolor="#fff" data-fgcolor="#14b1e7" data-max="100" data-readonly="true" data-thickness=".12">
-                </div>
-                <div class="status-indicator mobile-circle">
-                  <input type="text" value="{{ completed_project.percent_complete }}" data-min="0" data-width="98" data-height="98" data-bgcolor="#fff" data-fgcolor="#14b1e7" data-max="100" data-readonly="true" data-thickness=".12">
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- end .img-main -->
-          <div class="info-main">
-            <div class="blue-bar">
-              <span class="pull-left">${{ completed_project.amount_donated|floatformat:"0"|intcomma }}</span>
-              <span class="pull-right">{{ completed_project.days_left }} Days Left</span>
-            </div>
-            <!-- end .blue-bar -->
-            <div class="dark-blue-bar">
-              <span class="pull-left actual-energy">{{ completed_project.get_statistic_for_project|floatformat:"0"|intcomma}} lbs CO<sub>2</sub></span>
-              <span class="pull-right">{{ completed_project.donors.count }} Donors</span>
-            </div>
-            <!-- end .blue-bar -->
-          </div>
-          <!-- end .info-main -->
+            {% endfor %}
+
         </div>
-        <!-- end .module-box -->
-      </div>
-      {% endfor %}
     </div>
   </div>
 </div>
@@ -652,7 +679,30 @@ position: absolute;
 <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key={{GOOGLEMAPS_API_KEY}}">
 </script>
 
-<script>
+<script type="text/javascript" src="{% static 'js/slick.min.js' %}"></script>
+<script type="text/javascript">
+
+  $(document).on('ready', function() {
+      $(".regular").slick({
+        arrows:true,
+        infinite: true,
+        speed: 1000,
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        responsive: [
+            {
+              breakpoint: 991,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                infinite: true,
+                arrows:true
+              }
+            }
+          ]
+      });
+
+    });
   $(function ($) {
   var handler = StripeCheckout.configure({
     key: '{{ stripe_publishable_key }}'

@@ -83,7 +83,7 @@ $(document).ready(function(){
 
     $(this).parents(".dropdown").find(".selected-option").html($(this).html());
     $(this).parents(".dropdown").find(".selected-option").attr("title",$(this).html());
-  })
+  });
 
   //hover on User photos in Testimonial section in Home page
   $(".testimonial-module .head-row ul li .head-img").hover(function(){
@@ -94,7 +94,7 @@ $(document).ready(function(){
 
     $(this).parents(".testimonial-module").find(".info-area").addClass("hide");
     $(this).parents(".testimonial-module").find(".info-area").eq(index).removeClass("hide");
-  })
+  });
 
   //loading Home page
   if($(".home-page-content").length>0)
