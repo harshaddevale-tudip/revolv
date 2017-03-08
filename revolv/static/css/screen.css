@@ -524,6 +524,9 @@ z-index: 448;
     display: inline-block;
     border-radius: 0.5vmin;
 }
+.zinnia .btn-blue {
+    font-size: 0.8rem;
+}
 .btn-blue:hover,
 .btn-blue:focus {
     text-decoration: none;
