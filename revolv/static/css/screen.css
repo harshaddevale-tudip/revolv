@@ -13893,8 +13893,17 @@ a.How_it_Works:hover {
 .password-reset .submit-button {
     margin-top: 2vmin;
 }
+.password-reset-done .component-container {
+    margin: 0 30%;
+}
+.password-reset-done .component-container > p {
+    text-align: center;
+}
 @media (max-width: 767px) {
     .component-row.password-reset > div {
+        margin: 0 13%;
+    }
+    .password-reset-done .component-container {
         margin: 0 13%;
     }
 }
@@ -14166,3 +14175,5 @@ signup > .row .social-login-buttons {
     background-color: #fff;
     color: #F46B7B;
 }
+
+
