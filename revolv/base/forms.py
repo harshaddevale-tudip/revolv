@@ -84,7 +84,7 @@ class AuthenticationForm(forms.Form):
         self.username_field = UserModel._meta.get_field(UserModel.USERNAME_FIELD)
 
         if self.fields['username'].label is None:
-            self.fields['username'].label = capfirst('Email or Username')
+            self.fields['username'].label = capfirst('Username or Email')
 
     def clean(self):
         username = self.cleaned_data.get('username')
