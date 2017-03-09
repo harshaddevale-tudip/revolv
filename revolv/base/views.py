@@ -6,7 +6,6 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm
 from django.core.urlresolvers import reverse
 from django.db.models import Sum
 from django.http import HttpResponse
@@ -19,7 +18,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.http import require_http_methods
 from django.views.generic import FormView, TemplateView, View
 from django.template.context import RequestContext
-from revolv.base.forms import SignupForm
+from revolv.base.forms import SignupForm, AuthenticationForm
 from revolv.base.users import UserDataMixin
 from revolv.base.utils import ProjectGroup
 from revolv.payments.models import Payment, Tip
