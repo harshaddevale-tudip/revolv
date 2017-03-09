@@ -14159,3 +14159,10 @@ signup > .row .social-login-buttons {
     margin-left: 0;
     width: 100%;
 }
+.social-login-buttons .slb_socialButtons span {
+    margin-left: 0;
+}
+#login_form small.non-field-error {
+    background-color: #fff;
+    color: #F46B7B;
+}
