@@ -51,7 +51,7 @@
     {% endblock %}
 </head>
 
-<body  {% block body_class %}{% endblock%} id="{% if 'project' in request.get_full_path %}project{% endif %}">
+<body {% block body_class %}{% endblock%} class="main-body" id="project">
     {% block nav %}
     {% include "base/partials/nav.html" %}
     {% endblock %}

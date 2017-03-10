@@ -33,7 +33,7 @@
             {% endif %}
         </div>
             {% if not error_msg %}
-            {% include "base/partials/list_projects.html" %}
+            {% include "base/partials/list_projects.html" with is_reinvestment=is_reinvestment amount=reinvestment_amount %}
         {% endif %}
 
 {#        <div class="row about">#}

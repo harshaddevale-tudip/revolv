@@ -532,9 +532,11 @@ class ProjectView(UserDataMixin, DetailView):
 
     Accessed through /project/{project_id}
     """
-    model = Project
+    # model = Project
     template_name = 'project/project.html'
-
+    def get_object(self):
+        object = get_object_or_404(Project, title=self.kwargs['title'])
+        return object
     # pass in Project Categories and Maps API key
     def get_context_data(self, **kwargs):
         context = super(ProjectView, self).get_context_data(**kwargs)
@@ -548,6 +550,7 @@ class ProjectView(UserDataMixin, DetailView):
         context["reinvestment_amount"] = 0.0
         context["reinvestment_url"] = ''
         return context
+
 
     def dispatch(self, request, *args, **kwargs):
         # always populate self.user, etc
