@@ -240,6 +240,12 @@ class Project(models.Model):
         default=0,
         help_text='How much is the total kWH value for 25 years to this project?'
     )
+    project_url = models.CharField(
+        max_length=255,
+        null=True,
+        blank=False,
+        help_text='How to show project url for this project?'
+    )
     title = models.CharField(
         max_length=255,
         help_text='How would you like to title this project?'

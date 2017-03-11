@@ -9,9 +9,9 @@
         <div class="module-box">
           <div class="img-main">
             {% if is_reinvestment %}
-            <a href="{% url "view" title=active_project.title %}?reinvestment={{is_reinvestment}}&reinvestment_amount={{amount|floatformat:2}
+            <a href="{% url "view" title=active_project.project_url %}?reinvestment={{is_reinvestment}}&reinvestment_amount={{amount|floatformat:2}
             {% else %}
-              <a href="{% url "view" title=active_project.title %}" class="img-link">
+              <a href="{% url "view" title=active_project.project_url %}" class="img-link">
             {% endif %}
 
               <span class="txt-table">
