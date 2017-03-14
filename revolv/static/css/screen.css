@@ -14199,7 +14199,6 @@ signup > .row .social-login-buttons {
 }
 #project_form button, #project_form input, #project_form select, #project_form textarea {
     font-size: 1.3rem;
-    height: 2.8125rem;
 }
 #project_form input[type="file"], #project_form input[type="checkbox"], #project_form input[type="radio"], #project_form select {
     margin: 0 0 2rem 0;
