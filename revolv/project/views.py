@@ -339,7 +339,7 @@ class CreateProjectView(DonationLevelFormSetMixin, CreateView):
     form_class = forms.ProjectForm
 
     def get_success_url(self):
-        return reverse('project:view', kwargs={'pk': self.object.id})
+        return reverse('view', kwargs={'title': self.get_object().project_url})
 
     # validates project, formset of donation levels, and adds categories as well
     def form_valid(self, form):
@@ -385,14 +385,13 @@ class UpdateProjectView(DonationLevelFormSetMixin, UpdateView):
 
     def get_success_url(self):
         messages.success(self.request, 'Project details updated')
-        return reverse('project:view', kwargs={'pk': self.get_object().id})
+        return reverse('view', kwargs={'title': self.get_object().project_url})
 
     def form_valid(self, form):
         """
         Validates project, formset of donation levels, and adds categories as well
         """
         formset = self.get_donation_level_formset()
-
         if formset.is_valid():
             project = self.get_object()
             project.update_categories(form.cleaned_data['categories_select'])
@@ -547,7 +546,10 @@ class ProjectView(UserDataMixin, DetailView):
         context['project_donation_levels'] = self.get_object().donation_levels.order_by('amount')
         context["is_draft_mode"] = self.get_object().project_status == self.get_object().DRAFTED
         context["is_reinvestment"] = False
-        context["reinvestment_amount"] = 0.0
+        if self.user_profile and self.user_profile.reinvest_pool > 0.0:
+            context["reinvestment_amount"] = self.user_profile.reinvest_pool
+        else:
+            context["reinvestment_amount"] = 0.0
         context["reinvestment_url"] = ''
         return context
 
@@ -642,5 +644,5 @@ def reinvest(request, pk):
                                         project=project)
 
     messages.success(request, 'Reinvestment Successful')
-    return redirect("project:view" ,pk=pk)
+    return redirect("view" ,title=project.project_url)
 

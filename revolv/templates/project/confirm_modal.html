@@ -27,7 +27,7 @@
             function invest_amt(e){
                  document.getElementById("amt_pop").innerHTML = ' $' + document.getElementById("amt").value;
                  document.getElementById("amount").value = document.getElementById("amt").value;
-                 if (parseFloat($("#amt").val()) > {{request.GET.reinvestment_amount|floatformat:2}} || parseFloat($("#amt").val()) < 0.01 || $("#amt").val() == ""){
+                 if (parseFloat($("#amt").val()) > {{reinvestment_amount|floatformat:2}} || parseFloat($("#amt").val()) < 0.01 || $("#amt").val() == ""){
                         toastr.options.positionClass = "toast-bottom-right";
                         toastr.error('Invalid amount');
                          e.stopPropagation();

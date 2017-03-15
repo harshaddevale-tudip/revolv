@@ -95,10 +95,35 @@ class DonationReportView(UserDataMixin, TemplateView):
     model = Payment
     template_name = 'base/partials/donation_report.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.revolvuserprofile.is_administrator():
+            return HttpResponseRedirect(reverse("dashboard"))
+        return super(DonationReportView, self).dispatch(request, *args, **kwargs)
+
     # pass in Project Categories and Maps API key
     def get_context_data(self, **kwargs):
         context = super(DonationReportView, self).get_context_data(**kwargs)
         context['payments'] = Payment.objects.all()
+        return context
+
+class DonationReportForProject(UserDataMixin, TemplateView):
+    """
+    The project view. Displays project details and allows for editing.
+
+    Accessed through /project/{project_id}
+    """
+    model = Payment
+    template_name = 'base/partials/donation_report.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.revolvuserprofile.is_ambassador():
+            return HttpResponseRedirect(reverse("dashboard"))
+        return super(DonationReportForProject, self).dispatch(request, *args, **kwargs)
+    # pass in Project Categories and Maps API key
+    def get_context_data(self, **kwargs):
+        project=Project.objects.filter(ambassador=self.user_profile.user_id)
+        context = super(DonationReportForProject, self).get_context_data(**kwargs)
+        context['payments'] = Payment.objects.all().filter(project=project)
         return context
 
 class BaseStaffDashboardView(UserDataMixin, TemplateView):

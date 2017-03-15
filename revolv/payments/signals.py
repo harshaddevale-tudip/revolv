@@ -3,6 +3,8 @@ from django.dispatch import receiver
 
 from revolv.base.models import RevolvUserProfile
 from revolv.base.utils import is_user_reinvestment_period
+from django.contrib.auth.models import Group
+from revolv.project.models import Project
 from revolv.payments.models import (AdminReinvestment, AdminRepayment, Payment,
                                     PaymentType, RepaymentFragment, UserReinvestment)
 from revolv.payments.utils import (NotEnoughFundingException, NotInUserReinvestmentPeriodException,
@@ -46,6 +48,17 @@ def post_save_admin_repayment(**kwargs):
         # user's reinvest_pool will be incremented on save
         repayment.save()
 
+@receiver(signals.post_save, sender=Project)
+def post_save_user_groups(**kwargs):
+    """
+    When an AdminRepayment is saved, a RepaymentFragment is generated for all
+    donors to a project, each weighed by that donor's proportion of the
+    contribution to the project.
+    """
+
+    instance = kwargs.get('instance')
+    g = Group.objects.get(name='ambassadors')
+    g.user_set.add(instance.ambassador_id)
 
 # @receiver(signals.pre_init, sender=AdminReinvestment)
 # def pre_init_admin_reinvestment(**kwargs):

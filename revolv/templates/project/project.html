@@ -37,7 +37,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
         </div>
       </div>
     </div>
-    {%  if is_reinvestment %}
+    {%  if request.GET.reinvestment %}
     <div class="info-section">
       <div class="container">
         <div class="video-main">
@@ -60,7 +60,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                   <div class="input-group">
                     <label for="value">Reinvestment In this Project</label>
                     <div class="input-group">
-                      <input type="number" class="form-control" id = "amt" step="0.01" value="{{request.GET.reinvestment_amount|floatformat:2}}" min="0.01" max="{{request.GET.reinvestment_amount|floatformat:2}}" name="value" >
+                      <input type="number" class="form-control" id = "amt" step="0.01" value="{{reinvestment_amount|floatformat:2}}" min="0.01" max="{{reinvestment_amount|floatformat:2}}" name="value" >
                       <span class="input-group-addon">$</span>
                     </div>
                   </div>

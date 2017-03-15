@@ -53,7 +53,9 @@
   <table id="example" class="display nowrap" cellspacing="0" width="100%">
   <thead >
       <tr>
-        <th>Donor</th>
+        <th>Donors Name</th>
+        <th>UserName</th>
+         <th>Email</th>
          <th>Date</th>
         <th>Name of Project</th>
         <th>Donation to Solar Seed Fund</th>
@@ -64,8 +66,11 @@
     </thead>
     <tbody>
     {% for payment in payments %}
+    {{ payment.user.username }}
       <tr>
         <td>{{ payment.user }}</td>
+        <td>{{ payment.user.user.username }}</td>
+        <td>{{ payment.user.user.email }}</td>
         <td>{{ payment.created_at|date:'m-d-Y H:i' }}</td>
         {% if payment.project %}
           <td >{{ payment.project }}</td>
