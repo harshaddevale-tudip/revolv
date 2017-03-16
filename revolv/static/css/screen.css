@@ -6945,9 +6945,9 @@ width: 580px;
     #project .details-active-project-module .info-section .container{
         padding: 4px 30px 0 24px;
     }
-    .header a.btn-blue:last-child, .header a.btn-blue:first-child {
+    /*.header a.btn-blue:last-child, .header a.btn-blue:first-child {
       margin-right: 1rem;
-    }
+    }*/
     .zinnia .header a.btn-blue:nth-child(2), .header a.btn-blue:first-child {
         margin-right: 3rem;
     }
@@ -14220,13 +14220,17 @@ signup > .row .social-login-buttons {
 }
 .donate-popup {
     background-color: #fff;
-    padding: 5vmin 2vmin 5vmin;
-    width: 41%;
+    padding: 0 2vmin 2vmin;;
+    width: 100%;
     font-size: 2.7vmin;
     color: #7E7E7E;
     font-weight: 600;
     text-align: center;
     position: relative;
+}
+.donate-msg-cntnr .donate-popup {
+    width: 41%;
+    padding: 5vmin 2vmin 5vmin ;
 }
 .donate-submit-btn-cntnr {
     padding: 4vmin 10% 0;
