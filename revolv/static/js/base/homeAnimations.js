@@ -92,9 +92,50 @@ function format(number){
   }
   return number;
 }
+function closeDoanatePopUp() {
+    $(".donate-msg-cntnr").click(function(e){
+         e.stopPropagation();
+         if (e.target !== this)
+            return;
 
+         $(".donate-msg-cntnr").hide();
+    });
+    $(".close-donate-popup").click(function(e){
+         e.stopPropagation();
+         $(".donate-msg-cntnr").hide();
+    });
+    $(".donate-as-guest").click(function(e){
+         e.stopPropagation();
+         $(".donate-msg-cntnr").hide();
+    });
+    $(document).keydown(function(e) {
+        if (e.keyCode == 27) {
+           $(".donate-msg-cntnr").hide();
+       }
+    });
+}
 $(document).ready(function() {
+   $(".donation-login-pop-up").click(function(e){
+            var $this = $(this).closest('div');
+            var donationAmount = $this.find('input[name="donation_amount"]').val();
+            var donationTip = $this.find('input[name="donation_tip"]').val();
+            var pk = $this.find('input[name="pk"]').val();
 
+            var guestDonationAmount = $this.find('input[name="donate_amount_cents"]').val();
+            var metadata = $this.find('input[name="metadata"]').val();
+
+            var popupElement = $(".donate-msg-cntnr");
+            popupElement.find('input[name="donation_amount"]').val(donationAmount);
+            popupElement.find('input[name="donation_tip"]').val(donationTip);
+            popupElement.find('input[name="pk"]').val(pk);
+
+            console.log(guestDonationAmount, metadata)
+            popupElement.find('input[name="donate_amount_cents"]').val(guestDonationAmount);
+            popupElement.find('input[name="metadata"]').val(metadata);
+
+            $(".donate-msg-cntnr").css('display', 'flex');
+            closeDoanatePopUp();
+  });
     //style the form elements
   if($(".form-container").length>0){
     $('.form-container').jqTransform({imgPath:'/static/images/'});
@@ -235,7 +276,4 @@ $(document).ready(function() {
 
 
 });
-
-
-
 

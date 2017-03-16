@@ -35,8 +35,7 @@
     }
 
     .menu-list {
-    position: absolute;
-        width: 100%;
+        position: absolute;
         background-image: linear-gradient(to bottom,transparent 0,transparent 100%);
         background-color: transparent;
         border: transparent;
@@ -76,14 +75,15 @@
         <div class="navbar navbar-default menu-list">
             <div class="navbar-header">
                 <button type="button" id="collbtn" class="navbar-toggle hamburger_color" data-toggle="collapse" data-target=".navbar-collapse"> <span class="icon-bar"></span>
- <span class="icon-bar"></span>
- <span class="icon-bar"></span>
-
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
                 </button>
 
             </div>
-             <div class="navbar-collapse collapse background-collapse-color">
-                <ul class="nav navbar-nav">
+        </div>
+            <div class="navbar-collapse collapse background-collapse-color">
+                <ul class="nav">
+
                     {% if request.user.is_authenticated %}
                         <li><a href="{% url 'dashboard' %}" class="dropdown">MY PORTFOLIO</a>
                         </li>
@@ -99,8 +99,6 @@
                     </li>
                 </ul>
             </div>
-            <!--/.nav-collapse -->
-        </div>
     <!-- end .logo -->
     <div class="rights pull-right">
       <div class="txt pull-left">

@@ -16,13 +16,15 @@
 <style>
     .menu-list {
     position: absolute;
-    width: 100%;
-    background-image: linear-gradient(to bottom,transparent 0,transparent 100%);
-    background-color: transparent;
-    border: transparent;
+    background-image: none;
+    background-color: #fff;
+    border: 0;
+    right: 0;
+    box-shadow: none;
 }
 .burger-sub-menu {
-  display: block;
+    display: block;
+    background-color: #fff;
 }
 
     .hamburger_color {
@@ -31,6 +33,17 @@
     }
     .background-collapse-color {
             background-color: white;
+    }
+    .container .navbar-collapse {
+        width: 100%;
+        padding: 0px;
+        position: absolute;
+        top: 79px;
+        border-top: 1px solid rgb(204, 204, 204);
+        margin: 0px;
+    }
+    .navbar-default .navbar-toggle:hover {
+        background-color: #fff;
     }
 
 
@@ -44,31 +57,29 @@
         <div class="navbar navbar-default menu-list">
             <div class="navbar-header">
                 <button type="button" id="collbtn" class="navbar-toggle hamburger_color" data-toggle="collapse" data-target=".navbar-collapse"> <span class="icon-bar"></span>
- <span class="icon-bar"></span>
- <span class="icon-bar"></span>
-
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
                 </button>
 
             </div>
-            <div class="navbar-collapse collapse background-collapse-color">
-                <ul class="nav navbar-nav">
+        </div>
+        <div class="navbar-collapse collapse background-collapse-color">
+                <ul class="nav">
                     {% if request.user.is_authenticated %}
                         <li><a href="{% url 'dashboard' %}" class="dropdown">MY PORTFOLIO</a>
                         </li>
                         <li class="dropdown this-works"> <a href="{% url 'logout' %}" class="dropdown">SIGN OUT</a>
                         </li>
                     {% else %}
-                         <li><a href="{% url 'dashboard' %}" class="dropdown">MY PORTFOLIO</a>
+                         <li><a href="{% url 'signin' %}#signup" class="dropdown">SIGN UP</a>
                         </li>
-                        <li class="dropdown this-works"> <a href="{% url 'logout' %}" class="dropdown">SIGN OUT</a>
+                        <li class="dropdown this-works"> <a href="{% url 'signin' %}#login" class="dropdown">SIGN IN</a>
                         </li>
                     {% endif %}
-                    <li class="dropdown this-doesnt"> <a href="#" class="dropdown" data-toggle="modal" data-target="#popup">DONATE</a>
+                    <li class="dropdown this-doesnt"> <a href="{% url 'projects_list' %}" class="dropdown">DONATE</a>
                     </li>
                 </ul>
             </div>
-            <!--/.nav-collapse -->
-        </div>
     <!-- end .logo -->
     <div class="rights pull-right">
       <div class="txt pull-left">
@@ -83,11 +94,8 @@
             <a href="{% url 'signin' %}#login" class="component-link btn-blue pull-left btn-donate" data-component="login">SIGN IN</a>
         {% endif %}
       </div>
-      <a href="#" class="component-link btn-blue btn-donate" data-toggle="modal" data-target="#popup">DONATE</a>
+      <a href="{% url 'projects_list' %}" class="component-link btn-blue btn-donate">DONATE</a>
       <!--<a #data-target="popup" data-toggle="modal" class=" btn-blue btn-donate pull-left after-scroll">DONATE NOW</a>-->
     </div>
   </div>
 </header>
-
-<!-- end .header -->
-<!-- end .top-section -->

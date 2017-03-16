@@ -388,7 +388,7 @@ a:hover {
 
 .logo-home {
      background: url(../images/logo-white.png);
-    margin: 2.3vmin 0 0 9%;
+    margin: 1.1em 0 0 9%;
     background-repeat: no-repeat;
     width: 171px;
     height: 75px;
@@ -680,7 +680,7 @@ p.attribution.footer-text {
 .header {
     margin-top: 30px;
     width: 100%;
-    height: 100px;
+    height: 108px;
     position: fixed;
     top: 0;
     left: 0;
@@ -696,6 +696,28 @@ padding: 0;
 }
 #home-page  > .container > .container {
     padding: 0vmin 4% 0 0;
+    margin: 0;
+}
+#home-page  > .container > .container .menu-list {
+    position: absolute;
+    right: 0;
+    background-image: linear-gradient(to bottom,transparent 0,transparent 100%);
+    background-color: transparent;
+    border: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0;
+}
+.container > .container .navbar-default .navbar-toggle:hover {
+    background-color: transparent;
+}
+#home-page  > .container > .container .navbar-collapse {
+    width: 100%;
+    padding: 0px;
+    position: absolute;
+    top: 79px;
+    border-top: 1px solid rgb(204, 204, 204);
+    margin: 0;
 }
 .header .logo {
     background: url(../images/logo.png) no-repeat;
@@ -724,7 +746,7 @@ padding: 0;
     min-width: 132px;
 }
 .header .rights {
-        padding: 2.4rem 5.2% 0 0;
+        padding: 3.3rem 5.2% 0 0;
 }
 .header .txt {
     font-size: 14px;
@@ -4686,7 +4708,7 @@ display: none;
 
     .header {
         margin-top: 30px;
-        height: 85px;
+        height: 111px;
     }
     .after-header {
         margin-top: 85px;
@@ -4717,7 +4739,7 @@ display: none;
         height: 56px;
     }
     .header.after-scroll-header .rights {
-        padding: 19px 71px 0 0;
+        padding: 34px 87px 0 0;
     }
     /* .top-section */
 
@@ -9792,7 +9814,7 @@ width: 580px;
         width: 100%;
     }
     header.header {
-        height: 155px;
+        height: 110px;
         margin-top: 10px;
     }
     .zinnia header.header {
@@ -9803,7 +9825,7 @@ width: 580px;
         margin: 25px 0 0 32px;
     }
     header.header.after-scroll-header .rights {
-        padding: 49px 24px 0 0;
+        padding: 36px 24px 0 0;
     }
     .footer .bottoms ul.social-ul li .icon-g-plus.icons {
         background-position: -98px -16px;
@@ -9822,7 +9844,7 @@ width: 580px;
       margin-top: 56px;
     }
     #project .header .logo {
-      margin: 8px 0 0 19px;
+      margin: 21px 0 0 19px;
       padding: 0;
     }
     .venue-area-left{
@@ -12869,10 +12891,12 @@ label.checkmark.animate:after {
     }
     .header .logo-solar-at-home {
         background: url(../images/mobile/mobile-logo-white.png);
-        margin: 1vmin 0 2px 3vmin;
+        margin: 1.3em 0 2px 3vmin;
         display: block;
         background-repeat: no-repeat;
         padding: 0 9vmin;
+        background-size: 110px;
+        width: 115px;
     }
     .home-page-content .imageContainer {
         height: 28vh;
@@ -12934,6 +12958,12 @@ label.checkmark.animate:after {
 
 .menu-list {
     display:none;
+}
+.container .container .navbar-collapse.collapse {
+    display: none !important;
+    height: auto!important;
+    padding-bottom: 0;
+    overflow: visible!important;
 }
 
 #myCarousel .carousel-next-button {
@@ -13047,9 +13077,9 @@ and (orientation : landscape) {
 
 .logo-home {
      background: url(../images/mobile/mobile-logo-white.png);
-     margin: 5.7vmin 0 0 6vmin;
+     margin: 1.1em 0 0 1.4em;
     background-repeat: no-repeat;
-    background-size: 29vmin !important;
+    background-size: 120px !important;
     padding: 0;
 }
 
@@ -13151,7 +13181,7 @@ and (orientation : landscape) {
 
 .go_solar_at_home {
     width: 59vmin;
-    margin-top: 10vmin;
+    margin-top: 15vmin;
     font-weight: bold;
     font-size: 5vmin;
     z-index: -1;
@@ -13421,14 +13451,14 @@ a.How_it_Works:hover {
      padding: 3vmin 4% 0 0;
 }
 
-    .hamburger_color {
-        border-color: transparent;
+   .navbar-header .hamburger_color {
         color: white;
         margin-top: 2.5rem;
         margin-bottom: 1.6rem;
+       background-color: transparent !important;
     }
     #project .hamburger_color {
-        margin-top: 1.9rem;
+        margin-top: 2.6rem;
         margin-bottom: 1.6rem;
     }
     .background-collapse-color {
@@ -14049,6 +14079,7 @@ a.How_it_Works:hover {
     cursor: pointer;
     width: 100%;
 }
+
 @media only screen and (min-width: 1750px) {
     .How_it_Works {
         font-size: 1.7rem;
@@ -14085,7 +14116,7 @@ a.How_it_Works:hover {
         width: 35%;
     }
     .header.after-scroll-header .logo-home {
-        margin: 5.1vmin 0 0 9%;
+        margin: 2.2rem 0 0 9%;
     }
 }
 html.skrollr.skrollr-desktop {
@@ -14175,6 +14206,82 @@ signup > .row .social-login-buttons {
     background-color: #fff;
     color: #F46B7B;
 }
+.donate-msg-cntnr {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.2);
+    z-index: 2222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+
+}
+.donate-popup {
+    background-color: #fff;
+    padding: 5vmin 2vmin 5vmin;
+    width: 41%;
+    font-size: 2.7vmin;
+    color: #7E7E7E;
+    font-weight: 600;
+    text-align: center;
+    position: relative;
+}
+.donate-submit-btn-cntnr {
+    padding: 4vmin 10% 0;
+    float: left;
+    position: relative;
+    width: 100%;
+}
+.donate-btn-login, .donate-as-guest {
+    background-color: #14B1E7;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    padding: 0.8vmin 0;
+    font-size: 2.8vmin;
+    border-radius: 2%;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    width: 55%;
+    float: none;
+    outline: 0;
+    border: 0;
+}
+.donate-as-guest {
+    margin-top: 2vmin;
+}
+img.close-donate-popup {
+    position: absolute;
+    right: 2%;
+    top: 1.5vmin;
+    border: 1px solid #ccc;
+    width: 2.4vmin;
+    cursor: pointer;
+}
+@media screen and (max-width: 768px) {
+    .donate-popup {
+        width: 75%;
+    }
+}
+@media screen and (max-width: 736px) and (orientation: landscape) {
+    .donate-popup {
+        width: 61%;
+    }
+}
+@media (min-width: 768px) {
+ .container .navbar-collapse.collapse {
+        display: none !important;
+    }
+}
+.navbar-collapse.collapse {
+    display: none;
+}
+.navbar-collapse.collapse.in {
+    display: block;
+}
 /*CSS for create project form*/
 #project_form .section-title {
     margin-left: 0.9375rem;
@@ -14255,6 +14362,3 @@ CSS for financial report*/
 #example_wrapper .dt-buttons {
     padding-top: 2em;
 }
-
-
-

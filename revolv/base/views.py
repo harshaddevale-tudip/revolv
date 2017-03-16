@@ -217,6 +217,12 @@ class SignInView(TemplateView):
     signup_form_class = SignupForm
 
     def dispatch(self, request, *args, **kwargs):
+        amount = request.GET.get('donation_amount')
+        tip = request.GET.get('donation_tip')
+        title = request.GET.get('title')
+        request.session['amount'] = amount
+        request.session['tip'] = tip
+        request.session['title'] = title
         if request.user.is_authenticated():
             return redirect("home")
         return super(SignInView, self).dispatch(request, *args, **kwargs)
@@ -281,6 +287,9 @@ class LoginView(RedirectToSigninOrHomeMixin, FormView):
     @csrf_exempt
     @method_decorator(sensitive_post_parameters('password'))
     def dispatch(self, request, *args, **kwargs):
+        self.amount = request.session.get('amount')
+        self.tip = request.session.get('tip')
+        self.title = request.session.get('title')
         self.next_url = request.POST.get("next", "home")
         return super(LoginView, self).dispatch(request, *args, **kwargs)
 
@@ -292,6 +301,13 @@ class LoginView(RedirectToSigninOrHomeMixin, FormView):
         user = authenticate(username=self.username, password=self.password)
 
         auth_login(self.request, form.get_user())
+        if self.request.session.get('amount'):
+            title = self.title
+            amount = self.amount
+            tip = self.tip
+            del self.request.session['amount']
+            messages.success(self.request, 'Logged in as ' + self.request.POST.get('username'))
+            return redirect(reverse('view', kwargs={'title': title}) + '?amount=' + amount + '&tip=' + tip)
         messages.success(self.request, 'Logged in as ' + self.request.POST.get('username'))
         return redirect(self.next_url)
 
@@ -330,10 +346,14 @@ class SignupView(RedirectToSigninOrHomeMixin, FormView):
         auth_login(self.request, u)
         context = {}
         context['user'] = self.request.user
-        send_revolv_email(
-            'post_donation',
-            context, [self.request.user.email]
-        )
+
+        if self.request.session.get('amount'):
+            title = self.request.session.get('title')
+            amount = self.request.session.get('amount')
+            tip = self.request.session.get('tip')
+            del self.request.session['amount']
+            messages.success(self.request, 'Logged in as ' + self.request.POST.get('username'))
+            return redirect(reverse('view', kwargs={'title': title}) + '?amount=' + amount + '&tip=' + tip)
         messages.success(self.request, 'Signed up successfully!')
         # return redirect("dashboard" +'?social=true')
         return HttpResponseRedirect(reverse("dashboard") + '?social=signup')

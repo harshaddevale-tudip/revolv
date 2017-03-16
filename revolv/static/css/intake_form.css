@@ -188,12 +188,18 @@ intake-form-containerform-container input[type='text'] {
     /* height: 50%; */
     float: left;
 }
+.header > .container:first-child {
+    padding-top: 6.5vmin;
+}
 @media screen and (min-device-width : 1024px) and (max-device-width : 1024px) and (min-device-height : 1366px) and (max-device-height : 1366px) and (min-width: 1024px) and (max-width: 1024px) {
     .intake-form-container {
         padding: 4vmin 25% 6vmin 5%;
     }
 }
 @media (max-width: 767px) {
+    .header > .container:first-child {
+        padding-top: 0;
+    }
     .intake-form-container {
         padding: 4vmin 5% 6vmin 5%;
     }

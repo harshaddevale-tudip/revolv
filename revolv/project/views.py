@@ -152,7 +152,7 @@ def stripe_payment(request, pk):
         #     context, [request.user.email]
         # )
         messages.success(request, 'Donation Successful')
-        return redirect('/signin/#signup')
+        return redirect('dashboard')
 
 def stripe_operation_donation(request):
     try:

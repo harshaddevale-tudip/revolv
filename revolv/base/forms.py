@@ -79,7 +79,6 @@ class AuthenticationForm(forms.Form):
         super(AuthenticationForm, self).__init__(*args, **kwargs)
 
         # Set the label for the "username" field.
-        username = forms.CharField(max_length=254, widget=forms.TextInput(attrs={'placeholder': 'Search'}))
         UserModel = get_user_model()
         self.username_field = UserModel._meta.get_field(UserModel.USERNAME_FIELD)
 
