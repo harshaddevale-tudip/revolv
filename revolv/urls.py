@@ -8,7 +8,7 @@ from wagtail.wagtailcore import urls as wagtail_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
 
 from revolv.base import views as base_views
-from revolv.project.views import ProjectView
+from revolv.project import views as project_view
 from revolv.base.views import solarathome, bring_solar_tou_your_community, select_chapter, intake_form, intake_form_submit
 
 urlpatterns = patterns(
@@ -72,8 +72,9 @@ url(r'^', include('zinnia.urls.capabilities')),
     url(r'^blog/', include('zinnia.urls.shortlink')),
     url(r'^blog/', include('zinnia.urls.quick_entry')),
 
-    url(r'^(?P<title>[^/]+)/$', ProjectView.as_view(), name='view'),
+    url(r'^(?P<title>\w+)/$',project_view.ProjectView.as_view(), name='view'),
     url(r'', include(wagtail_urls)),
+
 
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
