@@ -14206,6 +14206,90 @@ signup > .row .social-login-buttons {
     background-color: #fff;
     color: #F46B7B;
 }
+/*CSS for create project form*/
+#project_form .section-title {
+    margin-left: 0.9375rem;
+    font-size: 3rem;
+}
+#project_form .dollar-sign {
+    font-size: 1.5rem;
+    line-height: 0.8;
+}
+#project_form span.help-text {
+    font-size: 1.4rem;
+}
+#project_form input:not([type]), input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], input[type="color"], textarea {
+    font-size: 1.375rem;
+    height: 3.0125rem;
+    margin: 0 0 1rem 0;
+    padding: 0.8rem;
+}
+#project_form small {
+    font-size: 1rem;
+    line-height: inherit;
+}
+#project_form button, #project_form input, #project_form select, #project_form textarea {
+    font-size: 1.3rem;
+}
+#project_form input {
+    font-size: 1.3rem;
+    height: 3.4rem;
+}
+#project_form input[type="file"], #project_form input[type="checkbox"], #project_form input[type="radio"], #project_form select {
+    margin: 0 0 2rem 0;
+}
+#project_form .large {
+    font-size: 2.15rem;
+}
+#project_form span {
+    font-size: 1.4rem;
+}
+#project_form .chosen-container {
+    margin-bottom: 1rem;
+}
+#project_form .donation-level-1 .small-4 label:last-child span.help-text,
+#project_form .donation-level-0 .small-4 label:last-child span.help-text {
+    float: left;
+}
+#project_form input[type="checkbox"] {
+    margin: 0.4rem 0 2rem 0.6rem;
+    height: auto;
+}
+.row.form-section {
+    max-width: 100rem;
+}
+/*
+CSS for financial report*/
+#example_wrapper label {
+    font-size: 1.4rem;
+}
+#example_wrapper select {
+    font-size: 1.4rem;
+    padding: 0.6rem;
+    height: 3.2125rem;
+}
+#example_wrapper table thead tr th, #example_wrapper table tr td {
+    color: #222222;
+    font-size: 1.4rem;
+}
+#example_wrapper button.dt-button, #example_wrapper div.dt-button, #example_wrapper a.dt-button {
+    font-size: 1.4rem;
+}
+.dataTables_wrapper .dataTables_info {
+    font-size: 1.6rem;
+}
+.dataTables_paginate .paginate_button {
+    font-size: 1.6rem;
+}
+#example_filter input[type="search"] {
+    font-size: 1.4rem;
+}
+#example_wrapper .dataTables_paginate {
+    padding-bottom: 2em;
+}
+#example_wrapper .dt-buttons {
+    padding-top: 2em;
+}
 .donate-msg-cntnr {
     position: fixed;
     width: 100%;
@@ -14286,83 +14370,11 @@ img.close-donate-popup {
 .navbar-collapse.collapse.in {
     display: block;
 }
-/*CSS for create project form*/
-#project_form .section-title {
-    margin-left: 0.9375rem;
-    font-size: 3rem;
+/*CSS for 404.html page*/
+.page-not-found-msg {
+    margin-top: 143px;
 }
-#project_form .dollar-sign {
-    font-size: 1.5rem;
-    line-height: 0.8;
-}
-#project_form span.help-text {
-    font-size: 1.4rem;
-}
-#project_form input:not([type]), input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], input[type="color"], textarea {
-    font-size: 1.375rem;
-    height: 3.0125rem;
-    margin: 0 0 1rem 0;
-    padding: 0.8rem;
-}
-#project_form small {
-    font-size: 1rem;
-    line-height: inherit;
-}
-#project_form button, #project_form input, #project_form select, #project_form textarea {
-    font-size: 1.3rem;
-}
-#project_form input[type="file"], #project_form input[type="checkbox"], #project_form input[type="radio"], #project_form select {
-    margin: 0 0 2rem 0;
-}
-#project_form .large {
-    font-size: 2.15rem;
-}
-#project_form span {
-    font-size: 1.4rem;
-}
-#project_form .chosen-container {
-    margin-bottom: 1rem;
-}
-#project_form .donation-level-1 .small-4 label:last-child span.help-text,
-#project_form .donation-level-0 .small-4 label:last-child span.help-text {
-    float: left;
-}
-#project_form input[type="checkbox"] {
-    margin: 0.4rem 0 2rem 0.6rem;
-}
-.row.form-section {
-    max-width: 100rem;
+.container.page-not-found-msg .png-image {
+    margin-top: 50px;
 }
 
-/*
-CSS for financial report*/
-#example_wrapper label {
-    font-size: 1.4rem;
-}
-#example_wrapper select {
-    font-size: 1.4rem;
-    padding: 0.6rem;
-    height: 3.2125rem;
-}
-#example_wrapper table thead tr th, #example_wrapper table tr td {
-    color: #222222;
-    font-size: 1.4rem;
-}
-#example_wrapper button.dt-button, #example_wrapper div.dt-button, #example_wrapper a.dt-button {
-    font-size: 1.4rem;
-}
-.dataTables_wrapper .dataTables_info {
-    font-size: 1.6rem;
-}
-.dataTables_paginate .paginate_button {
-    font-size: 1.6rem;
-}
-#example_filter input[type="search"] {
-    font-size: 1.4rem;
-}
-#example_wrapper .dataTables_paginate {
-    padding-bottom: 2em;
-}
-#example_wrapper .dt-buttons {
-    padding-top: 2em;
-}
