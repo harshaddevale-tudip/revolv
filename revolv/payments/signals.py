@@ -51,95 +51,13 @@ def post_save_admin_repayment(**kwargs):
 @receiver(signals.post_save, sender=Project)
 def post_save_user_groups(**kwargs):
     """
-    When an AdminRepayment is saved, a RepaymentFragment is generated for all
-    donors to a project, each weighed by that donor's proportion of the
-    contribution to the project.
+    When an project is saved, Check the project ambassador and add user to the
+    ambassador group.
     """
 
     instance = kwargs.get('instance')
     g = Group.objects.get(name='ambassadors')
     g.user_set.add(instance.ambassador_id)
-
-# @receiver(signals.pre_init, sender=AdminReinvestment)
-# def pre_init_admin_reinvestment(**kwargs):
-#     """
-#     Raises a NotEnoughFundingException before __init__ if there are not enough
-#     funds for this AdminReinvestment.
-#     """
-#     if is_user_reinvestment_period():
-#         raise NotInAdminReinvestmentPeriodException()
-#
-#     init_kwargs = kwargs.get('kwargs')
-#     # can't initialize admin_repayment without required 'amount' kwarg
-#     if not init_kwargs or not init_kwargs.get('amount'):
-#         raise NotEnoughFundingException()
-#     invest_amount = init_kwargs['amount']
-#
-#     global_repay_amount = AdminRepayment.objects.aggregate(
-#         Sum('amount')
-#     )['amount__sum'] or 0.0
-#     global_reinvest_amount = AdminReinvestment.objects.aggregate(
-#         Sum('amount')
-#     )['amount__sum'] or 0.0
-#     global_user_reinvest_amount = UserReinvestment.objects.aggregate(
-#         Sum('amount')
-#     )['amount__sum'] or 0.0
-#     global_reinvest_pool = global_repay_amount - global_reinvest_amount - global_user_reinvest_amount
-#     if global_reinvest_pool - invest_amount < 0.0:
-#         raise NotEnoughFundingException()
-
-
-@receiver(signals.post_save, sender=AdminReinvestment)
-def post_save_admin_reinvestment(**kwargs):
-    """
-    When an AdminReinvestment is saved, we pool as many donors as we need to
-    fund the reinvestment, prioritizing users that have a preference for the
-    Category of the project begin invested into and the by order them by thier
-    last name. We only consider users that have a non-zero pool of investable money.
-
-    """
-    if not kwargs.get('created'):
-        return
-    instance = kwargs.get('instance')
-    total_left = instance.amount
-    pending_reinvestors = []
-
-    project = instance.project
-    # the list of users with at least one preferred category that matches any of the
-    # categories that the project is tagged with
-    # users_with_preferences = RevolvUserProfile.objects.filter(preferred_categories__in=project.category_set.all()).filter(reinvest_pool__gt=0.0)
-    # # iterates through users with preferred categories first
-    # for user in users_with_preferences:
-    #     total_left -= user.reinvest_pool
-    #     reinvest_amount = user.reinvest_pool + min(0.0, total_left)
-    #     pending_reinvestors.append((user, reinvest_amount))
-    #     if total_left <= 0.0:
-    #         break
-    #
-    # # if we still have money we want to reinvest, loop through users without preferences
-    # if total_left > 0.0:
-    users = RevolvUserProfile.objects.filter(reinvest_pool__gt=0.0)
-        # .exclude(pk__in=users_with_preferences).order_by('user__last_name')
-    for user in users:
-        total_left -= user.reinvest_pool
-        reinvest_amount = user.reinvest_pool + min(0.0, total_left)
-        pending_reinvestors.append((user, reinvest_amount))
-        if total_left <= 0.0:
-            break
-    for (user, amount) in pending_reinvestors:
-        reinvestment = Payment(user=user,
-                               project=instance.project,
-                               entrant=instance.admin,
-                               payment_type=PaymentType.objects.get_reinvestment_fragment(),
-                               admin_reinvestment=instance,
-                               amount=amount
-                               )
-        if instance.project.amount_donated >= instance.project.funding_goal:
-            instance.project.project_status = instance.project.COMPLETED
-            instance.project.save()
-        # user's reinvest_pool will be decremented on this Payment's save
-        reinvestment.save()
-
 
 @receiver(signals.post_save, sender=RepaymentFragment)
 def post_save_repayment_fragment(**kwargs):

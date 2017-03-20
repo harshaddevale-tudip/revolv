@@ -22,7 +22,7 @@ def calculate_montly_reinvesment_allocation():
     This is how it do:
     1. Calculate money in out hand: balance + sum of incomming installment
     2. Calculate max money to re-allocate to each active project
-    3. Set project monthly_reinvestment_cap with above value
+    3. Set reinvestment amount in user's account as reinvestment_pool.
     4. Send email alert to user
     """
     ADMIN_PAYMENT_USERNAME = settings.ADMIN_PAYMENT_USERNAME
@@ -39,7 +39,7 @@ def calculate_montly_reinvesment_allocation():
     for project in competed_unpaid_off_project:
         try:
             repayment_config = project.projectmontlyrepaymentconfig_set\
-                .get(year=date.today().year, repayment_type=ProjectMontlyRepaymentConfig.SOLAR_SEED_FUND)
+                .get(repayment_type=ProjectMontlyRepaymentConfig.SOLAR_SEED_FUND)
         except ProjectMontlyRepaymentConfig.DoesNotExist:
             logger.error("Project %s - %s doesn't have repayment config!", project.id, project.title)
             continue
@@ -61,10 +61,7 @@ def calculate_montly_reinvesment_allocation():
 
     fund_per_recipient = reinvest_balance / len(recipient)
     logger.info('Fund allocated to each project: %s' % fund_per_recipient)
-    # for project in recipient:
-    #     project.monthly_reinvestment_cap = fund_per_recipient
-    #     project.save()
-    #wait for 30s and the send mail
+
     time.sleep(30)
 
     # user_reinvestment_reminder()

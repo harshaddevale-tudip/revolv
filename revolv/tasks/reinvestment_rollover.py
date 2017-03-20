@@ -1,7 +1,7 @@
 from django.conf import settings
 
 from revolv.project.models import Project
-from revolv.payments.models import ProjectMontlyRepaymentConfig, AdminReinvestment
+from revolv.payments.models import ProjectMontlyRepaymentConfig, AdminReinvestment, PaymentType, Payment
 from revolv.base.models import RevolvUserProfile
 from django.db.models import Sum
 
@@ -19,12 +19,12 @@ def distribute_reinvestment_fund():
     """
     This task is for Automatic reinvestment
 
-    This is how tis script do:
+    This is how this script do:
     1. Get all project that is eligible for reinvestment:
         (project with monthly_reinvestment_cap >0 and not fully funded)
-    2. For each project determine how we'll reinvest ( min(monthly_reinvestment_cap, amount_left)
+    2. For each project determine how we'll reinvest
     3. Add AdminReinvestment object with above value
-    4. Set monthly_reinvestment_cap to 0.0
+    4. Reinvestment every user's reinvestment amount in project funding proportion.
     """
 
     time.sleep(60)
@@ -37,16 +37,38 @@ def distribute_reinvestment_fund():
         sys.exit()
 
     reinvest_amount_left = RevolvUserProfile.objects.all().aggregate(total=Sum('reinvest_pool'))['total']
-    recipient = filter(lambda p: p.amount_left > 0.0, Project.objects.get_active())
-    amount_to_reinvest = reinvest_amount_left / len(recipient)
+    #recipient = filter(lambda p: p.amount_left > 0.0, Project.objects.get_active())
+    total_funding_goal = Project.objects.get_active().aggregate(total=Sum('funding_goal'))['total']
+    pending_reinvestors = []
 
+    users = RevolvUserProfile.objects.filter(reinvest_pool__gt=0.0)
+    for user in users:
+        reinvest_pool=user.reinvest_pool
+        pending_reinvestors.append((user, reinvest_pool))
     for project in Project.objects.get_active():
-        if amount_to_reinvest > 0.0:
-            logger.info('Trying to reinvest {0} to {1}-{2}'.format(amount_to_reinvest, project.id, project.title))
-            AdminReinvestment.objects.create(
-                amount=amount_to_reinvest,
-                admin=admin,
-                project=project
-            )
-        #project.monthly_reinvestment_cap = 0.0
-        project.save()
+        reinvest_amount_praportion = float(project.funding_goal)/float(total_funding_goal)
+        reinvest_amount=float(reinvest_amount_praportion)*float(reinvest_amount_left)
+        reinvest_amount=float("{0:.2f}".format(reinvest_amount))
+
+        adminReinvestment=AdminReinvestment.objects.create(
+            amount=reinvest_amount,
+            admin=admin,
+            project=project
+        )
+
+        for (user, reinvest_pool) in pending_reinvestors:
+            amount = reinvest_pool * reinvest_amount_praportion
+            reinvestment = Payment(user=user,
+                                   project=project,
+                                   entrant=admin,
+                                   payment_type=PaymentType.objects.get_reinvestment_fragment(),
+                                   admin_reinvestment=adminReinvestment,
+                                   amount=float("{0:.2f}".format(amount))
+                                   )
+
+            if project.amount_donated >= project.funding_goal:
+                project.project_status = project.COMPLETED
+                project.save()
+            reinvestment.save()
+
+

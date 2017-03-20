@@ -505,7 +505,7 @@ class ProjectReinvestView(UserDataMixin, DetailView):
     """
     The project view. Displays project details and allows for editing.
 
-    Accessed through /project/{project_id}
+    Accessed through /project/{project_url}
     """
     model = Project
     template_name = 'project/project.html'
