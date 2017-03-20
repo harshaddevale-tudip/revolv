@@ -339,7 +339,7 @@ class CreateProjectView(DonationLevelFormSetMixin, CreateView):
     form_class = forms.ProjectForm
 
     def get_success_url(self):
-        return reverse('view', kwargs={'title': self.get_object().project_url})
+        return reverse('project:view', kwargs={'title': self.get_object().project_url})
 
     # validates project, formset of donation levels, and adds categories as well
     def form_valid(self, form):
@@ -385,7 +385,7 @@ class UpdateProjectView(DonationLevelFormSetMixin, UpdateView):
 
     def get_success_url(self):
         messages.success(self.request, 'Project details updated')
-        return reverse('view', kwargs={'title': self.get_object().project_url})
+        return reverse('project:view', kwargs={'title': self.get_object().project_url})
 
     def form_valid(self, form):
         """
@@ -644,5 +644,5 @@ def reinvest(request, pk):
                                         project=project)
 
     messages.success(request, 'Reinvestment Successful')
-    return redirect("view" ,title=project.project_url)
+    return redirect("project:view" ,title=project.project_url)
 

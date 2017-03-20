@@ -228,7 +228,7 @@
                   <div class="join-mov-btns">
                     <div class="module-box">
                       <div class="img-main">
-                       <a href="{% url "view" title=active_project.project_url %}" class="img-link">
+                       <a href="{% url "project:view" title=active_project.project_url %}" class="img-link">
                           <span class="txt-table">
                             <span class="txt">
                                 {{ active_project.title }}
@@ -294,7 +294,7 @@
                   <div class="join-mov-btns">
                     <div class="module-box">
                       <div class="img-main">
-                        <a href="{% url "view" title=completed_project.project_url %}" class="img-link">
+                        <a href="{% url "project:view" title=completed_project.project_url %}" class="img-link">
                           <span class="txt-table">
                             <span class="txt">
                                 {{ completed_project.title }}
