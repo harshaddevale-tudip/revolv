@@ -1950,6 +1950,7 @@ padding: 0;
     padding-top: 0;
     font-size: 1.7rem;
     margin-top: 0;
+    cursor: pointer;
 }
 .newsletter-module .group-main .group .inputs {
     margin-right: 147px;
@@ -6878,6 +6879,9 @@ width: 580px;
 /*fix layout issue when smaller than 992px width*/
 
 @media (max-width: 991px) {
+    .newsletter-msg-cntnr .newsletter-msg {
+        width: 70%;
+    }
     /* terrible hack to add padding, depends highly on header text. please get rid of this if possible. */
     .top-section.nav-margins .section-video-overlay {
         padding-top: 25%;
@@ -10605,7 +10609,7 @@ width: 580px;
         border: 0;
         font-size: 3.4vmin;
     }
-    .newsletter-module .group-main .mobile-form-group #form1 {
+    .newsletter-module .group-main .mobile-form-group #form2 {
         padding: 0 7%;
     }
     .newsletter-module .group-main .group .inputs input {
@@ -14220,7 +14224,7 @@ signup > .row .social-login-buttons {
 }
 #project_form input:not([type]), input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], input[type="color"], textarea {
     font-size: 1.375rem;
-    height: 3.0125rem;
+    /*height: 3.0125rem;*/
     margin: 0 0 1rem 0;
     padding: 0.8rem;
 }
@@ -14378,3 +14382,58 @@ img.close-donate-popup {
     margin-top: 50px;
 }
 
+/*
+CSS for Newsletter pop-up*/
+.newsletter-msg-cntnr {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.2);
+    z-index: 2222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.newsletter-msg {
+    background-color: #fff;
+    padding: 3vmin 2vmin 4vmin;
+    width: 39%;
+    font-size: 2.7vmin;
+    color: #7E7E7E;
+    font-weight: 600;
+    text-align: center;
+    position: relative;
+}
+.close-newsletter-popup {
+    position: absolute;
+    right: 2%;
+    top: 1.5vmin;
+    border: 1px solid #ccc;
+    width: 2.4vmin;
+    cursor: pointer;
+}
+.newsletter-msg-btn-cntnr {
+    padding: 4vmin 44% 0;
+    float: left;
+    position: relative;
+    width: 100%;
+}
+.newsletter-submit-msg-btn{
+    background-color: #14B1E7;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    padding: 0.8vmin 0;
+    font-size: 2.8vmin;
+    border-radius: 2%;
+    cursor: pointer;
+    width: 100%;
+}
+.newsletter-error-email-msg {
+    color: #ff0039;
+    float: left;
+    position: relative;
+    font-size: 2.3vmin;
+    /* padding: 1vmin 0 0; */
+}
