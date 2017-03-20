@@ -339,7 +339,7 @@ class CreateProjectView(DonationLevelFormSetMixin, CreateView):
     form_class = forms.ProjectForm
 
     def get_success_url(self):
-        return reverse('project:view', kwargs={'title': self.get_object().project_url})
+        return reverse('project:view', kwargs={'title': self.object.project_url})
 
     # validates project, formset of donation levels, and adds categories as well
     def form_valid(self, form):
@@ -392,6 +392,7 @@ class UpdateProjectView(DonationLevelFormSetMixin, UpdateView):
         Validates project, formset of donation levels, and adds categories as well
         """
         formset = self.get_donation_level_formset()
+
         if formset.is_valid():
             project = self.get_object()
             project.update_categories(form.cleaned_data['categories_select'])
@@ -505,7 +506,7 @@ class ProjectReinvestView(UserDataMixin, DetailView):
     """
     The project view. Displays project details and allows for editing.
 
-    Accessed through /project/{project_url}
+    Accessed through /project/{project_id}
     """
     model = Project
     template_name = 'project/project.html'

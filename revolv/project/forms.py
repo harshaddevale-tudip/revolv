@@ -27,6 +27,7 @@ class ProjectForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'placeholder': 'e.g. Other Avenues Food Cooperative'}),
             'tagline': forms.TextInput(attrs={'placeholder': 'e.g. Power the future!'}),
             'funding_goal': forms.TextInput(attrs={'placeholder': 'e.g. $1000', 'min_value':0, 'decimal_places':2}),
+            'project_url': forms.TextInput(attrs={'placeholder': 'e.g. PowerCommunityDanceStudio2'}),
             'impact_power': forms.NumberInput(attrs={'placeholder': 'e.g. 12.0'}),
             'end_date': forms.DateInput(attrs={'placeholder': 'e.g. 10/25/2006', 'input_formats': '%m/%d/%Y'}),
             'video_url': forms.URLInput(attrs={'placeholder': 'e.g. youtube.com/url_to_video'}),
@@ -58,7 +59,8 @@ class ProjectForm(forms.ModelForm):
             'description',
             'people_affected',
             # 'actual_energy',
-            'total_kwh_value'
+            'total_kwh_value',
+            'project_url'
         )
 
     def clean_categories_select(self):
