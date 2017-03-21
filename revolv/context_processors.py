@@ -5,5 +5,6 @@ def global_settings(request):
     # return any necessary values
     return {
         'stripe_publishable_key': settings.STRIPE_PUBLISHABLE,
-        'stripe_api_key': settings.STRIPE_SECRET_KEY
+        'stripe_api_key': settings.STRIPE_SECRET_KEY,
+        'version_number' : settings.VERSION_NUM
     }
