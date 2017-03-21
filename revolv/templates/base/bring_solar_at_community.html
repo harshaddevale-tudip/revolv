@@ -5,14 +5,12 @@
 
 {% block title %}Home | {% endblock %}
 {% block head %}
-    <link rel="stylesheet" type="text/css" href="/static/css/bring_solar_at_community.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/bring_solar_at_community.css?version={{ version_number }}">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-		<script src="/static/js/base/bring_solar_at_home.js"></script>
+		<script src="/static/js/base/bring_solar_at_home.js?version={{ version_number }}"></script>
 		<title>Revolv</title>
-
-
     <style>
 
 .menu-list {
@@ -44,7 +42,7 @@
        <header class="header top-section-header">
   <div class="container">
         <div class="container">
-        <!-- Static navbar -->
+
         <div class="navbar navbar-default menu-list">
             <div class="navbar-header">
                 <button type="button" id="collbtn" class="navbar-toggle hamburger_color" data-toggle="collapse" data-target=".navbar-collapse"> <span class="icon-bar"></span>
@@ -88,7 +86,7 @@
                 {% endif %}
               </div>
               <a href="#" class="component-link btn-blue btn-donate btn-yellow" data-toggle="modal" data-target="#popup" >DONATE</a>
-              <!--<a #data-target="popup" data-toggle="modal" class=" btn-blue btn-donate pull-left after-scroll">DONATE NOW</a>-->
+
             </div>
           </div>
              <div class="header-content">
@@ -124,7 +122,7 @@
 					<div class="show-video" onmouseover="play('desk-vid-1')" onmouseout="pause('desk-vid-1')" onclick="showDesktopFullscreen('desk-vid-1')">
                         <iframe frameborder="0" class="video" id="desk-vid-1" src="https://www.youtube.com/embed/bD8znywo8Bs?rel=0&modestbranding=0"></iframe>
 						<div class="play-desktop-video-img">
-							<!-- <img src="/static/images/playVideoImg.png" alt=""> -->
+
 						</div>
 					</div>
 
@@ -134,7 +132,6 @@
 					<div class="show-video" onmouseover="play('desk-vid-2')" onmouseout="pause('desk-vid-2')" onclick="showDesktopFullscreen('desk-vid-2')">
                         <iframe frameborder="0" class="video" id="desk-vid-2" src="https://www.youtube.com/embed/JgfzavbHykQ?rel=0&modestbranding=0"></iframe>
 						<div class="play-desktop-video-img">
-							<!-- <img src="/static/images/playVideoImg.png" alt=""> -->
 						</div>
 					</div>
 					<div class="video-desc"><b>2.  What is RE-volv?</b></div>
@@ -143,7 +140,6 @@
 					<div class="show-video" onmouseover="play('desk-vid-3')" onmouseout="pause('desk-vid-3')" onclick="showDesktopFullscreen('desk-vid-3')">
 						<iframe frameborder="0" class="video" id="desk-vid-3" src="https://www.youtube.com/embed/nEF7-FZTjiY?rel=0&modestbranding=0"></iframe>
 						<div class="play-desktop-video-img">
-							<!-- <img src="/static/images/playVideoImg.png" alt=""> -->
 						</div>
 
 					</div>
@@ -153,7 +149,7 @@
 					<div class="show-video" onmouseover="play('desk-vid-4')" onmouseout="pause('desk-vid-4')" onclick="showDesktopFullscreen('desk-vid-4')">
 						<iframe frameborder="0" class="video" id="desk-vid-4" src="https://www.youtube.com/embed/f14kUFziJQ4?rel=0&modestbranding=0"></iframe>
 						<div class="play-desktop-video-img">
-							<!-- <img src="/static/images/playVideoImg.png" alt=""> -->
+
 						</div>
 					</div>
 					<div class="video-desc"><b>4. The Role of a Solar Champion</b></div>
@@ -162,7 +158,7 @@
 					<div class="show-video" onmouseover="play('desk-vid-5')" onmouseout="pause('desk-vid-5')" onclick="showDesktopFullscreen('desk-vid-5')">
 						<iframe frameborder="0" class="video" id="desk-vid-5" src="https://www.youtube.com/embed/sEip928Y1Ag?rel=0&modestbranding=0"></iframe>
 						<div class="play-desktop-video-img">
-							<!-- <img src="/static/images/playVideoImg.png" alt=""> -->
+
 						</div>
 					</div>
 					<div class="video-desc"><b>5. Next Steps</b></div>
@@ -181,44 +177,37 @@
 				    <li data-target="#champion-carousel" data-slide-to="4"></li>
 				  </ol>
 
-				  <!-- Wrapper for slides -->
 				  <div class="carousel-inner" role="listbox">
 				    <div class="item active" onclick="goFullscreen('video-1')">
                         <iframe frameborder="0" class="video" id="video-1" src="https://www.youtube.com/embed/bD8znywo8Bs?rel=0&modestbranding=0"></iframe>
                         <div class="play-desktop-video-img">
 						</div>
-					    <!--<img src="/static/images/playVideoImg.png" alt="" class="play-video-img"> -->
 				    </div>
 
 				    <div class="item" onclick="goFullscreen('video-2')">
 					    <iframe frameborder="0" class="video" id="video-2" src="https://www.youtube.com/embed/JgfzavbHykQ?rel=0&modestbranding=0"></iframe>
 						<div class="play-desktop-video-img">
 						</div>
-                        <!--<img src="/static/images/playVideoImg.png" alt="" class="play-video-img"> -->
 				    </div>
 
 				    <div class="item" onclick="goFullscreen('video-3')">
 				      <iframe frameborder="0" class="video" id="video-3" src="https://www.youtube.com/embed/nEF7-FZTjiY?rel=0&modestbranding=0"></iframe>
 					    <div class="play-desktop-video-img">
 						</div>
-                        <!--<img src="/static/images/playVideoImg.png" alt="" class="play-video-img">-->
 				    </div>
 
 				    <div class="item" onclick="goFullscreen('video-4')">
 				      <iframe frameborder="0" class="video" id="video-4" src="https://www.youtube.com/embed/f14kUFziJQ4?rel=0&modestbranding=0"></iframe>
 					    <div class="play-desktop-video-img">
 						</div>
-                        <!--<img src="/static/images/playVideoImg.png" alt="" class="play-video-img">-->
 				    </div>
 				    <div class="item" onclick="goFullscreen('video-5')">
 				      <iframe frameborder="0" class="video" id="video-5" src="https://www.youtube.com/embed/sEip928Y1Ag?rel=0&modestbranding=0"></iframe>
 						<div class="play-desktop-video-img">
 						</div>
-					    <!--<img src="/static/images/playVideoImg.png" alt="" class="play-video-img">-->
 				    </div>
 				  </div>
 
-				  <!-- Left and right controls -->
 				  <a class="left carousel-control" href="#champion-carousel" role="button" data-slide="prev">
 				    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
 
@@ -242,9 +231,6 @@
 					<div class="data-heading">
 						1. Why be a solar champion?
 					</div>
-					<!--<div class="data-text">-->
-						<!--Looking to take action for clean energy? Start here.-->
-					<!--</div>-->
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-4 grid-component flex flex-wrap">
@@ -252,9 +238,6 @@
 					<div class="data-heading">
 						2. Your Mission, if you Choose to Accept
 					</div>
-					<!--<div class="data-text">-->
-						<!--Here’s what it takes to bring solar to your community.-->
-					<!--</div>-->
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-4 grid-component flex flex-wrap">
@@ -262,9 +245,6 @@
 					<div class="data-heading">
 						3. How to find a nonprofit to solarize
 					</div>
-					<!--<div class="data-text">-->
-						<!--Know any nonprofits in your community that want to go solar?-->
-					<!--</div>-->
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-4 grid-component flex flex-wrap">
@@ -272,9 +252,6 @@
 					<div class="data-heading">
 						4. Collecting Information
 					</div>
-					<!--<div class="data-text">-->
-						<!--First step is collecting all the information we’ll need to size up a solar project.-->
-					<!--</div>-->
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-4 grid-component flex flex-wrap">
@@ -282,9 +259,6 @@
 					<div class="data-heading">
 						5. Making a Deal
 					</div>
-					<!--<div class="data-text">-->
-						<!--With your help, we’ll sign a lease agreement in no time!-->
-					<!--</div>-->
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-4 grid-component flex flex-wrap">
@@ -292,9 +266,6 @@
 					<div class="data-heading">
 						6. Planning a Crowdfunding Campaign
 					</div>
-					<!--<div class="data-text">-->
-						<!--Crowdfunding is like running a long race. Most of the hard work happens before race day.-->
-					<!--</div>-->
 				</div>
 			</div>
             <div class="col-xs-12 col-sm-4 grid-component flex flex-wrap">
@@ -302,9 +273,6 @@
 					<div class="data-heading">
 						7. Launching the campaign
 					</div>
-					<!--<div class="data-text">-->
-						<!--In the first few days of your campaign it’s critical to build momentum.-->
-					<!--</div>-->
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-4 grid-component flex flex-wrap">
@@ -312,9 +280,6 @@
 					<div class="data-heading">
 						8. Running the campaign
 					</div>
-					<!--<div class="data-text">-->
-						<!--Here are a few of the key strategies to keep momentum up during the campaign.-->
-					<!--</div>-->
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-4 grid-component flex flex-wrap">
@@ -322,10 +287,6 @@
 					<div class="data-heading">
 						9. Installation
 					</div>
-					<!--<div class="data-text">-->
-						<!--You did it! You’ve run a successful crowdfunding campaign! Now comes the fun part.-->
-						<!--Installation!-->
-					<!--</div>-->
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-4 grid-component flex flex-wrap">
@@ -333,9 +294,6 @@
 					<div class="data-heading">
 						10. Celebration
 					</div>
-					<!--<div class="data-text">-->
-						<!--The hard work is all done! Now it’s time to celebrate!-->
-					<!--</div>-->
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-4 grid-component flex flex-wrap">
@@ -343,9 +301,6 @@
 					<div class="data-heading">
 						11. Timeline
 					</div>
-					<!--<div class="data-text">-->
-						<!--A step by step timeline for you and your team to spearhead a solar energy project in your community.-->
-					<!--</div>-->
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-4 grid-component flex flex-wrap">
@@ -353,18 +308,12 @@
 					<div class="data-heading">
 						12. Resources
 					</div>
-					<!--<div class="data-text">-->
-						<!--Here are some templates and example materials that can help you along your journey.-->
-					<!--</div>-->
 				</div>
 			</div>
 		</div>
 
 <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key={{GOOGLEMAPS_API_KEY}}">
 </script>
-  <!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js">-->
-<!--</script>-->
-      <!--<script src="http://malsup.githubt.com/jquery.form.js"></script>-->
 
 <script>
   $(function ($) {
@@ -388,9 +337,7 @@
       if (this.name === 'amount_cents') {
         amount = this.value*100;
       }
-      <!--if (this.name === 'metadata') {-->
-        <!--metadata = this.value;-->
-      <!--}-->
+
     });
     if (typeof amount !== 'undefined') {
       handler.open({

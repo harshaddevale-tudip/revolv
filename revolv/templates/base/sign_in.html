@@ -10,7 +10,7 @@
 
 {% block javascripts %}
     <script type="text/javascript" src="{% static "js/vendor/jquery.min.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/base/signin.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/base/signin.js" %}?version={{ version_number }}"></script>
     <script type="text/javascript">
         {% if referring_endpoint %}
             window.SHOULD_AUTOSHOW_COMPONENT = false;

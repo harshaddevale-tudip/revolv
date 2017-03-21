@@ -9,9 +9,9 @@
     <link rel="stylesheet" type="text/css" href="{% static 'dist/css/pages/projects-list/index.css' %}">
 
     <script type="text/javascript" src="{% static "js/vendor/d3.min.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/base/util/util.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/base/partialcircle.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/base/projects-list.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/base/util/util.js" %}?version={{ version_number }}"></script>
+    <script type="text/javascript" src="{% static "js/base/partialcircle.js" %}?version={{ version_number }}"></script>
+    <script type="text/javascript" src="{% static "js/base/projects-list.js" %}?version={{ version_number }}"></script>
 
 {% endblock %}
 
@@ -35,16 +35,6 @@
             {% if not error_msg %}
             {% include "base/partials/list_projects.html" with is_reinvestment=is_reinvestment amount=reinvestment_amount %}
         {% endif %}
-
-{#        <div class="row about">#}
-{#            <div class="about-inset">#}
-{#                <!-- Call to action -->#}
-{#                {% if not is_reinvestment %}#}
-{#                <h2>{{ settings.revolv_cms.ActiveProjectsPageSettings.join_the_movement }}</h2>#}
-{#                <a href="https://docs.google.com/forms/d/10zU9-ap0IlInsraWvDvWxGxasjYOHsQvwjgr33YVmxE/viewform" class="donate button">{{ settings.revolv_cms.ActiveProjectsPageSettings.start_funding_button_text }}</a>#}
-{#                {% endif %}#}
-{#            </div>#}
-{#        </div>#}
 
     {% endspaceless %}
 {% endblock %}

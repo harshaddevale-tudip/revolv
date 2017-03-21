@@ -5,25 +5,24 @@
 
 {% block title %}Home | {% endblock %}
 {% block head %}
-    <link rel="stylesheet" type="text/css" href="/static/css/bring_solar_at_community.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/bring_solar_at_community.css?version={{ version_number }}">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-		<script src="/static/js/base/bring_solar_at_home.js"></script>
+		<script src="/static/js/base/bring_solar_at_home.js?version={{ version_number }}"></script>
 		<title>RE-volv</title>
 
-    <style>
-
-.menu-list {
-    position: absolute;
-    width: 100%;
-    background-image: linear-gradient(to bottom,transparent 0,transparent 100%);
-    background-color: transparent;
-    border: transparent;
-    border-radius: 0;
-    box-shadow: none;
-}
-    </style>
+<style>
+    .menu-list {
+        position: absolute;
+        width: 100%;
+        background-image: linear-gradient(to bottom,transparent 0,transparent 100%);
+        background-color: transparent;
+        border: transparent;
+        border-radius: 0;
+        box-shadow: none;
+    }
+</style>
 
 {%endblock%}
 {% block nav %}
@@ -34,13 +33,11 @@
        <header class="header top-section-header">
   <div class="container">
         <div class="container">
-        <!-- Static navbar -->
         <div class="navbar navbar-default menu-list">
             <div class="navbar-header">
                 <button type="button" id="collbtn" class="navbar-toggle hamburger_color" data-toggle="collapse" data-target=".navbar-collapse"> <span class="icon-bar"></span>
- <span class="icon-bar"></span>
- <span class="icon-bar"></span>
-
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
                 </button> <a class="navbar-brand logo-solar-at-home" href="/"></a>
 
             </div>
@@ -61,9 +58,7 @@
                     </li>
                 </ul>
             </div>
-            <!--/.nav-collapse -->
         </div>
-    <!-- end .logo -->
             <div class="solar_at_home_rights pull-right">
               <div class="txt pull-left">
 
@@ -78,7 +73,7 @@
                 {% endif %}
               </div>
               <a href="#" class="component-link btn-blue btn-donate btn-yellow" data-toggle="modal" data-target="#popup" >DONATE</a>
-              <!--<a #data-target="popup" data-toggle="modal" class=" btn-blue btn-donate pull-left after-scroll">DONATE NOW</a>-->
+
             </div>
           </div>
              <div class="header-content">

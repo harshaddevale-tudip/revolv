@@ -5,7 +5,7 @@
 <script type="text/javascript">
   window.PARTIAL_COMPLETENESS = {{ project.partial_completeness_as_js }};
 </script>
-<script src="{% static 'js/base/homeAnimations.js' %}"></script>
+<script src="{% static 'js/base/homeAnimations.js' %}?version={{ version_number }}"></script>
 <style>
 input:focus:invalid {box-shadow: 0 0 5px 1px red;}
 input:invalid {box-shadow: 0 0 5px 1px red;
