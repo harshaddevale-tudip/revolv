@@ -2,6 +2,7 @@ from collections import OrderedDict
 import logging
 
 from django.contrib import messages
+from django.conf import settings
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import views as auth_views
@@ -344,8 +345,17 @@ class SignupView(RedirectToSigninOrHomeMixin, FormView):
 
         # log in the newly created user model. if there is a problem, error
         auth_login(self.request, u)
+        SITE_URL = settings.SITE_URL
+        login_link = SITE_URL + reverse('login')
+        portfolio_link = SITE_URL + reverse('dashboard')
         context = {}
         context['user'] = self.request.user
+        context['login_link'] = login_link
+        context['portfolio_link'] = portfolio_link
+        send_revolv_email(
+            'signup',
+            context, [self.request.user.email]
+        )
 
         if self.request.session.get('amount'):
             title = self.request.session.get('title')

@@ -99,13 +99,16 @@ def stripe_payment(request, pk):
             project.save()
 
         context = {}
+        SITE_URL = settings.SITE_URL
+        portfolio_link = SITE_URL + reverse('dashboard')
+        context['portfolio_link'] = portfolio_link
         context['user'] = request.user
         context['project'] = project
         context['amount'] = tip_cents / 100.0
-        # send_revolv_email(
-        #     'post_donation',
-        #     context, [request.user.email]
-        # )
+        send_revolv_email(
+            'post_donation',
+            context, [request.user.email]
+        )
         amount=donation_cents / 100.0
         request.session['amount'] = str(amount)
         request.session['project'] = project.title
@@ -143,14 +146,16 @@ def stripe_payment(request, pk):
             project.project_status = project.COMPLETED
             project.save()
 
+        SITE_URL = settings.SITE_URL
+        portfolio_link = SITE_URL + reverse('dashboard')
         context = {}
         context['user'] = request.user
         context['project'] = project
         context['amount'] = tip_cents/100.0
-        # send_revolv_email(
-        #     'post_donation',
-        #     context, [request.user.email]
-        # )
+        send_revolv_email(
+            'post_donation',
+            context, [request.user.email]
+        )
         messages.success(request, 'Donation Successful')
         return redirect('dashboard')
 

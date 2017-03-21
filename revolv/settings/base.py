@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'sekizai',
     'social.apps.django_app.default',
     'mathfilters',
+    'djrill',
 
     # wagtail cms: see http://wagtail.readthedocs.org/en/v1.0b2/howto/settings.html
     'compressor',
