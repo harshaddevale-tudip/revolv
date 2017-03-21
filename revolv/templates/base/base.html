@@ -25,8 +25,8 @@
 
     <!-- Main CSS -->
     <link href="{% static 'css/jqtransform.css' %}" rel="stylesheet" />
-    <link href="{% static 'css/animate.css' %}" rel="stylesheet" />
-    <link href="{% static 'css/screen.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/animate.css' %}?version={{ version_number }}" rel="stylesheet" />
+    <link href="{% static 'css/screen.css' %}?version={{ version_number }}"  rel="stylesheet" />
 
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
@@ -43,7 +43,7 @@
     <script src="https://checkout.stripe.com/checkout.js"></script>
 
     <!-- Main JS -->
-    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/script.js' %}?version={{ version_number }}"></script>
 
 
 

@@ -137,7 +137,6 @@ DATABASES = {
         'NAME': 'revolv',
         'USER': 'revolv',
         'PASSWORD': 'revolv',
-        # you have have to change this to "localhost";.
         'HOST': 'localhost',
         'PORT': '',
     }
@@ -446,3 +445,4 @@ SFDC_REVOLV_DONATION = 'donation'
 
 STRIPE_SECRET_KEY = 'sk_test_vbQwIK5ECQMWvDtbteI6QWJa'
 STRIPE_PUBLISHABLE = 'pk_test_DQ2IZq0c2UbaDG75u4hWBEMC'
+VERSION_NUM = '120'

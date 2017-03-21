@@ -13,12 +13,12 @@
         };
 
     </script>
-    <script src="{% static 'js/base/homeAnimations.js' %}"></script>
+    <script src="{% static 'js/base/homeAnimations.js' %}?version={{ version_number }}"></script>
     <script src="{% static 'js/mediaelement-and-player.min.js' %}"></script>
     <link href="{% static 'css/mediaelementplayer.min.css' %}" rel="stylesheet" />
     <link href="{% static 'dist/css/pages/home/index.css' %}" rel="stylesheet" />
-    <link href="{% static 'css/slick.css' %}" rel="stylesheet" />
-    <link href="{% static 'css/slick-theme.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/slick.css' %}?version={{ version_number }}" rel="stylesheet" />
+    <link href="{% static 'css/slick-theme.css' %}?version={{ version_number }}" rel="stylesheet" />
 <style>
 
     .carousel-indicators li {
