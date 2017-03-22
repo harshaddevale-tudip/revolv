@@ -4187,9 +4187,6 @@ header.edit-project-header > .container > h1 {
 .footer .row .col-menu dt {
     padding-bottom: 0;
 }
-.footer .row .col-menu dt + dt {
-    padding-bottom: 4px;
-}
 /* .footer .col-info */
 
 .footer .row .col-info {
@@ -4205,10 +4202,9 @@ header.edit-project-header > .container > h1 {
 }
 .footer .row .col-info p {
     color: #8a8a8a;
-    font-size: 12px;
+    font-size: 14px;
     text-align: justify;
     line-height: 24px;
-    padding: 5px 0 0 0;
 }
 /* .footer .bottoms */
 
@@ -6666,25 +6662,17 @@ width: 580px;
     .footer .row .col-info dt {
         line-height: 20px;
     }
-    .footer .row .col-menu dt a,
-    .footer .row .col-info dt a {
-        font-size: 11.57px;
-    }
     .footer .row .col-menu dd,
     .footer .row .col-info dd {
-        line-height: 19px;
+        line-height: 29px;
     }
     .footer .row .col-info dt {
         padding-bottom: 4px;
     }
-    .footer .row .col-info a {
-        font-size: 9.92px;
-    }
     .footer .row .col-info p {
-        font-size: 9.92px;
+        font-size: 14px;
         text-align: justify;
-        line-height: 20px;
-        padding: 5px 0 0 0;
+        line-height: 29px;
     }
     /* .footer .bottoms */
     .footer .bottoms div {
@@ -9520,15 +9508,7 @@ width: 580px;
     }
     .footer .row .col-menu dt,
     .footer .row .col-info dt {
-        line-height: 25px;
-        padding: 20px 0;
-    }
-    .footer .row .col-menu dt + dt {
-        padding: 7px 0;
-    }
-    .footer .row .col-menu dt a,
-    .footer .row .col-info dt a {
-        font-size: 21.5px;
+        line-height: 29px;
     }
     .footer .row .col-menu dd,
     .footer .row .col-info dd {
@@ -9568,15 +9548,6 @@ width: 580px;
     }
     .footer .row .col-info dt {
         padding-bottom: 7px;
-    }
-    .footer .row .col-menu a,
-    .footer .row .col-info a {
-        font-size: 16.38px;
-    }
-    .footer .row .col-info p {
-        font-size: 14.34px;
-        line-height: 24px;
-        padding: 0;
     }
     /* .footer .bottoms */
     .footer .bottoms .lefts,
@@ -12189,12 +12160,6 @@ width: 580px;
     .footer .row .col-info {
         padding: 17px 0 9px 0;
     }
-    .footer .row .col-menu dt,
-    .footer .row .col-info dt {
-        padding: 5px 0;
-    }
-    /* .footer .col-menu */
-
     .footer .row .col-menu {
         padding: 26px 0 11px 0;
     }
@@ -14436,4 +14401,10 @@ CSS for Newsletter pop-up*/
     position: relative;
     font-size: 2.3vmin;
     /* padding: 1vmin 0 0; */
+}
+
+@media only screen and (device-width: 1024px) and (orientation:landscape) {
+    .footer .container .bottoms .social-icons-cntnr {
+        align-items: center;
+    }
 }
