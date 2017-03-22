@@ -122,7 +122,7 @@ class DonationReportForProject(UserDataMixin, TemplateView):
         return super(DonationReportForProject, self).dispatch(request, *args, **kwargs)
     # pass in Project Categories and Maps API key
     def get_context_data(self, **kwargs):
-        project=Project.objects.filter(ambassador=self.user_profile.user_id)
+        project = Project.objects.filter(ambassador=self.user_profile.id)
         context = super(DonationReportForProject, self).get_context_data(**kwargs)
         context['payments'] = Payment.objects.all().filter(project=project)
         return context
