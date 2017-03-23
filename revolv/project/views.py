@@ -152,10 +152,10 @@ def stripe_payment(request, pk):
         context['user'] = request.user
         context['project'] = project
         context['amount'] = tip_cents/100.0
-        send_revolv_email(
-            'post_donation',
-            context, [request.user.email]
-        )
+        #send_revolv_email(
+         #   'post_donation',
+         #   context, [request.user.email]
+        #)
         messages.success(request, 'Donation Successful')
         return redirect('dashboard')
 

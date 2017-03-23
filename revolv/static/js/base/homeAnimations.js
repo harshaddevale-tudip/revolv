@@ -9,6 +9,7 @@ function increaseCount1(currentValue1,step1,value1){
   }
   else
   {
+    $(".our-impacts-module .module-box .titles").eq(0).html(value1);
     return;
   }
   setTimeout(function () {
@@ -129,7 +130,6 @@ $(document).ready(function() {
             popupElement.find('input[name="donation_tip"]').val(donationTip);
             popupElement.find('input[name="pk"]').val(pk);
 
-            console.log(guestDonationAmount, metadata)
             popupElement.find('input[name="donate_amount_cents"]').val(guestDonationAmount);
             popupElement.find('input[name="metadata"]').val(metadata);
 
@@ -280,8 +280,7 @@ $(document).ready(function() {
             var signupEmail = $('#form1 .inputs input[type="email"]').val();
             var signupMobileEmail = $('#form2 .inputs input[type="email"]').val();
             var regExp = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-            console.log(signupEmail, signupEmail.length > 0, regExp.test(signupEmail) == true)
-            console.log(signupMobileEmail.length > 0, regExp.test(signupMobileEmail) == true)
+
         if(signupEmail.length > 0 && regExp.test(signupEmail) == true || signupMobileEmail.length > 0 && regExp.test(signupMobileEmail) == true) {
              var newsletter = '<div class="newsletter-msg-cntnr">'
                                     +'<div class="newsletter-msg">'
