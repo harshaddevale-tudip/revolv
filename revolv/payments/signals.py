@@ -138,19 +138,19 @@ def post_delete_payment(**kwargs):
             admin_reinvestment.delete()
 
 
-@receiver(signals.pre_init, sender=UserReinvestment)
-def pre_init_user_reinvestment(**kwargs):
-    """
-    Raises a NotEnoughFundingException before __init__ if there are not enough
-    funds for this UserReinvestment.
-    """
-    init_kwargs = kwargs.get('kwargs')
-    # can't initialize admin_repayment without required 'project' kwarg
-    if not init_kwargs or not init_kwargs.get('user'):
-        raise NotEnoughFundingException()
-    user = init_kwargs['user']
-    if user.reinvest_pool < 0.0:
-        raise NotEnoughFundingException()
+# @receiver(signals.pre_init, sender=UserReinvestment)
+# def pre_init_user_reinvestment(**kwargs):
+#     """
+#     Raises a NotEnoughFundingException before __init__ if there are not enough
+#     funds for this UserReinvestment.
+#     """
+#     init_kwargs = kwargs.get('kwargs')
+#     # can't initialize admin_repayment without required 'project' kwarg
+#     if not init_kwargs or not init_kwargs.get('user'):
+#         raise NotEnoughFundingException()
+#     user = init_kwargs['user']
+#     if user.reinvest_pool < 0.0:
+#         raise NotEnoughFundingException()
 
 
 @receiver(signals.pre_save, sender=UserReinvestment)

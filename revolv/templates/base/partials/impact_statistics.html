@@ -48,10 +48,17 @@
         <div class="info">
             <div>Equivalent to planting</div>
             <!--<span class="val">{{ statistics.trees }} </span>-->
-	   <span class="val">{{ statistics.trees|floatformat:"0"|intcomma }}</span>
+       {% if statistics.trees < 1 %}
+	   <span class="val">{{ statistics.trees|floatformat:"1"|intcomma }}</span>
             <span class="units">acres</span>
             <div>of trees</div>
         </div>
+        {% else %}
+          <span class="val">{{ statistics.trees|floatformat:"0"|intcomma }}</span>
+            <span class="units">acres</span>
+            <div>of trees</div>
+        </div>
+      {% endif %}
       </div>
       <div class="col-sm-4 col-md-2 col-xs-6">
         <div class="stats-img">
