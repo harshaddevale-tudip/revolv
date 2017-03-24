@@ -21,6 +21,8 @@ body {
     background: #fff;
     float: left;
     width: 100%;
+    position: relative;
+    z-index: -10;
 }
 input,
 button {
@@ -398,6 +400,12 @@ ol.carousel-indicators {
     height: 34vh;
     background-repeat: no-repeat;
     background-size: 100% 100%;
+    position: relative;
+    z-index: -1;
+ }
+ .imageContainer.join-mov-btn-cntnr {
+    position: relative;
+    z-index: -1;
  }
 
  .text_on_blue_image {
@@ -682,7 +690,7 @@ p.attribution.footer-text {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1019;
+    z-index: 0;
 }
 .after-header {
     margin-top: 102px;
@@ -1128,6 +1136,7 @@ padding: 0;
     float: left;
     position: relative;
     width: 100%;
+    z-index: -8;
 }
 .active-projects-module .container {
     padding: 0 15px;
@@ -1320,6 +1329,8 @@ padding: 0;
 
 .our-impacts-module {
     text-align: center;
+    position: relative;
+    z-index: -6;
 }
 .our-impacts-module .title-our-impacts {
     letter-spacing: 8px;
@@ -1421,6 +1432,8 @@ padding: 0;
 
 .how-it-works-module {
     text-align: center;
+    position: relative;
+    z-index: -5;
 }
 .how-it-works-module .title-how-it-works {
     letter-spacing: 8px;
@@ -1580,6 +1593,8 @@ padding: 0;
 .testimonial-module {
     text-align: center;
     padding-bottom: 65px;
+    position: relative;
+    z-index: -5;
 }
 .testimonial-module .title-testimonial {
     letter-spacing: 8px;
@@ -1703,6 +1718,7 @@ padding: 0;
     float: left;
     position: relative;
     width: 100%;
+    z-index: -5;
 }
 .featured-on-module .title-featured-on {
     letter-spacing: 8px;
@@ -1885,6 +1901,7 @@ padding: 0;
     position: relative;
     height: 448px;
     overflow: hidden;
+    z-index: -5;
 }
 .newsletter-module .img-preload {
     display: block;
@@ -4138,6 +4155,7 @@ header.edit-project-header > .container > h1 {
     min-height: 100px;
     float: left;
     width: 100%;
+    z-index: -5;
 }
 .footer .container {
     height: 100%;
@@ -14338,7 +14356,7 @@ img.close-donate-popup {
     display: block;
 }
 /*CSS for 404.html page*/
-.page-not-found-msg {
+.row.container.page-not-found-msg {
     margin-top: 143px;
 }
 .container.page-not-found-msg .png-image {

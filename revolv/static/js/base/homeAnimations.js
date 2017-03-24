@@ -117,73 +117,13 @@ function closeDoanatePopUp() {
 }
 $(document).ready(function() {
     var fullScreenMode = "OFF";
-    $(document).on('webkitfullscreenchange mozfullscreenchange fullscreenchange', function(e)
-        {
-            $(document).off("scroll");
+    $(document).on('webkitfullscreenchange mozfullscreenchange fullscreenchange', function(e) {
             if(fullScreenMode == "OFF"){
-
-                //$('.header.after-scroll-header').css('display', 'none');
-                $('#home-page').css('display', 'none');
                 fullScreenMode = "ON";
                 $(".Ellipse_543").hide();
-
             } else {
-                $('#home-page').css('display', 'block');
                 fullScreenMode = "OFF";
                 $(".Ellipse_543").show();
-
-                $(document).scroll(function(e){
-                    e.stopPropagation();
-                    if($(".home-page-content").length>0)
-                    {
-
-                      //scroll to How it works section
-                      if($(window).scrollTop()+1>=($(".active-projects-module").offset().top) ){
-                        if(!$("header").hasClass("after-scroll-header"))
-                        {
-                          $("header").removeClass("top-section-header").addClass("after-scroll-header");
-                          $("header").hide();
-                          $(".logo-home").css("background",'url(/static/images/logo.png) no-repeat');
-                          $("header").slideDown();
-                        }
-                      }
-                      else
-                      {
-
-                        if($("header").hasClass("after-scroll-header"))
-                        {
-                          $("header").slideUp();
-                          setTimeout(function(){
-                            $("header").removeClass("after-scroll-header").addClass("top-section-header");
-                            $(".logo-home").css("background",'url(/static/images/logo-white.png) no-repeat');
-                            $("header").show();
-                          },500);
-                        }
-                      }
-                    }
-
-                    //scroll down to show more contents in Blog page
-                    if($(".blog-page-content").length>0)
-                    {
-                      if($(window).scrollTop()+1>=($(".grid-area").offset().top-$(window).height()+$(".grid-area").height()) ){
-                        if(!loading_blog_content)
-                        {
-                          loading_blog_content = true;
-                          $(".loading-bar").removeClass("hide");
-                          setTimeout(function(){
-                            var first_page_content;
-                            for(var i=0;i<2;i++)
-                            {
-                              first_page_content = $(".grid-area").find(".col-md-6").eq(0).clone(true).removeClass("hide");
-                              $(".grid-area").append(first_page_content);
-                            }
-                            $(".loading-bar").addClass("hide");
-                            loading_blog_content = false;
-                          },3000)
-                        }
-                      }
-                    }
-                  });
             }
 
     });
