@@ -281,6 +281,9 @@ a:hover {
 ol.carousel-indicators {
     z-index: -5;
 }
+div#myCarousel {
+    z-index: -20;
+}
 
 #myCarousel .carousel-prev-button {
     position: relative;
