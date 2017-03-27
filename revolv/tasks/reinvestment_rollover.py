@@ -36,6 +36,7 @@ def distribute_reinvestment_fund():
         logger.error("Can't find admin user: {0}. System exiting!".format(ADMIN_PAYMENT_USERNAME))
         sys.exit()
 
+    reinvest_amount_left = RevolvUserProfile.objects.all().aggregate(total=Sum('reinvest_pool'))['total']
     total_funding_goal = Project.objects.get_active().aggregate(total=Sum('funding_goal'))['total']
     pending_reinvestors = []
 
