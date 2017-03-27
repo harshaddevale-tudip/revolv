@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import JsonResponse
-from django.http.response import HttpResponseBadRequest, HttpResponseRedirect
+from django.http.response import HttpResponseBadRequest, HttpResponseRedirect, HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic import CreateView, DetailView, UpdateView, TemplateView
 from django.views.generic.edit import FormView
@@ -77,6 +77,7 @@ def stripe_payment(request, pk):
 
 
     if request.user.is_authenticated():
+        tip = None
         if tip_cents > 0:
             tip = Tip.objects.create(
                 amount=tip_cents / 100.0,
@@ -105,10 +106,10 @@ def stripe_payment(request, pk):
         context['user'] = request.user
         context['project'] = project
         context['amount'] = tip_cents / 100.0
-        send_revolv_email(
-            'post_donation',
-            context, [request.user.email]
-        )
+        # send_revolv_email(
+        #     'post_donation',
+        #     context, [request.user.email]
+        # )
         amount=donation_cents / 100.0
         request.session['amount'] = str(amount)
         request.session['project'] = project.title
@@ -122,13 +123,14 @@ def stripe_payment(request, pk):
     else:
         user_id = User.objects.get(username='Guest').pk
         user = RevolvUserProfile.objects.get(user_id=user_id)
+        tip = None
         if tip_cents > 0:
             tip = Tip.objects.create(
                 amount=tip_cents / 100.0,
                 user=user,
             )
 
-        Payment.objects.create(
+        payment=Payment.objects.create(
             user=user,
             entrant=user,
             amount=donation_cents / 100.0,
@@ -152,12 +154,15 @@ def stripe_payment(request, pk):
         context['user'] = request.user
         context['project'] = project
         context['amount'] = tip_cents/100.0
-        #send_revolv_email(
-         #   'post_donation',
-         #   context, [request.user.email]
-        #)
-        messages.success(request, 'Donation Successful')
-        return redirect('dashboard')
+
+        # send_revolv_email(
+        #     'post_donation',
+        #     context, [request.user.email]
+        # )
+        return HttpResponse(json.dumps({'payment':payment.id }), content_type="application/json")
+        # messages.success(request, 'Donation Successful')
+        # return redirect('dashboard')
+
 
 def stripe_operation_donation(request):
     try:
