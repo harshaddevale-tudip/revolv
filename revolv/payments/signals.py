@@ -100,7 +100,10 @@ def post_save_payment(**kwargs):
         instance.project.donors.add(instance.user)
     if instance.payment_type == PaymentType.objects.get_reinvestment_fragment():
         instance.user.reinvest_pool -= float(instance.amount)
-        instance.project.monthly_reinvestment_cap -= float(instance.amount)
+        instance.user.reinvest_pool=float(format(round(instance.user.reinvest_pool,2)))
+        if instance.user.reinvest_pool <= 0.01:
+            instance.user.reinvest_pool = 0
+        #instance.project.monthly_reinvestment_cap -= float(instance.amount)
         instance.user.save()
 
 

@@ -27,7 +27,7 @@ def distribute_reinvestment_fund():
     4. Reinvestment every user's reinvestment amount in project funding proportion.
     """
 
-    time.sleep(60)
+    time.sleep(10)
     ADMIN_PAYMENT_USERNAME = settings.ADMIN_PAYMENT_USERNAME
 
     try:
@@ -36,8 +36,6 @@ def distribute_reinvestment_fund():
         logger.error("Can't find admin user: {0}. System exiting!".format(ADMIN_PAYMENT_USERNAME))
         sys.exit()
 
-    reinvest_amount_left = RevolvUserProfile.objects.all().aggregate(total=Sum('reinvest_pool'))['total']
-    #recipient = filter(lambda p: p.amount_left > 0.0, Project.objects.get_active())
     total_funding_goal = Project.objects.get_active().aggregate(total=Sum('funding_goal'))['total']
     pending_reinvestors = []
 
@@ -57,14 +55,17 @@ def distribute_reinvestment_fund():
         )
 
         for (user, reinvest_pool) in pending_reinvestors:
-            amount = reinvest_pool * reinvest_amount_praportion
+            reinvest_amount_left=user.reinvest_pool
+            amount = reinvest_pool * float("{0:.2f}".format(reinvest_amount_praportion))
+            logger.info('Trying to reinvest %s in %s project!',format(round(amount,2)),project.title)
             reinvestment = Payment(user=user,
                                    project=project,
                                    entrant=admin,
                                    payment_type=PaymentType.objects.get_reinvestment_fragment(),
                                    admin_reinvestment=adminReinvestment,
-                                   amount=float("{0:.2f}".format(amount))
+                                   amount=format(round(amount,2))
                                    )
+
 
             if project.amount_donated >= project.funding_goal:
                 project.project_status = project.COMPLETED
