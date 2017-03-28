@@ -278,6 +278,9 @@ a:hover {
 .carousel-inner {
     z-index: -10;
 }
+#champion-carousel .carousel-inner {
+    z-index: 0;
+}
 ol.carousel-indicators {
     z-index: -5;
 }
@@ -9935,6 +9938,7 @@ width: 580px;
       line-height: 37.5px;
       padding: 0 22px;
       border-width:2px !important;
+      width: 60%;
     }
     .container {
         width: auto;
@@ -12590,9 +12594,10 @@ width: 580px;
       background-repeat: no-repeat !important;
     }
     #project .title-blue-border {
-  font-size: 13px;
-  padding: 0 5px 0 10px;
-}
+      font-size: 13px;
+      padding: 0 5px 0 10px;
+      width: 80%;
+    }
 }
 @media (max-width: 700px) {
     .top-section .section-video-area {
@@ -12726,6 +12731,7 @@ label.checkmark.animate:after {
 
 .dashboard .active-projects-module {
     background-color: #fff;
+    z-index: 0;
 }
 .dashboard .impact {
     text-align: center;
