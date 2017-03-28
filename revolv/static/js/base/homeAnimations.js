@@ -296,7 +296,7 @@ $(document).ready(function() {
              var newsletter = '<div class="newsletter-msg-cntnr">'
                                     +'<div class="newsletter-msg">'
                                         +'<img src="/static/images/close-video.png" class="close-newsletter-popup">'
-                                        +'<span>Thank you for your interest in becoming a Solar Champion!<br> We will be in touch soon!</span>'
+                                        +'<span>Thank you for signing up for our newsletter <br>we look forward to keeping in touch!</span>'
                                         +'<div class="newsletter-msg-btn-cntnr">'
                                             +'<div class="newsletter-submit-msg-btn">OK</div>'
                                         +'</div>'

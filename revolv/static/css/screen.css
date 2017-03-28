@@ -4154,6 +4154,7 @@ header.edit-project-header > .container > h1 {
 /* .footer */
 
 .footer {
+    position: relative;
     background-color: #282828;
     min-height: 100px;
     float: left;
@@ -13661,6 +13662,7 @@ a.How_it_Works:hover {
     position: relative;
     width: 100%;
     padding: 18vmin calc(30px + 5.6%) 5vmin;
+    z-index: -2;
 }
 .curnt-projct-lst-head > .divider-title {
     font-size: 24px;
@@ -14258,7 +14260,7 @@ CSS for financial report*/
 }
 #example_wrapper table thead tr th, #example_wrapper table tr td {
     color: #222222;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
 }
 #example_wrapper button.dt-button, #example_wrapper div.dt-button, #example_wrapper a.dt-button {
     font-size: 1.4rem;
@@ -14381,7 +14383,7 @@ CSS for Newsletter pop-up*/
 }
 .newsletter-msg {
     background-color: #fff;
-    padding: 3vmin 2vmin 4vmin;
+    padding: 6vmin 2vmin 6vmin;
     width: 39%;
     font-size: 2.7vmin;
     color: #7E7E7E;
@@ -14393,9 +14395,9 @@ CSS for Newsletter pop-up*/
     position: absolute;
     right: 2%;
     top: 1.5vmin;
-    border: 1px solid #ccc;
     width: 2.4vmin;
     cursor: pointer;
+    filter: brightness(40%);
 }
 .newsletter-msg-btn-cntnr {
     padding: 4vmin 44% 0;
@@ -14425,5 +14427,27 @@ CSS for Newsletter pop-up*/
 @media only screen and (device-width: 1024px) and (orientation:landscape) {
     .footer .container .bottoms .social-icons-cntnr {
         align-items: center;
+    }
+}
+.password-change .component-container {
+    margin: 0 auto;
+    width: 29%;
+}
+form#change_password_form label {
+    width: 100%;
+}
+.password-change .component-container p {
+    margin-bottom: 15px;
+}
+@media only screen and (max-width: 767px) {
+    .password-change .component-container {
+        margin: 0 auto;
+        width: 90%;
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 1023px){
+    .password-change .component-container {
+        margin: 0 auto;
+        width: 50%;
     }
 }

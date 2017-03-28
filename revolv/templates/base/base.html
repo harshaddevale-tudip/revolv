@@ -17,7 +17,8 @@
     {% endblock %}
 
     <!-- Bootstrap -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="{% static 'css/font-awesome.css' %}?version={{ version_number }}"  rel="stylesheet" />
     <link href="{% static 'lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'lib/bootstrap/css/bootstrap-theme.min.css' %}" rel="stylesheet">
 
@@ -29,7 +30,7 @@
     <link href="{% static 'css/screen.css' %}?version={{ version_number }}"  rel="stylesheet" />
 
     <!-- Toastr CSS -->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+    <link href="{% static 'css/toastr.min.css' %}?version={{ version_number }}"  rel="stylesheet" />
 
     <!-- jQuery library -->
     <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
@@ -44,9 +45,6 @@
 
     <!-- Main JS -->
     <script src="{% static 'js/script.js' %}?version={{ version_number }}"></script>
-
-
-
 
     {% block head %}
     {% endblock %}
@@ -65,7 +63,7 @@
 
     {% include "base/partials/foot.html" %}
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
+    <script src="{% static 'js/toastr.min.js' %}?version={{ version_number }}"></script>
 
     {% if messages %}
         <script>
@@ -82,8 +80,6 @@
     {% block javascripts %}
     {% endblock %}
 
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="modal fade" id="popup" role="dialog">
     <div class="modal-dialog" style="padding:14vmin 8% 0">
 
@@ -152,7 +148,6 @@
 
     </div>
   </div>
-<script src="https://checkout.stripe.com/checkout.js"></script>
 <script>
   $(function ($) {
   var handler = StripeCheckout.configure({
