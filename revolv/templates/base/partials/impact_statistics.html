@@ -8,7 +8,7 @@
       <div class="col-sm-4 col-md-2 col-xs-6">
             <div class="donation_info">
              <div>AMOUNT DONATED</div>
-            <span class="amount_donated">${{ statistics.total_donated|floatformat:"0"|intcomma }}</span>
+            <span class="amount_donated">${{ statistics.total_donated }}</span>
         </div>
           <div class="logo_circle">
           <img src="{% static "images/dashboard/Kiva_circle.jpg" %}" />
@@ -25,7 +25,7 @@
         </div>
         <div class="info">
             <div>Built</div>
-            <span class="val">{{ statistics.kwh|floatformat:"0"|intcomma }} </span>
+            <span class="val">{{ statistics.kwh }} </span>
             <span class="units">watts</span>
             <div>of solar energy capacity</div>
         </div>
@@ -36,7 +36,7 @@
         </div>
         <div class="info">
             <div>Avoided</div>
-            <span class="val">{{ statistics.carbon_dioxide|floatformat:"0"|intcomma }} </span>
+            <span class="val">{{ statistics.carbon_dioxide }} </span>
             <span class="units">lbs</span>
             <div class="tall">of carbon dioxide emissions</div>
         </div>

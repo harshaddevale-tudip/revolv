@@ -157,7 +157,7 @@ class BaseStaffDashboardView(UserDataMixin, TemplateView):
         statistics_dictionary['total_donated'] = total_donations(self.user_profile)
         total_people_affected = Project.objects.donated_completed_projects(self.user_profile)
         statistics_dictionary['people_served'] = total_people_affected
-        #humanize_integers(statistics_dictionary)
+        humanize_integers(statistics_dictionary)
         context['statistics'] = statistics_dictionary
 
         return context
