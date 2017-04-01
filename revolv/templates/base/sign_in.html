@@ -21,6 +21,9 @@
 {% endblock %}
 
 {% block body %}
+    {% block nav %}
+        {% include "base/partials/signup_login_nav.html" %}
+    {% endblock %}
 <div class="contents top150 auth">
 
 <div class="login" {% if referring_endpoint == "signup" or referring_endpoint == "" %}style="display: none"{% endif %}>
@@ -34,7 +37,7 @@
             {{ settings.revolv_cms.LoginPageSettings.login_paragraph|safe }}
         {% endif %}
         <br/>
-        <p>If you're new here, please <a class="component-link" data-component="signup">create an account</a>.</p>
+        <p>If you're new here, please <a href="javascript:void(0);" class="component-link" data-component="signup">create an account</a>.</p>
         <p>If you forgot your password, you can <a id="password_reset_link" href="/password_reset/">reset it here</a>.</p>
         <br/>
     </div>
@@ -86,7 +89,7 @@
         <h1>{{ settings.revolv_cms.SignupPageSettings.heading }}</h1>
         {{ settings.revolv_cms.SignupPageSettings.signup_paragraph|safe }}
         <br/>
-        <p>Already have an account? Log in <a class="component-link" data-component="login">here</a>.</p>
+        <p>Already have an account? Log in <a href="javascript:void(0);" class="component-link" data-component="login">here</a>.</p>
         <br/>
         <p>Or you can login with your Google account below:</p>
         <div class="social-login-buttons">

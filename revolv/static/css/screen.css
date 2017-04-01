@@ -403,7 +403,7 @@ div#myCarousel {
 }
  .imageContainer {
     width: 100%;
-    height: 34vh;
+    height: 16em;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     position: relative;
@@ -1152,6 +1152,11 @@ padding: 0;
     background: url(../images/donatn-backgrnd.png);
      background-repeat: no-repeat;
     background-size: 100%;
+}
+.dashboard .active-projects-module .container {
+    background: url(../images/donatn-backgrnd.png);
+     background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
 
 .active-projects-module .title-active-projects {
@@ -1940,6 +1945,10 @@ padding: 0;
     padding-left: 20px;
     width: 370px;
     margin: 84px auto 43px auto;
+}
+.mobile-form-group {
+    padding: 0 7%;
+    position: relative;
 }
 /* .newsletter-module .container */
 
@@ -12938,36 +12947,56 @@ label.checkmark.animate:after {
         padding: 2.8vmin 1%;
     }
 }
+@media only screen and (max-width: 767px) and (min-width: 319px) and (orientation: landscape) {
+    .home-page-content .imageContainer {
+        height: 11em;
+    }
+    .Go_Solar_at_Home {
+        padding: 0.95em 1%;
+    }
+    .text_on_blue_image {
+        font-size: 1.3rem !important;
+    }
+    .carousel-inner .carousel-second-img .how-it-works-button {
+        padding: 4vmin 36.1%;
+    }
+    .carousel-inner .carousel-first-img .how-it-works-button {
+        padding: 4vmin 36.2% 0;
+    }
+    .carousel-inner .how-it-works-button {
+        padding: 2vmin 25%;
+    }
+}
 @media (min-width: 768px){
- .header.header.after-scroll-header .logo {
-    background-size: 30vmin 13vmin;
-    background-repeat: no-repeat;
-    z-index: 99999999999;
-    height: 15vmin;
-    width: 35vmin;
-    padding: 0;
-    /* margin: 0; */
-    float: left;
-}
+     .header.header.after-scroll-header .logo {
+        background-size: 30vmin 13vmin;
+        background-repeat: no-repeat;
+        z-index: 99999999999;
+        height: 15vmin;
+        width: 35vmin;
+        padding: 0;
+        /* margin: 0; */
+        float: left;
+    }
 
 
-.menu-list {
-    display:none;
-}
-.container .container .navbar-collapse.collapse {
-    display: none !important;
-    height: auto!important;
-    padding-bottom: 0;
-    overflow: visible!important;
-}
+    .menu-list {
+        display:none;
+    }
+    .container .container .navbar-collapse.collapse {
+        display: none !important;
+        height: auto!important;
+        padding-bottom: 0;
+        overflow: visible!important;
+    }
 
-#myCarousel .carousel-next-button {
-    left: -0.15em;
-}
+    #myCarousel .carousel-next-button {
+        left: -0.15em;
+    }
 
-#myCarousel .carousel-prev-button {
-    left: -0.15em;
-}
+    #myCarousel .carousel-prev-button {
+        left: -0.15em;
+    }
 
 }
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
@@ -14446,6 +14475,18 @@ form#change_password_form label {
     margin-bottom: 15px;
 }
 @media only screen and (max-width: 767px) {
+    .header {
+        z-index: 1;
+    }
+    .dashboard .dashboard-sidebar {
+        margin-top: 4rem;
+    }
+    .details-active-project-module {
+        padding-top: 0;
+    }
+    #project .dashboard .impact .title-blue-border {
+        height: 78px;
+    }
     .password-change .component-container {
         margin: 0 auto;
         width: 90%;

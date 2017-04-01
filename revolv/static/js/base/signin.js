@@ -27,5 +27,6 @@ $(document).ready(function () {
 
     $(".component-link").click(function () {
         showComponent($(this).data("component"));
+        $('.navbar-collapse').toggleClass('in');
     });
 });
