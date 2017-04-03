@@ -77,17 +77,21 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                 <div class="back-the-project">Reinvest now to help {{ project.title }} go solar and grow the Solar Seed Fund
                 </div>
                 <div class="inputs">
-                  <div class="input-group">
-                    <label for="value">Reinvestment In this Project</label>
-                    <div class="input-group">
-                      <input type="number" class="form-control" id = "amt" step="0.01" value="{{reinvestment_amount|floatformat:2}}" min="0.01" max="{{reinvestment_amount|floatformat:2}}" name="value" >
-                      <span class="input-group-addon">$</span>
-                    </div>
-                  </div>
-                  <div >
-                    <!-- Trigger the modal with a button -->
-                    <button type="button" class="btn-reinvest" style="visibility: visible" data-toggle="modal" onclick="invest_amt(event);" data-target="#confirmModal">REINVEST NOW</button>
-                  </div>
+
+                   <form action="{% url 'project:reinvest' pk=project.pk %}" method="POST">
+                   {% csrf_token %}
+                       <div class="input-group">
+                         <label for="value">Reinvestment In this Project</label>
+                         <div class="input-group">
+                           <input type="number" class="form-control" id = "amt" step="0.01" name="amount" value="{{reinvestment_amount|floatformat:2}}" min="0.01" max="{{reinvestment_amount|floatformat:2}}"  >
+                           <span class="input-group-addon">$</span>
+                         </div>
+                       </div>
+                       <div >
+                            <!-- Trigger the modal with a button -->
+                            <button type="button" class="btn-reinvest" style="visibility: visible"  >REINVEST NOW</button>
+                       </div>
+                  </form>
               </div>
             </div>
           </div>
@@ -561,6 +565,53 @@ input:invalid {box-shadow: 0 0 5px 1px red;
 <!-- tab start here -->
 <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key={{GOOGLEMAPS_API_KEY}}">
 </script>
+<script>
+     /* $("#amt").keyup(function (event) {
+         if ((pointPos = this.value.indexOf('.')) >= 0){
+             console.log("inside if")
+             $(this).attr("maxLength", pointPos + 3);
+         }
+         else {
+             $(this).removeAttr("maxLength");
+         }
+         //this.value = parseFloat(this.value).toFixed(2);
+     }); */
+
+     function setTwoNumberDecimal(event) {
+         console.log("input", $("#amt").val().indexOf('.'))
+       if ((pointPos = $("#amt").val().indexOf('.')) >= 0){
+             console.log("inside if")
+             $("#amt").attr("maxLength", pointPos+3);
+       }
+     else
+         $("#amt").removeAttr("maxLength");
+       //this.value = parseFloat(this.value).toFixed(2);
+     }
+     $('.btn-reinvest').on('click', function (e) {
+          document.getElementById("amt").value = parseFloat(document.getElementById("amt").value).toFixed(2)
+
+          if (parseFloat($("#amt").val()) > {{reinvestment_amount|floatformat:2}} || parseFloat($("#amt").val()) < 0.01 || $("#amt").val() == ""){
+                 toastr.options.positionClass = "toast-bottom-right";
+                 toastr.error('Invalid amount');
+                  e.stopPropagation();
+          }
+          else {
+                 var $form = $(this).closest('form');
+                 $.ajax({
+                type: "POST",
+                url: '{% url 'project:reinvest' pk=project.pk %}',
+                data: $form.serializeArray(),
+                success: function(data)
+                {
+                   $("#confirmModal").modal();
+                   $(".modal-body p > span").text(parseFloat(document.getElementById("amt").value).toFixed(2));
+
+                }
+              });
+          }
+      });
+
+  </script>
 <script>
   $(function ($) {
   var handler = StripeCheckout.configure({
