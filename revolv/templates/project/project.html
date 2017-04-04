@@ -589,14 +589,14 @@ input:invalid {box-shadow: 0 0 5px 1px red;
        //this.value = parseFloat(this.value).toFixed(2);
      }
      $('.btn-reinvest').on('click', function (e) {
-         $(this).prop('disabled', true);
+         $('.btn-reinvest').prop('disabled', true);
           document.getElementById("amt").value = parseFloat(document.getElementById("amt").value).toFixed(2)
 
           if (parseFloat($("#amt").val()) > {{reinvestment_amount|floatformat:2}} || parseFloat($("#amt").val()) < 0.01 || $("#amt").val() == ""){
                  toastr.options.positionClass = "toast-bottom-right";
                  toastr.error('Invalid amount');
                   e.stopPropagation();
-                  $(this).prop('disabled', false);
+                  $('.btn-reinvest').prop('disabled', false);
           }
           else {
                  $('#reinvest-spinner').css('display', 'flex');
@@ -610,7 +610,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                    $('#reinvest-spinner').css('display', 'none');
                    $("#confirmModal").modal();
                    $(".modal-body p > span").text(parseFloat(document.getElementById("amt").value).toFixed(2));
-                   $(this).prop('disabled', false);
+                   $('.btn-reinvest').prop('disabled', false);
 
                 }
               });
