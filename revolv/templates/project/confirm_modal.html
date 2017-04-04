@@ -10,8 +10,8 @@
         </div>
         <div class="modal-body">
             <input id = "amount" type="hidden" name="amount" value="">
-            <p><p class="reinvestment-text">Thank you for reinvesting $<span></span>!</p> <br><p class="reinvestment-text">Thank you for choosing to reinvest in this project!</p>
-                <br><p class="reinvestment-text">We're now {{ project.percent_complete }}% of the way there!</p> <br><p class="reinvestment-text">Would you also like to donate to help <b>{{ project.title }}</b> Go Solar?</p></p>
+            <p><p class="reinvestment-text">Thank you for choosing to reinvest $<span></span> in this project!</p>
+                <br><p class="reinvestment-text">We're now {{ project.percent_complete }}% of the way there!</p> <br><p class="reinvestment-text">Would you also like to donate to help <b>{{ project.title }}</b> go solar?</p></p>
         </div>
         <div class="modal-footer">
             <a href="{% url 'project:view' title=project.project_url %}" class="btn btn-primary">Yes, definitely!</a>

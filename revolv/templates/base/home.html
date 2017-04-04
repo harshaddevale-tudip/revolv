@@ -221,11 +221,9 @@
   <div class="container">
     <div class="title-blue-border title-active-projects">ACTIVE PROJECTS</div>
     <div class="row">
-        <div class="regular slider">
 
             {% for active_project in active_projects %}
-                <div>
-                  <div class="join-mov-btns">
+                  <div class="col-md-4 join-mov-btns">
                     <div class="module-box">
                       <div class="img-main">
                        <a href="{% url "project:view" title=active_project.project_url %}" class="img-link">
@@ -274,10 +272,7 @@
                     </div>
                     <!-- end .module-box -->
                   </div>
-                </div>
             {% endfor %}
-
-        </div>
     </div>
   </div>
 </div>
