@@ -7276,14 +7276,7 @@ width: 580px;
         margin-top: -165px !important;
         font-size: 60px !important;
     }
-    .status-indicator {
-        transform: rotateY(180deg);
-        -webkit-transform: rotateY(180deg);
-    }
-    .status-indicator input {
-        transform: rotateY(180deg);
-        -webkit-transform: rotateY(180deg);
-    }
+
     .tablet-circle {
         display: block;
     }
