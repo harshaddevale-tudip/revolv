@@ -22,14 +22,14 @@ body {
     float: left;
     width: 100%;
     position: relative;
-    z-index: -20;
+    z-index: -10;
 }
 input,
 button {
     border-radius: 0;
 }
 .grid-contnr .grid-data:hover {
-    background-color: rgb(20, 177, 231);
+    background-color: rgb(20, 177, 231);;
     color:#fff;
     cursor: pointer;
 }
@@ -110,8 +110,17 @@ a:hover {
     border-style: solid;
     border-width: 2px;
     border-color: rgb(255, 255, 255);
-    background-color: #596d80;
+    background-color: #596d80;;
     opacity: 1;
+
+  <!--border-radius: 50%;-->
+  <!--background-color: rgba(255, 255, 255, 0.149);-->
+  <!--position: absolute;-->
+  <!--left: 1153px;-->
+  <!--top: 548px;-->
+  <!--width: 30px;-->
+  <!--height: 30px;-->
+  <!--z-index: 447;-->
 }
   .text_overlay {
         width: 100%;
@@ -237,7 +246,7 @@ a:hover {
     /* top: 87%; */
     z-index: 167;
     word-break: break-word;
-}
+    }
 
 .Go_Solar_at_Home {
    border-radius: 4px;
@@ -398,11 +407,11 @@ div#myCarousel {
     background-repeat: no-repeat;
     background-size: 100% 100%;
     position: relative;
-
+    z-index: -1;
  }
  .imageContainer.join-mov-btn-cntnr {
     position: relative;
-
+    z-index: -1;
  }
 
  .text_on_blue_image {
@@ -639,6 +648,7 @@ z-index: 448;
     text-overflow: ellipsis;
     white-space: nowrap;
     display: block;
+    max-width:
 }
 .dropdown-default .dropdown-menu {
     font-size: 12px;
@@ -686,7 +696,7 @@ p.attribution.footer-text {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1019;
+    z-index: 0;
 }
 .after-header {
     margin-top: 102px;
@@ -1132,7 +1142,7 @@ padding: 0;
     float: left;
     position: relative;
     width: 100%;
-
+    z-index: -8;
 }
 .active-projects-module .container {
     padding: 0 15px;
@@ -1331,7 +1341,7 @@ padding: 0;
 .our-impacts-module {
     text-align: center;
     position: relative;
-
+    z-index: -6;
 }
 .our-impacts-module .title-our-impacts {
     letter-spacing: 8px;
@@ -1434,7 +1444,7 @@ padding: 0;
 .how-it-works-module {
     text-align: center;
     position: relative;
-
+    z-index: -5;
 }
 .how-it-works-module .title-how-it-works {
     letter-spacing: 8px;
@@ -1595,7 +1605,7 @@ padding: 0;
     text-align: center;
     padding-bottom: 65px;
     position: relative;
-
+    z-index: -5;
 }
 .testimonial-module .title-testimonial {
     letter-spacing: 8px;
@@ -1719,7 +1729,7 @@ padding: 0;
     float: left;
     position: relative;
     width: 100%;
-
+    z-index: -5;
 }
 .featured-on-module .title-featured-on {
     letter-spacing: 8px;
@@ -1902,7 +1912,7 @@ padding: 0;
     position: relative;
     height: 448px;
     overflow: hidden;
-
+    z-index: -5;
 }
 .newsletter-module .img-preload {
     display: block;
@@ -4161,7 +4171,7 @@ header.edit-project-header > .container > h1 {
     min-height: 100px;
     float: left;
     width: 100%;
-
+    z-index: -5;
 }
 .footer .container {
     height: 100%;
@@ -10578,7 +10588,7 @@ width: 580px;
         line-height: normal;
         border: none;
         margin-top: 3.3vmin;
-        padding: 2.7vmin 0;
+        padding: 2.7vmin 0;;
     }
     .newsletter-module .group-main .group .inputs {
         margin-right: 85px;
@@ -13444,6 +13454,8 @@ a.How_it_Works:hover {
     position: absolute;
 }
 .header .solar_at_home_rights .btn-yellow {
+    <!--background-color: rgb(255, 204, 0);-->
+    <!--padding: 0px 84px 0 0;-->
         border-radius: 6%;
     background-color: rgb(255, 204, 0);
     color: black;
@@ -14310,7 +14322,7 @@ CSS for financial report*/
 }
 .donate-popup {
     background-color: #fff;
-    padding: 0 2vmin 2vmin;
+    padding: 0 2vmin 2vmin;;
     width: 100%;
     font-size: 2.7vmin;
     color: #7E7E7E;
