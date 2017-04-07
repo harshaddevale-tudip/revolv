@@ -59,6 +59,7 @@
          <th>Date</th>
         <th>Name of Project</th>
         <th>Donation to Solar Seed Fund</th>
+        <th>Reinvestment in Solar Seed Fund</th>
         <th>Donation to Operations</th>
         <th>Total Donations</th>
 
@@ -68,7 +69,7 @@
     {% for payment in payments %}
     {{ payment.user.username }}
       <tr>
-        <td>{{ payment.user }}</td>
+        <td>{{ payment.user.user.first_name }} {{ payment.user.user.last_name }}</td>
         <td>{{ payment.user.user.username }}</td>
         <td>{{ payment.user.user.email }}</td>
         <td>{{ payment.created_at|date:'m-d-Y H:i' }}</td>
@@ -77,10 +78,16 @@
         {% else %}
           <td >Revolv Oprations</td>
         {% endif %}
-        {% if payment.amount %}
-         <td>${{ payment.amount|floatformat:2 }}</td>
-        {% else %}
+        {% if payment.user_reinvestment %}
           <td>$0.00</td>
+          <td>${{payment.user_reinvestment.amount}}</td>
+        {% else %}
+            {% if payment.amount %}
+             <td>${{ payment.amount|floatformat:2 }}</td>
+            {% else %}
+             <td>$0.00</td>
+             {% endif %}
+            <td>$0.00</td>
          {% endif %}
         {% if payment.tip.amount %}
           <td>${{ payment.tip.amount|floatformat:2 }}</td>
