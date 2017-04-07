@@ -1283,14 +1283,7 @@ padding: 0;
     -webkit-transition: font-size 0.25s ease;
     transition: font-size 0.25s ease;
 }
-.status-indicator {
-    transform: rotateY(180deg);
-    -webkit-transform: rotateY(180deg);
-}
-.status-indicator input {
-    transform: rotateY(180deg);
-    -webkit-transform: rotateY(180deg);
-}
+
 .desktop-circle {
     display: block;
 }
