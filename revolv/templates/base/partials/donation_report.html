@@ -31,25 +31,39 @@
 <script src="//cdn.datatables.net/plug-ins/1.10.12/api/sum().js"></script>
 
 <script>
-   $(document).ready(function () {
-    jQuery.fn.dataTableExt.oSort['us_date-asc']  = function(a,b) {
-     var x = new Date(a),
-         y = new Date(b);
-     return ((x < y) ? -1 : ((x > y) ?  1 : 0));
-    };
+      $(document).ready(function () {
+    jQuery.extend( jQuery.fn.dataTableExt.oSort, {
+        "date-uk-pre": function ( a ) {
+            var ukDatea = a.split('/');
+            return (ukDatea[2] + ukDatea[1] + ukDatea[0]) * 1;
+        },
 
-    jQuery.fn.dataTableExt.oSort['us_date-desc'] = function(a,b) {
-     var x = new Date(a),
-         y = new Date(b);
-     return ((x < y) ? 1 : ((x > y) ?  -1 : 0));
-    };
+        "date-us-asc": function ( a, b ) {
+            return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+        },
+
+        "date-us-desc": function ( a, b ) {
+            return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+        }
+        } );
     table=$('#example').DataTable({
        <!--"dom": "Bfrtip",-->
        "dom": "lfrtBip",
         buttons: [
            'csv', 'excel', 'pdf', 'print'
         ],
-         "aaSorting":[[ 3, "desc" ]]
+        "order": [[ 3, "desc" ]],
+         "aoColumns": [
+            null,
+            null,
+            null,
+            { "sType": "date-us" },
+            null,
+            null,
+            null,
+            null,
+            null
+        ]
     })
 
 } );
