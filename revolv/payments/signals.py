@@ -101,9 +101,6 @@ def post_save_payment(**kwargs):
     if instance.payment_type == PaymentType.objects.get_reinvestment_fragment():
         instance.user.reinvest_pool -= float(instance.amount)
         instance.user.reinvest_pool=float(format(round(instance.user.reinvest_pool,2)))
-        if instance.user.reinvest_pool <= 0.01:
-            instance.user.reinvest_pool = 0
-        #instance.project.monthly_reinvestment_cap -= float(instance.amount)
         instance.user.save()
 
 
@@ -139,39 +136,6 @@ def post_delete_payment(**kwargs):
         admin_reinvestment.amount -= float(instance.amount)
         if admin_reinvestment.payment_set.all().count() == 0:
             admin_reinvestment.delete()
-
-
-# @receiver(signals.pre_init, sender=UserReinvestment)
-# def pre_init_user_reinvestment(**kwargs):
-#     """
-#     Raises a NotEnoughFundingException before __init__ if there are not enough
-#     funds for this UserReinvestment.
-#     """
-#     init_kwargs = kwargs.get('kwargs')
-#     # can't initialize admin_repayment without required 'project' kwarg
-#     if not init_kwargs or not init_kwargs.get('user'):
-#         raise NotEnoughFundingException()
-#     user = init_kwargs['user']
-#     if user.reinvest_pool < 0.0:
-#         raise NotEnoughFundingException()
-
-
-@receiver(signals.pre_save, sender=UserReinvestment)
-def pre_save_user_reinvestment(**kwargs):
-    """
-    We cap the amount here by monthly allocation and funding goal itself
-    We'll pick the minimum. Any balance we'll keep for the next cycle
-    """
-    instance = kwargs.get('instance')
-    project = instance.project
-
-    total_left = project.amount_left
-    if total_left <= 0.0:
-        raise ProjectNotEligibleException()
-    if total_left < float(instance.amount):
-        instance.amount = total_left
-    if instance.user.reinvest_pool < float(instance.amount):
-        raise NotEnoughFundingException()
 
 
 @receiver(signals.post_save, sender=UserReinvestment)

@@ -27,7 +27,7 @@ def distribute_reinvestment_fund():
     4. Reinvestment every user's reinvestment amount in project funding proportion.
     """
 
-    time.sleep(10)
+    time.sleep(60)
     ADMIN_PAYMENT_USERNAME = settings.ADMIN_PAYMENT_USERNAME
 
     try:
@@ -67,10 +67,12 @@ def distribute_reinvestment_fund():
                                    amount=format(round(amount,2))
                                    )
 
-
             if project.amount_donated >= project.funding_goal:
                 project.project_status = project.COMPLETED
                 project.save()
             reinvestment.save()
 
-
+    for user in users:
+        if user.reinvest_pool <= 0.01:
+            user.reinvest_pool = 0
+            user.save()
