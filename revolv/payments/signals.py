@@ -92,15 +92,19 @@ def post_save_payment(**kwargs):
     related project. If the payment is a reinvestment, we decrement the
     reinvest_pool in the related user.
     """
-    if not kwargs.get('created'):
+    if not kwargs.get('instance'):
         return
     instance = kwargs.get('instance')
-    #if instance.is_organic:
+    # if instance.is_organic:
     if instance.project:
         instance.project.donors.add(instance.user)
+        for donor in instance.project.donors.all():
+            payment = Payment.objects.filter(user=donor).count()
+            if payment == 0:
+                instance.project.donors.update(donor)
     if instance.payment_type == PaymentType.objects.get_reinvestment_fragment():
         instance.user.reinvest_pool -= float(instance.amount)
-        instance.user.reinvest_pool=float(format(round(instance.user.reinvest_pool,2)))
+        instance.user.reinvest_pool = float(format(round(instance.user.reinvest_pool, 2)))
         instance.user.save()
 
 
