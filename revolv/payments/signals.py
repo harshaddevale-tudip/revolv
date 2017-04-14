@@ -12,21 +12,6 @@ from revolv.payments.utils import (NotEnoughFundingException, NotInUserReinvestm
                                    ProjectNotEligibleException)
 
 
-@receiver(signals.pre_init, sender=AdminRepayment)
-def pre_init_admin_repayment(**kwargs):
-    """
-    Make sure that related project is indeed complete, else throw a
-    ProjectNotCompleteException and to disallow instantiation of an invalid
-    AdminRepayment.
-    """
-    init_kwargs = kwargs.get('kwargs')
-    # can't initialize admin_repayment without required 'project' kwarg
-    if not init_kwargs or not init_kwargs.get('project'):
-        raise NotEnoughFundingException()
-    project = init_kwargs['project']
-    if not project.is_completed:
-        raise ProjectNotCompleteException()
-
 
 @receiver(signals.post_save, sender=AdminRepayment)
 def post_save_admin_repayment(**kwargs):
@@ -55,6 +40,8 @@ def post_save_user_groups(**kwargs):
     ambassador group.
     """
 
+    if not kwargs.get('instance'):
+        return
     instance = kwargs.get('instance')
     g = Group.objects.get(name='ambassadors')
     if instance.ambassador_id:
@@ -99,9 +86,10 @@ def post_save_payment(**kwargs):
     if instance.project:
         instance.project.donors.add(instance.user)
         for donor in instance.project.donors.all():
-            payment = Payment.objects.filter(user=donor).count()
-            if payment == 0:
-                instance.project.donors.update(donor)
+            payment_count = Payment.objects.filter(user=donor).count()
+            if payment_count == 0:
+                instance.project.donors.remove(donor)
+
     if instance.payment_type == PaymentType.objects.get_reinvestment_fragment():
         instance.user.reinvest_pool -= float(instance.amount)
         instance.user.reinvest_pool = float(format(round(instance.user.reinvest_pool, 2)))
