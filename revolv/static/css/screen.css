@@ -3211,7 +3211,18 @@ header.edit-project-header > .container > h1 {
     color: white;
     border: none;
 }
+.project-updates-module .right-aside .module-box .stripe-button-donate-without-login {
+    border-radius: 0;
+    background: #14b1e7;
+    text-transform: uppercase;
+    width: 100%;
+    color: white;
+    border: none;
+}
 .project-updates-module .right-aside .module-box .stripe-button-el:hover {
+    background: #2c3691;
+}
+.project-updates-module .right-aside .module-box .stripe-button-donate-without-login:hover {
     background: #2c3691;
 }
 .project-updates-module .right-aside .module-box .stripe-button-el > span {
@@ -3223,6 +3234,34 @@ header.edit-project-header > .container > h1 {
     font-weight: 900;
     height: auto;
 }
+.project-updates-module .right-aside .module-box .stripe-button-donate-without-login > span {
+    background: transparent;
+    box-shadow: none;
+    font-family: 'Source Sans Pro';
+    font-size: 16px;
+    line-height: 43px;
+    font-weight: 900;
+    height: auto;
+}
+.project-updates-module .right-aside .module-box .stripe-button-donate-without-login > span {
+    background: transparent;
+    box-shadow: none;
+    font-family: 'Source Sans Pro';
+    font-size: 16px;
+    line-height: 43px;
+    font-weight: 900;
+    height: auto;
+}
+.project-updates-module .right-aside .module-box .stripe-button-donate-without-login > span {
+    background: transparent;
+    box-shadow: none;
+    font-family: 'Source Sans Pro';
+    font-size: 16px;
+    line-height: 43px;
+    font-weight: 900;
+    height: auto;
+}
+
 .project-updates-module .right-aside .module-box ul {
     padding: 34px 0 25px 0;
 }
@@ -6932,7 +6971,13 @@ width: 580px;
     .module-box.payment-module form button.stripe-button-el {
       width: 150px !important;
     }
+     .module-box.payment-module form button.stripe-button-donate-without-login {
+      width: 150px !important;
+    }
     .right-aside-new .module-box.payment-module form button.stripe-button-el {
+      width: 100% !important;
+    }
+    .right-aside-new .module-box.payment-module form button.stripe-button-donate-without-login {
       width: 100% !important;
     }
     #project .after-header {
@@ -12348,6 +12393,9 @@ width: 580px;
     .module-box.payment-module form button.stripe-button-el {
       width: 100% !important;
     }
+    .module-box.payment-module form button.stripe-button-donate-without-login {
+      width: 100% !important;
+    }
     #project header.header.after-scroll-header .rights {
       padding: 33px 24px 0 0;
     }
@@ -12834,7 +12882,6 @@ label.checkmark.animate:after {
     margin-bottom: 35px;
     width: 100%;
 }
-
 .module-box.payment-module form button.stripe-button-el {
   background: #14b1e7 none repeat scroll 0 0;
   border: medium none;
@@ -12844,7 +12891,25 @@ label.checkmark.animate:after {
   width: 100%;
   margin-top: 20px;
 }
+.module-box.payment-module form button.stripe-button-donate-without-login {
+  background: #14b1e7 none repeat scroll 0 0;
+  border: medium none;
+  border-radius: 0;
+  color: white;
+  text-transform: uppercase;
+  width: 100%;
+  margin-top: 20px;
+}
 .module-box.payment-module form button.stripe-button-el  > span {
+  background: transparent none repeat scroll 0 0;
+  box-shadow: none;
+  font-family: "Source Sans Pro";
+  font-size: 16px;
+  font-weight: 900;
+  height: auto;
+  line-height: 43px;
+}
+.module-box.payment-module form button.stripe-button-donate-without-login  > span {
   background: transparent none repeat scroll 0 0;
   box-shadow: none;
   font-family: "Source Sans Pro";
@@ -14295,6 +14360,18 @@ CSS for financial report*/
     padding-top: 2em;
 }
 .donate-msg-cntnr {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.2);
+    z-index: 2222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+
+}
+.donate-error-cntnr {
     position: fixed;
     width: 100%;
     height: 100%;
