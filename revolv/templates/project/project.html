@@ -6,11 +6,6 @@
   window.PARTIAL_COMPLETENESS = {{ project.partial_completeness_as_js }};
 </script>
 <script src="{% static 'js/base/homeAnimations.js' %}?version={{ version_number }}"></script>
-<script src="{% static 'js/base/spin.js' %}?version={{ version_number }}"></script>
-<script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
-<link href="{% static 'css/loading.min.css' %}?version={{ version_number }}"  rel="stylesheet" />
-<script src="{% static 'js/base/jquery.loading.min.js' %}"></script>
-
 <style>
 input:focus:invalid {box-shadow: 0 0 5px 1px red;}
 input:invalid {box-shadow: 0 0 5px 1px red;
@@ -97,21 +92,21 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                 <div class="back-the-project">Reinvest now to help {{ project.title }} go solar and grow the Solar Seed Fund
                 </div>
                 <div class="inputs">
+                  <form action="{% url 'project:reinvest' pk=project.pk %}" method="POST">
+                  {% csrf_token %}
+                      <div class="input-group">
+                        <label for="value">Reinvestment In this Project</label>
+                        <div class="input-group">
+                          <input type="number" class="form-control" id = "amt" step="0.01" name="amount" value="{{reinvestment_amount|floatformat:2}}" min="0.01" max="{{reinvestment_amount|floatformat:2}}"  >
+                          <span class="input-group-addon">$</span>
+                        </div>
+                      </div>
+                      <div >
+                    <!-- Trigger the modal with a button -->
+                      <button type="button" class="btn-reinvest" style="visibility: visible"  >REINVEST NOW</button>
 
-                   <form action="{% url 'project:reinvest' pk=project.pk %}" method="POST">
-                   {% csrf_token %}
-                       <div class="input-group">
-                         <label for="value">Reinvestment In this Project</label>
-                         <div class="input-group">
-                           <input type="number" class="form-control" id = "amt" step="0.01" name="amount" value="{{reinvestment_amount|floatformat:2}}" min="0.01" max="{{reinvestment_amount|floatformat:2}}"  >
-                           <span class="input-group-addon">$</span>
-                         </div>
-                       </div>
-                       <div >
-                            <!-- Trigger the modal with a button -->
-                            <button type="button" class="btn-reinvest" style="visibility: visible"  >REINVEST NOW</button>
-                       </div>
-                  </form>
+                  </div>
+                 </form>
               </div>
             </div>
           </div>
@@ -255,7 +250,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
       </div>
 
 
-    {%  else %}
+ {%  else %}
       <div class="info-section">
       <div class="container">
         <div class="video-main">
@@ -458,20 +453,15 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                     </button>
                   </form>
                 {% else %}
-                  <div>
-                    {% csrf_token %}
-                    <input type="hidden" name="donate_amount_cents" value="{{ donation_level.amount }}">
-                    <input name="metadata" value="1.00" type="hidden">
-
-                    <input type="hidden" name="donate_amount_cents" value="50">
-                    <input name="donation_tip" value="15" type="hidden">
-                    <input type="hidden" name="pk" value="{{ project.pk }}">
-                    <button type="submit" class="donate-on-sign-up  " style="visibility: visible;">
-                      <span style="display: block; min-height: 30px;" >DONATE</span>
-                    </button>
-                   </div>
+                   <form action="{% url 'project:stripe_payment' pk=project.pk %}" method="POST" id="phone1">
+                        {% csrf_token %}
+                        <input type="hidden" name="donate_amount_cents" value="{{ donation_level.amount }}">
+                        <input name="metadata" value="1.00" type="hidden">
+                        <button type="submit" class="stripe-button-donate-without-login" style="visibility: visible;">
+                          <span style="display: block; min-height: 30px;" >DONATE</span>
+                        </button>
+                      </form>
                 {% endif %}
-              </div>
               <!-- end .module-box -->
             </aside>
             <!-- end .list-area -->
@@ -749,6 +739,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                  error: function (textStatus, errorThrown) {
                   $('#reinvest-spinner').css('display', 'none');
                   $(".donate-error-cntnr").css('display', 'flex');
+                  closeDoanatePopUp();
                 }
                });
 

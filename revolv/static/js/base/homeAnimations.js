@@ -94,16 +94,18 @@ function format(number){
   return number;
 }
 function closeDoanatePopUp() {
-    $(".donate-msg-cntnr").click(function(e){
-         e.stopPropagation();
-         if (e.target !== this)
-            return;
-
-         $(".donate-msg-cntnr").hide();
-    });
+//    $(".donate-msg-cntnr").click(function(e){
+//         e.stopPropagation();
+//         if (e.target !== this)
+//            return;
+//
+//         $(".donate-msg-cntnr").hide();
+//    });
     $(".close-donate-popup").click(function(e){
          e.stopPropagation();
          $(".donate-msg-cntnr").hide();
+         $(".donate-error-cntnr").hide();
+         location.reload();
     });
     $(".donate-as-guest").click(function(e){
          e.stopPropagation();
@@ -112,6 +114,8 @@ function closeDoanatePopUp() {
     $(document).keydown(function(e) {
         if (e.keyCode == 27) {
            $(".donate-msg-cntnr").hide();
+           $(".donate-error-cntnr").hide();
+           location.reload();
        }
     });
 }
