@@ -186,6 +186,9 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                         <span class="input-group-addon">$</span>
                     </div>
                   </div>
+                  {% if user.is_authenticated %}
+                  {% for level in project_donation_levels %}
+                  {% endfor %}
                   <form action="{% url 'project:stripe_payment' pk=project.pk %}" method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="donate_amount_cents" value="{{ donation_level.amount }}">
@@ -194,6 +197,16 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                       <span style="display: block; min-height: 30px;">Donate</span>
                     </button>
                   </form>
+                {% else %}
+                   <form action="{% url 'project:stripe_payment' pk=project.pk %}" method="POST" id="phone1">
+                        {% csrf_token %}
+                        <input type="hidden" name="donate_amount_cents" value="{{ donation_level.amount }}">
+                        <input name="metadata" value="1.00" type="hidden">
+                        <button type="submit" class="stripe-button-donate-without-login" style="visibility: visible;">
+                          <span style="display: block; min-height: 30px;" >DONATE</span>
+                        </button>
+                      </form>
+                {% endif %}
                 </div>
                 {% endfor %}
                 <!-- end .module-box -->
@@ -225,7 +238,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                   {% endfor %}
                   <form action="{% url 'project:stripe_payment' pk=project.pk %}" method="POST">
                     {% csrf_token %}
-                    <input type="hidden" name="donate_amount_cents" value="1000">
+                    <input type="hidden" name="donate_amount_cents" value="{{ donation_level.amount }}">
                     <input name="metadata" value="1.00" type="hidden">
                     <button type="submit" class="stripe-button-el" style="visibility: visible;">
                       <span style="display: block; min-height: 30px;">Donate</span>
@@ -236,7 +249,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                     {% csrf_token %}
                     <input type="hidden" name="donate_amount_cents" value="{{ donation_level.amount }}">
                     <input name="metadata" value="1.00" type="hidden">
-                    <button type="submit" class="stripe-button-el" style="visibility: visible;">
+                    <button type="submit" class="stripe-button-donate-without-login" style="visibility: visible;">
                       <span style="display: block; min-height: 30px;">DONATE</span>
                     </button>
                   </form>
@@ -408,6 +421,9 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                         <span class="input-group-addon">$</span>
                     </div>
                   </div>
+                  {% if user.is_authenticated %}
+                  {% for level in project_donation_levels %}
+                  {% endfor %}
                   <form action="{% url 'project:stripe_payment' pk=project.pk %}" method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="donate_amount_cents" value="{{ donation_level.amount }}">
@@ -416,6 +432,16 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                       <span style="display: block; min-height: 30px;">Donate</span>
                     </button>
                   </form>
+                {% else %}
+                   <form action="{% url 'project:stripe_payment' pk=project.pk %}" method="POST" id="phone1">
+                        {% csrf_token %}
+                        <input type="hidden" name="donate_amount_cents" value="{{ donation_level.amount }}">
+                        <input name="metadata" value="1.00" type="hidden">
+                        <button type="submit" class="stripe-button-donate-without-login" style="visibility: visible;">
+                          <span style="display: block; min-height: 30px;" >DONATE</span>
+                        </button>
+                      </form>
+                {% endif %}
                 </div>
                 {% endfor %}
                 <!-- end .module-box -->
@@ -446,7 +472,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                   {% endfor %}
                   <form action="{% url 'project:stripe_payment' pk=project.pk %}" method="POST">
                     {% csrf_token %}
-                    <input type="hidden" name="donate_amount_cents" value="1000">
+                    <input type="hidden" name="donate_amount_cents" value="{{ donation_level.amount }}">
                     <input name="metadata" value="1.00" type="hidden">
                     <button type="submit" class="stripe-button-el" style="visibility: visible;">
                       <span style="display: block; min-height: 30px;">Donate</span>
