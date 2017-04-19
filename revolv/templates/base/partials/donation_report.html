@@ -34,7 +34,17 @@
        <!--"dom": "Bfrtip",-->
        "dom": "lfrtBip",
         buttons: [
-           'csv', 'excel', 'pdf', 'print'
+           'csv', 'excel', 'print',
+           {
+            extend: 'pdfHtml5',
+            text: 'Save current page',
+            exportOptions: {
+                modifier: {
+                    page: 'current'
+                }
+            },
+            orientation: 'landscape'
+        }
         ],
          "order": [[ 3, "desc" ]]
     })
@@ -58,6 +68,7 @@
         <th>Name of Project</th>
         <th>Donation to Solar Seed Fund</th>
         <th>Reinvestment in Solar Seed Fund</th>
+          <th>Admin Reinvestment in Solar Seed Fund</th>
         <th>Donation to Operations</th>
         <th>Total Donations</th>
       </tr>
@@ -77,13 +88,19 @@
         {% endif %}
         {% if payment.user_reinvestment %}
           <td>$0.00</td>
-          <td>${{payment.user_reinvestment.amount}}</td>
+          <td>${{payment.user_reinvestment.amount|floatformat:2}}</td>
+          <td>$0.00</td>
+        {% elif payment.admin_reinvestment %}
+          <td>$0.00</td>
+          <td>$0.00</td>
+          <td>${{payment.amount|floatformat:2}}</td>
         {% else %}
             {% if payment.amount %}
              <td>${{ payment.amount|floatformat:2 }}</td>
-            {% else %}
+            {% else  %}
              <td>$0.00</td>
              {% endif %}
+            <td>$0.00</td>
             <td>$0.00</td>
          {% endif %}
         {% if payment.tip.amount %}
