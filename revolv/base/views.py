@@ -127,7 +127,7 @@ class DonationReportForProject(UserDataMixin, TemplateView):
         return super(DonationReportForProject, self).dispatch(request, *args, **kwargs)
     # pass in Project Categories and Maps API key
     def get_context_data(self, **kwargs):
-        project = Project.objects.filter(ambassadors=self.user_profile.id)
+        project = Project.objects.filter(ambassador=self.user_profile.id)
         context = super(DonationReportForProject, self).get_context_data(**kwargs)
         context['payments'] = Payment.objects.all().filter(project=project)
         return context
@@ -223,12 +223,6 @@ class SignInView(TemplateView):
     signup_form_class = SignupForm
 
     def dispatch(self, request, *args, **kwargs):
-        amount = request.GET.get('donation_amount')
-        tip = request.GET.get('donation_tip')
-        title = request.GET.get('title')
-        request.session['amount'] = amount
-        request.session['tip'] = tip
-        request.session['title'] = title
         if request.user.is_authenticated():
             return redirect("home")
         return super(SignInView, self).dispatch(request, *args, **kwargs)

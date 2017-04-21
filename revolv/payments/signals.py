@@ -48,6 +48,11 @@ def post_save_user_groups(**kwargs):
         if instance.ambassador.user_id:
             g.user_set.add(instance.ambassador.user_id)
 
+    # if instance.ambassador_id:
+    #     if instance.ambassador.user_id:
+    #         print "ccccccccccccccccc"
+    #         g.user_set.add(instance.ambassadors)
+
 @receiver(signals.post_save, sender=RepaymentFragment)
 def post_save_repayment_fragment(**kwargs):
     """

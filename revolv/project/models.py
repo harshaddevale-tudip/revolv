@@ -186,7 +186,7 @@ class ProjectManager(models.Manager):
         """
         :return list(queryset) of completes project which do monthly repayment.
         """
-        return self.get_completed(queryset).filter(is_paid_off=True)
+        return self.get_completed(queryset).filter(making_lease_payments=True)
 
     
     
@@ -363,6 +363,8 @@ class Project(models.Model):
 
     ambassador = models.ForeignKey(RevolvUserProfile, related_name='ambassador', null=True)
 
+    #ambassadors = models.ManyToManyField(RevolvUserProfile, related_name='ambassadors', null=True)
+
     # energy produced in kilowatt hours
     actual_energy = models.FloatField(default=0.0)
     internal_rate_return = models.DecimalField(
@@ -379,7 +381,7 @@ class Project(models.Model):
     annual_solar_data = models.FileField(blank=True, null=True, upload_to="projects/annual/")
 
     monthly_reinvestment_cap = models.FloatField(blank=True, default=0.0)
-    is_paid_off = models.BooleanField(blank=True, default=False)
+    making_lease_payments = models.BooleanField(blank=True, default=False)
 
     objects = ProjectManager()
     factories = ImportProxy("revolv.project.factories", "ProjectFactories")
@@ -442,7 +444,7 @@ class Project(models.Model):
             self.category_set.add(category_object)
 
     def get_absolute_url(self):
-        return reverse("project:view", kwargs={"pk": str(self.pk)})
+        return reverse("project:view", kwargs={"title": str(self.project_url)})
 
     def get_organic_donations(self):
         return self.payment_set.exclude(user__isnull=True).filter(
@@ -733,7 +735,7 @@ class Project(models.Model):
     def paid_off(self):
         """Set the project PAID_OFF flag
         """
-        self.is_paid_off = True
+        self.making_lease_payments = True
         self.save()
 
     def __unicode__(self):
