@@ -15,7 +15,10 @@
     #map-canvas img {max-width: none;}
 </style>
 
- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+ <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+      <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <script src="/static/js/jquery.dataTables.min.js"></script>
 <script src="/static/js/moment.min.js"></script>
 <script src="/static/js/datetime-moment.js"></script>
@@ -26,39 +29,25 @@
 <script src="/static/js/vfs_fonts.js"></script>
 <script src="/static/js/buttons.html5.min.js"></script>
 <script src="/static/js/buttons.print.min.js"></script>
-<script src="/static/js/sum.js"></script>
-
-<script>
-    $(document).ready(function () {
-    table=$('#example').DataTable({
-       <!--"dom": "Bfrtip",-->
-       "dom": "lfrtBip",
-        buttons: [
-           'csv', 'excel', 'print',
-           {
-            extend: 'pdfHtml5',
-            text: 'Save current page',
-            exportOptions: {
-                modifier: {
-                    page: 'current'
-                }
-            },
-            orientation: 'landscape'
-        }
-        ],
-         "order": [[ 3, "desc" ]]
-    })
-
-} );
+<script src="/static/js/donation_report.js"></script>
 
 
-</script>
 {% endblock %}
 
 {% block body %}
 
 <div class="container after-header">
   <table id="example" class="display nowrap" cellspacing="0" width="100%">
+   <div id="date_range" class="form-group">
+        <div>
+            <div class="range-label">From:</div>
+            <input type="text" class="range-date" id="datepicker-1"/>
+        </div>
+        <div>
+            <div class="range-label">To:</div>
+            <input type="text" class="range-date" id="datepicker-2"/>
+        </div>
+    </div>
   <thead >
       <tr>
         <th>Donors Name</th>
