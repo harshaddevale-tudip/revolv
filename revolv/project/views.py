@@ -60,7 +60,7 @@ def stripe_payment(request, pk):
 
     error_msg = None
     try:
-        stripe.Charge.create(source=token, currency="usd", amount=amount_cents)
+        stripe.Charge.create(source=token, description="Donation for "+project.title, currency="usd", amount=amount_cents)
     except stripe.error.CardError as e:
         body = e.json_body
         error_msg = body['error']['message']
@@ -92,9 +92,7 @@ def stripe_payment(request, pk):
             tip=tip,
             payment_type=PaymentType.objects.get_stripe(),
         )
-        amount = donation_cents / 100.0
-        # send_donation_info.delay(request.user.revolvuserprofile.get_full_name(), amount,
-        #                          project.title, request.user.revolvuserprofile.address)
+
         if project.amount_donated >= project.funding_goal:
             project.project_status = project.COMPLETED
             project.save()
@@ -139,11 +137,6 @@ def stripe_payment(request, pk):
             payment_type=PaymentType.objects.get_stripe(),
         )
 
-        amount = donation_cents / 100.0
-        # send_signup_info.delay('Guest', email)
-        # send_donation_info.delay(email,'Guest', amount,
-        #                            project.title,'' )
-
         if project.amount_donated >= project.funding_goal:
             project.project_status = project.COMPLETED
             project.save()
@@ -151,14 +144,18 @@ def stripe_payment(request, pk):
         SITE_URL = settings.SITE_URL
         portfolio_link = SITE_URL + reverse('dashboard')
         context = {}
-        context['user'] = request.user
         context['project'] = project
-        context['amount'] = tip_cents/100.0
+        context['amount'] = donation_cents / 100.0
+        context['tip_cents'] = tip_cents / 100.0
+        context['amount_cents'] = amount_cents / 100.0
+        context['portfolio_link'] = portfolio_link
+        context['first_name'] = "RE-volv"
+        context['last_name'] = "Supporter"
+        send_revolv_email(
+            'post_donation',
+            context, [email]
+        )
 
-        # send_revolv_email(
-        #     'post_donation',
-        #     context, [request.user.email]
-        # )
         return HttpResponse(json.dumps({'payment':payment.id }), content_type="application/json")
         # messages.success(request, 'Donation Successful')
         # return redirect('dashboard')
