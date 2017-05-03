@@ -1,6 +1,5 @@
 $(document).ready(function () {
     table=$('#example').DataTable({
-       <!--"dom": "Bfrtip",-->
        "dom": 'lfrtBip',
         "scrollX": true,
         buttons: [
@@ -8,7 +7,12 @@ $(document).ready(function () {
             {
                 extend: 'pdfHtml5',
                 orientation: 'landscape',
-                pageSize: 'LEGAL'
+                pageSize: 'LEGAL',
+                 exportOptions: {
+                modifier: {
+                    page: 'current'
+                }
+            }
             }
         ],
          "order": [[ 3, "desc" ]]
