@@ -14602,3 +14602,8 @@ form#change_password_form label {
     float: left;
     font-size: 1.4rem;
  }
+
+ .donation-report-padding {
+    padding-top:3vmin;
+    padding-bottom:3vmin;
+ }

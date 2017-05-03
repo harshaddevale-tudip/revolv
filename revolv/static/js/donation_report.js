@@ -1,7 +1,8 @@
 $(document).ready(function () {
     table=$('#example').DataTable({
        <!--"dom": "Bfrtip",-->
-       "dom": "lfrtBip",
+       "dom": 'lfrtBip',
+        "scrollX": true,
         buttons: [
            'csv', 'excel', 'print',
             {
