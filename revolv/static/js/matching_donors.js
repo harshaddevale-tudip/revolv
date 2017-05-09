@@ -64,7 +64,7 @@ $('.matching-donor-save').click(function () {
           url: '/add_matching_donor/',
           data : $frm.serialize(),
           success: function() {
-            table.ajax.reload();
+            location.reload();
             $('#myModal').modal('toggle');
           }
     });
