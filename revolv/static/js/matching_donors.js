@@ -1,10 +1,18 @@
 $(document).ready(function() {
-
-    <!--var table = $('#matching_donors').DataTable();-->
     table=$('#example').DataTable({
        "dom": 'lfrtBip',
         "scrollX": true,
-        buttons: []
+        buttons: [],
+        "columnDefs": [ {
+        "targets": 3,
+        "orderable": false
+    } ],
+     aoColumnDefs: [
+  {
+     bSortable: false,
+     aTargets: [ 3,4 ]
+  }
+]
     })
 
 
@@ -20,7 +28,9 @@ $(".close-btn").click(function () {
           success: function() {
             tr.fadeOut(1000, function(){
                         $(this).remove();
+                        table.row( tr ).remove().draw();
                     });
+
           }
         });
     }
@@ -36,8 +46,7 @@ $(".edit").click(function () {
       url: '/edit/',
       data: {id:id},
       success: function(response) {
-        matchingDonor=JSON.parse(response.ProjectMatchingDonor)
-       console.log(matchingDonor[0].pk);
+        matchingDonor=JSON.parse(response.ProjectMatchingDonor);
          $(id_User).val(matchingDonor[0].fields.matching_donor);
          $(id_Project).val(matchingDonor[0].fields.project);
          $(amount).val(matchingDonor[0].fields.amount);

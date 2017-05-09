@@ -14632,3 +14632,10 @@ form#change_password_form label {
     padding-top:2vmin;
     font-size: 2vmin;
 }
+.edit {
+    font-size: 1.9vmin;
+    margin: 0;
+}
+.close-btn {
+    margin: 0;
+}
