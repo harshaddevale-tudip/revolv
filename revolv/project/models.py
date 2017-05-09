@@ -189,7 +189,6 @@ class ProjectManager(models.Manager):
         return self.get_completed(queryset).filter(making_lease_payments=True)
 
     
-    
 class Project(models.Model):
     """
     Project model. Stores basic metadata, information about the project,
@@ -763,6 +762,13 @@ class ProjectUpdate(models.Model):
     def __unicode__(self):
         return '%s at %s: %s' % (self.project, self.date, self.update_text[:50])
 
+class ProjectMatchingDonors(models.Model):
+    """
+    Model to track matching donors and there amount.
+    """
+    project = models.ForeignKey(Project)
+    matching_donor = models.ForeignKey(RevolvUserProfile, related_name='matching_donor')
+    amount = models.IntegerField()
 
 class Category(models.Model):
     """

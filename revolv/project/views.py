@@ -22,7 +22,7 @@ from revolv.base.models import RevolvUserProfile
 from revolv.payments.models import UserReinvestment, Payment, PaymentType, Tip
 from revolv.payments.services import PaymentService
 from revolv.project import forms
-from revolv.project.models import Category, Project, ProjectUpdate
+from revolv.project.models import Category, Project, ProjectUpdate, ProjectMatchingDonors
 from revolv.tasks.sfdc import send_donation_info
 from revolv.lib.mailer import send_revolv_email
 import json
@@ -56,6 +56,8 @@ def stripe_payment(request, pk):
 
     project = get_object_or_404(Project, pk=pk)
 
+    project_matching_donors = ProjectMatchingDonors.objects.filter(project=project, amount__gt=0)
+
     donation_cents = amount_cents - tip_cents
 
     error_msg = None
@@ -77,6 +79,28 @@ def stripe_payment(request, pk):
 
 
     if request.user.is_authenticated():
+        if project_matching_donors:
+            for donor in project_matching_donors:
+                if donor.amount > donation_cents / 100:
+                    matching_donation = donation_cents / 100
+                    donor.amount = donor.amount - donation_cents / 100
+                    donor.save()
+                else:
+                    matching_donation = donor.amount
+                    donor.amount = 0
+                    donor.save()
+
+                tip = None
+
+                Payment.objects.create(
+                    user=donor.matching_donor,
+                    entrant=donor.matching_donor,
+                    amount=matching_donation,
+                    project=project,
+                    tip=tip,
+                    payment_type=PaymentType.objects.get_stripe(),
+                )
+
         tip = None
         if tip_cents > 0:
             tip = Tip.objects.create(

@@ -14607,3 +14607,28 @@ form#change_password_form label {
     padding-top:3vmin;
     padding-bottom:3vmin;
  }
+#add_matching_donor .matching-donor-dropdown {
+    font-size: 1.9vmin;
+    height: 5vmin;
+}
+.matching-donor-save {
+    font-size: 2vmin;
+}
+.matching-donor-save-btn {
+    position: relative;
+    padding: 0 41% 0;
+    padding-top: 2vmin;
+}
+.matching-donor-label {
+    font-size: 1.9vmin;
+    font-weight: bold;
+}
+.matching-donor-section {
+    padding-top:4vmin;
+    font-size: 5vmin;
+    padding-bottom: 2vmin;
+}
+.matching-donor-add {
+    padding-top:2vmin;
+    font-size: 2vmin;
+}

@@ -25,6 +25,7 @@ urlpatterns = patterns(
     url(r'^my-portfolio/ambassador/', include('revolv.ambassador.urls', namespace='ambassador')),
     url(r'^my-portfolio/donor/', include('revolv.donor.urls', namespace='donor')),
     url(r'^my-portfolio/donationreport/', base_views.DonationReportView.as_view(), name='donationreport'),
+    url(r'^my-portfolio/matchingdonors/', base_views.MatchingDonorsView.as_view(), name='matchingdonors'),
     url(r'^my-portfolio/financialreport/', base_views.DonationReportForProject.as_view(), name='financialreport'),
     url(r'^my-portfolio/reinvest_list/', base_views.ReinvestmentRedirect.as_view(), name='reinvest_list'),
 
@@ -40,6 +41,9 @@ urlpatterns = patterns(
     url(r'^bring_solar_to_your_community/intake_form/$',intake_form, name='intake_form'),
     url(r'^bring_solar_to_your_community/intake_form/submit/$',intake_form_submit, name='intake_form_submit'),
     url(r'^my_social_account/$', 'revolv.base.views.social_connection', name='social-connection'),
+    url(r'^delete/$', 'revolv.base.views.delete', name='delete'),
+    url(r'^edit/$', 'revolv.base.views.edit', name='edit'),
+    url(r'^add_matching_donor/$', 'revolv.base.views.add_maching_donors', name='add_matching_donor'),
     url(r'^social_connect_failed/$', 'revolv.base.views.social_exception', name='social-exception'),
 
     url(r'^password_reset/$', base_views.password_reset_initial, name="password_reset"),
