@@ -11,11 +11,14 @@ $(document).ready(function() {
   {
      bSortable: false,
      aTargets: [ 3,4 ]
-  }
-]
-    })
+  }]
+})
 
-
+$(".close-modal").click(function () {
+    $(id_User)[0].selectedIndex = 0;
+    $(id_Project)[0].selectedIndex = 0;
+    $(amount).val('');
+});
 
 $(".close-btn").click(function () {
     id=$(this).attr('data-id');
@@ -37,8 +40,6 @@ $(".close-btn").click(function () {
 });
 
 $(".edit").click(function () {
-    data=table.row( $(this).parents('tr') ).data();
-    console.log(data[0]);
     id=$(this).attr('data-id');
     $(this).closest('td').data()
     $.ajax({
@@ -59,15 +60,18 @@ $(".edit").click(function () {
 
 $('.matching-donor-save').click(function () {
     var $frm = $('#add_matching_donor');
-        $.ajax({
-          type: $frm.attr('method'),
-          url: '/add_matching_donor/',
-          data : $frm.serialize(),
-          success: function() {
-            location.reload();
-            $('#myModal').modal('toggle');
-          }
-    });
+        amount=$(amount).val();
+        if (amount) {
+            $.ajax({
+              type: $frm.attr('method'),
+              url: '/add_matching_donor/',
+              data : $frm.serialize(),
+              success: function() {
+                location.reload();
+                $('#myModal').modal('toggle');
+              }
+        });
+        }
 
 });
 
