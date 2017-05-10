@@ -14,11 +14,6 @@ $(document).ready(function() {
   }]
 })
 
-$(".close-modal").click(function () {
-    $(id_User)[0].selectedIndex = 0;
-    $(id_Project)[0].selectedIndex = 0;
-    $(amount).val('');
-});
 
 $(".close-btn").click(function () {
     id=$(this).attr('data-id');
@@ -57,6 +52,12 @@ $(".edit").click(function () {
 
     });
 });
+
+$('.matching-donor-add').click(function () {
+    $(id_User)[0].selectedIndex = 0;
+    $(id_Project)[0].selectedIndex = 0;
+    $(amount).val('');
+})
 
 $('.matching-donor-save').click(function () {
     var $frm = $('#add_matching_donor');
