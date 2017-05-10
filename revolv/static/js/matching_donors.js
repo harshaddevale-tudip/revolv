@@ -36,8 +36,8 @@ $(".close-btn").click(function () {
 
 $(".edit").click(function () {
     var id =$ (this).attr('data-id');
+    $('#id_User').attr("disabled","disabled");
     $(this).closest('td').data()
-    console.log(id);
     $.ajax({
       type: "GET",
       url: '/edit/',
@@ -48,6 +48,7 @@ $(".edit").click(function () {
          $('#id_Project').val(matchingDonor[0].fields.project);
          $('#amount').val(matchingDonor[0].fields.amount);
          $('#matching_donor_id').val(matchingDonor[0].pk);
+         $('#matching_donor_user').val(matchingDonor[0].fields.matching_donor);
          $('#myModal').modal('toggle');
     }
 
@@ -59,11 +60,13 @@ $('.matching-donor-add').click(function () {
     $('#id_Project')[0].selectedIndex = 0;
     $('#amount').val('');
     $("#matching-donor-save").prop('disabled', false);
-})
+    $('#id_User').removeAttr("disabled");
+});
 
-$('#matching-donor-save').on('click', function () {
-    var $frm = $('#add_matching_donor');
-        amount=$('#amount').val();
+$('#matching-donor-save').click(function () {
+      var $frm = $('#add_matching_donor');
+      $('#matching_donor_user').val($('#id_User').val());
+      var amount=$('#amount').val();
         if (amount > 0) {
             console.log($('#id_User').val());
             $.ajax({
@@ -71,11 +74,8 @@ $('#matching-donor-save').on('click', function () {
               url: '/add_matching_donor/',
               data : $frm.serialize(),
               success: function() {
-                $('#myModal').modal('toggle');
                 $("#matching-donor-save").prop('disabled', false);
-                    setTimeout(function(){
-                        location.reload();
-                    }, 1000);
+                location.reload();
               }
         });
         }else{

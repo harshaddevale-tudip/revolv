@@ -54,11 +54,12 @@
               {% csrf_token %}
               <div>
                   <label class="matching-donor-label">RE-volv user</label>
-                  <select name="user" class="matching-donor-dropdown" value="" id="id_User" name="User">
+                  <select class="matching-donor-dropdown" value="" id="id_User">
                     {% for user in users %}
                         <option value="{{ user.id }}">{{ user.user.username }}</option>
                     {% endfor %}
                   </select>
+                  <input id="matching_donor_user" type="hidden" name="user" >
               </div>
               <div>
                   <label class="matching-donor-label">Project</label>
