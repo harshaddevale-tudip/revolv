@@ -14639,3 +14639,6 @@ form#change_password_form label {
 .close-btn {
     margin: 0;
 }
+#add_matching_donor .btn-modal {
+    font-size: 2vmin;
+}
