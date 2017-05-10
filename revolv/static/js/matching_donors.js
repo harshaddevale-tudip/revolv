@@ -35,18 +35,19 @@ $(".close-btn").click(function () {
 });
 
 $(".edit").click(function () {
-    id=$(this).attr('data-id');
+    var id =$ (this).attr('data-id');
     $(this).closest('td').data()
+    console.log(id);
     $.ajax({
       type: "GET",
       url: '/edit/',
       data: {id:id},
       success: function(response) {
         matchingDonor=JSON.parse(response.ProjectMatchingDonor);
-         $(id_User).val(matchingDonor[0].fields.matching_donor);
-         $(id_Project).val(matchingDonor[0].fields.project);
-         $(amount).val(matchingDonor[0].fields.amount);
-         $(matching_donor_id).val(matchingDonor[0].pk);
+         $('#id_User').val(matchingDonor[0].fields.matching_donor);
+         $('#id_Project').val(matchingDonor[0].fields.project);
+         $('#amount').val(matchingDonor[0].fields.amount);
+         $('#matching_donor_id').val(matchingDonor[0].pk);
          $('#myModal').modal('toggle');
     }
 
@@ -54,24 +55,31 @@ $(".edit").click(function () {
 });
 
 $('.matching-donor-add').click(function () {
-    $(id_User)[0].selectedIndex = 0;
-    $(id_Project)[0].selectedIndex = 0;
-    $(amount).val('');
+    $('#id_User')[0].selectedIndex = 0;
+    $('#id_Project')[0].selectedIndex = 0;
+    $('#amount').val('');
+    $("#matching-donor-save").prop('disabled', false);
 })
 
-$('.matching-donor-save').click(function () {
+$('#matching-donor-save').on('click', function () {
     var $frm = $('#add_matching_donor');
-        amount=$(amount).val();
-        if (amount) {
+        amount=$('#amount').val();
+        if (amount > 0) {
+            console.log($('#id_User').val());
             $.ajax({
-              type: $frm.attr('method'),
+              type: "POST",
               url: '/add_matching_donor/',
               data : $frm.serialize(),
               success: function() {
-                location.reload();
                 $('#myModal').modal('toggle');
+                $("#matching-donor-save").prop('disabled', false);
+                    setTimeout(function(){
+                        location.reload();
+                    }, 1000);
               }
         });
+        }else{
+            alert('Please enter correct amount');
         }
 
 });

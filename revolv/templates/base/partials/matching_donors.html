@@ -50,7 +50,7 @@
           <h4 class="modal-title">Matching Donor</h4>
         </div>
         <div class="modal-body">
-          <form action="" method="POST" id="add_matching_donor" enctype="multipart/form-data" >
+          <form id="add_matching_donor" name="form" >
               {% csrf_token %}
               <div>
                   <label class="matching-donor-label">RE-volv user</label>
@@ -74,7 +74,7 @@
                   <input id="matching_donor_id" type="hidden" name="id" class="form-field">
               </div>
               <div class="matching-donor-save-btn">
-                <button class="matching-donor-save" type="submit"><span>Save</span></button>
+                <input type="button" class="button btn-modal" id="matching-donor-save" value="Save">
               </div>
           </form>
 
@@ -89,7 +89,7 @@
 <div class="container after-header" >
   <table id="example" class="display nowrap" cellspacing="0" width="100%">
        <div class="matching-donor-section">Matching donors</div>
-      <button type="button" class="matching-donor-add" data-toggle="modal" data-target="#myModal">Add</button>
+      <button id="add_donor" type="button" class="matching-donor-add" data-toggle="modal" data-target="#myModal">Add</button>
   <thead >
       <tr>
         <th>Username</th>
