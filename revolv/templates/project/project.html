@@ -631,7 +631,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                  $('#reinvest-spinner').css('display', 'flex');
                  var $form = $(this).closest('form');
                  $.ajax({
-                type: "GET",
+                type: "POST",
                 url: '{% url 'project:reinvest' pk=project.pk %}',
                 data: $form.serializeArray(),
                 success: function(data)
