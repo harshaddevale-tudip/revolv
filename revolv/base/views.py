@@ -487,38 +487,6 @@ def intake_form_submit(request):
         logger.exception('Form values are not valid')
         return HttpResponseBadRequest('bad POST data')
 
-    context = {}
-    # context['email'] = projectData
-    # context['email'] = projectData.email
-    # context['zipCode'] = zipCode
-    # context['signUp'] = signUp
-    # context['interest'] = interest
-    # context['heardSource'] = heardSource
-    # context['personalDesc'] = personalDesc
-    # context['leadDesc'] = leadDesc
-    # context['organisationName'] = organisationName
-    # context['organisationTaxId'] = organisationTaxId
-    # context['organisationAddress'] = organisationAddress
-    # context['billingAddress'] = billingAddress
-    # context['phoneNumber'] = phoneNumber
-    # context['missionStatement'] = missionStatement
-    # context['orgStartYear'] = orgStartYear
-    # context['affiliation'] = affiliation
-    # context['solarProjNeed'] = solarProjNeed
-    # context['annualBudget'] = annualBudget
-    # context['checkOwnBuilding'] = checkOwnBuilding
-    # context['orgBuildingYears'] = orgBuildingYears
-    # context['orgBuildingYears'] = orgBuildingYears
-    # context['buildingRoofYear'] = buildingRoofYear
-    # context['roofReplace'] = roofReplace
-    # context['electricityProvider'] = electricityProvider
-    # context['orgInterestBlock'] = orgInterestBlock
-
-    # send_revolv_email(
-    #     'Intake_form',
-    #     context, ['info@re-volv.org']
-    # )
-
 
 def select_chapter(request, chapter):
     if chapter == '1':
@@ -709,7 +677,7 @@ def add_maching_donors(request):
         ProjectMatchingDonors.objects.create(
             matching_donor=revolv_user,
             project=matching_project,
-            amount=amount
+            amount=float(amount)
         )
     else:
         projectMatchingDonor=ProjectMatchingDonors.objects.get(id=id)

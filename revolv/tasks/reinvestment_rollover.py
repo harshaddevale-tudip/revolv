@@ -1,6 +1,6 @@
 from django.conf import settings
 
-from revolv.project.models import Project
+from revolv.project.models import Project, ProjectMatchingDonors
 from revolv.payments.models import ProjectMontlyRepaymentConfig, AdminReinvestment, PaymentType, Payment
 from revolv.base.models import RevolvUserProfile
 from django.db.models import Sum
@@ -49,15 +49,14 @@ def distribute_reinvestment_fund():
         reinvest_amount=float(reinvest_amount_praportion)*float(reinvest_amount_left)
         reinvest_amount=float("{0:.2f}".format(reinvest_amount))
 
-        adminReinvestment=AdminReinvestment.objects.create(
-            amount=reinvest_amount,
-            admin=admin,
-            project=project
-        )
-
         for (user, reinvest_pool) in pending_reinvestors:
             reinvest_amount_left=user.reinvest_pool
             amount = reinvest_pool * float("{0:.2f}".format(reinvest_amount_praportion))
+            adminReinvestment = AdminReinvestment.objects.create(
+                amount=amount,
+                admin=admin,
+                project=project
+            )
             logger.info('Trying to reinvest %s in %s project!',format(round(amount,2)),project.title)
             reinvestment = Payment(user=user,
                                    project=project,
@@ -66,6 +65,30 @@ def distribute_reinvestment_fund():
                                    admin_reinvestment=adminReinvestment,
                                    amount=format(round(amount,2))
                                    )
+
+            project_matching_donors = ProjectMatchingDonors.objects.filter(project=project, amount__gt=0)
+
+            if project_matching_donors:
+                for donor in project_matching_donors:
+                    if donor.amount > float(amount):
+                        matching_donation = amount
+                        donor.amount = donor.amount - amount
+                        donor.save()
+                    else:
+                        matching_donation = donor.amount
+                        donor.amount = 0
+                        donor.save()
+
+                    tip = None
+
+                    Payment.objects.create(
+                        user=donor.matching_donor,
+                        entrant=donor.matching_donor,
+                        amount=matching_donation,
+                        project=project,
+                        tip=tip,
+                        payment_type=PaymentType.objects.get_stripe(),
+                    )
 
             if project.amount_donated >= project.funding_goal:
                 project.project_status = project.COMPLETED

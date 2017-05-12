@@ -71,7 +71,7 @@
               </div>
               <div>
                   <label class="matching-donor-label">Amount</label>
-                  <input id="amount" type="number" class="matching-donor-dropdown"  name="amount" class="form-field" required="true">
+                  <input id="amount" type="number" class="matching-donor-dropdown" step="0.01"  name="amount" class="form-field" required="true">
                   <input id="matching_donor_id" type="hidden" name="id" class="form-field">
               </div>
               <div class="matching-donor-save-btn">
@@ -104,7 +104,7 @@
     {% for donor in donors %}
       <tr>
         <td>{{ donor.matching_donor.user.username }} </td>
-        <td>{{ donor.amount }}</td>
+        <td>{{ donor.amount|floatformat:2}}</td>
         <td>{{ donor.project }}</td>
           <td><button type="button" class="edit" data-id={{donor.pk}}>Edit</button></td>
         <td><button type="button" class="close close-btn"  data-id={{donor.pk}}>&times;</button></td>

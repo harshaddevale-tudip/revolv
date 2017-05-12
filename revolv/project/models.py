@@ -768,7 +768,7 @@ class ProjectMatchingDonors(models.Model):
     """
     project = models.ForeignKey(Project)
     matching_donor = models.ForeignKey(RevolvUserProfile, related_name='matching_donor')
-    amount = models.IntegerField()
+    amount = models.FloatField()
 
 class Category(models.Model):
     """

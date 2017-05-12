@@ -46,7 +46,7 @@ $(".edit").click(function () {
         matchingDonor=JSON.parse(response.ProjectMatchingDonor);
          $('#id_User').val(matchingDonor[0].fields.matching_donor);
          $('#id_Project').val(matchingDonor[0].fields.project);
-         $('#amount').val(matchingDonor[0].fields.amount);
+         $('#amount').val(matchingDonor[0].fields.amount.toFixed(2));
          $('#matching_donor_id').val(matchingDonor[0].pk);
          $('#matching_donor_user').val(matchingDonor[0].fields.matching_donor);
          $('#myModal').modal('toggle');
@@ -68,7 +68,7 @@ $('#matching-donor-save').click(function () {
       $('#matching_donor_user').val($('#id_User').val());
       var amount=$('#amount').val();
         if (amount > 0) {
-            console.log($('#id_User').val());
+            $("#matching-donor-save").prop('disabled', 'true');
             $.ajax({
               type: "POST",
               url: '/add_matching_donor/',

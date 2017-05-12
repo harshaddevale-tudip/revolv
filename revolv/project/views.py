@@ -668,8 +668,32 @@ def reinvest(request, pk):
         return HttpResponseBadRequest()
     try:
         project = Project.objects.get(pk=pk)
+        project_matching_donors = ProjectMatchingDonors.objects.filter(project=project, amount__gt=0)
     except (Project.DoesNotExist, Project.MultipleObjectsReturned):
         return HttpResponseBadRequest()
+
+    amount = float(amount)
+    if project_matching_donors:
+        for donor in project_matching_donors:
+            if donor.amount > float(amount):
+                matching_donation = amount
+                donor.amount = donor.amount - amount
+                donor.save()
+            else:
+                matching_donation = donor.amount
+                donor.amount = 0
+                donor.save()
+
+            tip = None
+
+            Payment.objects.create(
+                user=donor.matching_donor,
+                entrant=donor.matching_donor,
+                amount=matching_donation,
+                project=project,
+                tip=tip,
+                payment_type=PaymentType.objects.get_stripe(),
+            )
 
     UserReinvestment.objects.create(user=request.user.revolvuserprofile,
                                         amount=amount,
