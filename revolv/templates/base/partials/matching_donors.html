@@ -35,12 +35,13 @@
 <script src="/static/js/buttons.html5.min.js"></script>
 <script src="/static/js/buttons.print.min.js"></script>
 <script src="/static/js/matching_donors.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 {% endblock %}
 
 {% block body %}
-<div class="modal fade" id="myModal" role="dialog">
+<div id="matching-donor-spinner"><img src="/static/images/gif/revolv-loader.gif" alt="Matching donors are loading" ></div>
+<div class="modal fade" id="matching_donor_modal" role="dialog">
     <div class="modal-dialog">
 
       <!-- Modal content-->
@@ -75,7 +76,7 @@
                   <input id="matching_donor_id" type="hidden" name="id" class="form-field">
               </div>
               <div class="matching-donor-save-btn">
-                <input type="button" class="button btn-modal" id="matching-donor-save" value="Save">
+                <input type="submit" class="button btn-modal" id="matching-donor-save" value="Save">
               </div>
           </form>
 
@@ -90,7 +91,7 @@
 <div class="container after-header" >
   <table id="example" class="display nowrap" cellspacing="0" width="100%">
        <div class="matching-donor-section">Matching donors</div>
-      <button id="add_donor" type="button" class="matching-donor-add" data-toggle="modal" data-target="#myModal">Add</button>
+      <button id="add_donor" type="button" class="matching-donor-add" data-toggle="modal" data-target="#matching_donor_modal">Add</button>
   <thead >
       <tr>
         <th>Username</th>

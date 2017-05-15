@@ -35,7 +35,7 @@ $(".close-btn").click(function () {
 });
 
 $(".edit").click(function () {
-    var id =$ (this).attr('data-id');
+    var id = $(this).attr('data-id');
     $('#id_User').attr("disabled","disabled");
     $(this).closest('td').data()
     $.ajax({
@@ -49,13 +49,15 @@ $(".edit").click(function () {
          $('#amount').val(matchingDonor[0].fields.amount.toFixed(2));
          $('#matching_donor_id').val(matchingDonor[0].pk);
          $('#matching_donor_user').val(matchingDonor[0].fields.matching_donor);
-         $('#myModal').modal('toggle');
+         $('#matching_donor_modal').modal('toggle');
+         $("#matching-donor-save").removeAttr('disabled');
     }
 
     });
 });
 
 $('.matching-donor-add').click(function () {
+    $('#matching_donor_id').val('');
     $('#id_User')[0].selectedIndex = 0;
     $('#id_Project')[0].selectedIndex = 0;
     $('#amount').val('');
@@ -68,13 +70,13 @@ $('#matching-donor-save').click(function () {
       $('#matching_donor_user').val($('#id_User').val());
       var amount=$('#amount').val();
         if (amount > 0) {
-            $("#matching-donor-save").prop('disabled', 'true');
+            $('#matching-donor-spinner').css('display', 'flex');
+            $("#matching-donor-save").attr('disabled', 'true');
             $.ajax({
               type: "POST",
               url: '/add_matching_donor/',
               data : $frm.serialize(),
               success: function() {
-                $("#matching-donor-save").prop('disabled', false);
                 location.reload();
               }
         });
