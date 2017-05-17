@@ -709,41 +709,43 @@ def social_exception(request):
 
 
 def matching_donor_reinvestment(request):
-    with open('/home/ubuntu/Admin_reinvestment_on_15th.csv') as f:
+    pk=request.GET.get('id')
+    with open('/home/tudip/Desktop/Admin_reinvestment_on_15th.csv') as f:
         reader = csv.reader(f, delimiter=',')
         for row in reader:
             amount=row[9]
             project_name=re.sub('-AC$', '', row[4])
-            project=Project.objects.filter(title=project_name)
+            project = get_object_or_404(Project, pk=pk)
+            #project=Project.objects.filter(title=project_name)
             project_matching_donors = ProjectMatchingDonors.objects.filter(project=project, amount__gt=0)
-            if project_matching_donors:
-                donor=ProjectMatchingDonors.objects.get(project=project, amount__gt=0)
+            if project.title == project_name:
+                if project_matching_donors:
+                    donor=ProjectMatchingDonors.objects.get(project=project, amount__gt=0)
 
-                try:
-                    if donor.amount > float(amount):
-                        matching_donation = float(amount)
-                        donor.amount = donor.amount - float(amount)
-                        donor.save()
-                    else:
-                        matching_donation = donor.amount
-                        donor.amount = 0
-                        donor.save()
+                    try:
+                        if donor.amount > float(amount):
+                            matching_donation = float(amount)
+                            donor.amount = donor.amount - float(amount)
+                            donor.save()
+                        else:
+                            matching_donation = donor.amount
+                            donor.amount = 0
+                            donor.save()
 
-                    tip = None
+                        tip = None
 
-                    project_assign = Project.objects.get(title=project_name)
+                        project_assign = Project.objects.get(title=project_name)
 
-                    Payment.objects.create(
-                        user=donor.matching_donor,
-                        entrant=donor.matching_donor,
-                        amount=matching_donation,
-                        project=project_assign,
-                        tip=tip,
-                        payment_type=PaymentType.objects.get_stripe(),
-                    )
+                        Payment.objects.create(
+                            user=donor.matching_donor,
+                            entrant=donor.matching_donor,
+                            amount=matching_donation,
+                            project=project_assign,
+                            tip=tip,
+                            payment_type=PaymentType.objects.get_stripe(),
+                        )
 
-                except Exception as e:
-                    print "~~~~~~~~~ exception ~~~~~~~~", e
+                    except Exception as e:
+                        print "~~~~~~~~~ exception ~~~~~~~~", e
 
     return HttpResponseRedirect(reverse("home"))
-
