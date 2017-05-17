@@ -1,3 +1,4 @@
+import csv
 from collections import OrderedDict
 import logging
 
@@ -23,7 +24,7 @@ from django.template.context import RequestContext
 from revolv.base.forms import SignupForm, AuthenticationForm
 from revolv.base.users import UserDataMixin
 from revolv.base.utils import ProjectGroup
-from revolv.payments.models import Payment, Tip
+from revolv.payments.models import Payment, Tip, PaymentType
 from revolv.project.models import Category, Project, ProjectMatchingDonors
 from revolv.project.utils import aggregate_stats
 from revolv.donor.views import humanize_integers, total_donations
@@ -35,6 +36,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
 from django.core import serializers
 import json
+import re
 
 logger = logging.getLogger(__name__)
 
@@ -704,4 +706,44 @@ def social_exception(request):
     message = request.GET.get('message')
     return render_to_response('base/minimal_message.html',
                               context_instance=RequestContext(request, {'msg': message}))
+
+
+def matching_donor_reinvestment(request):
+    with open('/home/ubuntu/Admin_reinvestment_on_15th.csv') as f:
+        reader = csv.reader(f, delimiter=',')
+        for row in reader:
+            amount=row[9]
+            project_name=re.sub('-AC$', '', row[4])
+            project=Project.objects.filter(title=project_name)
+            project_matching_donors = ProjectMatchingDonors.objects.filter(project=project, amount__gt=0)
+            if project_matching_donors:
+                donor=ProjectMatchingDonors.objects.get(project=project, amount__gt=0)
+
+                try:
+                    if donor.amount > float(amount):
+                        matching_donation = float(amount)
+                        donor.amount = donor.amount - float(amount)
+                        donor.save()
+                    else:
+                        matching_donation = donor.amount
+                        donor.amount = 0
+                        donor.save()
+
+                    tip = None
+
+                    project_assign = Project.objects.get(title=project_name)
+
+                    Payment.objects.create(
+                        user=donor.matching_donor,
+                        entrant=donor.matching_donor,
+                        amount=matching_donation,
+                        project=project_assign,
+                        tip=tip,
+                        payment_type=PaymentType.objects.get_stripe(),
+                    )
+
+                except Exception as e:
+                    print "~~~~~~~~~ exception ~~~~~~~~", e
+
+    return HttpResponseRedirect(reverse("home"))
 
