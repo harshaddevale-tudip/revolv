@@ -316,7 +316,7 @@ EMAIL_TEMPLATES_PATH = os.path.join(
     'emails.yml'
 )
 
-MANDRILL_API_KEY = "smKmslFehEGIPxUWUVRBLQ"
+MANDRILL_API_KEY = ""
 EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
 #SERVER_EMAIL = 'info@re-volv.org'
 EMAIL_HOST_USER = 'info@re-volv.org'
