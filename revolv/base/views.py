@@ -900,7 +900,7 @@ def payment_data_table(request):
             payment_details['total'] = 0
         payments.append(payment_details)
 
-    json_response={ "draw": draw, "recordsTotal": Payment.objects.all().count(), "recordsFiltered": Payment.objects.all().count(), "data": payments }
+    json_response={ "draw": draw, "recordsTotal": Payment.objects.all().count(), "recordsFiltered": payment_list.count(), "data": payments }
 
     return HttpResponse(json.dumps(json_response), content_type='application/json')
 
