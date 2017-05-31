@@ -158,6 +158,8 @@ class DonationReportForProject(UserDataMixin, TemplateView):
     template_name = 'base/partials/ambassador_donation_report.html'
 
     def dispatch(self, request, *args, **kwargs):
+        if request.user.is_anonymous():
+            return HttpResponseRedirect(reverse("login"))
         if not request.user.revolvuserprofile.is_ambassador():
             return HttpResponseRedirect(reverse("dashboard"))
         return super(DonationReportForProject, self).dispatch(request, *args, **kwargs)
@@ -383,6 +385,8 @@ class SignupView(RedirectToSigninOrHomeMixin, FormView):
     @csrf_exempt
     def dispatch(self, request, *args, **kwargs):
         self.next_url = request.POST.get("next", "home")
+        if request.user.is_authenticated():
+            return redirect("dashboard")
         if request.POST.get("payment"):
             self.request.session['payment'] = request.POST.get("payment")
         return super(SignupView, self).dispatch(request, *args, **kwargs)
@@ -823,7 +827,7 @@ def ambassador_data_table(request):
             payment_details['total'] = 0
         payments.append(payment_details)
 
-    json_response={ "draw": draw, "recordsTotal": Payment.objects.filter(project=project).count(), "recordsFiltered": Payment.objects.filter(project=project).count(), "data": payments }
+    json_response={ "draw": draw, "recordsTotal": Payment.objects.filter(project=project).count(), "recordsFiltered": payment_list.count(), "data": payments }
 
     return HttpResponse(json.dumps(json_response), content_type='application/json')
 
