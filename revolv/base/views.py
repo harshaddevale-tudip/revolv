@@ -8,6 +8,7 @@ from django.conf import settings
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import views as auth_views
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.db.models import Sum
@@ -111,11 +112,6 @@ class DonationReportView(UserDataMixin, TemplateView):
     # pass in Project Categories and Maps API key
     def get_context_data(self, **kwargs):
         context = super(DonationReportView, self).get_context_data(**kwargs)
-        context['payments'] = Payment.objects.all()
-        created_date={}
-        payment_details=Payment.objects.all()
-        for payment in payment_details:
-            created_date=payment.created_at
         return context
 
 
@@ -159,7 +155,7 @@ class DonationReportForProject(UserDataMixin, TemplateView):
     Accessed through /project/{project_id}
     """
     model = Payment
-    template_name = 'base/partials/donation_report.html'
+    template_name = 'base/partials/ambassador_donation_report.html'
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.revolvuserprofile.is_ambassador():
@@ -167,9 +163,7 @@ class DonationReportForProject(UserDataMixin, TemplateView):
         return super(DonationReportForProject, self).dispatch(request, *args, **kwargs)
     # pass in Project Categories and Maps API key
     def get_context_data(self, **kwargs):
-        project = Project.objects.filter(ambassador=self.user_profile.id)
         context = super(DonationReportForProject, self).get_context_data(**kwargs)
-        context['payments'] = Payment.objects.all().filter(project=project)
         return context
 
 class BaseStaffDashboardView(UserDataMixin, TemplateView):
@@ -710,13 +704,13 @@ def social_exception(request):
 
 def matching_donor_reinvestment(request):
     pk=request.GET.get('id')
-    with open('/home/ubuntu/Admin_reinvestment_on_15th.csv') as f:
+    with open('/home/tudip/Desktop/Admin_reinvestment_on_15th.csv') as f:
         reader = csv.reader(f, delimiter=',')
         for row in reader:
             amount=row[9]
             project_name=re.sub('-AC$', '', row[4])
-            project = get_object_or_404(Project, pk=pk)
-            #project=Project.objects.filter(title=project_name)
+            #project = get_object_or_404(Project, pk=pk)
+            project=Project.objects.get(pk=pk)
             project_matching_donors = ProjectMatchingDonors.objects.filter(project=project, amount__gt=0)
             if project.title == project_name:
                 if project_matching_donors:
@@ -749,3 +743,164 @@ def matching_donor_reinvestment(request):
                         print "~~~~~~~~~ exception ~~~~~~~~", e
 
     return HttpResponseRedirect(reverse("home"))
+
+
+def ambassador_data_table(request):
+    draw=request.GET.get('draw')
+    datepicker1=request.GET.get('datepicker1')
+    datepicker2=request.GET.get('datepicker2')
+    length=request.GET.get('length')
+    order=request.GET.get('order[0][dir]')
+    start=request.GET.get('start')
+    search=request.GET.get('search[value]')
+    currentSortByCol = request.GET.get('order[0][column]')
+
+
+    fields=['user__user__first_name', 'user__user__last_name', 'user__user__username','user__user__email','created_at','project__title','amount','user_reinvestment__amount','admin_reinvestment__amount','tip__amount']
+
+    order_by={'desc':'-','asc':''}
+
+    column_order=order_by[order]+fields[int(currentSortByCol)]
+
+    revolv_user = get_object_or_404(RevolvUserProfile, pk=request.user.id)
+
+    project = Project.objects.filter(ambassador=revolv_user.id)
+
+    payment_list = Payment.objects.filter(project=project).order_by((column_order))
+
+    if search.strip():
+        payment_list = payment_list.filter(Q(user__user__username__icontains=search)|
+                                              Q(user__user__first_name__icontains=search)|
+                                              Q(project__title__icontains=search)|
+                                              Q(amount__icontains=search)|
+                                              Q(user__user__last_name__icontains=search)|
+                                              Q(user__user__email__icontains=search))
+
+
+    if datepicker1 and datepicker2:
+        import datetime
+        import pytz
+
+        date1 = datetime.datetime.strptime(datepicker1, '%Y-%m-%d').date()
+        date2 = datetime.datetime.strptime(datepicker2, '%Y-%m-%d').date()
+
+        payment_list = payment_list.filter(created_at__range=[datetime.datetime(date1.year, date1.month, date1.day, 8, 15, 12, 0, pytz.UTC), datetime.datetime(date2.year, date2.month, date2.day, 8, 15, 12, 0, pytz.UTC)])
+
+    payments=[]
+
+    for payment in payment_list[int(start):][:int(length)]:
+
+        payment_details={}
+        payment_details['firstname']=payment.user.user.first_name
+        payment_details['lastname']=payment.user.user.last_name
+        payment_details['username']=payment.user.user.username
+        payment_details['email']=payment.user.user.email
+        payment_details['date']=(payment.created_at).strftime("%Y/%m/%d %H:%M:%S")
+        payment_details['project']=payment.project.title
+        if payment.user_reinvestment or payment.admin_reinvestment:
+            payment_details['amount']=0
+        else:
+            payment_details['amount']=payment.amount
+        if payment.user_reinvestment:
+            payment_details['user_reinvestment'] = payment.user_reinvestment.amount
+        else:
+            payment_details['user_reinvestment'] = 0
+        if payment.admin_reinvestment:
+            payment_details['admin_reinvestment'] = payment.amount
+        else:
+            payment_details['admin_reinvestment']=0
+        if payment.tip:
+            payment_details['tip'] = payment.tip.amount
+        else:
+            payment_details['tip'] = 0
+        if payment.tip and payment.amount:
+            payment_details['total']=payment.tip.amount+payment.amount
+        if payment.tip and not payment.amount:
+            payment_details['total']=payment.tip.amount
+        if payment.amount and not payment.tip:
+            payment_details['total']=payment.amount
+        if not payment.amount and not payment.tip:
+            payment_details['total'] = 0
+        payments.append(payment_details)
+
+    json_response={ "draw": draw, "recordsTotal": Payment.objects.filter(project=project).count(), "recordsFiltered": Payment.objects.filter(project=project).count(), "data": payments }
+
+    return HttpResponse(json.dumps(json_response), content_type='application/json')
+
+def payment_data_table(request):
+    draw=request.GET.get('draw')
+    datepicker1=request.GET.get('datepicker1')
+    datepicker2=request.GET.get('datepicker2')
+    length=request.GET.get('length')
+    order=request.GET.get('order[0][dir]')
+    start=request.GET.get('start')
+    search=request.GET.get('search[value]')
+    currentSortByCol = request.GET.get('order[0][column]')
+
+    fields=['user__user__first_name', 'user__user__last_name', 'user__user__username','user__user__email','created_at','project__title','amount','user_reinvestment__amount','admin_reinvestment__amount','tip__amount']
+
+    order_by={'desc':'-','asc':''}
+
+    column_order=order_by[order]+fields[int(currentSortByCol)]
+
+    payment_list = Payment.objects.all().order_by((column_order))
+
+    if search.strip():
+        payment_list = payment_list.filter(Q(user__user__username__icontains=search)|
+                                              Q(user__user__first_name__icontains=search)|
+                                              Q(project__title__icontains=search)|
+                                              Q(amount__icontains=search)|
+                                              Q(user__user__last_name__icontains=search)|
+                                              Q(user__user__email__icontains=search))
+
+
+    if datepicker1 and datepicker2:
+        import datetime
+        import pytz
+
+        date1 = datetime.datetime.strptime(datepicker1, '%Y-%m-%d').date()
+        date2 = datetime.datetime.strptime(datepicker2, '%Y-%m-%d').date()
+
+        payment_list = payment_list.filter(created_at__range=[datetime.datetime(date1.year, date1.month, date1.day, 8, 15, 12, 0, pytz.UTC), datetime.datetime(date2.year, date2.month, date2.day, 8, 15, 12, 0, pytz.UTC)])
+
+    payments=[]
+
+    for payment in payment_list[int(start):][:int(length)]:
+
+        payment_details={}
+        payment_details['firstname']=payment.user.user.first_name
+        payment_details['lastname']=payment.user.user.last_name
+        payment_details['username']=payment.user.user.username
+        payment_details['email']=payment.user.user.email
+        payment_details['date']=(payment.created_at).strftime("%Y/%m/%d %H:%M:%S")
+        payment_details['project']=payment.project.title
+        if payment.user_reinvestment or payment.admin_reinvestment:
+            payment_details['amount']=0
+        else:
+            payment_details['amount']=payment.amount
+        if payment.user_reinvestment:
+            payment_details['user_reinvestment'] = payment.user_reinvestment.amount
+        else:
+            payment_details['user_reinvestment'] = 0
+        if payment.admin_reinvestment:
+            payment_details['admin_reinvestment'] = payment.amount
+        else:
+            payment_details['admin_reinvestment']=0
+        if payment.tip:
+            payment_details['tip'] = payment.tip.amount
+        else:
+            payment_details['tip'] = 0
+        if payment.tip and payment.amount:
+            payment_details['total']=payment.tip.amount+payment.amount
+        if payment.tip and not payment.amount:
+            payment_details['total']=payment.tip.amount
+        if payment.amount and not payment.tip:
+            payment_details['total']=payment.amount
+        if not payment.amount and not payment.tip:
+            payment_details['total'] = 0
+        payments.append(payment_details)
+
+    json_response={ "draw": draw, "recordsTotal": Payment.objects.all().count(), "recordsFiltered": Payment.objects.all().count(), "data": payments }
+
+    return HttpResponse(json.dumps(json_response), content_type='application/json')
+
