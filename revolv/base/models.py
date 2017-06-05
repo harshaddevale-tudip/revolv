@@ -80,7 +80,7 @@ class RevolvUserProfile(FacebookModel):
     subscribed_to_updates = models.BooleanField(default=True)
 
     reinvest_pool = models.FloatField(default=0.0)
-    #preferred_categories = models.ManyToManyField("project.Category")
+    preferred_categories = models.ManyToManyField("project.Category")
 
     address = models.CharField(max_length=255, null=True, blank=True)
 
