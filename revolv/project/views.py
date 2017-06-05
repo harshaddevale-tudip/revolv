@@ -1,3 +1,4 @@
+import csv
 from decimal import Decimal
 import logging
 
@@ -8,6 +9,7 @@ from django.core.urlresolvers import reverse
 from django.http import JsonResponse
 from django.http.response import HttpResponseBadRequest, HttpResponseRedirect, HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import CreateView, DetailView, UpdateView, TemplateView
 from django.views.generic.edit import FormView
 from django.views.decorators.http import require_http_methods
@@ -184,7 +186,6 @@ def stripe_payment(request, pk):
         # messages.success(request, 'Donation Successful')
         # return redirect('dashboard')
 
-
 def stripe_operation_donation(request):
     try:
         token = request.POST['stripeToken']
@@ -195,11 +196,10 @@ def stripe_operation_donation(request):
         logger.exception('stripe_payment called without required POST data')
         return HttpResponseBadRequest('bad POST data')
 
-    # print ("wwwwwww", (int(amount_cents)*100))
     # if request.user.is_authenticated():
     if check==None:
         try:
-            amount = float(amount_cents) * float(100)
+            amount = float(amount_cents)*100
             stripe.Charge.create(source=token, currency="usd", amount=int(amount))
         except stripe.error.CardError as e:
             body = e.json_body
@@ -232,7 +232,7 @@ def stripe_operation_donation(request):
             plans=stripe.Plan.all()
             plan = any(d['id'] == "revolv_donation"+"_"+str(amount_cents) for d in plans)
             if not plan:
-                amount = float(amount_cents) * float(100)
+                amount = float(amount_cents) * 100
                 plan=stripe.Plan.create(
                     amount=int(amount),
                     interval="month",
@@ -701,4 +701,5 @@ def reinvest(request, pk):
 
     messages.success(request, 'Reinvestment Successful')
     return redirect("project:view" ,title=project.project_url)
+
 
