@@ -186,7 +186,6 @@ def stripe_payment(request, pk):
         # messages.success(request, 'Donation Successful')
         # return redirect('dashboard')
 
-@csrf_exempt
 def stripe_operation_donation(request):
     try:
         token = request.POST['stripeToken']
@@ -202,15 +201,23 @@ def stripe_operation_donation(request):
         try:
             amount = float(amount_cents)*100
             stripe.Charge.create(source=token, description="Donation for RE-volv operations donation", currency="usd", amount=int(amount))
+
         except stripe.error.CardError as e:
             body = e.json_body
-            error_msg = body['error']['message']
+            # error_msg = body['error']['message']
+            messages.error(request, 'Payment fail')
+            return redirect('home')
         except stripe.error.APIConnectionError as e:
             body = e.json_body
-            error_msg = body['error']['message']
+            # error_msg = body['error']['message']
+            messages.error(request, 'Internet connection error')
+            return redirect('home')
         except Exception:
             error_msg = "Payment error. Re-volv has been notified."
             logger.exception(error_msg)
+
+            messages.error(request, 'Donation fail')
+            return redirect('home')
 
         # tip = Tip.objects.create(
         #     amount=amount_cents,
@@ -270,7 +277,7 @@ def stripe_operation_donation(request):
             error_msg = "Payment error. Re-volv has been notified."
             logger.exception(error_msg)
 
-            messages.success(request, 'Donation fail')
+            messages.error(request, 'Donation fail')
             return redirect('home')
 
     # else:
