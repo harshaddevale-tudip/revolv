@@ -696,52 +696,7 @@
       });
 
     });
-  $(function ($) {
-  var handler = StripeCheckout.configure({
-    key: '{{ stripe_publishable_key }}'
-    , image: '{% static "images/revolv-logo.png" %}'
-    , locale: 'auto'
-    , name: 'RE-volv'
-    , email: '{{request.user.email}}'
-  });
-  $(window).on('popstate', function () {
-    handler.close();
-  });
-  $('.stripe-button-el').on('click', function (e) {
-    e.preventDefault();
-    var $form = $(this).closest('form');
-    var serialized = $form.serializeArray();
-    var endpoint = $form.attr('action');
-    var amount, metadata;
-    $.each(serialized, function () {
-      if (this.name === 'amount_cents') {
-        amount = this.value*100;
-      }
-    });
-    if (typeof amount !== 'undefined') {
-      handler.open({
-        description: 'Donate $' + parseFloat((amount / 100).toFixed(2)).toLocaleString()
-        , amount: amount
-        <!--, metadata: metadata-->
-        , token: function (token) {
-          var id = token.id;
-          var email = token.email;
-          var $id = $('<input>')
-            .attr('type', 'hidden')
-            .attr('name', 'stripeToken')
-            .val(id);
-          var $email = $('<input>')
-            .attr('type', 'hidden')
-            .attr('name', 'stripeEmail')
-            .val(email);
-          $id.appendTo($form);
-          $email.appendTo($form);
-          $form.trigger('submit');
-        }
-      });
-    }
-  });
-});
+  
 </script>
 
 
