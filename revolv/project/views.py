@@ -230,7 +230,7 @@ def stripe_operation_donation(request):
 
     else:
         try:
-            plans=stripe.Plan.all()
+            plans=stripe.Plan.list(limit=100)
             plan = any(d['id'] == "revolv_donation"+"_"+str(amount_cents) for d in plans)
             if not plan:
                 amount = float(amount_cents) * 100
@@ -258,15 +258,19 @@ def stripe_operation_donation(request):
 
         except stripe.error.CardError as e:
             body = e.json_body
-            error_msg = body['error']['message']
+            #error_msg = body['error']['message']
+            messages.error(request, 'Payment fail')
+            return redirect('home')
         except stripe.error.APIConnectionError as e:
             body = e.json_body
-            error_msg = body['error']['message']
+            # error_msg = body['error']['message']
+            messages.error(request, 'Internet connection error')
+            return redirect('home')
         except Exception:
             error_msg = "Payment error. Re-volv has been notified."
             logger.exception(error_msg)
 
-            messages.success(request, 'Donation Successful')
+            messages.success(request, 'Donation fail')
             return redirect('home')
 
     # else:
