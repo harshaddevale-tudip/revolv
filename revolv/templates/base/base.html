@@ -63,6 +63,7 @@
 
     {% include "base/partials/foot.html" %}
 
+
     <script src="{% static 'js/toastr.min.js' %}?version={{ version_number }}"></script>
 
     {% if messages %}
@@ -197,6 +198,18 @@
     }
   });
 });
+</script>
+
+<script>
+    $('#popup').on('hidden.bs.modal', function (e) {
+      $(this)
+        .find("input,textarea,select")
+           .val('')
+           .end()
+        .find("input[type=checkbox], input[type=radio]")
+           .prop("checked", "")
+           .end();
+    })
 </script>
 
 <!-- Commit Change -->
