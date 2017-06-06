@@ -186,6 +186,7 @@ def stripe_payment(request, pk):
         # messages.success(request, 'Donation Successful')
         # return redirect('dashboard')
 
+@csrf_exempt
 def stripe_operation_donation(request):
     try:
         token = request.POST['stripeToken']
@@ -200,7 +201,7 @@ def stripe_operation_donation(request):
     if check==None:
         try:
             amount = float(amount_cents)*100
-            stripe.Charge.create(source=token, currency="usd", amount=int(amount))
+            stripe.Charge.create(source=token, description="Donation for RE-volv operations donation", currency="usd", amount=int(amount))
         except stripe.error.CardError as e:
             body = e.json_body
             error_msg = body['error']['message']
