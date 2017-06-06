@@ -160,7 +160,7 @@
   $(window).on('popstate', function () {
     handler.close();
   });
-  $('.stripe-button-el').on('click', function (e) {
+  $(document).on('click','.stripe-button-el',function (e) {
     var $form = $(this).closest('form');
     var serialized = $form.serializeArray();
     var endpoint = $form.attr('action');
