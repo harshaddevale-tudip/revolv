@@ -161,7 +161,6 @@
     handler.close();
   });
   $(document).on('click','.stripe-button-el',function (e) {
-    $('#your-modal-id').modal('hide');
     $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
     var $form = $(this).closest('form');
@@ -197,7 +196,6 @@
   });
 });
 </script>
-
 <!-- Commit Change -->
 <script>
 (function() {
