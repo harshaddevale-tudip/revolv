@@ -107,40 +107,40 @@
             </div>
             <div class="donation-values">
                 <div class="col-xs-4">
-                    <div class="col-xs-12 donation-value-suggestion stripe-button-el"  data-dismiss="modal">
+                    <div class="col-xs-12 donation-value-suggestion stripe-button-el" >
                         <span>$</span>
                         <span><b>10</b></span>
                     </div>
-                    <div class="col-xs-12 donation-value-suggestion stripe-button-el"  data-dismiss="modal">
+                    <div class="col-xs-12 donation-value-suggestion stripe-button-el">
                         <span>$</span>
                         <span><b>70</b></span>
                     </div>
-                    <div class="col-xs-12 donation-value-suggestion stripe-button-el"  data-dismiss="modal">
+                    <div class="col-xs-12 donation-value-suggestion stripe-button-el">
                         <span>$</span>
                         <span><b>1000</b></span>
                     </div>
                 </div>
                 <div class="col-xs-4">
-                    <div class="col-xs-12 donation-value-suggestion stripe-button-el"  data-dismiss="modal">
+                    <div class="col-xs-12 donation-value-suggestion stripe-button-el">
                         <span>$</span>
                         <span><b>20</b></span>
                     </div>
-                    <div class="col-xs-12 donation-value-suggestion stripe-button-el"  data-dismiss="modal">
+                    <div class="col-xs-12 donation-value-suggestion stripe-button-el">
                         <span>$</span>
                         <span><b>100</b></span>
                     </div>
                     <div class="col-xs-12 input-custom-amount"> <span>$</span><input type="number" step="0.01" min="1" placeholder="Custom" name="amount_cents"> </div>
                 </div>
                  <div class="col-xs-4">
-                    <div class="col-xs-12 donation-value-suggestion stripe-button-el"  data-dismiss="modal">
+                    <div class="col-xs-12 donation-value-suggestion stripe-button-el">
                         <span>$</span>
                         <span><b>30</b></span>
                     </div>
-                    <div class="col-xs-12 donation-value-suggestion stripe-button-el" data-dismiss="modal">
+                    <div class="col-xs-12 donation-value-suggestion stripe-button-el">
                         <span>$</span>
                         <span><b>200</b></span>
                     </div>
-                    <div class="col-xs-12 next-button" data-dismiss="modal"><b>Next</b></div>
+                    <div class="col-xs-12 next-button"><b>Next</b></div>
                 </div>
             </div>
         </form>
@@ -161,6 +161,9 @@
     handler.close();
   });
   $(document).on('click','.stripe-button-el',function (e) {
+    $('#your-modal-id').modal('hide');
+    $('body').removeClass('modal-open');
+    $('.modal-backdrop').remove();
     var $form = $(this).closest('form');
     var serialized = $form.serializeArray();
     var endpoint = $form.attr('action');
@@ -169,15 +172,11 @@
       if (this.name === 'amount_cents') {
         amount = this.value*100;
       }
-      if (this.name === 'metadata') {
-        metadata = this.value;
-      }
     });
     if (typeof amount !== 'undefined') {
       handler.open({
         description: 'Donate $' + parseFloat((amount / 100).toFixed(2)).toLocaleString()
         , amount: amount
-        , metadata: metadata
         , token: function (token) {
           var id = token.id;
           var email = token.email;
