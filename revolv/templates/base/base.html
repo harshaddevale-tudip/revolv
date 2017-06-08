@@ -196,6 +196,14 @@
   });
 });
 </script>
+<script>
+    $('#popup').on('hidden.bs.modal', function () {
+    $(this)
+        .find("input,textarea,select")
+            .val('')
+            .end();
+});
+</script>
 <!-- Commit Change -->
 <script>
 (function() {

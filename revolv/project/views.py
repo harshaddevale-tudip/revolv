@@ -201,7 +201,6 @@ def stripe_operation_donation(request):
         try:
             amount = float(amount_cents)*100
             stripe.Charge.create(source=token, description="Donation for RE-volv operations donation", currency="usd", amount=int(amount))
-
         except stripe.error.CardError as e:
             body = e.json_body
             # error_msg = body['error']['message']
@@ -219,47 +218,29 @@ def stripe_operation_donation(request):
             messages.error(request, 'Donation fail')
             return redirect('home')
 
-        # tip = Tip.objects.create(
-        #     amount=amount_cents,
-        #     user=request.user.revolvuserprofile,
-        # )
-        #
-        # Payment.objects.create(
-        #     user=request.user.revolvuserprofile,
-        #     entrant=request.user.revolvuserprofile,
-        #     amount=0,
-        #     # project=project,
-        #     tip=tip,
-        #     payment_type=PaymentType.objects.get_stripe(),
-        # )
+
         messages.success(request, 'Donation Successful')
         return redirect('home')
 
     else:
         try:
-            plans=stripe.Plan.list(limit=100)
-            plan = any(d['id'] == "revolv_donation"+"_"+str(amount_cents) for d in plans)
-            if not plan:
-                amount = float(amount_cents) * 100
-                plan=stripe.Plan.create(
+            amount = float(amount_cents) * 100
+            customer=stripe.Customer.create(
+                email=email,
+                description="Donation for RE-volv Operations",
+                source=token  # obtained with Stripe.js
+            )
+            plan = stripe.Plan.create(
                     amount=int(amount),
                     interval="month",
                     name="Revolv Donation "+str(amount_cents),
                     currency="usd",
-                    id="revolv_donation"+"_"+str(amount_cents))
-                stripe.Customer.create(
-                    email=email,
-                    description="Donation for RE-volv Operations",
-                    plan=plan,
-                    source=token  # obtained with Stripe.js
-                )
-            else:
-                stripe.Customer.create(
-                    email=email,
-                    description="Donation for RE-volv Operations",
-                    plan=stripe.Plan.retrieve("revolv_donation"+"_"+str(amount_cents)),
-                    source=token  # obtained with Stripe.js
-                )
+                    id="revolv_donation"+"_"+customer["id"]+"_"+str(amount_cents))
+
+            stripe.Subscription.create(
+                customer=customer,
+                plan=plan
+            )
             messages.success(request, 'Donation Successful')
             return redirect('home')
 
