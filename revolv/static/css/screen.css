@@ -14674,7 +14674,7 @@ form#change_password_form label {
     text-align: center;
     width: 41%;
     left: 28%;
-    margin-top: 8%;
+    margin-top: 5.4%;
     position: relative;
 }
 .title-matching-donor {
@@ -14685,6 +14685,7 @@ form#change_password_form label {
 @media (max-width: 991px) {
  .title-matching-donor {
         width: 100%;
+        padding-top: 11vmin;
         padding-bottom: 0vmin;
     }
 }
