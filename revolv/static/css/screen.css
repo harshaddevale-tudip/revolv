@@ -6968,6 +6968,7 @@ width: 580px;
     #project .title-active-project{
         float: right !important;
     }
+
     .module-box.payment-module form button.stripe-button-el {
       width: 150px !important;
     }
@@ -6985,6 +6986,7 @@ width: 580px;
     }
     #project .col-lg-4.col-md-4.col-sm-12.col-xs-12.active-pr-button {
       padding: 0;
+      display: none;
     }
     #project .col-lg-8.col-md-8.col-sm-12.col-xs-12 {
       padding: 0 !important;
@@ -14663,4 +14665,26 @@ form#change_password_form label {
     margin-left: 1vmin;
     color: white;
     font-weight: bold;
+}
+
+.title-yellow-border {
+    color: rgb(255, 204, 0);
+    border: 2px solid rgb(255, 204, 0);
+    font-size: 3vmin;
+    text-align: center;
+    width: 41%;
+    left: 28%;
+    margin-top: 8%;
+    position: relative;
+}
+.title-matching-donor {
+    width: 100%;
+    padding-bottom: 10vmin;
+    }
+
+@media (max-width: 991px) {
+ .title-matching-donor {
+        width: 100%;
+        padding-bottom: 0vmin;
+    }
 }

@@ -588,6 +588,7 @@ class ProjectView(UserDataMixin, DetailView):
         context['updates'] = self.get_object().updates.order_by('date').reverse()
         context['donor_count'] = self.get_object().donors.count()
         context['project_donation_levels'] = self.get_object().donation_levels.order_by('amount')
+        context['project_matching_donor'] = project_matching_donors = ProjectMatchingDonors.objects.filter(project=self.get_object(), amount__gt=0)
         context["is_draft_mode"] = self.get_object().project_status == self.get_object().DRAFTED
         context["is_reinvestment"] = False
         if self.user_profile and self.user_profile.reinvest_pool > 0.0:
