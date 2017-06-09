@@ -7,10 +7,11 @@
 
     <title>{% block title %}{% endblock %}RE-volv</title>
     <meta charset="utf-8">
+    <meta property="og:title" content="{{ project.title }} | RE-volv" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:title" content="{{ project.title }} | RE-volv" />
     <meta property="og:image" content="{% if project.cover_photo %}{{ project.cover_photo.url |fullmediaurl }}{% else %}{{ settings.revolv_cms.ShareThisSettings.image|fullmediaurl }}{% endif %}" />
-    <meta property="og:description" content="{% if project.description %} {{ project.description | striptags }}
+    <meta property="og:description" content="{% if project.description %} {{ project.description | striptags|safe }}
                                             {% else %} {{ settings.revolv_cms.ShareThisSettings.description }}{% endif %}" />
     <link rel="icon" type="image/png" href="{% static 'images/revolv-logo.png' %}" />
     {% block meta %}
@@ -176,6 +177,7 @@
       handler.open({
         description: 'Donate $' + parseFloat((amount / 100).toFixed(2)).toLocaleString()
         , amount: amount
+        , closed : function(){$('#popup').modal('hide');}
         , token: function (token) {
           var id = token.id;
           var email = token.email;
@@ -197,6 +199,17 @@
 });
 </script>
 
+<script>
+ function clearInput() {
+    $('input[name=check]').prop('checked', false);
+    $('input[name=amount_cents]').val('');
+ }
+</script>
+<script>
+  $('#popup').on('hidden.bs.modal', function (e) {
+    $(".monthly-plan-msg").hide();
+ });
+</script>
 <!-- Commit Change -->
 <script>
 (function() {

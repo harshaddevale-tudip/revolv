@@ -143,7 +143,7 @@ a.How_it_Works:hover {
                         <li class="dropdown this-works"> <a href="{% url 'signin' %}#login" class="dropdown">SIGN IN</a>
                         </li>
                     {% endif %}
-                    <li class="dropdown this-doesnt"> <a href="#" class="dropdown" data-toggle="modal" data-target="#popup">DONATE</a>
+                    <li class="dropdown this-doesnt"> <a href="#" onclick="return clearInput();" class="dropdown" data-toggle="modal" data-target="#popup">DONATE</a>
                     </li>
                 </ul>
             </div>
@@ -168,7 +168,7 @@ a.How_it_Works:hover {
                     <a href="{% url 'signin' %}#login" class="component-link btn-blue pull-left btn-donate btn-yellow" data-component="login" >SIGN IN</a>
                 {% endif %}
               </div>
-              <a href="#" class="component-link btn-blue btn-donate btn-yellow" data-toggle="modal" data-target="#popup" >DONATE</a>
+              <a href="#" onclick="return clearInput();" class="component-link btn-blue btn-donate btn-yellow" data-toggle="modal" data-target="#popup" >DONATE</a>
               <!--<a #data-target="popup" data-toggle="modal" class=" btn-blue btn-donate pull-left after-scroll">DONATE NOW</a>-->
             </div>
 
@@ -662,54 +662,5 @@ a.How_it_Works:hover {
 <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key={{GOOGLEMAPS_API_KEY}}">
 </script>
 
-<script>
-  $(function ($) {
-  var handler = StripeCheckout.configure({
-    key: '{{ stripe_publishable_key }}'
-    , image: '{% static "images/revolv-logo.png" %}'
-    , locale: 'auto'
-    , name: 'RE-volv'
-    , email: '{{request.user.email}}'
-  });
-  $(window).on('popstate', function () {
-    handler.close();
-  });
-  $('.stripe-button-el').on('click', function (e) {
-    e.preventDefault();
-    var $form = $(this).closest('form');
-    var serialized = $form.serializeArray();
-    var endpoint = $form.attr('action');
-    var amount, metadata;
-    $.each(serialized, function () {
-      if (this.name === 'amount_cents') {
-        amount = this.value*100;
-      }
-
-    });
-    if (typeof amount !== 'undefined') {
-      handler.open({
-        description: 'Donate $' + parseFloat((amount / 100).toFixed(2)).toLocaleString()
-        , amount: amount
-        <!--, metadata: metadata-->
-        , token: function (token) {
-          var id = token.id;
-          var email = token.email;
-          var $id = $('<input>')
-            .attr('type', 'hidden')
-            .attr('name', 'stripeToken')
-            .val(id);
-          var $email = $('<input>')
-            .attr('type', 'hidden')
-            .attr('name', 'stripeEmail')
-            .val(email);
-          $id.appendTo($form);
-          $email.appendTo($form);
-          $form.trigger('submit');
-        }
-      });
-    }
-  });
-});
-</script>
     <script src="/static/js/base/jquery.maskedinput.min.js"></script>
 {%endblock%}
