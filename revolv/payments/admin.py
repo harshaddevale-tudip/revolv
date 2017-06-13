@@ -6,10 +6,18 @@ from .models import (
     PaymentType, RepaymentFragment, UserReinvestment, Tip
 )
 
+admin.site.register(AdminReinvestment)
+admin.site.register(AdminRepayment)
+admin.site.register(Payment)
+admin.site.register(ProjectMontlyRepaymentConfig)
+admin.site.register(PaymentType)
+admin.site.register(RepaymentFragment)
+admin.site.register(UserReinvestment)
+admin.site.register(Tip)
+
 def export_csv(modeladmin, request, queryset):
     import csv
     from django.utils.encoding import smart_str
-    payments=Payment.objects.all()
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename=RE-volv_report.csv'
     writer = csv.writer(response, csv.excel)
@@ -74,15 +82,17 @@ def export_csv(modeladmin, request, queryset):
 export_csv.short_description = u"Export CSV"
 
 
-class PaymentAdmin(admin.ModelAdmin):
-    search_fields = ('user__user__username', 'user__user__first_name', 'user__user__last_name', 'user__user__email', 'amount'),
-    actions = [export_csv,]
+class Paymentadmin(admin.ModelAdmin):
 
-admin.site.register(AdminReinvestment)
-admin.site.register(AdminRepayment)
-admin.site.register(Payment, PaymentAdmin)
-admin.site.register(ProjectMontlyRepaymentConfig)
-admin.site.register(PaymentType)
-admin.site.register(RepaymentFragment)
-admin.site.register(UserReinvestment)
-admin.site.register(Tip)
+    search_fields = ('user__user__username','user__user__first_name','user__user__last_name','user__user__email','amount')
+
+    actions = [export_csv, ]
+
+admin.site.unregister(Payment)
+admin.site.register(Payment, Paymentadmin)
+
+
+
+
+
+
