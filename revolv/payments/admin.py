@@ -39,6 +39,11 @@ def export_csv(modeladmin, request, queryset):
         else:
             user_reinvestment=0
 
+        if payment.admin_reinvestment or payment.user_reinvestment:
+            donation_amount=0
+        else:
+            donation_amount = payment.amount
+
         if payment.tip:
             tip=round(payment.tip.amount,2)
         else:
@@ -59,7 +64,7 @@ def export_csv(modeladmin, request, queryset):
             smart_str(payment.user.user.email),
             smart_str(payment.created_at),
             smart_str(payment.project.title),
-            smart_str(payment.amount),
+            smart_str(donation_amount),
             smart_str(user_reinvestment),
             smart_str(admin_reinvestment),
             smart_str(tip),
