@@ -233,7 +233,7 @@ def stripe_operation_donation(request):
         return HttpResponse(json.dumps({'status': 'donation_success'}), content_type="application/json")
 
     else:
-        amount = float(amount_cents) * 100
+        amount = round(float(amount_cents) * 100)
         try:
             customer=stripe.Customer.create(
                 email=email,
