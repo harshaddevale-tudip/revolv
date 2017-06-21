@@ -38,6 +38,7 @@
     <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
     <script src="{% static 'js/jquery.knob.js' %}"></script>
     <script src="{% static 'js/parallax.min.js' %}"></script>
+    <script src="{% static 'js/base.js' %}"></script>
     <script src="{% static 'js/hammer.min.js' %}"></script>
     <script src="{% static 'js/jquery.hammer.js' %}"></script>
     <script src="{% static 'js/jquery.jqtransform.js' %}"></script>
@@ -52,6 +53,7 @@
 </head>
 
 <body {% block body_class %}{% endblock%} class="main-body" id="project">
+<div id="donation-spinner"><img src="/static/images/gif/revolv-loader.gif" alt="reinvestment is loading" ></div>
     {% block nav %}
     {% include "base/partials/nav.html" %}
     {% endblock %}
@@ -71,16 +73,35 @@
             toastr.options.positionClass = "toast-bottom-right";
         </script>
         {% for message in messages %}
-        <script>
-            toastr.{{ message.tags }}('{{ message }}')
-        </script>
+            <script>
+                toastr.{{ message.tags }}('{{ message }}')
+            </script>
         {% endfor %}
     {% endif %}
 
     {% render_block "js" %}
     {% block javascripts %}
     {% endblock %}
+<div class="modal fade" id="operationModal" role="dialog">
+    <div class="modal-dialog">
 
+      <!-- Modal content-->
+
+      <div class="modal-content modal-reinvest" style="width: 80%;margin-top: 30%;margin-left: 8%;">
+        <div class="modal-header">
+          <button type="button" class="close" onclick="return refreshpage();" data-dismiss="modal" >&times;</button>
+            <h4 class="modal-title" style="font-weight: bold;"></h4>
+        </div>
+        <div class="modal-body">
+            <p class="donation-text"></p>
+        </div>
+        <div class="modal-footer align-center">
+            <a href="" class="btn btn-primary donate-ok-btn">Ok</a>
+        </div>
+      </div>
+
+    </div>
+</div>
 <div class="modal fade" id="popup" role="dialog">
     <div class="modal-dialog" style="padding:14vmin 8% 0">
 
@@ -130,7 +151,7 @@
                         <span>$</span>
                         <span><b>100</b></span>
                     </div>
-                    <div class="col-xs-12 input-custom-amount"> <span>$</span><input type="number" step="0.01" min="1" placeholder="Custom" name="amount_cents"> </div>
+                    <div class="col-xs-12 input-custom-amount"> <span>$</span><input type="number" step="0.01" min="1" placeholder="Custom" name="donation_amount_cents"> </div>
                 </div>
                  <div class="col-xs-4">
                     <div class="col-xs-12 donation-value-suggestion stripe-button-el">
@@ -150,7 +171,7 @@
     </div>
   </div>
 <script>
-  $(function ($) {
+$(function ($) {
   var handler = StripeCheckout.configure({
     key: '{{ stripe_publishable_key }}'
     , image: '{% static "images/revolv-logo.png" %}'
@@ -167,17 +188,29 @@
     var $form = $(this).closest('form');
     var serialized = $form.serializeArray();
     var endpoint = $form.attr('action');
-    var amount, metadata;
+    var amount, metadata, donationtype;
+    var check=document.getElementById('checkbox-recurring').checked;
+    if (check) {
+        donationtype = 'Subscribe';
+    } else {
+       donationtype = 'Donate';
+    }
+
     $.each(serialized, function () {
-      if (this.name === 'amount_cents') {
+      if (this.name === 'donation_amount_cents') {
         amount = this.value*100;
+      }
+      if (this.name === 'metadata') {
+        metadata = this.value;
       }
     });
     if (typeof amount !== 'undefined') {
       handler.open({
-        description: 'Donate $' + parseFloat((amount / 100).toFixed(2)).toLocaleString()
+        description: 'Donate $' + parseFloat((amount/100).toFixed(2)).toLocaleString()
         , amount: amount
+        , panelLabel: donationtype
         , closed : function(){$('#popup').modal('hide');}
+        , metadata: metadata
         , token: function (token) {
           var id = token.id;
           var email = token.email;
@@ -191,6 +224,37 @@
             .val(email);
           $id.appendTo($form);
           $email.appendTo($form);
+          $form.submit(function(e) {
+          $('#donation-spinner').css('display', 'flex');
+          $.ajax({
+                 type: "POST",
+                 url: '{% url 'project:stripe_operation_donation' %}',
+                 data: $form.serializeArray(), // serializes the form's elements.
+                 success: function(data)
+                 {
+                    if(data.status == 'donation_success') {
+                        $('.modal-title').text('Thank you for donating!');
+                        $('.donation-text').text("Thank you for donating to RE-volv's mission to empower communities with solar energy!");
+                    }
+                    if(data.status == 'subscription_success') {
+                        $('.modal-title').text('Thank you for donating!');
+                        $('.donation-text').text("Thank you for donating monthly to RE-volv's mission to empower communities with solar energy!");
+                    }
+                    $('#donation-spinner').css('display', 'none');
+                    $('#operationModal').modal('show');
+
+                 },
+                 error: function(data)
+                 {
+                    $('.modal-title').text('Error!');
+                    $('.donation-text').text("Payment error. Something went wrong.");
+                     $('#donation-spinner').css('display', 'none');
+                    $('#operationModal').modal('show');
+                 }
+               });
+
+          e.preventDefault(); // avoid to execute the actual submit of the form.
+      });
           $form.trigger('submit');
         }
       });
@@ -198,39 +262,10 @@
   });
 });
 </script>
-
 <script>
- function clearInput() {
-    $('input[name=check]').prop('checked', false);
-    $('input[name=amount_cents]').val('');
- }
-</script>
-<script>
-  $('#popup').on('hidden.bs.modal', function (e) {
-    $(".monthly-plan-msg").hide();
+    $('#operationModal').on('hidden.bs.modal', function (e) {
+        location.reload();
  });
-</script>
-<!-- Commit Change -->
-<script>
-(function() {
-if(document.getElementById('commitchange-script')) return;
-var npo = 4642;
-var script = document.createElement('script');
-var first = document.getElementsByTagName('script')[0];
-script.setAttribute('data-npo-id', npo);
-script.id = 'commitchange-script';
-script.src = 'https://commitchange.com/js/donate-button.v2.js';
-first.parentNode.insertBefore(script, first);
-})();
-</script>
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-26030992-4', 'auto');
-  ga('send', 'pageview');
 </script>
 </body>
 
