@@ -1,24 +1,25 @@
 {% load static humanize %}
+
 <script src="{% static 'js/base/homeAnimations.js' %}?version={{ version_number }}"></script>
 <div class="active-projects-module animated embedded">
   <div class="container">
+    {% if active_projects %}
     <div class="row">
-      {{is_reinvest}}
       {% for active_project in active_projects %}
       <div class="col-md-4">
         <div class="module-box">
           <div class="img-main">
-           {% if is_reinvestment %}
+            {% if is_reinvestment %}
              <a href="{% url "project:view" title=active_project.project_url %}?reinvestment={{is_reinvestment}}" class="img-link">
             {% else %}
               <a href="{% url "project:view" title=active_project.project_url %}" class="img-link">
-            {% endif %}
+            <!--{% endif %}-->
               <span class="txt-table">
                 <span class="txt">
                     {{ active_project.title }}
                 </span>
               </span>
-              <div class="img" style="background-image:url('{{MEDIA_URL}}{{active_project.cover_photo.url }}')"></div>
+             <div class="img" style="background-image:url('{{MEDIA_URL}}{{active_project.cover_photo.url }}' )"></div>
             </a>
             <div class="funded-round">
               <div class="status-circular">
@@ -59,7 +60,10 @@
         <!-- end .module-box -->
       </div>
       {% endfor %}
+       {% else %}
+       <div class="no-active-projects"><span class="no-active-projects-span">We don't have any active solar crowdfunding campaigns at the moment, but a donation to RE-volv will help us continue to empower communities with solar energy. Thank you for all your support!
+</span></div>
     </div>
+      {% endif %}
   </div>
  </div>
-

@@ -8,34 +8,35 @@
 
     <link rel="stylesheet" type="text/css" href="{% static 'dist/css/pages/projects-list/index.css' %}">
 
-    <script type="text/javascript" src="{% static "js/vendor/d3.min.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/base/util/util.js" %}?version={{ version_number }}"></script>
-    <script type="text/javascript" src="{% static "js/base/partialcircle.js" %}?version={{ version_number }}"></script>
-    <script type="text/javascript" src="{% static "js/base/projects-list.js" %}?version={{ version_number }}"></script>
+    <script type="text/javascript" src="{% static 'js/vendor/d3.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/base/util/util.js' %}?version={{ version_number }}"></script>
+    <script type="text/javascript" src="{% static 'js/base/partialcircle.js' %}?version={{ version_number }}"></script>
+    <script type="text/javascript" src="{% static 'js/base/projects-list.js' %}?version={{ version_number }}"></script>
 
 {% endblock %}
 
+
 {% block body %}
     {% spaceless %}
-        <div class="curnt-projct-lst-head">
-            {% if is_reinvestment %}
+        {% if is_reinvestment %}
+            {% if active_projects%}
                 {% if error_msg %}
                     <div class="divider-title "><h5>{{ error_msg }}</h5></div>
                 {% else %}
                     <div class="divider-title ">You have ${{ reinvestment_amount|floatformat:2 }} to reinvest. Pick a project below to back!</div>
                 {% endif %}
-            {% else %}
-                {% if active_projects|length == 1%}
-                    <div class="divider-title ">{{ settings.revolv_cms.ActiveProjectsPageSettings.single_project_heading}}</div>
-                {% elif active_projects|length > 1 %}
-                    <div class="divider-title">{{ settings.revolv_cms.ActiveProjectsPageSettings.multiple_projects_heading}}</div>
-                {% endif %}
             {% endif %}
-        </div>
+        {% else %}
+            {% if active_projects|length == 1%}
+                <div class="divider-title ">{{ settings.revolv_cms.ActiveProjectsPageSettings.single_project_heading}}</div>
+            {% elif active_projects|length > 1 %}
+                <div class="divider-title">{{ settings.revolv_cms.ActiveProjectsPageSettings.multiple_projects_heading}}</div>
+            {% endif %}
+        {% endif %}
             {% if not error_msg %}
+
             {% include "base/partials/list_projects.html" with is_reinvestment=is_reinvestment amount=reinvestment_amount %}
         {% endif %}
 
     {% endspaceless %}
 {% endblock %}
-

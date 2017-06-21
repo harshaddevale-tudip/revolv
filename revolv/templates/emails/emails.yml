@@ -2,7 +2,7 @@ post_donation:
     subject: "Thank you for donating to RE-volv!"
     body:
         "
-        Hi {{user.first_name}} {{user.last_name}}!
+        Hi {{user.first_name}} {{user.last_name}},
 
         Thank you for your generous donation to RE-volv!
 
@@ -40,7 +40,7 @@ post_donation:
         "
     html:
         "
-        <p>Hi {{user.first_name}} {{user.last_name}}!</p>
+        <p>Hi {{user.first_name}} {{user.last_name}},</p>
 
         <p>Thank you for your generous donation to RE-volv!</p>
 
@@ -79,7 +79,7 @@ Post_operations_donation:
     subject: "Thank you for donating to RE-volv!"
     body:
         "
-        Dear {{user.first_name}} {{user.last_name}}!,
+        Dear {{user.first_name}} {{user.last_name}},
         Thank you for your generous donation to RE-volv!
 
         Your commitment to solar energy is appreciated by the communities we
@@ -96,7 +96,7 @@ Post_operations_donation:
         "
     html:
         '
-        <p>Dear {{user.first_name}} {{user.last_name}}!,</p>
+        <p>Dear {{user.first_name}} {{user.last_name}},</p>
         <p>Thank you for your generous donation to RE-volv!</p>
 
         <p>Your commitment to solar energy is appreciated by the communities we
@@ -123,7 +123,7 @@ monthly_donation_email:
     subject: "Your monthly report from RE-volv!"
     body:
         "
-        Hi {{user.first_name}}!
+        Hi {{user.first_name}},
 
         Thank you for your invaluable donations to RE-volv! Each contribution is a major step in bringing clean energy to everyone.
 
@@ -138,7 +138,7 @@ monthly_donation_email:
         "
     html:
         "
-        <p>Hi {{user.first_name}}!</p>
+        <p>Hi {{user.first_name}},</p>
 
         <p>Thank you for your invaluable donations to RE-volv! Each contribution is a major step in bringing clean energy to everyone.</p>
 

@@ -14709,3 +14709,9 @@ form#change_password_form label {
 .donate-ok-btn {
     padding: 6px 21px;
 }
+.no-active-projects {
+    padding:30vmin 5vmin;
+}
+.no-active-projects-span {
+    font-size: 3vmin;
+}
