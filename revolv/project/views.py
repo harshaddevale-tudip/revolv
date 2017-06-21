@@ -189,42 +189,52 @@ def stripe_payment(request, pk):
 def stripe_operation_donation(request):
     try:
         token = request.POST['stripeToken']
-        amount_cents = request.POST['amount_cents']
+        amount_cents = request.POST['donation_amount_cents']
         email = request.POST['stripeEmail']
         check = request.POST.get('check')
     except KeyError:
-        logger.exception('stripe_payment called without required POST data')
+        logger.exception('stripe_operation_donation called without required POST data')
         return HttpResponseBadRequest('bad POST data')
 
-    # if request.user.is_authenticated():
     if check==None:
+        amount = float(amount_cents) * 100
         try:
-            amount = float(amount_cents)*100
             stripe.Charge.create(source=token, description="Donation for RE-volv operations donation", currency="usd", amount=int(amount))
         except stripe.error.CardError as e:
             body = e.json_body
-            # error_msg = body['error']['message']
-            messages.error(request, 'Payment fail')
-            return redirect('home')
+            error_msg = body['error']['message']
+            return HttpResponseBadRequest('bad POST data')
+
         except stripe.error.APIConnectionError as e:
-            body = e.json_body
-            # error_msg = body['error']['message']
-            messages.error(request, 'Internet connection error')
-            return redirect('home')
+            return HttpResponseBadRequest('bad POST data')
+
         except Exception:
             error_msg = "Payment error. Re-volv has been notified."
             logger.exception(error_msg)
-
-            messages.error(request, 'Donation fail')
-            return redirect('home')
+            return HttpResponseBadRequest('bad POST data')
 
 
-        messages.success(request, 'Donation Successful')
-        return redirect('home')
+        context = {}
+        if not request.user.is_authenticated():
+            context['user'] = 'RE-volv Supporter'
+        else:
+            if not (request.user.first_name and request.user.last_name):
+                context['user'] = 'RE-volv Supporter'
+            else:
+                context['user'] = request.user.first_name.title() + ' ' + request.user.last_name.title()
+
+        context['amount'] = amount / 100.0
+        send_revolv_email(
+            'Post_operations_donation',
+            context, [email]
+        )
+
+        #messages.info(request, "Thank you for donating to RE-volv's mission to empower communities with solar energy!")
+        return HttpResponse(json.dumps({'status': 'donation_success'}), content_type="application/json")
 
     else:
+        amount = float(amount_cents) * 100
         try:
-            amount = float(amount_cents) * 100
             customer=stripe.Customer.create(
                 email=email,
                 description="Donation for RE-volv Operations",
@@ -241,26 +251,41 @@ def stripe_operation_donation(request):
                 customer=customer,
                 plan=plan
             )
-            messages.success(request, 'Donation Successful')
-            return redirect('home')
 
         except stripe.error.CardError as e:
             body = e.json_body
             #error_msg = body['error']['message']
-            messages.error(request, 'Payment fail')
+            messages.error(request, 'Payment error')
             return redirect('home')
         except stripe.error.APIConnectionError as e:
             body = e.json_body
             # error_msg = body['error']['message']
-            messages.error(request, 'Internet connection error')
+            messages.error(request, 'Internet connection error. Please check your internet connection.')
             return redirect('home')
         except Exception:
-            error_msg = "Payment error. Re-volv has been notified."
+            error_msg = "Payment error. RE-volv has been notified."
             logger.exception(error_msg)
 
-            messages.error(request, 'Donation fail')
+            messages.error(request, 'Payment error. RE-volv has been notified.')
             return redirect('home')
 
+        context = {}
+        if not request.user.is_authenticated():
+            context['user'] = 'RE-volv Supporter'
+        else:
+            if not (request.user.first_name and request.user.last_name):
+                context['user'] = 'RE-volv Supporter'
+            else:
+                context['user'] = request.user.first_name.title() + ' ' + request.user.last_name.title()
+
+        context['amount'] = amount / 100.0
+        send_revolv_email(
+            'Post_operations_donation',
+            context, [email]
+        )
+
+        #messages.info(request, "Thank you for donating monthly to RE-volv's mission to empower communities with solar energy!")
+        return HttpResponse(json.dumps({'status': 'subscription_success'}), content_type="application/json")
     # else:
     #     if check == None:
     #         try:
