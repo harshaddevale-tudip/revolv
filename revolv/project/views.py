@@ -197,7 +197,7 @@ def stripe_operation_donation(request):
         return HttpResponseBadRequest('bad POST data')
 
     if check==None:
-        amount = float(amount_cents) * 100
+        amount = round(float(amount_cents) * 100)
         try:
             stripe.Charge.create(source=token, description="Donation for RE-volv operations donation", currency="usd", amount=int(amount))
         except stripe.error.CardError as e:
