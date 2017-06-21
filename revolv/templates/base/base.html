@@ -207,7 +207,7 @@ $(function ($) {
     if (typeof amount !== 'undefined') {
       handler.open({
         description: 'Donate $' + parseFloat((amount/100).toFixed(2)).toLocaleString()
-        , amount: amount
+        , amount: parseFloat((amount).toFixed(2))
         , panelLabel: donationtype
         , closed : function(){$('#popup').modal('hide');}
         , metadata: metadata
