@@ -1,4 +1,72 @@
 $(document).ready(function(){
+    $('#dropdown-select-text').on('click', function() {
+    $('.dropdown-menu').toggle();
+    });
+    $('.option').on('click', function() {
+        $(this).closest('.dropdown-menu').hide();
+        $(this).parents('.dropdown').find('.dropdown-title span:first-child').text($(this).html());
+        $(this).parents('.dropdown').find('.dropdown-select').val($(this).html());
+        selectedValue=$(this).data("selected-state");
+        changeFunc(selectedValue);
+    });
+
+     function changeFunc(selectedValue) {
+
+
+       var states1 = ["AZ","CO","CT","DC","DE","FL", "GA","IL","IN","LA","MD","ME", "MI","MN","MO","NC","NH","NM","NV","OH","PA","RI","TX", "UT","VA","VT","WI"];
+       var states2 = ["AK","AL", "AR","CA", "HI","IA", "ID", "KS","KY", "MA","MS", "MT","ND", "NE", "NJ","NY",
+                      "OK", "OR", "SC","TN", "WA", "WV","WY"];
+
+        for (i=0;i<50;i++)
+        {
+            if (selectedValue == states1[i])
+            {
+                $("#img").attr("src",'/static/images/EnergySage_updated.jpg');
+                $("#invstr-logo-link").attr("href",'http://www.energysage.com/p/re-volv/');
+                $("#invstr-logo-link").attr("target",'_blank');
+                $(".investor-remaining-img").hide();
+                $(".selected-logo").css('border','0');
+                $("#img").closest(".invstr-logo-images").removeClass("col-sm-4");
+                $("#img").closest(".invstr-logo-images").addClass("col-sm-6");
+                $(".investors_logo_text").text("The easiest way to go solar! Installers compete for your business to give you more options and the best deal. Free instant solar estimate.");
+            }
+            else if (selectedValue == states2[i])
+            {
+                $("#img").attr("src","/static/images/PickMySolar_updated.png");
+                $("#invstr-logo-link").attr("href",'http://info.pickmysolar.com/re-volv-partner/');
+                $("#invstr-logo-link").attr("target",'_blank');
+                $(".investor-remaining-img").hide();
+                $(".selected-logo").css('border','0');
+                $("#img").closest(".invstr-logo-images").removeClass("col-sm-4");
+                $("#img").closest(".invstr-logo-images").addClass("col-sm-6");
+                $(".investors_logo_text").text("Go solar hassle-free with Pick My Solar. Easily compare solar companies to get the best deal on your solar project. When solar companies compete, you win!");
+            }
+
+        }
+   }
+    $(document).click(function (event) {
+        var clickover = $(event.target);
+        var _opened = $(".navbar-collapse").hasClass("collapse in");
+        if (_opened === true ) {
+            $("button.navbar-toggle").click();
+        }
+    });
+    $(document).mouseup(function (e) {
+         var popup = $(".dropdown-menu");
+         if (!$('#dropdown-select-text').is(e.target) && !$('#dropdown-title').is(e.target) && !$('#dropdown-title span').is(e.target) &&
+             !popup.is(e.target) && popup.has(e.target).length == 0) {
+             popup.hide();
+             $('.dropdown-triangle').html('▾');
+         }
+     });
+    $('#dropdown-select-text, .option').on('click', function() {
+    if ($('.dropdown-triangle').html() == '▾') {
+        $('.dropdown-triangle').html('▴');
+    }
+    else if ($('.dropdown-triangle').html() == '▴'){
+        $('.dropdown-triangle').html('▾');
+    }
+    });
 
     $(document).on('click', '#stOverlay', function(e) {
         window.location.href='/my-portfolio/';
