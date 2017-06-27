@@ -2,7 +2,7 @@ $(document).ready(function() {
     table = $('#example').DataTable( {
         "processing": true,
         "serverSide": true,
-         "dom": 'lfrtBip',
+         "dom": 'lfrtip',
         "scrollX": true,
         buttons: [
              'print',
@@ -107,5 +107,11 @@ $(document).ready(function() {
                 alert('Invalid date');
             }
         });
+        $('#export-csv-btn').on('click',function(e){
+            location.replace('/export_csv');
+        })
+        $('#export-excel-btn').on('click',function(e){
+            location.replace('/export_excel');
+        })
 
 } );

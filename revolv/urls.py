@@ -53,7 +53,8 @@ urlpatterns = patterns(
     url(r'^password_reset/confirm/(?P<uidb64>[-\w]+)/(?P<token>[-\w]+)/$$', base_views.password_reset_confirm, name="password_reset_confirm"),
     url(r'^password_reset/complete/$', base_views.password_reset_complete, name="password_reset_complete"),
     url(r'^password_change/$', base_views.password_change, name="password_change"),
-
+    url(r'^export_csv/$', 'revolv.base.views.export_csv', name='export_csv'),
+    url(r'^export_excel/$', 'revolv.base.views.export_xlsx', name='export_excel'),
     # wagtail urls, see http://wagtail.readthedocs.org/en/v1.0b2/howto/settings.html
     # note: we're not including the search module for public users, so we don't define it here
     url(r'^cms/', include(wagtailadmin_urls)),
