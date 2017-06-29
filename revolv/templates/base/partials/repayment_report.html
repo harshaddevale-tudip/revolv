@@ -1,0 +1,74 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% load mathfilters %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'typeahead/typeahead.css' %}" />
+<link rel="stylesheet" href="{% static 'chosen/chosen.css' %}" />
+<link rel="stylesheet" href="{% static 'dist/css/pages/project-edit/index.css' %}" />
+<link href='https://fonts.googleapis.com/css?family=Lato:300,500,800' rel='stylesheet' type='text/css'>
+<link href='https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css' rel='stylesheet' type='text/css'>
+<link href='https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css' rel='stylesheet' type='text/css'>
+<style type="text/css">
+    #map-canvas { width: 100%; height: 300px; margin-bottom: 20px; padding: 0;}
+    #map-canvas img {max-width: none;}
+</style>
+
+ <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="/static/js/moment.min.js"></script>
+<script src="/static/js/datetime-moment.js"></script>
+<script src="/static/js/dataTables.buttons.min.js"></script>
+<script src="/static/js/buttons.flash.min.js"></script>
+<script src="/static/js/jszip.min.js"></script>
+<script src="/static/js/pdfmake.min.js"></script>
+<script src="/static/js/vfs_fonts.js"></script>
+<script src="/static/js/buttons.html5.min.js"></script>
+<script src="/static/js/buttons.print.min.js"></script>
+<script src="/static/js/repayment_report.js"></script>
+
+
+{% endblock %}
+
+{% block body %}
+
+<div class="container after-header" >
+  <table id="example" class="display nowrap" cellspacing="0" width="100%" >
+   <div id="date_range" class="form-group donation-report-padding">
+       <div>
+            <div class="range-label">From:</div>
+            <input type="text" class="range-date" id="datepicker-1"/>
+        </div>
+        <div>
+            <div class="range-label">To:</div>
+            <input type="text" class="range-date" id="datepicker-2"/>
+        </div>
+        <div>
+            <input type="button" class="btnSearch" value="Search" id="search_button"/>
+        </div>
+    </div>
+  <thead >
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Username</th>
+         <th>Email</th>
+         <th>Date</th>
+         <th>Project Name</th>
+         <th>Donated Amount</th>
+         <th>Repayment Amount</th>
+
+      </tr>
+     </thead>
+  </table>
+    <div style="padding-bottom:2vmin;">
+        <input type="button" class="export-btn" style="margin-right:1vmin;" id="export-csv-btn" value="CSV" />
+        <input type="button" class="export-btn" id="export-excel-btn" value="Excel" />
+    </div>
+</div>
+
+{% endblock %}
+

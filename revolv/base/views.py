@@ -25,7 +25,7 @@ from django.template.context import RequestContext
 from revolv.base.forms import SignupForm, AuthenticationForm
 from revolv.base.users import UserDataMixin
 from revolv.base.utils import ProjectGroup
-from revolv.payments.models import Payment, Tip, PaymentType
+from revolv.payments.models import Payment, Tip, PaymentType, RepaymentFragment
 from revolv.project.models import Category, Project, ProjectMatchingDonors
 from revolv.project.utils import aggregate_stats
 from revolv.donor.views import humanize_integers, total_donations
@@ -166,6 +166,26 @@ class DonationReportForProject(UserDataMixin, TemplateView):
     # pass in Project Categories and Maps API key
     def get_context_data(self, **kwargs):
         context = super(DonationReportForProject, self).get_context_data(**kwargs)
+        return context
+
+class RepaymentReport(UserDataMixin, TemplateView):
+    """
+    The project view. Displays project details and allows for editing.
+
+    Accessed through /project/{project_id}
+    """
+    model = Payment
+    template_name = 'base/partials/repayment_report.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_anonymous():
+            return HttpResponseRedirect(reverse("login"))
+        if not request.user.revolvuserprofile.is_administrator():
+            return HttpResponseRedirect(reverse("dashboard"))
+        return super(RepaymentReport, self).dispatch(request, *args, **kwargs)
+    # pass in Project Categories and Maps API key
+    def get_context_data(self, **kwargs):
+        context = super(RepaymentReport, self).get_context_data(**kwargs)
         return context
 
 class BaseStaffDashboardView(UserDataMixin, TemplateView):
@@ -909,6 +929,63 @@ def payment_data_table(request):
 
     return HttpResponse(json.dumps(json_response), content_type='application/json')
 
+
+def repayment_table(request):
+    draw=request.GET.get('draw')
+    datepicker1=request.GET.get('datepicker1')
+    datepicker2=request.GET.get('datepicker2')
+    length=request.GET.get('length')
+    order=request.GET.get('order[0][dir]')
+    start=request.GET.get('start')
+    search=request.GET.get('search[value]')
+    currentSortByCol = request.GET.get('order[0][column]')
+
+    fields=['user__user__first_name', 'user__user__last_name', 'user__user__username','user__user__email','created_at','amount','admin_repayment__amount','project__title']
+
+    order_by={'desc':'-','asc':''}
+
+    column_order=order_by[order]+fields[int(currentSortByCol)]
+
+    repayment_list = RepaymentFragment.objects.all().order_by((column_order))
+
+    if search.strip():
+        repayment_list = repayment_list.filter(Q(user__user__username__icontains=search)|
+                                              Q(user__user__first_name__icontains=search)|
+                                              Q(project__title__icontains=search)|
+                                              Q(amount__icontains=search)|
+                                              Q(user__user__last_name__icontains=search)|
+                                              Q(user__user__email__icontains=search))
+
+
+    if datepicker1 and datepicker2:
+        import datetime
+        import pytz
+
+        date1 = datetime.datetime.strptime(datepicker1, '%Y-%m-%d').date()
+        date2 = datetime.datetime.strptime(datepicker2, '%Y-%m-%d').date()
+
+        repayment_list = repayment_list.filter(created_at__range=[datetime.datetime(date1.year, date1.month, date1.day, 8, 15, 12, 0, pytz.UTC), datetime.datetime(date2.year, date2.month, date2.day+1, 8, 15, 12, 0, pytz.UTC)])
+
+    payments=[]
+
+    for payment in repayment_list[int(start):][:int(length)]:
+        payment_details={}
+        payment_details['firstname']=payment.user.user.first_name
+        payment_details['lastname']=payment.user.user.last_name
+        payment_details['username']=payment.user.user.username
+        payment_details['email']=payment.user.user.email
+        payment_details['date']=(payment.created_at).strftime("%Y/%m/%d %H:%M:%S")
+        payment_details['project']=payment.project.title
+        payment_details['donated_amount']=round(Payment.objects.filter(user=payment.user).filter(project=payment.project).aggregate(Sum('amount'))['amount__sum'] or 0,2)
+        payment_details['repayment_amount']=round(payment.amount,2)
+
+        payments.append(payment_details)
+
+    json_response={ "draw": draw, "recordsTotal": RepaymentFragment.objects.all().count(), "recordsFiltered": repayment_list.count(), "data": payments }
+
+    return HttpResponse(json.dumps(json_response), content_type='application/json')
+
+
 def export_csv(request):
     """
     Export financial report CSV from the admin side.
@@ -1065,6 +1142,103 @@ def export_xlsx(request):
             admin_reinvestment,
             tip,
             total,
+        ]
+        for col_num in xrange(len(row)):
+            c = ws.cell(row=row_num + 1, column=col_num + 1)
+            c.value = row[col_num]
+
+    wb.save(response)
+    return response
+
+def export_repayment_csv(request):
+    """
+    Export financial report CSV from the admin side.
+    :param request:
+    :return: Generate CSV report of selected records.
+    """
+    import csv
+    from django.utils.encoding import smart_str
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=Repayment_report.csv'
+    repayments = RepaymentFragment.objects.all().order_by('-created_at')
+    writer = csv.writer(response, csv.excel)
+    response.write(u'\ufeff'.encode('utf8')) # BOM (optional...Excel needs it to open UTF-8 file properly)
+    writer.writerow([
+        smart_str(u"FIRST NAME"),
+        smart_str(u"LAST NAME"),
+        smart_str(u"USERNAME"),
+        smart_str(u"EMAIL"),
+        smart_str(u"DATE"),
+        smart_str(u"NAME OF PROJECT"),
+        smart_str(u"DONATION AMOUNT"),
+        smart_str(u"REPAYMENT AMOUNT"),
+
+
+    ])
+
+    for payment in repayments:
+
+        writer.writerow([
+            smart_str(payment.user.user.first_name),
+            smart_str(payment.user.user.last_name),
+            smart_str(payment.user.user.username),
+            smart_str(payment.user.user.email),
+            smart_str(payment.created_at),
+            smart_str(payment.project.title),
+            smart_str(round(Payment.objects.filter(user=payment.user).filter(project=payment.project).aggregate(Sum('amount'))['amount__sum'] or 0,2)),
+            smart_str(round(payment.amount,2)),
+        ])
+    return response
+
+def export_repayment_xlsx(request):
+    """
+       Export financial report Excel from the admin side.
+       :param request:
+       :return: Generate Excel report of selected records.
+       """
+    import openpyxl
+    try:
+        from openpyxl.cell import get_column_letter
+    except ImportError:
+        from openpyxl.utils import get_column_letter
+
+    repayments = RepaymentFragment.objects.all().order_by('-created_at')
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=Repayment_report.xlsx'
+    wb = openpyxl.Workbook()
+    ws = wb.get_active_sheet()
+    ws.title = "RE-volv"
+
+    row_num = 0
+
+    columns = [
+        (u"FIRST NAME",30),
+        (u"LAST NAME",30),
+        (u"USERNAME",30),
+        (u"EMAIL",30),
+        (u"DATE",30),
+        (u"NAME OF PROJECT",30),
+        (u"DONATION AMOUNT",30),
+        (u"REPAYMENT AMOUNT",30),
+    ]
+
+    for col_num in xrange(len(columns)):
+        c = ws.cell(row=row_num + 1, column=col_num + 1)
+        c.value = columns[col_num][0]
+        ws.column_dimensions[get_column_letter(col_num + 1)].width = columns[col_num][1]
+
+    for payment in repayments:
+        row_num += 1
+        row = [
+            payment.user.user.first_name,
+            payment.user.user.last_name,
+            payment.user.user.username,
+            payment.user.user.email,
+            payment.created_at,
+            payment.project.title,
+            round(Payment.objects.filter(user=payment.user).filter(project=payment.project).aggregate(Sum('amount'))['amount__sum'] or 0, 2),
+            round(payment.amount, 2)
+
         ]
         for col_num in xrange(len(row)):
             c = ws.cell(row=row_num + 1, column=col_num + 1)

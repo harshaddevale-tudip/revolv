@@ -27,6 +27,7 @@ urlpatterns = patterns(
     url(r'^my-portfolio/donationreport/', base_views.DonationReportView.as_view(), name='donationreport'),
     url(r'^my-portfolio/matchingdonors/', base_views.MatchingDonorsView.as_view(), name='matchingdonors'),
     url(r'^my-portfolio/financialreport/', base_views.DonationReportForProject.as_view(), name='financialreport'),
+    url(r'^my-portfolio/RepaymentReport/', base_views.RepaymentReport.as_view(), name='RepaymentReport'),
     url(r'^my-portfolio/reinvest_list/', base_views.ReinvestmentRedirect.as_view(), name='reinvest_list'),
 
     url(r'^what-we-do/projects/', base_views.ProjectListView.as_view(), name='projects_list'),
@@ -46,6 +47,7 @@ urlpatterns = patterns(
     url(r'^add_matching_donor/$', 'revolv.base.views.add_maching_donors', name='add_matching_donor'),
     url(r'^social_connect_failed/$', 'revolv.base.views.social_exception', name='social-exception'),
     url(r'^payment_ajax_url/$', 'revolv.base.views.payment_data_table',name='payment_ajax_url'),
+    url(r'^repayment_table/$', 'revolv.base.views.repayment_table',name='repayment_table'),
     url(r'^ambassador_data_table/$', 'revolv.base.views.ambassador_data_table',name='ambassador_data_table'),
     url(r'^matching_donor_reinvestment/$', 'revolv.base.views.matching_donor_reinvestment'),
     url(r'^password_reset/$', base_views.password_reset_initial, name="password_reset"),
@@ -55,6 +57,8 @@ urlpatterns = patterns(
     url(r'^password_change/$', base_views.password_change, name="password_change"),
     url(r'^export_csv/$', 'revolv.base.views.export_csv', name='export_csv'),
     url(r'^export_excel/$', 'revolv.base.views.export_xlsx', name='export_excel'),
+    url(r'^export_repayment_csv/$', 'revolv.base.views.export_repayment_csv', name='export_repayment_csv'),
+    url(r'^export_repayment_xlsx/$', 'revolv.base.views.export_repayment_xlsx', name='export_repayment_xlsx'),
     # wagtail urls, see http://wagtail.readthedocs.org/en/v1.0b2/howto/settings.html
     # note: we're not including the search module for public users, so we don't define it here
     url(r'^cms/', include(wagtailadmin_urls)),
