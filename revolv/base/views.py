@@ -946,7 +946,7 @@ def repayment_table(request):
 
     column_order=order_by[order]+fields[int(currentSortByCol)]
 
-    repayment_list = RepaymentFragment.objects.all().order_by((column_order))
+    repayment_list = RepaymentFragment.objects.filter(amount__gt=0.00).order_by((column_order))
 
     if search.strip():
         repayment_list = repayment_list.filter(Q(user__user__username__icontains=search)|

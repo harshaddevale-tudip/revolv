@@ -27,7 +27,7 @@ urlpatterns = patterns(
     url(r'^my-portfolio/donationreport/', base_views.DonationReportView.as_view(), name='donationreport'),
     url(r'^my-portfolio/matchingdonors/', base_views.MatchingDonorsView.as_view(), name='matchingdonors'),
     url(r'^my-portfolio/financialreport/', base_views.DonationReportForProject.as_view(), name='financialreport'),
-    url(r'^my-portfolio/RepaymentReport/', base_views.RepaymentReport.as_view(), name='RepaymentReport'),
+    url(r'^my-portfolio/repaymentreport/', base_views.RepaymentReport.as_view(), name='repaymentreport'),
     url(r'^my-portfolio/reinvest_list/', base_views.ReinvestmentRedirect.as_view(), name='reinvest_list'),
 
     url(r'^what-we-do/projects/', base_views.ProjectListView.as_view(), name='projects_list'),
