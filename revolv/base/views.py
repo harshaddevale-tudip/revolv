@@ -808,7 +808,7 @@ def ambassador_data_table(request):
         date1 = datetime.datetime.strptime(datepicker1, '%Y-%m-%d').date()
         date2 = datetime.datetime.strptime(datepicker2, '%Y-%m-%d').date()
 
-        payment_list = payment_list.filter(created_at__range=[datetime.datetime(date1.year, date1.month, date1.day+1, 8, 15, 12, 0, pytz.UTC), datetime.datetime(date2.year, date2.month, date2.day, 8, 15, 12, 0, pytz.UTC)])
+        payment_list = payment_list.filter(created_at__range=[datetime.datetime(date1.year, date1.month, date1.day, 8, 15, 12, 0, pytz.UTC), datetime.datetime(date2.year, date2.month, date2.day, 8, 15, 12, 0, pytz.UTC)])
 
     payments=[]
 
@@ -1160,7 +1160,7 @@ def export_repayment_csv(request):
     from django.utils.encoding import smart_str
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename=Repayment_report.csv'
-    repayments = RepaymentFragment.objects.all().order_by('-created_at')
+    repayments = RepaymentFragment.objects.filter(amount__gt=0.00).order_by('-created_at')
     writer = csv.writer(response, csv.excel)
     response.write(u'\ufeff'.encode('utf8')) # BOM (optional...Excel needs it to open UTF-8 file properly)
     writer.writerow([
@@ -1202,7 +1202,7 @@ def export_repayment_xlsx(request):
     except ImportError:
         from openpyxl.utils import get_column_letter
 
-    repayments = RepaymentFragment.objects.all().order_by('-created_at')
+    repayments = RepaymentFragment.objects.filter(amount__gt=0.00).order_by('-created_at')
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     response['Content-Disposition'] = 'attachment; filename=Repayment_report.xlsx'
     wb = openpyxl.Workbook()
