@@ -964,7 +964,7 @@ def repayment_table(request):
         date1 = datetime.datetime.strptime(datepicker1, '%Y-%m-%d').date()
         date2 = datetime.datetime.strptime(datepicker2, '%Y-%m-%d').date()
 
-        repayment_list = repayment_list.filter(created_at__range=[datetime.datetime(date1.year, date1.month, date1.day, 8, 15, 12, 0, pytz.UTC), datetime.datetime(date2.year, date2.month, date2.day+1, 8, 15, 12, 0, pytz.UTC)])
+        repayment_list = repayment_list.filter(created_at__range=[datetime.datetime(date1.year, date1.month, date1.day, 8, 15, 12, 0, pytz.UTC), datetime.datetime(date2.year, date2.month, date2.day, 8, 15, 12, 0, pytz.UTC)])
 
     payments=[]
 
