@@ -188,7 +188,18 @@ class ProjectManager(models.Manager):
         """
         return self.get_completed(queryset).filter(making_lease_payments=True)
 
-    
+
+class StripeDetails(models.Model):
+    stripe_customer_id = models.CharField(max_length=32, blank=True, null=True)
+    subscription_id = models.CharField(max_length=32, blank=True, null=True)
+    plan = models.CharField(max_length=64, blank=True, null=True)
+    stripe_email = models.EmailField(default='')
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(RevolvUserProfile, related_name='stripe_donor')
+    amount = models.FloatField(default=0)
+
+
 class Project(models.Model):
     """
     Project model. Stores basic metadata, information about the project,
