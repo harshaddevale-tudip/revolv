@@ -130,6 +130,8 @@ def stripe_payment(request, pk):
         context['user'] = request.user
         context['project'] = project
         context['amount'] = tip_cents / 100.0
+        user = RevolvUserProfile.objects.get(user=request.user)
+        send_donation_info(user.get_full_name(), donation_cents / 100, user.user.email, project.title, address='')
         # send_revolv_email(
         #     'post_donation',
         #     context, [request.user.email]
@@ -214,6 +216,7 @@ def stripe_operation_donation(request):
             logger.exception(error_msg)
             return HttpResponseBadRequest('bad POST data')
 
+
         if amount_cents > 0:
             if request.user.is_authenticated():
                user = RevolvUserProfile.objects.get(user=request.user)
@@ -239,6 +242,8 @@ def stripe_operation_donation(request):
                     payment_type=PaymentType.objects.get_stripe(),
                 )
 
+            project = get_object_or_404(Project, title='Operations')
+            send_donation_info(user.get_full_name(), amount/100,user.user.email,project.title, address='')
 
         context = {}
         if not request.user.is_authenticated():
@@ -431,7 +436,8 @@ def stripe_webhook(request):
                     tip=tip,
                     payment_type=PaymentType.objects.get_stripe(),
                 )
-
+                project = get_object_or_404(Project, title='Operations')
+                send_donation_info(user.get_full_name(), round(amount/float(100),2) , user.user.email, project.title, address='')
 
     except:
         pass

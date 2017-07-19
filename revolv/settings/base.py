@@ -315,11 +315,11 @@ EMAIL_TEMPLATES_PATH = os.path.join(
     'emails',
     'emails.yml'
 )
-
-MANDRILL_API_KEY = ""
-EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
-#SERVER_EMAIL = 'info@re-volv.org'
-EMAIL_HOST_USER = 'info@re-volv.org'
+#
+# MANDRILL_API_KEY = ""
+# EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
+# #SERVER_EMAIL = 'info@re-volv.org'
+# EMAIL_HOST_USER = 'info@re-volv.org'
 
 # TODO: FIX THIS
 # Hard-coded urls: kind of ugly but we need these for when we
@@ -431,9 +431,10 @@ SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email', 'first_name', 'last_name']
 SHARETHIS_PUBLISHER_ID = os.environ.get('SHARETHIS_PUBLISHER_ID')
 
 # Salesforce TODO: obtain these account values
-SFDC_ACCOUNT = os.environ.get('SFDC_ACCOUNT')
-SFDC_PASSWORD = os.environ.get('SFDC_PASSWORD')
-SFDC_TOKEN = os.environ.get('SFDC_TOKEN')
+
+SFDC_ACCOUNT = 'paresh@zibtek.com'
+SFDC_PASSWORD = 'tudip123'
+SFDC_TOKEN = 'sdbvFMw6uo4hUZwxIfY2mssg'
 
 SFDC_REVOLV_SIGNUP = 'login'
 SFDC_REVOLV_DONATION = 'donation'
