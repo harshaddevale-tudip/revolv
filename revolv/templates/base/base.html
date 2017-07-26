@@ -190,12 +190,6 @@ $(function ($) {
     var endpoint = $form.attr('action');
     var amount, metadata, donationtype;
     var check=document.getElementById('checkbox-recurring').checked;
-    if (check) {
-        donationtype = 'Subscribe';
-    } else {
-       donationtype = 'Donate';
-    }
-
     $.each(serialized, function () {
       if (this.name === 'donation_amount_cents') {
         amount = this.value*100;
@@ -203,6 +197,11 @@ $(function ($) {
       if (this.name === 'metadata') {
         metadata = this.value;
       }
+       if (check) {
+        donationtype = 'Donate Monthly';
+    } else {
+       donationtype = 'Donate';
+    }
     });
     if (typeof amount !== 'undefined') {
       handler.open({
