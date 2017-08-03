@@ -418,7 +418,7 @@ class SignupView(RedirectToSigninOrHomeMixin, FormView):
         form.save()
         u = form.ensure_authenticated_user()
         name = u.revolvuserprofile.get_full_name()
-        #send_signup_info(name, u.email, u.revolvuserprofile.address)
+        send_signup_info(name, u.email, u.revolvuserprofile.address)
 
         # log in the newly created user model. if there is a problem, error
         auth_login(self.request, u)
