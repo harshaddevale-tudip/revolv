@@ -436,15 +436,21 @@ class SignupView(RedirectToSigninOrHomeMixin, FormView):
 
         user = RevolvUserProfile.objects.get(user=self.request.user)
         if user.subscribed_to_newsletter:
-            is_email_exist = False
-            list = mailchimp.utils.get_connection().get_list_by_id(LIST_ID)
-            for resp in list.con.list_members(list.id)['data']:
-                if self.request.user.email == resp['email']:
-                    is_email_exist = True
-            if is_email_exist:
-                pass
-            else:
-                list.subscribe(self.request.user.email, {'EMAIL': self.request.user.email})
+            try:
+                is_email_exist = False
+                list = mailchimp.utils.get_connection().get_list_by_id(LIST_ID)
+                for resp in list.con.list_members(list.id)['data']:
+                    if self.request.user.email == resp['email']:
+                        is_email_exist = True
+                if is_email_exist:
+                    pass
+                else:
+                    list.subscribe(self.request.user.email, {'EMAIL': self.request.user.email})
+
+            except Exception, e:
+                logger.exception(e)
+
+
 
         if self.request.session.get('payment'):
             payment_id=self.request.session.get('payment')
@@ -1272,7 +1278,10 @@ def add_email_to_mailing_list(request):
         if is_email_exist:
             return HttpResponse(json.dumps({'status': 'already_exist'}), content_type="application/json")
         else:
-            list.subscribe(email_address, {'EMAIL': email_address})
+            try:
+                list.subscribe(email_address, {'EMAIL': email_address})
+            except Exception:
+                return HttpResponse(json.dumps({'status': 'subscription_fail'}), content_type="application/json")
             return HttpResponse(json.dumps({'status': 'subscription_success'}), content_type="application/json")
     else:
         return HttpResponse(json.dumps({'status': 'subscription_fail'}), content_type="application/json")
