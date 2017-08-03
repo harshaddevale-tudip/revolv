@@ -36,10 +36,12 @@ from social.apps.django_app.default.models import UserSocialAuth
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
 from django.core import serializers
+import mailchimp
 import json
 import re
 
 logger = logging.getLogger(__name__)
+LIST_ID = settings.LIST_ID
 
 class HomePageView(UserDataMixin, TemplateView):
     """
@@ -431,6 +433,18 @@ class SignupView(RedirectToSigninOrHomeMixin, FormView):
         #     'signup',
         #     context, [self.request.user.email]
         # )
+
+        user = RevolvUserProfile.objects.get(user=self.request.user)
+        if user.subscribed_to_newsletter:
+            is_email_exist = False
+            list = mailchimp.utils.get_connection().get_list_by_id(LIST_ID)
+            for resp in list.con.list_members(list.id)['data']:
+                if self.request.user.email == resp['email']:
+                    is_email_exist = True
+            if is_email_exist:
+                pass
+            else:
+                list.subscribe(self.request.user.email, {'EMAIL': self.request.user.email})
 
         if self.request.session.get('payment'):
             payment_id=self.request.session.get('payment')
@@ -1246,5 +1260,23 @@ def export_repayment_xlsx(request):
 
     wb.save(response)
     return response
+
+def add_email_to_mailing_list(request):
+    if request.POST['email']:
+        is_email_exist = False
+        email_address = request.POST['email']
+        list = mailchimp.utils.get_connection().get_list_by_id(LIST_ID)
+        for resp in list.con.list_members(list.id)['data']:
+            if email_address == resp['email']:
+                is_email_exist = True
+        if is_email_exist:
+            return HttpResponse(json.dumps({'status': 'already_exist'}), content_type="application/json")
+        else:
+            list.subscribe(email_address, {'EMAIL': email_address})
+            return HttpResponse(json.dumps({'status': 'subscription_success'}), content_type="application/json")
+    else:
+        return HttpResponse(json.dumps({'status': 'subscription_fail'}), content_type="application/json")
+
+
 
 

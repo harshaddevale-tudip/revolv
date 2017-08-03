@@ -66,6 +66,27 @@
 
 {% block nav %}
 
+<div class="modal fade" id="newslettermodal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+
+      <div class="modal-content" style="width: 80%;margin-top: 30%;margin-left: 8%;">
+        <div class="modal-header">
+          <button type="button" class="close close-newsletter" data-dismiss="modal" >&times;</button>
+            <h4 class="modal-title" style="font-weight: bold;">RE-volv</h4>
+        </div>
+        <div class="modal-body">
+            <p class="donation-text"></p>
+        </div>
+        <div class="modal-footer align-center">
+            <a href="" class="btn btn-primary newsletter-ok-btn">OK</a>
+        </div>
+      </div>
+
+    </div>
+</div>
+
 
 <header class="header top-section-header" id="home-page">
   <div class="container">
@@ -643,25 +664,26 @@
     <div class="group-main">
       <p>Get our all updates</p>
       <div class="group hidden-xs">
-        <div id="form1" name="form1" class="wufoo  page" autocomplete="off" enctype="multipart/form-data" novalidate>
-		  <div class="btn-blue btn-sign-up">SIGN UP</div>
-          <span class="inputs"><input id="Field0" name="Field0" type="email" spellcheck="false" value="" maxlength="255" tabindex="1" placeholder="youareawesome@example.com" required /></span>
+        <form id="form1" name="form1" class="wufoo  page" autocomplete="off" enctype="multipart/form-data" novalidate>
+          {% csrf_token %}
+		  <a class="btn-blue newsletter-signup btn-sign-up">SIGN UP</a>
+          <span class="inputs"><input id="Field0" name="email" type="email" spellcheck="false" value="" maxlength="255" tabindex="1" placeholder="youareawesome@example.com" required /></span>
           <div style='height: 0px; overflow: hidden'><label for="comment">Do Not Fill This Out</label>
             <textarea name="comment" id="comment" rows="1" cols="1" ></textarea>
           </div>
           <input type="hidden" id="idstamp" name="idstamp" value="9X+cjERjxi6m2dDjRLw2bzjqm4tI/nry48G0TQb8qtk=" />
-        </div>
+        </form>
 
       </div>
         <div class="mobile-form-group hidden-sm hidden-md hidden-lg">
-        <div id="form2" name="form1" class="wufoo  page" autocomplete="off" enctype="multipart/form-data" novalidate>
+        <form id="form2" name="form2" class="wufoo  page" autocomplete="off" enctype="multipart/form-data" novalidate>
           <span class="inputs"><input id="Field0" name="Field0" type="email" spellcheck="false" value="" maxlength="255" tabindex="1" placeholder="youareawesome@example.com" required /></span>
-          <a class="btn-blue btn-sign-up">SIGN UP</a>
+          <a class="btn-blue newsletter-signup btn-sign-up">SIGN UP</a>
           <div style='height: 0px; overflow: hidden'><label for="comment">Do Not Fill This Out</label>
           <textarea name="comment" id="comment" rows="1" cols="1" ></textarea>
           </div>
           <input type="hidden" id="idstamp" name="idstamp" value="9X+cjERjxi6m2dDjRLw2bzjqm4tI/nry48G0TQb8qtk=" />
-        </div>
+        </form>
 
       </div>
 
@@ -697,7 +719,7 @@
       });
 
     });
-  
+
 </script>
 
 

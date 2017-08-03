@@ -73,6 +73,7 @@ INSTALLED_APPS = [
   'mptt',
   'tagging',
   'zinnia',
+    'mailchimp'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -315,6 +316,10 @@ EMAIL_TEMPLATES_PATH = os.path.join(
     'emails',
     'emails.yml'
 )
+
+MAILCHIMP_API_KEY = os.environ.get('MAILCHIMP_API_KEY')
+LIST_ID = os.environ.get('LIST_ID')
+
 #
 # MANDRILL_API_KEY = ""
 # EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"

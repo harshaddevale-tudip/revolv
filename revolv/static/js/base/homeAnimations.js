@@ -289,26 +289,50 @@ $(document).ready(function() {
     }
   }
 
-    $("#form1 .btn-sign-up, #form2 .btn-sign-up").click(function(e){
+   $("#form1 .btn-sign-up, #form2 .btn-sign-up").click(function(e){
             $(".newsletter-error-email-msg").remove();
             $('.newsletter-module .group-main .group').css('padding-bottom', '3vmin');
             var signupEmail = $('#form1 .inputs input[type="email"]').val();
             var signupMobileEmail = $('#form2 .inputs input[type="email"]').val();
-            var regExp = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+            var regExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
         if(signupEmail.length > 0 && regExp.test(signupEmail) == true || signupMobileEmail.length > 0 && regExp.test(signupMobileEmail) == true) {
-             var newsletter = '<div class="newsletter-msg-cntnr">'
-                                    +'<div class="newsletter-msg">'
-                                        +'<img src="/static/images/close-video.png" class="close-newsletter-popup">'
-                                        +'<span>Thank you for signing up for our newsletter <br>we look forward to keeping in touch!</span>'
-                                        +'<div class="newsletter-msg-btn-cntnr">'
-                                            +'<div class="newsletter-submit-msg-btn">OK</div>'
-                                        +'</div>'
-                                    +'</div>'
-                                +'</div>';
-            $("body").prepend(newsletter);
+              var $form = $(this).closest('form');
+              $('#donation-spinner').css('display', 'flex');
+              $.ajax({
+                 type: "POST",
+                 url: '/subscribe/',
+                 data: $form.serializeArray(), // serializes the form's elements.
+                 success: function(data)
+                 {
+                    $('#donation-spinner').css('display', 'none');
+                    if (data.status == 'subscription_success') {
+                                        $('#newslettermodal').modal('show');
+                                        $('.donation-text').text("Thank you for signing up for our newsletter, we look forward to keeping in touch!");
+                    }
+                    else if (data.status == 'already_exist') {
+                                        $('#newslettermodal').modal('show');
+                                        $('.donation-text').text("Thank you for showing the interest, this email is already registered.");
+                    }
+                    else if (data.status =='subscription_fail'){
+                                        $('#newslettermodal').modal('show');
+                                        $('.donation-text').text("Newsletter subsciption fail, due to some reason, please try again.");
 
-            closeNewsletterPopUp();
+                    }
+                    closeNewsletterPopUp();
+                 },
+                 error: function(data) {
+                    $('#donation-spinner').css('display', 'none');
+                    $('#newslettermodal').modal('show');
+                    $('.modal-title').text('Error!');
+                    $('.donation-text').text("Newsletter subsciption fail due to some reason, please try again.");
+                }
+               });
+
+
+               e.preventDefault(); // avoid to execute the actual submit of the form.
+
+
         } else {
                 var errorText = '<span class="newsletter-error-email-msg">Please enter a valid email.</span>';
                 $("#form1").append(errorText);
@@ -316,34 +340,30 @@ $(document).ready(function() {
                 $('.newsletter-module .group-main .group').css('padding-bottom', '5vmin');
         }
     });
+
 });
 
 function closeNewsletterPopUp() {
-    $(".newsletter-msg-cntnr").click(function(e){
+    $(".close-newsletter").click(function(e){
          e.stopPropagation();
-         if (e.target !== this)
-            return;
-         $(".newsletter-msg-cntnr").remove();
+         $('#newslettermodal').modal('hide');
          $('#form1 .inputs input[type="email"]').val("");
          $('#form2 .inputs input[type="email"]').val("");
     });
-    $(".close-newsletter-popup").click(function(e){
+    $(".newsletter-ok-btn").click(function(e){
          e.stopPropagation();
-         $(".newsletter-msg-cntnr").remove();
-         $('#form1 .inputs input[type="email"]').val("");
-         $('#form2 .inputs input[type="email"]').val("");
-    });
-    $(".newsletter-submit-msg-btn").click(function(e){
-         e.stopPropagation();
-         $(".newsletter-msg-cntnr").remove();
+         $('#newslettermodal').modal('hide');
          $('#form1 .inputs input[type="email"]').val("");
          $('#form2 .inputs input[type="email"]').val("");
     });
     $(document).keydown(function(e) {
         if (e.keyCode == 27) {
-           $(".newsletter-msg-cntnr").remove();
+            $('#newslettermodal').modal('hide');
            $('#form1 .inputs input[type="email"]').val("");
            $('#form2 .inputs input[type="email"]').val("");
        }
     });
 }
+
+
+

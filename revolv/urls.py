@@ -35,6 +35,7 @@ urlpatterns = patterns(
     url(r'^login/$', base_views.LoginView.as_view(), name='login'),
     url(r'^signup/$', base_views.SignupView.as_view(), name='signup'),
     url(r'^logout/$', base_views.LogoutView.as_view(), name='logout'),
+    url(r'^subscribe/$', 'revolv.base.views.add_email_to_mailing_list', name='subscribe'),
     url(r'^unsubscribe/(?P<action>\w+)/$', 'revolv.base.views.unsubscribe', name='unsubscribe'),
     url(r'^solar_at_home/$',solarathome, name='solar_at_home'),
     url(r'^bring_solar_to_your_community/$',bring_solar_tou_your_community, name='bring_solar_to_your_community'),
