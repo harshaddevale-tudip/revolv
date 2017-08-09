@@ -24,10 +24,12 @@ from revolv.base.models import RevolvUserProfile
 from revolv.payments.models import UserReinvestment, Payment, PaymentType, Tip
 from revolv.payments.services import PaymentService
 from revolv.project import forms
-from revolv.project.models import Category, Project, ProjectUpdate, ProjectMatchingDonors, StripeDetails
+from revolv.project.models import Category, Project, ProjectUpdate, ProjectMatchingDonors, StripeDetails, AnonymousUserDetail
 from revolv.tasks.sfdc import send_donation_info
 from revolv.lib.mailer import send_revolv_email
 import json
+from json import load
+from urllib2 import urlopen
 
 logger = logging.getLogger(__name__)
 MAX_PAYMENT_CENTS = 99999999
@@ -230,6 +232,15 @@ def stripe_operation_donation(request):
                      payment_type=PaymentType.objects.get_stripe(),
                 )
             else:
+
+                my_ip = load(urlopen('http://jsonip.com'))['ip']
+
+                AnonymousUserDetail.objects.create(
+                    email = email,
+                    ip_address = my_ip,
+                    amount = amount/100
+                )
+
                 anonymous_user = User.objects.get(username='Anonymous')
                 user = RevolvUserProfile.objects.get(user=anonymous_user)
                 tip = None
@@ -243,6 +254,7 @@ def stripe_operation_donation(request):
                 )
 
             project = get_object_or_404(Project, title='Operations')
+
             send_donation_info(user.get_full_name(), amount/100,user.user.email,project.title, address='')
 
         context = {}
@@ -306,6 +318,13 @@ def stripe_operation_donation(request):
                user = RevolvUserProfile.objects.get(user=request.user)
 
             else:
+                my_ip = load(urlopen('http://jsonip.com'))['ip']
+
+                AnonymousUserDetail.objects.create(
+                    email = email,
+                    ip_address = my_ip,
+                    amount = amount / 100
+                )
                 anonymous_user = User.objects.get(username='Anonymous')
                 user = RevolvUserProfile.objects.get(user=anonymous_user)
 

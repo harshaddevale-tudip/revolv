@@ -143,7 +143,7 @@ class ProjectManager(models.Manager):
         :return: A list of projects for which user's RevolvUserProfile
         is the ambassador or creator.
         """
-        return Project.objects.filter(Q(ambassador=user_profile) | Q(created_by_user=user_profile))
+        return Project.objects.filter(Q(ambassadors=user_profile) | Q(created_by_user=user_profile))
 
     def donated_projects(self, user_profile):
         """
@@ -197,6 +197,12 @@ class StripeDetails(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(RevolvUserProfile, related_name='stripe_donor')
+    amount = models.FloatField(default=0)
+
+
+class AnonymousUserDetail(models.Model):
+    email = models.CharField(max_length=254, blank=True, null=True)
+    ip_address = models.IPAddressField(blank=True, null=True, default=None)
     amount = models.FloatField(default=0)
 
 
