@@ -204,6 +204,8 @@ class AnonymousUserDetail(models.Model):
     email = models.CharField(max_length=254, blank=True, null=True)
     ip_address = models.IPAddressField(blank=True, null=True, default=None)
     amount = models.FloatField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
 
 
 class Project(models.Model):
@@ -377,9 +379,9 @@ class Project(models.Model):
 
     created_by_user = models.ForeignKey(RevolvUserProfile, related_name='created_by_user')
 
-    ambassador = models.ForeignKey(RevolvUserProfile, related_name='ambassador', null=True)
+    #ambassador = models.ForeignKey(RevolvUserProfile, related_name='ambassador', null=True)
 
-    #ambassadors = models.ManyToManyField(RevolvUserProfile, related_name='ambassadors', null=True)
+    ambassadors = models.ManyToManyField(RevolvUserProfile, related_name='ambassadors', null=True)
 
     # energy produced in kilowatt hours
     actual_energy = models.FloatField(default=0.0)

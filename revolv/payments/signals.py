@@ -1,5 +1,6 @@
 from django.db.models import signals, Sum
 from django.dispatch import receiver
+from django.contrib.auth.models import User
 
 from revolv.base.models import RevolvUserProfile
 from revolv.base.utils import is_user_reinvestment_period
@@ -43,15 +44,22 @@ def post_save_user_groups(**kwargs):
     if not kwargs.get('instance'):
         return
     instance = kwargs.get('instance')
-    g = Group.objects.get(name='ambassadors')
-    if instance.ambassador_id:
-        if instance.ambassador.user_id:
-            g.user_set.add(instance.ambassador.user_id)
+    ambassadors=[]
+    projects = Project.objects.all()
+    for project in projects:
+        for ambassador in project.ambassadors.all():
+            user = User.objects.get(id=ambassador.user_id)
+            ambassadors.append(user)
 
-    # if instance.ambassador_id:
-    #     if instance.ambassador.user_id:
-    #         print "ccccccccccccccccc"
-    #         g.user_set.add(instance.ambassadors)
+    group=Group.objects.get(name='ambassadors')
+    for user in group.user_set.all():
+        if user.username != 'administrator':
+            group.user_set.remove(user)
+
+    group=Group.objects.get(name='ambassadors')
+    for ambassador in ambassadors:
+        group.user_set.add(ambassador)
+
 
 @receiver(signals.post_save, sender=RepaymentFragment)
 def post_save_repayment_fragment(**kwargs):
@@ -126,7 +134,9 @@ def post_delete_payment(**kwargs):
     For AdminReinvestment we need some checking
     """
     instance = kwargs.get('instance')
-    if instance.user_reinvestment:
+    if not instance.user_reinvestment:
+        return
+    else:
         instance.user_reinvestment.delete()
     if instance.admin_reinvestment:
         admin_reinvestment = instance.admin_reinvestment

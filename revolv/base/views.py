@@ -808,9 +808,16 @@ def ambassador_data_table(request):
 
     revolv_user = get_object_or_404(RevolvUserProfile, pk=request.user.id)
 
-    project = Project.objects.filter(ambassador=revolv_user.id)
+    projects = Project.objects.all()
+    project_list=[]
+    for project in projects:
+        for ambassador in project.ambassadors.all():
+            if revolv_user == ambassador:
+                project_list.append(project)
 
-    payment_list = Payment.objects.filter(project=project).order_by((column_order))
+
+    payment_list = Payment.objects.filter(project__in=project_list).order_by((column_order))
+
 
     if search.strip():
         payment_list = payment_list.filter(Q(user__user__username__icontains=search)|
