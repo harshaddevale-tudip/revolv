@@ -1,6 +1,7 @@
 from django.db.models import signals, Sum
 from django.dispatch import receiver
 from django.contrib.auth.models import User
+from django.db.models.signals import m2m_changed
 
 from revolv.base.models import RevolvUserProfile
 from revolv.base.utils import is_user_reinvestment_period
@@ -34,7 +35,7 @@ def post_save_admin_repayment(**kwargs):
         # user's reinvest_pool will be incremented on save
         repayment.save()
 
-@receiver(signals.post_save, sender=Project)
+@receiver(m2m_changed, sender=Project.ambassadors.through)
 def post_save_user_groups(**kwargs):
     """
     When an project is saved, Check the project ambassador and add user to the
