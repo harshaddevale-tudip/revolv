@@ -29,6 +29,8 @@ urlpatterns = patterns(
     url(r'^my-portfolio/financialreport/', base_views.DonationReportForProject.as_view(), name='financialreport'),
     url(r'^my-portfolio/repaymentreport/', base_views.RepaymentReport.as_view(), name='repaymentreport'),
     url(r'^my-portfolio/reinvest_list/', base_views.ReinvestmentRedirect.as_view(), name='reinvest_list'),
+    url(r'^my-portfolio/sendmail/', 'revolv.base.views.sendmail', name='sendmail'),
+    url(r'^my-portfolio/senddonoremail/', 'revolv.base.views.send_donor_email', name='senddonoremail'),
 
     url(r'^what-we-do/projects/', base_views.ProjectListView.as_view(), name='projects_list'),
     url(r'^signin/$', base_views.SignInView.as_view(), name='signin'),
@@ -67,9 +69,9 @@ urlpatterns = patterns(
     url(r'social/', include('social.apps.django_app.urls', namespace='social')),
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's serving mechanism
-url(r'^blog/', include('zinnia.urls', namespace='zinnia')),
-url(r'^comments/', include('django_comments.urls')),
-url(r'^', include('zinnia.urls.capabilities')),
+    url(r'^blog/', include('zinnia.urls', namespace='zinnia')),
+    url(r'^comments/', include('django_comments.urls')),
+    url(r'^', include('zinnia.urls.capabilities')),
     url(r'^search/', include('zinnia.urls.search')),
     url(r'^sitemap/', include('zinnia.urls.sitemap')),
     url(r'^trackback/', include('zinnia.urls.trackback')),

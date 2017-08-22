@@ -14720,3 +14720,24 @@ form#change_password_form label {
     padding: 1vmin 3vmin;
     font-size: 2vmin;
 }
+
+.txtarea-height {
+    height: 20em !important;
+}
+.btn-send {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.email-form-div {
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 4em;
+    margin-bottom: 4em;
+}
+.email-send-btn {
+    width: 5em;
+    border: 0;
+    height: 3em;
+    line-height: 43px;
+}

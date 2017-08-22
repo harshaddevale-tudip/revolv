@@ -55,7 +55,8 @@
      <div><a href="{% url "matchingdonors" %}" class="create-new-button">Matching Donors</a></div>
 {% endif %}
 {% if user.revolvuserprofile.is_ambassador and not user.revolvuserprofile.is_administrator %}
-    <a href="{% url "financialreport" %}" class="create-new-button" id="create_project">Financial Report</a>
+    <div><a href="{% url "financialreport" %}" class="create-new-button" id="financialreport">Financial Report</a></div>
+    <div><a href="{% url "sendmail" %}" class="create-new-button" id="sendemail">Send Email</a></div>
 {% endif %}
 <div class="dashboard-section projects">
     {% if donor_has_no_donated_projects %}

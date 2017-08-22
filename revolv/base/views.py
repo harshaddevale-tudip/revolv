@@ -15,7 +15,7 @@ from django.db.models import Sum
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http.response import HttpResponseBadRequest, HttpResponseRedirect
-from django.shortcuts import redirect, render_to_response, get_object_or_404
+from django.shortcuts import redirect, render_to_response, get_object_or_404, render
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
@@ -518,9 +518,57 @@ def solarathome(request):
     return render_to_response('base/solar_at_home.html',
                               context_instance=RequestContext(request))
 
+def solarathome(request):
+    return render_to_response('base/solar_at_home.html',
+                              context_instance=RequestContext(request))
+
 def bring_solar_tou_your_community(request):
     return render_to_response('base/bring_solar_at_community.html',
                               context_instance=RequestContext(request))
+
+def sendmail(request):
+    revolv_user = get_object_or_404(RevolvUserProfile, pk=request.user.id)
+    projects = Project.objects.all()
+    project_list = []
+    for project in projects:
+        for ambassador in project.ambassadors.all():
+            if revolv_user == ambassador:
+                project_list.append(project)
+    context = {}
+    context['project_list'] = project_list
+    return render(request,'base/ambassador_send_email.html',
+                              context)
+
+def send_donor_email(request):
+    print request.POST
+    try:
+        pk = request.POST['project']
+        email_text = request.POST['email_text']
+        email_subject = request.POST['email_subject_text']
+
+    except KeyError:
+        logger.exception('send_donor_email called without required POST data')
+        return HttpResponseBadRequest('bad POST data')
+
+    emails = []
+    project = get_object_or_404(Project, pk=pk)
+    payments = Payment.objects.filter(project=project)
+    for payment in payments:
+        email=payment.user.user.email
+        if email:
+            if email not in emails:
+                emails.append(email)
+    context = {}
+    context['email_text'] = email_text
+    context['email_subject'] = email_subject
+
+    for email in emails:
+        send_revolv_email(
+            'donor_template',
+            context, [email]
+        )
+    messages.success(request, 'Emails are sent successfully.')
+    return redirect('sendmail')
 
 def intake_form_submit(request):
     try:
