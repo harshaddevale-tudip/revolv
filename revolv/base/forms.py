@@ -17,7 +17,7 @@ class SignupForm(UserCreationForm):
     first_name = forms.CharField(label="First name")
     last_name = forms.CharField(label="Last name")
     subscribed_to_newsletter = forms.BooleanField(initial=True, required=False, label="Subscribe me to the RE-volv Newsletter.", help_text="Subscribe me to the RE-volv Newsletter")
-
+    zipcode = forms.CharField(label="Zipcode", max_length=10)
 
     def clean_email(self):
         data = self.cleaned_data['email']
@@ -38,6 +38,7 @@ class SignupForm(UserCreationForm):
         if commit:
             user.save()
             user.revolvuserprofile.subscribed_to_newsletter = self.cleaned_data["subscribed_to_newsletter"]
+            user.revolvuserprofile.zipcode = self.cleaned_data["zipcode"]
             user.revolvuserprofile.save()
         return user
 
