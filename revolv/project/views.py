@@ -234,16 +234,11 @@ def stripe_operation_donation(request):
             else:
                 from requests import get
 
-                my_ip = get('https://api.ipify.org').text
-                print('My public IP address is: {}'.format(my_ip))
-
-                #my_ip = load(urlopen('http://jsonip.com'))['ip']
+                my_ip = request.META.get('REMOTE_ADDR')
 
                 url = 'http://freegeoip.net/json/' + my_ip
 
                 response = load(urlopen(url))
-
-                print "wwww",response
 
                 AnonymousUserDetail.objects.create(
                     email=email,
