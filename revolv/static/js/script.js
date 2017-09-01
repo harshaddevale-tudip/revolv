@@ -13,8 +13,8 @@ $(document).ready(function(){
      function changeFunc(selectedValue) {
 
 
-       var states1 = ["AZ","CO","CT","DC","DE","FL", "GA","IL","IN","LA","MD","ME", "MI","MN","MO","NC","NH","NM","NV","OH","PA","RI","TX", "UT","VA","VT","WI"];
-       var states2 = ["AK","AL", "AR","CA", "HI","IA", "ID", "KS","KY", "MA","MS", "MT","ND", "NE", "NJ","NY",
+       var states1 = ["AZ","CO","CT","DC","DE","FL", "GA","IN","LA","ME", "MI","MO","NC","NH","NM","NV","OH","PA","TX", "UT","VA","VT","WI"];
+       var states2 = ["AK","AL", "AR","CA", "HI","IA", "ID", "KS","KY", "MA","MS", "MT","ND", "NE", "NJ","NY","RI","MD","IL","MN",
                       "OK", "OR", "SC","TN", "WA", "WV","WY"];
 
         for (i=0;i<50;i++)
@@ -25,21 +25,23 @@ $(document).ready(function(){
                 $("#invstr-logo-link").attr("href",'http://www.energysage.com/p/re-volv/');
                 $("#invstr-logo-link").attr("target",'_blank');
                 $(".investor-remaining-img").hide();
+                $(".hide-state-text-div span").hide();
                 $(".selected-logo").css('border','0');
                 $("#img").closest(".invstr-logo-images").removeClass("col-sm-4");
                 $("#img").closest(".invstr-logo-images").addClass("col-sm-6");
-                $(".investors_logo_text").text("The easiest way to go solar! Installers compete for your business to give you more options and the best deal. Free instant solar estimate.");
+                $(".investors_logo_text").text("Instantly compare quotes from solar companies in your area with Energy Sage:");
             }
             else if (selectedValue == states2[i])
             {
                 $("#img").attr("src","/static/images/PickMySolar_updated.png");
-                $("#invstr-logo-link").attr("href",'http://info.pickmysolar.com/re-volv-partner/');
+                $("#invstr-logo-link").attr("href",'https://pickmysolar.com/re-volv/');
                 $("#invstr-logo-link").attr("target",'_blank');
                 $(".investor-remaining-img").hide();
+                $(".hide-state-text-div span").hide();
                 $(".selected-logo").css('border','0');
                 $("#img").closest(".invstr-logo-images").removeClass("col-sm-4");
                 $("#img").closest(".invstr-logo-images").addClass("col-sm-6");
-                $(".investors_logo_text").text("Go solar hassle-free with Pick My Solar. Easily compare solar companies to get the best deal on your solar project. When solar companies compete, you win!");
+                $(".investors_logo_text").text("Instantly compare quotes from solar companies in your area with Pick My Solar:");
             }
 
         }
