@@ -17,7 +17,7 @@
     <script src="{% static 'js/mediaelement-and-player.min.js' %}"></script>
     <link href="{% static 'css/mediaelementplayer.min.css' %}" rel="stylesheet" />
     <link href="{% static 'dist/css/pages/home/index.css' %}" rel="stylesheet" />
-    <link href="{% static 'css/slick.css' %}?version={{ version_number }}" rel="stylesheet" />
+<link href="{% static 'css/slick.css' %}?version={{ version_number }}" rel="stylesheet" />
     <link href="{% static 'css/slick-theme.css' %}?version={{ version_number }}" rel="stylesheet" />
 <style>
 
@@ -39,7 +39,7 @@
         background-image: linear-gradient(to bottom,transparent 0,transparent 100%);
         background-color: transparent;
         border: transparent;
-        border-radius: 0;
+        border-radius: 0px;
         box-shadow: none;
     }
     * {
@@ -59,8 +59,6 @@
         color: black;
     }
 
-
-
 </style>
 
 {% endblock %}
@@ -76,7 +74,7 @@
       <div class="modal-content" style="width: 80%;margin-top: 30%;margin-left: 8%;">
         <div class="modal-header">
           <button type="button" class="close close-newsletter" data-dismiss="modal" >&times;</button>
-            <h4 class="modal-title" style="font-weight: bold;">RE-volv</h4>
+            <h4 class="modal-title" style="font-weight: bold;">Success</h4>
         </div>
         <div class="modal-body">
             <p class="donation-text"></p>
@@ -88,7 +86,6 @@
 
     </div>
 </div>
-
 
 <header class="header top-section-header" id="home-page">
   <div class="container">
@@ -104,9 +101,8 @@
 
             </div>
         </div>
-            <div class="navbar-collapse collapse background-collapse-color">
+        <div class="navbar-collapse collapse background-collapse-color">
                 <ul class="nav">
-
                     {% if request.user.is_authenticated %}
                         <li><a href="{% url 'dashboard' %}" class="dropdown">MY PORTFOLIO</a>
                         </li>
@@ -127,35 +123,16 @@
       <div class="txt pull-left">
 
         {% if request.user.is_authenticated %}
-          <!--<li class="user-controls has-dropdown">-->
+          <li class="user-controls has-dropdown">
             <a href="{% url 'dashboard' %}" class="btn-blue pull-left btn-donate">MY PORTFOLIO</a>
-            <!--<a href="{% url 'logout' %}" class="btn-blue pull-left btn-donate">SIGN OUT</a>-->
-
-          <!--</li>-->
+            <a href="{% url 'logout' %}" class="btn-blue pull-left btn-donate">SIGN OUT</a>
+          </li>
           {% else %}
             <a href="{% url 'signin' %}#signup" class="component-link btn-blue pull-left btn-donate" data-component="signup">SIGN UP</a>
             <a href="{% url 'signin' %}#login" class="component-link btn-blue pull-left btn-donate" data-component="login">SIGN IN</a>
         {% endif %}
-        <a href="#" onclick="return clearInput();" class="component-link pull-left btn-blue btn-donate" data-toggle="modal" data-target="#popup">DONATE</a>
-        <!--<a href="#" onclick="return clearInput();" class="component-link btn-blue btn-donate" data-toggle="modal" data-target="#popup">DONATE</a>-->
-        {% if request.user.is_authenticated %}
-          <div class="container1" data-toggle="collapse" data-target=".navbar-collapse-settings">
-            <div class="bar1"></div>
-            <div class="bar2"></div>
-            <div class="bar3"></div>
-          </div>
-          <div class="navbar-collapse-settings collapse background-collapse-color" >
-                <ul class="nav navbar-collapse-border">
-
-                    <li><a href="{% url 'account_settings' %}" class="dropdown">ACCOUNT SETTINGS</a>
-                    </li>
-                    <li> <a href="{% url 'logout' %}" class="dropdown">SIGN OUT</a>
-                    </li>
-                </ul>
-            </div>
-        {% endif %}
       </div>
-
+      <a href="#" onclick="return clearInput();" class="component-link btn-blue btn-donate" data-toggle="modal" data-target="#popup">DONATE</a>
       <!--<a #data-target="popup" data-toggle="modal" class=" btn-blue btn-donate pull-left after-scroll">DONATE NOW</a>-->
     </div>
   </div>
@@ -167,7 +144,7 @@
 {% block body %}
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="10000">
-
+  <!-- Indicators -->
   <ol class="carousel-indicators">
     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
     <li data-target="#myCarousel"  data-slide-to="1"></li>
@@ -175,7 +152,8 @@
     <li data-target="#myCarousel" data-slide-to="3"></li>
   </ol>
 
-   <div class="carousel-inner" role="listbox">
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
     <div class="item carousel-third-img active">
       <div class="text_overlay">
         <div class="text_content">
@@ -277,17 +255,17 @@
   </div>
 </div>
 
+
 {% if active_projects %}
 <div id="active-projects" class="active-projects-module animated">
   <div class="container">
-    <div class="title-blue-border title-active-projects">ACTIVE PROJECTS</div>
+       <div class="title-blue-border title-active-projects">ACTIVE PROJECTS</div>
     <div class="row">
-
             {% for active_project in active_projects %}
                   <div class="col-md-4 join-mov-btns">
                     <div class="module-box">
                       <div class="img-main">
-                       <a href="{% url "project:view" title=active_project.project_url %}" class="img-link">
+                        <a href="{% url "project:view" title=active_project.project_url %}" class="img-link">
                           <span class="txt-table">
                             <span class="txt">
                                 {{ active_project.title }}
@@ -629,6 +607,7 @@
             </ul>
           </div>
         </div>
+        <!-- Controls -->
         <a class="left carousel-control" href="#featured-on-example-generic" role="button" data-slide="prev">
           <span class="icons icon-arrow-left" aria-hidden="true"></span>
         </a>
@@ -636,7 +615,11 @@
           <span class="icons icon-arrow-right" aria-hidden="true"></span>
         </a>
       </div>
+      <!-- end .carousel -->
+
       <div id="mobile-featured-on-example-generic" class="carousel slide desktop-show" data-ride="carousel" data-interval="">
+        <!-- Indicators -->
+        <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
           <div class="item active">
             <ul class="logo-ul">
@@ -704,7 +687,7 @@
     <div class="group-main">
       <p>Get our all updates</p>
       <div class="group hidden-xs">
-        <form id="form1" name="form1" class="wufoo  page" autocomplete="off" enctype="multipart/form-data" novalidate>
+         <form id="form1" name="form1" class="wufoo  page" autocomplete="off" enctype="multipart/form-data" novalidate>
           {% csrf_token %}
 		  <a class="btn-blue newsletter-signup btn-sign-up">SIGN UP</a>
           <span class="inputs"><input id="Field0" name="email" type="email" spellcheck="false" value="" maxlength="255" tabindex="1" placeholder="youareawesome@example.com" required /></span>
@@ -734,7 +717,6 @@
 <!-- end .newsletter-module -->
 <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key={{GOOGLEMAPS_API_KEY}}">
 </script>
-
 <script type="text/javascript" src="{% static 'js/slick.min.js' %}"></script>
 <script type="text/javascript">
 
@@ -759,7 +741,6 @@
       });
 
     });
-
 </script>
 
 
