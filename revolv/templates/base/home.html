@@ -59,6 +59,8 @@
         color: black;
     }
 
+
+
 </style>
 
 {% endblock %}
@@ -125,16 +127,35 @@
       <div class="txt pull-left">
 
         {% if request.user.is_authenticated %}
-          <li class="user-controls has-dropdown">
+          <!--<li class="user-controls has-dropdown">-->
             <a href="{% url 'dashboard' %}" class="btn-blue pull-left btn-donate">MY PORTFOLIO</a>
-            <a href="{% url 'logout' %}" class="btn-blue pull-left btn-donate">SIGN OUT</a>
-          </li>
+            <!--<a href="{% url 'logout' %}" class="btn-blue pull-left btn-donate">SIGN OUT</a>-->
+
+          <!--</li>-->
           {% else %}
             <a href="{% url 'signin' %}#signup" class="component-link btn-blue pull-left btn-donate" data-component="signup">SIGN UP</a>
             <a href="{% url 'signin' %}#login" class="component-link btn-blue pull-left btn-donate" data-component="login">SIGN IN</a>
         {% endif %}
+        <a href="#" onclick="return clearInput();" class="component-link pull-left btn-blue btn-donate" data-toggle="modal" data-target="#popup">DONATE</a>
+        <!--<a href="#" onclick="return clearInput();" class="component-link btn-blue btn-donate" data-toggle="modal" data-target="#popup">DONATE</a>-->
+        {% if request.user.is_authenticated %}
+          <div class="container1" data-toggle="collapse" data-target=".navbar-collapse-settings">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+          </div>
+          <div class="navbar-collapse-settings collapse background-collapse-color" >
+                <ul class="nav navbar-collapse-border">
+
+                    <li><a href="{% url 'account_settings' %}" class="dropdown">ACCOUNT SETTINGS</a>
+                    </li>
+                    <li> <a href="{% url 'logout' %}" class="dropdown">SIGN OUT</a>
+                    </li>
+                </ul>
+            </div>
+        {% endif %}
       </div>
-      <a href="#" onclick="return clearInput();" class="component-link btn-blue btn-donate" data-toggle="modal" data-target="#popup">DONATE</a>
+
       <!--<a #data-target="popup" data-toggle="modal" class=" btn-blue btn-donate pull-left after-scroll">DONATE NOW</a>-->
     </div>
   </div>
@@ -151,24 +172,26 @@
     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
     <li data-target="#myCarousel"  data-slide-to="1"></li>
     <li data-target="#myCarousel" data-slide-to="2"></li>
+    <li data-target="#myCarousel" data-slide-to="3"></li>
   </ol>
 
-  <div class="carousel-inner" role="listbox">
+   <div class="carousel-inner" role="listbox">
     <div class="item carousel-third-img active">
       <div class="text_overlay">
         <div class="text_content">
           <div class="space_btn_element">
-            <span class="CREATE_CLEAN_ENERGY">BUILDING COMMUNITY<br>THROUGH SOLAR</span>
+            <span class="CREATE_CLEAN_ENERGY">LEONARDO DICAPRIO <br>PARTNERS WITH RE-VOLV</span>
           </div>
           <div class="space_btn_element">
-            <span class="Bring_solar_energy__to_communities_around_the_c">Helping communities thrive.<br>One solar panel at a time.</span>
+            <span class="Bring_solar_energy__to_communities_around_the_c">Join Leo in supporting <br>solar energy!</span>
           </div>
+
         </div>
         <div class="how-it-works-button">
-            <a href="#how_it_works" class="How_it_Works space_btn_element">{{ settings.revolv_cms.MainPageSettings.how_it_works_heading|upper }}</a>
-        </div>
+            <a href="#" class="How_it_Works space_btn_element" data-toggle="modal" data-target="#popup">Become a Monthly Donor</a>
+          </div>
       </div>
-      <img class="background-image-size_home" src="static/images/revolv_background3@1500*500.jpg" alt="Flower">
+      <img class="background-image-size_home" src="static/images/Leonardo_Dicaprio_3.jpg" alt="Leonardo Dicaprio">
     </div>
 
     <div class="item carousel-second-img">
@@ -183,10 +206,10 @@
         </div>
         <div class="how-it-works-button">
             <a href="/what-we-do/projects/" class="How_it_Works space_btn_element">Support solar energy</a>
-        </div>
+          </div>
       </div>
 
-      <img class="background-image-size_home"  src="static/images/revolv_background2@1500*500.jpg" alt="Chania">
+      <img class="background-image-size_home"  src="static/images/revolv_background2@1500*500.jpg" alt="RE-volv background image">
     </div>
 
     <div class="item carousel-first-img" >
@@ -201,10 +224,27 @@
         </div>
         <div class="how-it-works-button">
             <a href="/bring_solar_to_your_community/" class="How_it_Works space_btn_element">Start a project</a>
-        </div>
+          </div>
       </div>
 
-      <img class="background-image-size_home" src="static/images/revolv_background1@1500*500.jpg" alt="Chania">
+      <img class="background-image-size_home" src="static/images/revolv_background1@1500*500.jpg" alt="RE-volv background image">
+    </div>
+    <div class="item carousel-third-img">
+      <div class="text_overlay">
+        <div class="text_content">
+          <div class="space_btn_element">
+            <span class="CREATE_CLEAN_ENERGY">BUILDING COMMUNITY<br>THROUGH SOLAR</span>
+          </div>
+          <div class="space_btn_element">
+            <span class="Bring_solar_energy__to_communities_around_the_c">Helping communities thrive.<br>One solar panel at a time.</span>
+          </div>
+
+        </div>
+        <div class="how-it-works-button">
+            <a href="#how_it_works" class="How_it_Works space_btn_element">How It Works</a>
+          </div>
+      </div>
+      <img class="background-image-size_home" src="static/images/revolv_background3@1500*500.jpg" alt="RE-volv background image">
     </div>
 
   </div>
