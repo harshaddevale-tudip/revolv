@@ -1,0 +1,322 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% load humanize %}
+{% block head %}
+<script type="text/javascript">
+</script>
+<script src="{% static 'js/base/homeAnimations.js' %}?version={{ version_number }}"></script>
+<style>
+.checkbox-text {
+    margin-left: 1em;
+    font-size: 1.3em;
+    color: #777;
+    font-weight: 500;
+}
+.checkbox-margin {
+    margin-bottom: 1.5em;
+}
+input[type="checkbox"]:checked + label::after {
+   content: '';
+    position: absolute;
+    width: 2.5ex;
+    height: 1.3ex;
+    background: rgba(0, 0, 0, 0);
+    top: 1.2ex;
+    left: 0.9ex;
+    border: 3px solid #14b1e7;
+    border-top: none;
+    border-right: none;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+input[type="checkbox"] {
+   line-height: 2.1ex;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    position: absolute;
+    left: -999em;
+}
+
+input[type="checkbox"] + label {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+input[type="checkbox"] + label::before {
+   content: "";
+    display: inline-block;
+    vertical-align: -25%;
+    height: 4.3ex;
+    width: 4.3ex;
+    background-color: white;
+    border: 2px solid #e8e8e8;
+    border-radius: 7px;
+    /* box-shadow: inset 0 2px 5px rgba(0,0,0,0.25); */
+    margin-right: 0.5em;
+}
+</style>
+<script src="{% static 'js/toastr.min.js' %}?version={{ version_number }}"></script>
+{% if messages %}
+        <script>
+            toastr.options.positionClass = "toast-bottom-right";
+        </script>
+        {% for message in messages %}
+            <script>
+                toastr.{{ message.tags }}('{{ message }}')
+            </script>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+{% block title %}Project | {% endblock %}
+{% block body %}
+<div class="contents after-header">
+    <div class='account-heading'>
+        <div style="padding-top: 2.3%;"><span class="account-heading-span">Account Settings</span></div>
+    </div>
+    <div class="col-xs-12 col-sm-3 account-tabs">
+        <div style="margin-bottom: 2em;">
+            <span id="account-link" class="account-tab-text account-tab-text-active">Account Information</span>
+        </div>
+        <div style="margin-bottom: 2em;">
+            <span id="donation-link" class="account-tab-text">Donation Information</span>
+        </div>
+    </div>
+    <form method="POST" action="{% url 'userupdate' %}">
+        <div id="donation-info" class="col-xs-12 col-sm-9 setting-form-top" style="display:none;">
+            <div style="width:65%;margin-left: 1.4em;">
+                <div class="setting-input-block">
+                    <span class="setting-form-lebel">CURRENT MONTHLY DONATION TO SOLAR SEED FUND:</span>
+                    <input id="donation-amt" type="text" class="setting-donation-input"/>
+                        <!--<span class="setting-donation-amount">$ 50</span>-->
+                        <span class="setting-donation-change solar-donation">Change</span>
+
+                </div>
+                <div class="setting-input-block">
+                    <span class="setting-form-lebel">CURRENT MONTHLY DONATION TO RE-volv's OPERATIONS:</span>
+                    <input id="operation-amt" type="text" class="setting-donation-input" value="{{monthly_donation_amount}}"/>
+                        <!--<span class="setting-donation-amount">$ 50</span>-->
+                        <!--<span class="setting-donation-change">Change</span>-->
+                    <span class="setting-donation-change operation-donation">Change</span>
+                    </div>
+                <div class="setting-input-block">
+                    <p class="setting-form-lebel setting-input-block">DONATION HISTORY</p>
+                    <p class="setting-details-margin"><span class="setting-donation-details">How much I've donated to the Solar Seed Fund</span> <span class="setting-donations">{{donated_solar_seed}}$</span></p>
+                    <p class="setting-details-margin"><span class="setting-donation-details">How much I've been repaid by Solar Seed Fund</span> <span class="setting-donations">{{repayment_solar_seed}}$</span></p>
+                    <p class="setting-details-margin"><span class="setting-donation-details">How much I've donated to RE-volv Operations</span> <span class="setting-donations">{{operation_donation}}$</span></p>
+                </div>
+                <div class="setting-input-block" style="float: right;">
+                    <a href="#" class="component-link pull-left btn-blue btn-donate setting-donation-save">SAVE</a>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div id="account-info" class="col-xs-12 col-sm-9 setting-form-top">
+        <form method="POST" action="{% url 'userupdate' %}">
+            {% csrf_token %}
+            <div style="width:65%;margin-left: 1.4em;">
+                <div class="setting-input-block">
+                    <span class="setting-form-lebel">FIRST NAME:</span>
+                     <div>
+                        {% if form.first_name.errors %}
+                            {{ form.first_name|add_class:"setting-donation-input field-error" }}
+                        {% else %}
+                            {{ form.first_name|add_class:"setting-donation-input" }}
+                        {% endif %}
+                    </div>
+                    <!--<input id="firstname" type="text" name="first_name" class="setting-donation-input" value='{{user.first_name}}' disabled/>-->
+                        <!--<input type="text" class="setting-donation-amount"/>-->
+                        <span id="firstnamelabel" class="setting-donation-change">Edit</span>
+                        {% if form.first_name.errors %}
+                            <div class="error-text">
+                               {{ form.first_name.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                <div class="setting-input-block">
+                    <span class="setting-form-lebel">LAST NAME:</span>
+                    <div>
+                        {% if form.last_name.errors %}
+                            {{ form.last_name|add_class:"setting-donation-input field-error" }}
+                        {% else %}
+                            {{ form.last_name|add_class:"setting-donation-input" }}
+                        {% endif %}
+                    </div>
+                    <!--<input id="lastname" type="text" name="last_name" class="setting-donation-input" value='{{user.last_name}}' disabled/>-->
+                        <!--<input type="text" class="setting-donation-amount"/>-->
+                    <span id="lastnamelabel" class="setting-donation-change">Edit</span>
+                    {% if form.last_name.errors %}
+                        <div class="error-text">
+                           {{ form.last_name.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="setting-input-block">
+                    <span class="setting-form-lebel">USERNAME:</span>
+
+                        <!--{% for error in form.username.errors %}-->
+                          <!--<small class="field-error error">{{form.username.label}}: {{ error }}</small>-->
+                        <!--{% endfor %}-->
+
+                    <div>
+                        {% if form.username.errors %}
+                            {{ form.username|add_class:"setting-donation-input field-error" }}
+                        {% else %}
+                            {{ form.username|add_class:"setting-donation-input" }}
+                        {% endif %}
+                    </div>
+                    <!--<input id="username" type="text" name="username" class="setting-donation-input" value='{{user.username}}' disabled/>-->
+                        <!--<input type="text" class="setting-donation-amount"/>-->
+                        <span id="usernamelabel" class="setting-donation-change">Edit</span>
+                        {% if form.username.errors %}
+                            <div class="error-text">
+                               {{ form.username.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                <div class="setting-input-block">
+                    <span class="setting-form-lebel">EMAIL:</span>
+                    <div>
+                        {% if form.email.errors %}
+                            {{ form.email|add_class:"setting-donation-input field-error" }}
+                        {% else %}
+                            {{ form.email|add_class:"setting-donation-input" }}
+                        {% endif %}
+                    </div>
+                    <!--<input id="email" type="text" name="email" class="setting-donation-input" value='{{user.email}}' disabled/>-->
+                        <!--<input type="text" class="setting-donation-amount">Andreas Karla</span>-->
+                        <span id="emaillabel" class="setting-donation-change">Edit</span>
+                        {% if form.email.errors %}
+                            <div class="error-text">
+                               {{ form.email.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                <div class="setting-input-block">
+                    <span class="setting-form-lebel">PASSWORD:</span>
+                    <!--<div>-->
+                        <!--{{ form.password|add_class:"setting-donation-input" }}-->
+                    <!--</div>-->
+                    <input id="password" type="password" name="password" class="setting-donation-input" value='*******' disabled/>
+                        <!--<span class="setting-donation-amount">*******</span>-->
+                        <span id="passwordlabel" class="setting-donation-change">Change Password</span>
+                    </div>
+                <div class="setting-input-block">
+                    <p class="setting-form-lebel setting-input-block">EMAIL PREFERENCES</p>
+                    <div class="checkbox-margin">
+                        <input type="checkbox" name="repayment_notification" id="repayment_notification" checked>
+                        <label for="repayment_notification" style="font-family: 'SExtralight'; font-size:14px;"><span class="checkbox-text">Receive Repayment Notifications</span></label>
+                    </div>
+                    <div class="checkbox-margin">
+                        <input type="checkbox" name="newsletter" id="newsletter" checked>
+                        <label for="newsletter" style="font-family: 'SExtralight'; font-size:14px;"><span class="checkbox-text">Receive RE-volv Newsletter</span></label>
+                    </div>
+                    <div class="checkbox-margin">
+                        <input type="checkbox" name="announcement" id="announcement" checked>
+                        <label for="announcement" style="font-family: 'SExtralight'; font-size:14px;"><span class="checkbox-text">Receive Important RE-volv Announcement</span></label>
+                    </div>
+                </div>
+                <div class="setting-input-block" style="float: right;">
+                    <button  type="submit" class="component-link pull-left btn-blue btn-donate setting-donation-save">SAVE</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        if ('{{subscribed_to_updates}}' == 'False') {
+            $("#announcement").removeAttr("checked");
+        }
+        if ('{{subscribed_to_repayment_notifications}}' == 'False') {
+            $("#repayment_notification").removeAttr("checked");
+        }
+        if ('{{subscribed_to_newsletter}}' == 'False') {
+            $("#newsletter").removeAttr("checked");
+        }
+        $('#id_first_name').prop('readonly', true);
+        $('#id_last_name').prop('readonly', true);
+        $('#id_username').prop('readonly', true);
+        $('#id_email').prop('readonly', true);
+        $('#operation-amt').prop('readonly', true);
+        $('#donation-amt').prop('readonly', true);
+    });
+
+</script>
+<!--<script>-->
+    <!--$(function ($) {-->
+  <!--var handler = StripeCheckout.configure({-->
+    <!--key: '{{ stripe_publishable_key }}'-->
+    <!--, image: '{% static "images/revolv-logo.png" %}'-->
+    <!--, locale: 'auto'-->
+    <!--, name: 'RE-volv'-->
+    <!--, email: '{{request.user.email}}'-->
+  <!--});-->
+  <!--$(window).on('popstate', function () {-->
+    <!--handler.close();-->
+  <!--});-->
+  <!--$(document).on('click','.operation-donation',function (e) {-->
+    <!--alert();-->
+      <!--handler.open({-->
+        <!--description: 'Donate $'-->
+        <!--, amount: 10-->
+        <!--, token: function (token) {-->
+          <!--var id = token.id;-->
+          <!--var email = token.email;-->
+          <!--var $id = $('<input>')-->
+            <!--.attr('type', 'hidden')-->
+            <!--.attr('name', 'stripeToken')-->
+            <!--.val(id);-->
+          <!--var $email = $('<input>')-->
+            <!--.attr('type', 'hidden')-->
+            <!--.attr('name', 'stripeEmail')-->
+            <!--.val(email);-->
+          <!--$id.appendTo($form);-->
+          <!--$email.appendTo($form);-->
+          <!--$form.submit(function(e) {-->
+          <!--$('#donation-spinner').css('display', 'flex');-->
+          <!--$.ajax({-->
+                 <!--type: "POST",-->
+                 <!--url: '{% url 'project:stripe_operation_donation' %}',-->
+                 <!--data: $form.serializeArray(), // serializes the form's elements.-->
+                 <!--success: function(data)-->
+                 <!--{-->
+                    <!--if(data.status == 'donation_success') {-->
+                        <!--$('.modal-title').text('Thank you for donating!');-->
+                        <!--$('.donation-text').text("Thank you for donating to RE-volv's mission to empower communities with solar energy!");-->
+                    <!--}-->
+                    <!--if(data.status == 'subscription_success') {-->
+                        <!--$('.modal-title').text('Thank you for donating!');-->
+                        <!--$('.donation-text').text("Thank you for donating monthly to RE-volv's mission to empower communities with solar energy!");-->
+                    <!--}-->
+                    <!--$('#donation-spinner').css('display', 'none');-->
+                    <!--$('#operationModal').modal('show');-->
+
+                 <!--},-->
+                 <!--error: function(data)-->
+                 <!--{-->
+                    <!--$('.modal-title').text('Error!');-->
+                    <!--$('.donation-text').text("Payment error. Something went wrong.");-->
+                     <!--$('#donation-spinner').css('display', 'none');-->
+                    <!--$('#operationModal').modal('show');-->
+                 <!--}-->
+               <!--});-->
+
+          <!--e.preventDefault(); // avoid to execute the actual submit of the form.-->
+      <!--});-->
+          <!--$form.trigger('submit');-->
+        <!--}-->
+      <!--});-->
+  <!--});-->
+<!--});-->
+
+<!--</script>-->
+
+{% endblock %}
