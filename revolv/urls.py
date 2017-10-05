@@ -8,7 +8,7 @@ from wagtail.wagtailcore import urls as wagtail_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
 
 from revolv.base import views as base_views
-from revolv.base.views import solarathome, bring_solar_tou_your_community, select_chapter, intake_form, intake_form_submit
+from revolv.base.views import solarathome, bring_solar_tou_your_community, select_chapter, intake_form, intake_form_submit, account_settings, editprofile
 from revolv.project.views import ProjectView
 
 urlpatterns = patterns(
@@ -31,6 +31,9 @@ urlpatterns = patterns(
     url(r'^my-portfolio/reinvest_list/', base_views.ReinvestmentRedirect.as_view(), name='reinvest_list'),
     url(r'^my-portfolio/sendmail/', 'revolv.base.views.sendmail', name='sendmail'),
     url(r'^my-portfolio/senddonoremail/', 'revolv.base.views.send_donor_email', name='senddonoremail'),
+    url(r'^account_settings/', 'revolv.base.views.account_settings', name='account_settings'),
+    url(r'^userupdate/', base_views.editprofile.as_view(), name='userupdate'),
+    url(r'^get-involved/leonardo-dicaprio-foundation-partners-re-volv/', 'revolv.base.views.leo_page', name='leo_page'),
 
     url(r'^what-we-do/projects/', base_views.ProjectListView.as_view(), name='projects_list'),
     url(r'^signin/$', base_views.SignInView.as_view(), name='signin'),
@@ -67,6 +70,7 @@ urlpatterns = patterns(
     url(r'^cms/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
     url(r'social/', include('social.apps.django_app.urls', namespace='social')),
+    url('', include('django.contrib.auth.urls', namespace='auth')),
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's serving mechanism
     url(r'^blog/', include('zinnia.urls', namespace='zinnia')),

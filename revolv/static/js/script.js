@@ -2,12 +2,66 @@ $(document).ready(function(){
     $('#dropdown-select-text').on('click', function() {
     $('.dropdown-menu').toggle();
     });
+    $('#firstnamelabel').click(function() {
+        $('#id_first_name').prop('readonly', false);
+        $('#id_first_name').focus();
+    });
+    $('#lastnamelabel').click(function() {
+        $('#id_last_name').prop('readonly', false);
+        $('#id_last_name').focus();
+    });
+    $('#emaillabel').click(function() {
+        $('#id_email').prop('readonly', false);
+        $('#id_email').focus();
+    });
+     $('#usernamelabel').click(function() {
+        $('#id_username').prop('readonly', false);
+        $('#id_username').focus();
+    });
+    $('.operation-donation').click(function() {
+        $('#operation-amt').prop('readonly', false);
+        $('#operation-amt').focus();
+    });
+    $('.solar-donation').click(function() {
+        $('#donation-amt').prop('readonly', false);
+        $('#donation-amt').focus();
+    });
+    $('#passwordlabel').click(function() {
+        window.location.href='/password_change/';
+    });
+
     $('.option').on('click', function() {
         $(this).closest('.dropdown-menu').hide();
         $(this).parents('.dropdown').find('.dropdown-title span:first-child').text($(this).html());
         $(this).parents('.dropdown').find('.dropdown-select').val($(this).html());
         selectedValue=$(this).data("selected-state");
         changeFunc(selectedValue);
+    });
+
+    $(document).click(function (event) {
+        var clickover = $("event.target");
+        var _opened = $(".navbar-collapse-settings").hasClass("collapse in");
+        if (_opened === true && !clickover.hasClass("container1")) {
+            $(".container1").click();
+        }
+    });
+
+    $('#account-link').click(function (event) {
+        $('#account-info').show();
+        $('#donation-info').hide();
+        $('#account-link').addClass('account-tab-text-active');
+        $('#donation-link').removeClass('account-tab-text-active');
+    });
+    $('#donation-link').click(function (event) {
+        $('#donation-info').show();
+        $('#account-info').hide();
+        $('#account-link').removeClass('account-tab-text-active');
+        $('#donation-link').addClass('account-tab-text-active');
+
+    });
+
+    $(".container1").click(function (event) {
+           $(".navbar-collapse-settings").toggle();
     });
 
      function changeFunc(selectedValue) {

@@ -5,7 +5,7 @@ from django.db import IntegrityError
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, get_user_model
 from django.utils.text import capfirst
-
+from models import RevolvUserProfile
 
 class SignupForm(UserCreationForm):
     """
@@ -128,3 +128,22 @@ class AuthenticationForm(forms.Form):
 
     def get_user(self):
         return self.user_cache
+
+
+class RevolvUserProfileForm(forms.ModelForm):
+    class Meta:
+        model = RevolvUserProfile
+        fields = ['subscribed_to_newsletter', 'subscribed_to_updates','subscribed_to_repayment_notifications']
+
+
+class UpdateUser(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email']
+
+    email = forms.EmailField(label="Email")
+    first_name = forms.CharField(label="First name")
+    last_name = forms.CharField(label="Last name")
+
+
+

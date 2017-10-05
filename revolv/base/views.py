@@ -2,6 +2,7 @@ import csv
 from collections import OrderedDict
 import logging
 
+from django.views.generic.edit import UpdateView
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.conf import settings
@@ -10,7 +11,7 @@ from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import views as auth_views
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.db.models import Sum
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -22,11 +23,11 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.http import require_http_methods
 from django.views.generic import FormView, TemplateView, View
 from django.template.context import RequestContext
-from revolv.base.forms import SignupForm, AuthenticationForm
+from revolv.base.forms import SignupForm, AuthenticationForm, RevolvUserProfileForm, UpdateUser
 from revolv.base.users import UserDataMixin
 from revolv.base.utils import ProjectGroup
 from revolv.payments.models import Payment, Tip, PaymentType, RepaymentFragment
-from revolv.project.models import Category, Project, ProjectMatchingDonors
+from revolv.project.models import Category, Project, ProjectMatchingDonors, StripeDetails
 from revolv.project.utils import aggregate_stats
 from revolv.donor.views import humanize_integers, total_donations
 from revolv.base.models import RevolvUserProfile
@@ -42,6 +43,7 @@ import re
 
 logger = logging.getLogger(__name__)
 LIST_ID = settings.LIST_ID
+ANNOUNCEMENT_ID = settings.ANNOUNCEMENT_ID
 
 class HomePageView(UserDataMixin, TemplateView):
     """
@@ -517,6 +519,11 @@ class ReinvestmentRedirect(UserDataMixin, TemplateView):
 def solarathome(request):
     return render_to_response('base/solar_at_home.html',
                               context_instance=RequestContext(request))
+
+def leo_page(request):
+    return render(request,'base/partials/leo_page.html')
+
+
 
 def solarathome(request):
     return render_to_response('base/solar_at_home.html',
@@ -1327,9 +1334,10 @@ def add_email_to_mailing_list(request):
         is_email_exist = False
         email_address = request.POST['email']
         list = mailchimp.utils.get_connection().get_list_by_id(LIST_ID)
+        list.unsubscribe( {'EMAIL': email_address}, delete_member='True')
         for resp in list.con.list_members(list.id)['data']:
             if email_address == resp['email']:
-                is_email_exist = True
+                list.unsubscribe(email_address, {'EMAIL': email_address},double_optin=False)
         if is_email_exist:
             return HttpResponse(json.dumps({'status': 'already_exist'}), content_type="application/json")
         else:
@@ -1342,5 +1350,104 @@ def add_email_to_mailing_list(request):
         return HttpResponse(json.dumps({'status': 'subscription_fail'}), content_type="application/json")
 
 
+class editprofile(View):
+    def post(self, request):
+        subscribed_to_newsletter = request.POST.get('newsletter')
+        repayment_notification = request.POST.get('repayment_notification')
+        announcement = request.POST.get('announcement')
+        profileup = RevolvUserProfileForm(data=request.POST or None,instance=request.user.revolvuserprofile)
+        if profileup.is_valid():
+            user = profileup.save(commit=False)
+            if subscribed_to_newsletter:
+                is_email_exist = False
+                user.subscribed_to_newsletter = True
+                list = mailchimp.utils.get_connection().get_list_by_id(LIST_ID)
+                for resp in list.con.list_members(list.id)['data']:
+                    if request.user.email == resp['email']:
+                        is_email_exist = True
+                if not is_email_exist:
+                    list.subscribe(request.user.email, {'EMAIL': request.user.email},double_optin=False)
+            else:
+                is_email_exist = False
+                list = mailchimp.utils.get_connection().get_list_by_id(LIST_ID)
+                for resp in list.con.list_members(list.id)['data']:
+                    if request.user.email == resp['email']:
+                        is_email_exist = True
+                if is_email_exist:
+                    list.unsubscribe(request.user.email,delete_member=True)
+            if repayment_notification:
+                user.subscribed_to_repayment_notifications = True
+            if announcement:
+                is_email_exist = False
+                user.subscribed_to_updates = True
+                list = mailchimp.utils.get_connection().get_list_by_id(ANNOUNCEMENT_ID)
+                for resp in list.con.list_members(list.id)['data']:
+                    if request.user.email == resp['email']:
+                        is_email_exist = True
+                if not is_email_exist:
+                    list.subscribe(request.user.email, {'EMAIL': request.user.email}, double_optin=False)
+            else:
+                is_email_exist = False
+                list = mailchimp.utils.get_connection().get_list_by_id(ANNOUNCEMENT_ID)
+                for resp in list.con.list_members(list.id)['data']:
+                    if request.user.email == resp['email']:
+                        is_email_exist = True
+                if is_email_exist:
+                    list.unsubscribe(request.user.email, delete_member=True)
+            user.user = request.user
+            user.save()
+            userup = UpdateUser(request.POST or None,instance=request.user)
+            if userup.is_valid():
+                user = userup.save(commit=False)
+                user.save()
+                messages.success(request, 'Account details successfully updated')
+                return HttpResponseRedirect('/account_settings/')
+
+            else:
+                userprofile = RevolvUserProfile.objects.get(user=request.user)
+                context = {
+                    "form": userup, 'subscribed_to_newsletter': userprofile.subscribed_to_newsletter, 'subscribed_to_repayment_notifications': userprofile.subscribed_to_repayment_notifications, 'subscribed_to_updates': userprofile.subscribed_to_updates
+                }
+                return render(request, 'base/partials/account_settings.html', context)
+
+    # else:
+    #     user = request.user
+    #     profile = user
+    #     userup = UpdateUser(instance=user)
+    #     profileup = RevolvUserProfile(instance=profile)
+
+# @login_required
+# def account_settings(request):
+#     user = RevolvUserProfile.objects.get(user=request.user)
+#     print user.subscribed_to_newsletter
+#     user = {'user':user, 'subscribed_to_newsletter': user.subscribed_to_newsletter, 'subscribed_to_repayment_notifications': user.subscribed_to_repayment_notifications, 'subscribed_to_updates': user.subscribed_to_updates}
+#     return render_to_response('base/partials/account_settings.html',
+#                               context_instance=RequestContext(request,user))
 
 
+def account_settings(request):
+    user = request.user
+    userprofile = RevolvUserProfile.objects.get(user=request.user)
+    project = Project.objects.get(title='RE-volv Donation')
+    donated_solar_seed = Payment.objects.filter(user=request.user).exclude(project=project).aggregate(Sum('amount'))['amount__sum'] or 0
+    repayment_solar_seed = RepaymentFragment.objects.filter(user=request.user).aggregate(Sum('amount'))['amount__sum'] or 0
+    operation_donation = Payment.objects.filter(user=request.user,project=project).aggregate(Sum('amount'))['amount__sum'] or 0
+    userform = UpdateUser(initial={'first_name':user.first_name, 'last_name':user.last_name, 'username': user.username, 'email':user.email})
+    monthly_donation = StripeDetails.objects.filter(user=request.user)
+    monthly_donation_amount = 0
+    if monthly_donation:
+        existing_user = True
+        amount = StripeDetails.objects.filter(user=request.user).aggregate(Sum('amount'))['amount__sum'] or 0
+        monthly_donation_amount = amount
+    context = {
+        "form": userform,
+        'subscribed_to_newsletter': userprofile.subscribed_to_newsletter,
+        'subscribed_to_repayment_notifications': userprofile.subscribed_to_repayment_notifications,
+        'subscribed_to_updates': userprofile.subscribed_to_updates,
+        'donated_solar_seed': donated_solar_seed,
+        'repayment_solar_seed': repayment_solar_seed,
+        'operation_donation': operation_donation,
+        'monthly_donation_amount': monthly_donation_amount,
+        'existing_user': existing_user
+    }
+    return render(request, 'base/partials/account_settings.html', context)

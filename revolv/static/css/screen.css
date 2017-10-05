@@ -166,6 +166,18 @@ a:hover {
         padding: 0.9em 0;
         text-align: center;
     }
+    .carousel-fourth-img .text_content {
+        float: left;
+        width: 65%;
+        text-align: left;
+        margin-right: 0;
+    }
+    .carousel-fourth-img .How_it_Works {
+        float: left;
+        font-size: 1.7rem;
+        padding: 0.9em 0;
+        text-align: center;
+    }
     .carousel-first-img .how-it-works-button {
         bottom: 0;
     }
@@ -696,7 +708,7 @@ p.attribution.footer-text {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 0;
+    z-index: 10;
 }
 .after-header {
     margin-top: 102px;
@@ -707,7 +719,7 @@ padding: 0;
     width: 100%;
 }
 #home-page  > .container > .container {
-    padding: 0vmin 4% 0 0;
+    padding: 0vmin 12px 0 0;
     margin: 0;
 }
 #home-page  > .container > .container .menu-list {
@@ -758,7 +770,7 @@ padding: 0;
     min-width: 132px;
 }
 .header .rights {
-        padding: 3.3rem 5.2% 0 0;
+        padding: 3.3rem 9% 0 0;
 }
 .header .txt {
     font-size: 14px;
@@ -847,7 +859,7 @@ padding: 0;
 .zinnia .header a.btn-blue:last-child {
     margin-right: 0;
 }
-.zinnia .header a.btn-blue:nth-child(2), .header a.btn-blue:first-child {
+.zinnia .header a.btn-blue:nth-child(2), .header a.btn-blue {
     margin-right: 3rem;
 }
 #home-page .rights > a.btn-blue:last-child {
@@ -13179,6 +13191,11 @@ and (orientation : landscape) {
     font-size: 2.5vmin;
     padding: 0.9em 10.5%;
 }
+.carousel-fourth-img .How_it_Works {
+    float: left;
+    font-size: 2.5vmin;
+    padding: 0.9em 10.5%;
+}
 .Bring_solar_energy__to_communities_around_the_c {
     font-size: 4.2vmin;
     line-height: 5.4vmin;
@@ -13199,6 +13216,22 @@ and (orientation : landscape) {
     float: none;
     margin: 0 auto;
     }
+.carousel-fourth-img .text_content {
+    width: 100%;
+    padding-left: 0;
+    text-align: center;
+}
+.carousel-fourth-img .text_overlay {
+    padding: 4vmin calc(20.5% + 15px) 0 calc(20.5% + 15px);
+}
+.carousel-fourth-img .text_content {
+    width: 100%;
+    padding-left: 0;
+    text-align: center;
+}
+.carousel-fourth-img .text_overlay {
+    padding: 4vmin calc(20.5% + 15px) 0 calc(20.5% + 15px);
+}
 .carousel-third-img .text_content {
     width: 100%;
     padding-left: 0;
@@ -13352,7 +13385,7 @@ and (orientation : landscape) {
 }
 
 .footer-next-button {
-        float: left;
+    float: left;
     background-image: url(/static/images/rectangle_lined.png);
     width: 100%;
     position: relative;
@@ -14009,6 +14042,14 @@ a.How_it_Works:hover {
     }
 }
 @media (max-width: 414px) {
+    .carousel-fourth-img .text_overlay {
+        padding: 4vmin calc(8.5% + 15px) 0 calc(8.5% + 15px);
+    }
+    .carousel-fourth-img .how-it-works-button {
+        padding: 2vmin 19%;
+        float: left;
+        width: 100%;
+    }
     .carousel-third-img .text_overlay {
         padding: 4vmin calc(8.5% + 15px) 0 calc(8.5% + 15px);
     }
@@ -14059,12 +14100,19 @@ a.How_it_Works:hover {
     .carousel-third-img .text_content {
         width: 70em;
     }
+    .carousel-fourth-img .text_content {
+        width: 70em;
+    }
     .CREATE_CLEAN_ENERGY {
         font-size: 5.5rem;
     }
     .Bring_solar_energy__to_communities_around_the_c  {
         font-size: 2.6rem;
     line-height: 1.45em;
+    }
+    .carousel-fourth-img .How_it_Works {
+        font-size: 1.7rem;
+        font-family: SourceSansProBold;
     }
     .carousel-third-img .How_it_Works {
         font-size: 1.7rem;
@@ -14081,7 +14129,7 @@ a.How_it_Works:hover {
        height: 9em;
     }
     .header .rights {
-        padding: 3.9rem 5.2% 0 0;
+        padding: 3.9rem 9% 0 0;
     }
     .footer .row:last-child {
         padding-bottom: 1em;
@@ -14103,6 +14151,9 @@ a.How_it_Works:hover {
     margin-left: 0;
 }
 @media (max-width: 500px) {
+    #myCarousel .carousel-fourth-img .background-image-size_home{
+        content:url(../images/mobile/Leonardo_Dicaprio_414*515.jpg);
+    }
     #myCarousel .carousel-third-img .background-image-size_home{
         content:url(../images/mobile/mobile_slide1.jpg);
     }
@@ -14740,4 +14791,180 @@ form#change_password_form label {
     border: 0;
     height: 3em;
     line-height: 43px;
+}
+    .container1 {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.bar1, .bar2, .bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: #14b1e7;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+.change .bar1 {
+    -webkit-transform: rotate(-45deg) translate(-9px, 6px) ;
+    transform: rotate(-45deg) translate(-9px, 6px) ;
+}
+
+.change .bar2 {opacity: 0;}
+
+.change .bar3 {
+    -webkit-transform: rotate(45deg) translate(-8px, -8px) ;
+    transform: rotate(45deg) translate(-8px, -8px) ;
+}
+
+.header .txt .navbar-collapse-settings a {
+    color: #999;
+    font-weight: 800;
+    text-decoration: none;
+    font-size: 14px;
+}
+.header .txt .navbar-collapse-settings a:hover {
+ color:#14b1e7;
+}
+.navbar-collapse-settings {
+    margin: 0px 0px 0px auto;
+    width: 50%;
+}
+
+.navbar-collapse-border {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #ededed;
+}
+.navbar-collapse-settings-blue {
+    width: 13em;
+    z-index: 10;
+    right: 4.8em;
+}
+.account-heading {
+    background-image: url(/static/images/rectangle_lined.png);
+    margin-top: 13%;
+    height: 7em;
+}
+.account-heading-span {
+    padding-left: 2.8em;
+    font-size: 2.1em;
+}
+.account-tabs {
+    text-align: center;
+    margin-top: 4em;
+}
+.account-tab-text {
+    font-size: 1.5em;
+    color: #ddd;
+    font-weight: 700;
+}
+
+.account-tab-text-active {
+    color: #14b1e7;
+}
+.setting-form-top {
+    margin-top: 4em;
+    border-left: 2px solid #e8e8e8;
+}
+.setting-form-lebel {
+    font-size: 1.1em;
+    font-weight: 700;
+}
+.setting-donation-input {
+    height: 2.9em;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5.5px;
+    font-weight: 500;
+    color: #777;
+    padding: 2.1rem !important;
+    font-size: 1.4em !important;
+}
+.setting-donation-amount {
+    display: inline-block;
+    margin: 0.7em 1.3em;
+    font-size: 1.4em;
+    color: #9d9d9d;
+}
+.setting-donation-change {
+    float: right;
+    display: inline-block;
+    font-size: 1em;
+    color: #14b1e7;
+    position: relative;
+    margin: -3.6em 1.6em;
+    z-index: 1;
+}
+.setting-input-block {
+    margin-bottom: 2em;
+}
+.setting-donation-details {
+    font-size: 1.3em;
+    color: #777;
+    font-weight: 500;
+}
+.setting-details-margin {
+    margin-bottom: 1.4em;
+}
+.setting-donations {
+    float: right;
+    font-size: 1.3em;
+    color: #777;
+}
+.setting-donation-save {
+    font-size: 1.5em;
+    padding: 0 74px;
+    border-radius: 4.5px;
+}
+span.account-tab-text {
+    cursor: pointer;
+}
+span.setting-donation-change {
+    cursor: pointer;
+}
+.field-error {
+    border: 1px solid #F46B7B;
+}
+.error-text {
+    color: #F46B7B;
+}
+.learn-more {
+    position: relative;
+    width: 100%;
+    float: left;
+    /* text-align: center; */
+    margin-left: 6em;
+    margin-top: 0.4em;
+}
+.learn-more-text {
+    color: #eee;
+    font-family: italic;
+    font-weight: 600;
+}
+.leo-content-center {
+    max-width: 43em;
+    margin: 0 auto;
+    position: relative;
+    margin-top: 11em;
+}
+.leo-content-text {
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 36px;
+    color: #064f7e;
+}
+
+.leo-content-size {
+    font-size: 16px;
+    margin-top: 2em;
+}
+.leo-donate-btn {
+    text-align: center;
+    margin-top: 2em;
+}
+.infographic {
+    text-align: center;
+    width: 62%;
+    margin: 0 auto;
 }
