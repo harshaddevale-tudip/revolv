@@ -108,9 +108,9 @@ input[type="checkbox"] + label::before {
                     </div>
                 <div class="setting-input-block">
                     <p class="setting-form-lebel setting-input-block">DONATION HISTORY</p>
-                    <p class="setting-details-margin"><span class="setting-donation-details">How much I've donated to the Solar Seed Fund</span> <span class="setting-donations">{{donated_solar_seed}}$</span></p>
-                    <p class="setting-details-margin"><span class="setting-donation-details">How much I've been repaid by Solar Seed Fund</span> <span class="setting-donations">{{repayment_solar_seed}}$</span></p>
-                    <p class="setting-details-margin"><span class="setting-donation-details">How much I've donated to RE-volv Operations</span> <span class="setting-donations">{{operation_donation}}$</span></p>
+                    <p class="setting-details-margin"><span class="setting-donation-details">How much I've donated to the Solar Seed Fund</span> <span class="setting-donations">{{donated_solar_seed|floatformat:"2"}}$</span></p>
+                    <p class="setting-details-margin"><span class="setting-donation-details">How much I've been repaid by Solar Seed Fund</span> <span class="setting-donations">{{repayment_solar_seed|floatformat:"2"}}$</span></p>
+                    <p class="setting-details-margin"><span class="setting-donation-details">How much I've donated to RE-volv Operations</span> <span class="setting-donations">{{operation_donation|floatformat:"2"}}$</span></p>
                 </div>
                 <div class="setting-input-block" style="float: right;">
                     <a href="#" class="component-link pull-left btn-blue btn-donate setting-donation-save">SAVE</a>
