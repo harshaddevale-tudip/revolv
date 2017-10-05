@@ -1,6 +1,7 @@
 import csv
 from collections import OrderedDict
 import logging
+import stripe
 
 from django.views.generic.edit import UpdateView
 from django.contrib import messages
@@ -1424,8 +1425,9 @@ class editprofile(View):
 #     return render_to_response('base/partials/account_settings.html',
 #                               context_instance=RequestContext(request,user))
 
-
+@login_required
 def account_settings(request):
+    existing_user = False
     user = request.user
     userprofile = RevolvUserProfile.objects.get(user=request.user)
     project = Project.objects.get(title='RE-volv Donation')
@@ -1451,3 +1453,25 @@ def account_settings(request):
         'existing_user': existing_user
     }
     return render(request, 'base/partials/account_settings.html', context)
+
+# def donation_update(request):
+#     try:
+#         operation_amt = request.POST.get('operation-amt')
+#
+#     except KeyError:
+#         logger.exception('stripe_payment called without required POST data')
+#         return HttpResponseBadRequest('bad POST data')
+#
+#     user = StripeDetails.objects.get(user=request.user)
+#
+#     try:
+#         subscription = stripe.Subscription.retrieve(user.subscription_id)
+#         print subscription
+#     except KeyError:
+#         logger.exception('stripe_payment called without required POST data')
+#         return HttpResponseBadRequest('bad POST data')
+#
+#     return HttpResponseRedirect('/account_settings')
+
+
+
