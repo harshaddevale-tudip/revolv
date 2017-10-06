@@ -1463,7 +1463,7 @@ padding: 0;
 .how-it-works-module .info-row {
     text-align: left;
     margin: 0;
-    padding: 57px 86px 0 113px;
+    padding: 0 86px 0 113px;
 }
 .how-it-works-module .info-row .video-area .video {
     background: #000;
@@ -14965,6 +14965,7 @@ span.setting-donation-change {
 }
 .infographic {
     text-align: center;
-    width: 62%;
+    width: 57%;
     margin: 0 auto;
+    margin-bottom: 4%;
 }
