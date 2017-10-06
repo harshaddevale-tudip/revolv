@@ -111,40 +111,21 @@ a.How_it_Works:hover {
             <!--/.nav-collapse -->
         </div>
     <!-- end .logo -->
-            <div class="rights pull-right">
+            <div class="solar_at_home_rights pull-right">
               <div class="txt pull-left">
 
                 {% if request.user.is_authenticated %}
-                  <!--<li class="user-controls has-dropdown">-->
-                    <a href="{% url 'dashboard' %}" class="btn-blue pull-left btn-donate">MY PORTFOLIO</a>
-                    <!--<a href="{% url 'logout' %}" class="btn-blue pull-left btn-donate">SIGN OUT</a>-->
-
-                  <!--</li>-->
+                  <li class="user-controls has-dropdown">
+                    <a href="{% url 'dashboard' %}" class="btn-blue pull-left btn-donate btn-yellow">MY PORTFOLIO</a>
+                    <a href="{% url 'logout' %}" class="btn-blue pull-left btn-donate btn-yellow" >SIGN OUT</a>
+                  </li>
                   {% else %}
-                    <a href="{% url 'signin' %}#signup" class="component-link btn-blue pull-left btn-donate" data-component="signup">SIGN UP</a>
-                    <a href="{% url 'signin' %}#login" class="component-link btn-blue pull-left btn-donate" data-component="login">SIGN IN</a>
-                {% endif %}
-                <a href="#" onclick="return clearInput();" class="component-link pull-left btn-blue btn-donate" data-toggle="modal" data-target="#popup">DONATE</a>
-                <!--<a href="#" onclick="return clearInput();" class="component-link btn-blue btn-donate" data-toggle="modal" data-target="#popup">DONATE</a>-->
-                {% if request.user.is_authenticated %}
-                  <div class="container1" data-toggle="collapse" data-target=".navbar-collapse-settings">
-                    <div class="bar1"></div>
-                    <div class="bar2"></div>
-                    <div class="bar3"></div>
-                  </div>
-                  <div class="navbar-collapse-settings collapse background-collapse-color navbar-collapse-settings-blue" style="position: absolute;">
-                        <ul class="nav navbar-collapse-border">
-
-                            <li><a href="{% url 'dashboard' %}" class="dropdown">ACCOUNT SETTINGS</a>
-                            </li>
-                            <li> <a href="{% url 'logout' %}" class="dropdown">SIGN OUT</a>
-                            </li>
-                        </ul>
-                    </div>
+                    <a href="{% url 'signin' %}#signup" class="component-link btn-blue pull-left btn-donate btn-yellow" data-component="signup" >SIGN UP</a>
+                    <a href="{% url 'signin' %}#login" class="component-link btn-blue pull-left btn-donate btn-yellow" data-component="login" >SIGN IN</a>
                 {% endif %}
               </div>
-
-				  <!--<a #data-target="popup" data-toggle="modal" class=" btn-blue btn-donate pull-left after-scroll">DONATE NOW</a>-->
+              <a href="#" onclick="return clearInput();" class="component-link btn-blue btn-donate btn-yellow" data-toggle="modal" data-target="#popup" >DONATE</a>
+              <!--<a #data-target="popup" data-toggle="modal" class=" btn-blue btn-donate pull-left after-scroll">DONATE NOW</a>-->
             </div>
           </div>
              <div style="width:100%;float:left;padding-top: 14vmin;">
@@ -174,11 +155,11 @@ a.How_it_Works:hover {
 <!--onchange="changeFunc();"-->
 <div style="width:100%;">
     <div>
-        <div class="tell_us_state_where_you_live hide-state-text-div"><span>Tell us the State you live in and we can help you find some vetted solar installers in your area.</span></div>
+        <div class="tell_us_state_where_you_live hide-state-text-div"><span>Tell us the state you live in and we can help you find some vetted solar installers in your area.</span></div>
         <div class="dropdown">
             <div id="dropdown-select-text" class="dropdown-select-text">
                 <div id="dropdown-title" class="dropdown-title">
-                    <span>Select your State</span>
+                    <span>Select your state</span>
                     <span class="dropdown-triangle">&#x25BE;</span>
                 </div>
 
@@ -243,13 +224,13 @@ a.How_it_Works:hover {
             <div style="float:left;width:100%;">
                 <div class="investors_logo">
                     <div class="invstr-logo-images col-xs-12 col-sm-4">
+                        <div class="investors_logo_text" >
+
+                        </div>
                         <div class="logo-img-cntnr">
                              <a id="invstr-logo-link" href=""><img id="img"  src=""></a>
                         </div>
 
-                        <div class="investors_logo_text" >
-
-                        </div>
                     </div>
 
                 </div>

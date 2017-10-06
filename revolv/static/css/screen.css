@@ -374,10 +374,11 @@ div#myCarousel {
     .investors_logo_text {
        float: left;
     width: 100%;
-    padding: 4vmin 0;
-    font-size: 2.3vmin;
+    padding: 0vmin 0;
+    font-size: 1.5em;
     text-align: center;
-    margin-bottom: 2%;
+    margin-bottom: 4%;
+    font-weight: 600;
     }
 
 .dropdown_state {
