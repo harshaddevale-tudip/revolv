@@ -89,19 +89,20 @@ input[type="checkbox"] + label::before {
             <span id="donation-link" class="account-tab-text">Donation Information</span>
         </div>
     </div>
-    <form method="POST" action="{% url 'userupdate' %}">
+    <form method="POST" action="{% url 'donation_update' %}">
+        {% csrf_token %}
         <div id="donation-info" class="col-xs-12 col-sm-9 setting-form-top" style="display:none;">
             <div style="width:65%;margin-left: 1.4em;">
                 <div class="setting-input-block">
                     <span class="setting-form-lebel">CURRENT MONTHLY DONATION TO SOLAR SEED FUND:</span>
-                    <input id="donation-amt" type="text" class="setting-donation-input"/>
+                    <input id="donation-amt" type="text" name="" class="setting-donation-input"/>
                         <!--<span class="setting-donation-amount">$ 50</span>-->
                         <span class="setting-donation-change solar-donation">Change</span>
 
                 </div>
                 <div class="setting-input-block">
                     <span class="setting-form-lebel">CURRENT MONTHLY DONATION TO RE-volv's OPERATIONS:</span>
-                    <input id="operation-amt" type="text" class="setting-donation-input" value="{{monthly_donation_amount}}"/>
+                    <input id="operation-amt" type="text" name="operation-amt" class="setting-donation-input" value="{{monthly_donation_amount}}"/>
                         <!--<span class="setting-donation-amount">$ 50</span>-->
                         <!--<span class="setting-donation-change">Change</span>-->
                     <span class="setting-donation-change operation-donation">Change</span>
@@ -113,7 +114,7 @@ input[type="checkbox"] + label::before {
                     <p class="setting-details-margin"><span class="setting-donation-details">How much I've donated to RE-volv Operations</span> <span class="setting-donations">{{operation_donation|floatformat:"2"}}$</span></p>
                 </div>
                 <div class="setting-input-block" style="float: right;">
-                    <a href="#" class="component-link pull-left btn-blue btn-donate setting-donation-save">SAVE</a>
+                    <a  type="submit" class="component-link pull-left btn-blue btn-donate setting-donation-save operation-donation-submit">SAVE</a>
                 </div>
             </div>
         </div>
@@ -250,73 +251,108 @@ input[type="checkbox"] + label::before {
     });
 
 </script>
-<!--<script>-->
-    <!--$(function ($) {-->
-  <!--var handler = StripeCheckout.configure({-->
-    <!--key: '{{ stripe_publishable_key }}'-->
-    <!--, image: '{% static "images/revolv-logo.png" %}'-->
-    <!--, locale: 'auto'-->
-    <!--, name: 'RE-volv'-->
-    <!--, email: '{{request.user.email}}'-->
-  <!--});-->
-  <!--$(window).on('popstate', function () {-->
-    <!--handler.close();-->
-  <!--});-->
-  <!--$(document).on('click','.operation-donation',function (e) {-->
-    <!--alert();-->
-      <!--handler.open({-->
-        <!--description: 'Donate $'-->
-        <!--, amount: 10-->
-        <!--, token: function (token) {-->
-          <!--var id = token.id;-->
-          <!--var email = token.email;-->
-          <!--var $id = $('<input>')-->
-            <!--.attr('type', 'hidden')-->
-            <!--.attr('name', 'stripeToken')-->
-            <!--.val(id);-->
-          <!--var $email = $('<input>')-->
-            <!--.attr('type', 'hidden')-->
-            <!--.attr('name', 'stripeEmail')-->
-            <!--.val(email);-->
-          <!--$id.appendTo($form);-->
-          <!--$email.appendTo($form);-->
-          <!--$form.submit(function(e) {-->
-          <!--$('#donation-spinner').css('display', 'flex');-->
-          <!--$.ajax({-->
-                 <!--type: "POST",-->
-                 <!--url: '{% url 'project:stripe_operation_donation' %}',-->
-                 <!--data: $form.serializeArray(), // serializes the form's elements.-->
-                 <!--success: function(data)-->
-                 <!--{-->
-                    <!--if(data.status == 'donation_success') {-->
-                        <!--$('.modal-title').text('Thank you for donating!');-->
-                        <!--$('.donation-text').text("Thank you for donating to RE-volv's mission to empower communities with solar energy!");-->
-                    <!--}-->
-                    <!--if(data.status == 'subscription_success') {-->
-                        <!--$('.modal-title').text('Thank you for donating!');-->
-                        <!--$('.donation-text').text("Thank you for donating monthly to RE-volv's mission to empower communities with solar energy!");-->
-                    <!--}-->
-                    <!--$('#donation-spinner').css('display', 'none');-->
-                    <!--$('#operationModal').modal('show');-->
+<script>
+    $(function ($) {
+  var handler = StripeCheckout.configure({
+    key: '{{ stripe_publishable_key }}'
+    , image: '{% static "images/revolv-logo.png" %}'
+    , locale: 'auto'
+    , name: 'RE-volv'
+    , email: '{{request.user.email}}'
+  });
+  $(window).on('popstate', function () {
+    handler.close();
+  });
+  $(document).on('click','.operation-donation-submit',function (e) {
+    e.preventDefault();
+    var $form = $(this).closest('form');
+    if ('{{existing_user}}' == 'True') {
+        var amount = $('#operation-amt').val();
+        if ({{monthly_donation_amount}} == amount ) {
+            return false;
+        }
+        $('#donation-spinner').css('display', 'flex');
+        $.ajax({
+                 type: "POST",
+                 url: '{% url 'donation_update' %}',
+                 data: $form.serializeArray(), // serializes the form's elements.
+                 success: function(data)
+                 {
+                    if(data.status == 'donation_updated') {
+                        $('.modal-title').text('Thank you for donating!');
+                        $('.donation-text').text("Your donation successfully updated.");
+                    }
+                    $('#donation-spinner').css('display', 'none');
+                    $('#operationModal').modal('show');
 
-                 <!--},-->
-                 <!--error: function(data)-->
-                 <!--{-->
-                    <!--$('.modal-title').text('Error!');-->
-                    <!--$('.donation-text').text("Payment error. Something went wrong.");-->
-                     <!--$('#donation-spinner').css('display', 'none');-->
-                    <!--$('#operationModal').modal('show');-->
-                 <!--}-->
-               <!--});-->
+                 },
+                 error: function(data)
+                 {
+                    $('.modal-title').text('Error!');
+                    $('.donation-text').text("Payment error. Something went wrong.");
+                     $('#donation-spinner').css('display', 'none');
+                    $('#operationModal').modal('show');
+                 }
+               });
+    }
+    else {
+      var amount = $('#operation-amt').val();
+      if (amount > 0) {
+          handler.open({
+            description: 'Donate $'
+            , amount: amount*100
+            , token: function (token) {
+              var id = token.id;
+              var email = token.email;
+              var $id = $('<input>')
+                .attr('type', 'hidden')
+                .attr('name', 'stripeToken')
+                .val(id);
+              var $email = $('<input>')
+                .attr('type', 'hidden')
+                .attr('name', 'stripeEmail')
+                .val(email);
+              $id.appendTo($form);
+              $email.appendTo($form);
+              $form.submit(function(e) {
+              $('#donation-spinner').css('display', 'flex');
+              $.ajax({
+                     type: "POST",
+                     url: '{% url 'donation_update' %}',
+                     data: $form.serializeArray(), // serializes the form's elements.
+                     success: function(data)
+                     {
+                        if(data.status == 'donation_success') {
+                            $('.modal-title').text('Thank you for donating!');
+                            $('.donation-text').text("Thank you for donating to RE-volv's mission to empower communities with solar energy!");
+                        }
+                        if(data.status == 'subscription_success') {
+                            $('.modal-title').text('Thank you for donating!');
+                            $('.donation-text').text("Thank you for donating monthly to RE-volv's mission to empower communities with solar energy!");
+                        }
+                        $('#donation-spinner').css('display', 'none');
+                        $('#operationModal').modal('show');
 
-          <!--e.preventDefault(); // avoid to execute the actual submit of the form.-->
-      <!--});-->
-          <!--$form.trigger('submit');-->
-        <!--}-->
-      <!--});-->
-  <!--});-->
-<!--});-->
+                     },
+                     error: function(data)
+                     {
+                        $('.modal-title').text('Error!');
+                        $('.donation-text').text("Payment error. Something went wrong.");
+                         $('#donation-spinner').css('display', 'none');
+                        $('#operationModal').modal('show');
+                     }
+                   });
 
-<!--</script>-->
+              e.preventDefault(); // avoid to execute the actual submit of the form.
+          });
+              $form.trigger('submit');
+            }
+          });
+        }
+     }
+  });
+});
+
+</script>
 
 {% endblock %}

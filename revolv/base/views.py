@@ -1435,11 +1435,13 @@ def account_settings(request):
     repayment_solar_seed = RepaymentFragment.objects.filter(user=request.user).aggregate(Sum('amount'))['amount__sum'] or 0
     operation_donation = Payment.objects.filter(user=request.user,project=project).aggregate(Sum('amount'))['amount__sum'] or 0
     userform = UpdateUser(initial={'first_name':user.first_name, 'last_name':user.last_name, 'username': user.username, 'email':user.email})
-    monthly_donation = StripeDetails.objects.filter(user=request.user)
+    revolv_profile = RevolvUserProfile.objects.get(user=request.user)
+    monthly_donation = StripeDetails.objects.filter(user=revolv_profile)
+    print "ssssssssssssss",monthly_donation
     monthly_donation_amount = 0
     if monthly_donation:
         existing_user = True
-        amount = StripeDetails.objects.filter(user=request.user).aggregate(Sum('amount'))['amount__sum'] or 0
+        amount = monthly_donation.aggregate(Sum('amount'))['amount__sum'] or 0
         monthly_donation_amount = amount
     context = {
         "form": userform,
@@ -1454,24 +1456,105 @@ def account_settings(request):
     }
     return render(request, 'base/partials/account_settings.html', context)
 
-# def donation_update(request):
-#     try:
-#         operation_amt = request.POST.get('operation-amt')
-#
-#     except KeyError:
-#         logger.exception('stripe_payment called without required POST data')
-#         return HttpResponseBadRequest('bad POST data')
-#
-#     user = StripeDetails.objects.get(user=request.user)
-#
-#     try:
-#         subscription = stripe.Subscription.retrieve(user.subscription_id)
-#         print subscription
-#     except KeyError:
-#         logger.exception('stripe_payment called without required POST data')
-#         return HttpResponseBadRequest('bad POST data')
-#
-#     return HttpResponseRedirect('/account_settings')
+@login_required
+def donation_update(request):
+    try:
+        operation_amt = request.POST.get('operation-amt')
+        amount = round(float(operation_amt) * 100)
+    except KeyError:
+        logger.exception('stripe_payment called without required POST data')
+        return HttpResponseBadRequest('bad POST data')
 
+    revolv_profile = RevolvUserProfile.objects.get(user=request.user)
+    stripedetail = StripeDetails.objects.filter(user=revolv_profile)
+    if stripedetail:
+        try:
+            if float(operation_amt) <= 0:
+                user = StripeDetails.objects.get(user=revolv_profile)
+                subscription = stripe.Subscription.retrieve(user.subscription_id)
+                subscription.delete()
+                StripeDetails.objects.get(user=revolv_profile).delete()
+            else:
+                user = StripeDetails.objects.get(user=revolv_profile)
+                subscription = stripe.Subscription.retrieve(user.subscription_id)
+                customer = subscription.customer
+                subscription.delete()
+                StripeDetails.objects.get(user=revolv_profile).delete()
+                plan = stripe.Plan.create(
+                    amount=int(amount),
+                    interval="month",
+                    name="Revolv Donation " + str(operation_amt),
+                    currency="usd",
+                    id="revolv_donation" + customer + "_" + str(operation_amt))
+
+                subscription = stripe.Subscription.create(
+                    customer=customer,
+                    plan=plan,
+                )
+                StripeDetails.objects.create(
+                    user=revolv_profile,
+                    stripe_customer_id=subscription.customer,
+                    subscription_id=subscription.id,
+                    plan=subscription.plan.id,
+                    stripe_email=request.user.email,
+                    amount=amount / float(100)
+                )
+
+        except KeyError:
+            logger.exception('stripe_payment called without required POST data')
+            return HttpResponseBadRequest('bad POST data')
+
+        return HttpResponse(json.dumps({'status': 'donation_updated'}), content_type="application/json")
+
+    else:
+        print request.POST
+        token = request.POST['stripeToken']
+        operation_amt = request.POST['operation-amt']
+        email = request.POST['stripeEmail']
+        amount = round(float(operation_amt) * 100)
+        try:
+            customer = stripe.Customer.create(
+                email=email,
+                description="Donation for RE-volv Operations",
+                source=token  # obtained with Stripe.js
+            )
+            plan = stripe.Plan.create(
+                amount=int(amount),
+                interval="day",
+                name="Revolv Donation " + str(operation_amt),
+                currency="usd",
+                id="revolv_donation" + "_" + customer["id"] + "_" + str(operation_amt))
+
+            subscription = stripe.Subscription.create(
+                customer=customer,
+                plan=plan,
+            )
+            StripeDetails.objects.create(
+                user=revolv_profile,
+                stripe_customer_id=subscription.customer,
+                subscription_id=subscription.id,
+                plan=subscription.plan.id,
+                stripe_email=request.user.email,
+                amount=amount / float(100)
+            )
+
+
+        except stripe.error.CardError as e:
+            body = e.json_body
+            # error_msg = body['error']['message']
+            messages.error(request, 'Payment error')
+            return redirect('home')
+        except stripe.error.APIConnectionError as e:
+            body = e.json_body
+            # error_msg = body['error']['message']
+            messages.error(request, 'Internet connection error. Please check your internet connection.')
+            return redirect('home')
+        except Exception:
+            error_msg = "Payment error. RE-volv has been notified."
+            logger.exception(error_msg)
+
+            messages.error(request, 'Payment error. RE-volv has been notified.')
+            return redirect('home')
+        return HttpResponse(json.dumps({'status': 'donation_success'}), content_type="application/json")
 
 
