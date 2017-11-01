@@ -107,6 +107,9 @@ def post_save_payment(**kwargs):
     if instance.payment_type == PaymentType.objects.get_reinvestment_fragment():
         instance.user.reinvest_pool -= float(instance.amount)
         instance.user.reinvest_pool = float(format(round(instance.user.reinvest_pool, 2)))
+        if instance.user.reinvest_pool <=0:
+            instance.user.solar_seed_fund_pool = instance.user.solar_seed_fund_pool + instance.user.reinvest_pool
+            instance.user.reinvest_pool = 0
         instance.user.save()
 
 

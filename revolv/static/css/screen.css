@@ -556,6 +556,7 @@ z-index: 448;
 .btn-blue:focus {
     text-decoration: none;
     color: #fff;
+    cursor: pointer;
 }
 .btn-blue {
     background-color: #14b1e7;

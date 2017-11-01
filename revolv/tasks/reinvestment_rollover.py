@@ -1,9 +1,10 @@
 from django.conf import settings
 
 from revolv.project.models import Project, ProjectMatchingDonors
-from revolv.payments.models import ProjectMontlyRepaymentConfig, AdminReinvestment, PaymentType, Payment
+from revolv.payments.models import ProjectMontlyRepaymentConfig, AdminReinvestment, PaymentType, Payment, SolarSeedFund
 from revolv.base.models import RevolvUserProfile
 from django.db.models import Sum
+from django.db.models import Q
 
 from celery.task import task
 
@@ -39,61 +40,86 @@ def distribute_reinvestment_fund():
     reinvest_amount_left = RevolvUserProfile.objects.all().aggregate(total=Sum('reinvest_pool'))['total']
     total_funding_goal = Project.objects.get_active().aggregate(total=Sum('funding_goal'))['total']
     pending_reinvestors = []
+    pending_solar_seed_fund = []
 
-    users = RevolvUserProfile.objects.filter(reinvest_pool__gt=0.0)
+    users = RevolvUserProfile.objects.filter(Q(reinvest_pool__gt=0.0) | Q(solar_seed_fund_pool__gt=0.0))
     for user in users:
         reinvest_pool=user.reinvest_pool
-        pending_reinvestors.append((user, reinvest_pool))
+        solar_seed_fund_pool = user.solar_seed_fund_pool
+        pending_reinvestors.append((user, reinvest_pool, solar_seed_fund_pool))
+
     for project in Project.objects.get_active():
         reinvest_amount_praportion = float(project.funding_goal)/float(total_funding_goal)
         reinvest_amount=float(reinvest_amount_praportion)*float(reinvest_amount_left)
         reinvest_amount=float("{0:.2f}".format(reinvest_amount))
 
-        for (user, reinvest_pool) in pending_reinvestors:
-            reinvest_amount_left=user.reinvest_pool
-            amount = reinvest_pool * float("{0:.2f}".format(reinvest_amount_praportion))
-            adminReinvestment = AdminReinvestment.objects.create(
-                amount=amount,
-                admin=admin,
-                project=project
-            )
-            logger.info('Trying to reinvest %s in %s project!',format(round(amount,2)),project.title)
-            reinvestment = Payment(user=user,
-                                   project=project,
-                                   entrant=admin,
-                                   payment_type=PaymentType.objects.get_reinvestment_fragment(),
-                                   admin_reinvestment=adminReinvestment,
-                                   amount=format(round(amount,2))
-                                   )
+        for (user, reinvest_pool, solar_seed_fund_pool) in pending_reinvestors:
+            if solar_seed_fund_pool > 0.0:
+                amount = solar_seed_fund_pool * float("{0:.2f}".format(reinvest_amount_praportion))
+                solar_seed_monthly = SolarSeedFund.objects.create(
+                    amount=amount,
+                    user=user,
+                    project=project
+                )
+                logger.info('Trying to donate %s in %s project!', format(round(amount, 2)), project.title)
+                monthly_seed_fund = Payment(user=user,
+                                            project=project,
+                                            entrant=user,
+                                            payment_type=PaymentType.objects.get_stripe(),
+                                            solar_seed_monthly=solar_seed_monthly,
+                                            amount=format(round(amount, 2))
+                                            )
+                monthly_seed_fund.save()
+                user.solar_seed_fund_pool = user.solar_seed_fund_pool - amount
+                user.save()
 
-            project_matching_donors = ProjectMatchingDonors.objects.filter(project=project, amount__gt=0)
+            if reinvest_pool > 0.0:
+                reinvest_amount_left=user.reinvest_pool
+                amount = reinvest_pool * float("{0:.2f}".format(reinvest_amount_praportion))
+                adminReinvestment = AdminReinvestment.objects.create(
+                    amount=amount,
+                    admin=admin,
+                    project=project
+                )
+                logger.info('Trying to reinvest %s in %s project!',format(round(amount,2)),project.title)
+                reinvestment = Payment(user=user,
+                                       project=project,
+                                       entrant=admin,
+                                       payment_type=PaymentType.objects.get_reinvestment_fragment(),
+                                       admin_reinvestment=adminReinvestment,
+                                       amount=format(round(amount,2))
+                                       )
 
-            if project_matching_donors:
-                for donor in project_matching_donors:
-                    if donor.amount > float(amount):
-                        matching_donation = amount
-                        donor.amount = donor.amount - amount
-                        donor.save()
-                    else:
-                        matching_donation = donor.amount
-                        donor.amount = 0
-                        donor.save()
+                reinvestment.save()
 
-                    tip = None
+                project_matching_donors = ProjectMatchingDonors.objects.filter(project=project, amount__gt=0)
 
-                    Payment.objects.create(
-                        user=donor.matching_donor,
-                        entrant=donor.matching_donor,
-                        amount=matching_donation,
-                        project=project,
-                        tip=tip,
-                        payment_type=PaymentType.objects.get_stripe(),
-                    )
+                if project_matching_donors:
+                    for donor in project_matching_donors:
+                        if donor.amount > float(amount):
+                            matching_donation = amount
+                            donor.amount = donor.amount - amount
+                            donor.save()
+                        else:
+                            matching_donation = donor.amount
+                            donor.amount = 0
+                            donor.save()
+
+                        tip = None
+
+                        Payment.objects.create(
+                            user=donor.matching_donor,
+                            entrant=donor.matching_donor,
+                            amount=matching_donation,
+                            project=project,
+                            tip=tip,
+                            payment_type=PaymentType.objects.get_stripe(),
+                        )
 
             if project.amount_donated >= project.funding_goal:
                 project.project_status = project.COMPLETED
                 project.save()
-            reinvestment.save()
+
 
     for user in users:
         if user.reinvest_pool <= 0.01:

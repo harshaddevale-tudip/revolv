@@ -198,6 +198,8 @@ class StripeDetails(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(RevolvUserProfile, related_name='stripe_donor')
     amount = models.FloatField(default=0)
+    donation_amount = models.FloatField(default=0)
+
 
 
 class AnonymousUserDetail(models.Model):

@@ -95,7 +95,7 @@ input[type="checkbox"] + label::before {
             <div style="width:65%;margin-left: 1.4em;">
                 <div class="setting-input-block">
                     <span class="setting-form-lebel">CURRENT MONTHLY DONATION TO SOLAR SEED FUND:</span>
-                    <input id="donation-amt" type="text" name="" class="setting-donation-input"/>
+                    <input id="donation-amt" type="text" name="donation-amt" value="{{monthly_solar_donation}}" class="setting-donation-input"/>
                         <!--<span class="setting-donation-amount">$ 50</span>-->
                         <span class="setting-donation-change solar-donation">Change</span>
 
@@ -268,7 +268,8 @@ input[type="checkbox"] + label::before {
     var $form = $(this).closest('form');
     if ('{{existing_user}}' == 'True') {
         var amount = $('#operation-amt').val();
-        if ({{monthly_donation_amount}} == amount ) {
+        var solar_amount = $('#donation-amt').val();
+        if ({{monthly_donation_amount}} == amount && {{monthly_solar_donation}} == solar_amount ) {
             return false;
         }
         $('#donation-spinner').css('display', 'flex');
@@ -296,7 +297,7 @@ input[type="checkbox"] + label::before {
                });
     }
     else {
-      var amount = $('#operation-amt').val();
+      var amount = parseInt($('#operation-amt').val())+parseInt($('#donation-amt').val());
       if (amount > 0) {
           handler.open({
             description: 'Donate $'
@@ -338,7 +339,7 @@ input[type="checkbox"] + label::before {
                      {
                         $('.modal-title').text('Error!');
                         $('.donation-text').text("Payment error. Something went wrong.");
-                         $('#donation-spinner').css('display', 'none');
+                        $('#donation-spinner').css('display', 'none');
                         $('#operationModal').modal('show');
                      }
                    });

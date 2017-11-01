@@ -82,6 +82,7 @@ class RevolvUserProfile(FacebookModel):
     subscribed_to_repayment_notifications = models.BooleanField(default=True)
 
     reinvest_pool = models.FloatField(default=0.0)
+    solar_seed_fund_pool = models.FloatField(default=0.0)
     preferred_categories = models.ManyToManyField("project.Category")
 
     address = models.CharField(max_length=255, null=True, blank=True)

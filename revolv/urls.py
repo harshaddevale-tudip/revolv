@@ -8,7 +8,7 @@ from wagtail.wagtailcore import urls as wagtail_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
 
 from revolv.base import views as base_views
-from revolv.base.views import solarathome, bring_solar_tou_your_community, select_chapter, intake_form, intake_form_submit, account_settings, editprofile
+from revolv.base.views import solarathome, bring_solar_tou_your_community, select_chapter, intake_form, intake_form_submit, account_settings, editprofile, donation_update
 from revolv.project.views import ProjectView
 
 urlpatterns = patterns(
@@ -33,6 +33,7 @@ urlpatterns = patterns(
     url(r'^my-portfolio/senddonoremail/', 'revolv.base.views.send_donor_email', name='senddonoremail'),
     url(r'^account_settings/', 'revolv.base.views.account_settings', name='account_settings'),
     url(r'^userupdate/', base_views.editprofile.as_view(), name='userupdate'),
+    url(r'^donation_update/', 'revolv.base.views.donation_update', name='donation_update'),
     url(r'^get-involved/leonardo-dicaprio-foundation-partners-re-volv/', 'revolv.base.views.leo_page', name='leo_page'),
 
     url(r'^what-we-do/projects/', base_views.ProjectListView.as_view(), name='projects_list'),

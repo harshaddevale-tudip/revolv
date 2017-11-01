@@ -507,9 +507,10 @@ class ReinvestmentRedirect(UserDataMixin, TemplateView):
         context = super(ReinvestmentRedirect, self).get_context_data(**kwargs)
         active = Project.objects.get_active()
         context["active_projects"] = filter(lambda p: p.amount_left > 0.0, active)
-        if self.user_profile and self.user_profile.reinvest_pool > 0.0:
+        amount = self.user_profile.reinvest_pool + self.user_profile.solar_seed_fund_pool
+        if self.user_profile and amount > 0.0:
             context["is_reinvestment"] = True
-            context["reinvestment_amount"] = self.user_profile.reinvest_pool
+            context["reinvestment_amount"] = self.user_profile.reinvest_pool + self.user_profile.solar_seed_fund_pool
 
         return context
 
@@ -1417,13 +1418,6 @@ class editprofile(View):
     #     userup = UpdateUser(instance=user)
     #     profileup = RevolvUserProfile(instance=profile)
 
-# @login_required
-# def account_settings(request):
-#     user = RevolvUserProfile.objects.get(user=request.user)
-#     print user.subscribed_to_newsletter
-#     user = {'user':user, 'subscribed_to_newsletter': user.subscribed_to_newsletter, 'subscribed_to_repayment_notifications': user.subscribed_to_repayment_notifications, 'subscribed_to_updates': user.subscribed_to_updates}
-#     return render_to_response('base/partials/account_settings.html',
-#                               context_instance=RequestContext(request,user))
 
 @login_required
 def account_settings(request):
@@ -1436,13 +1430,17 @@ def account_settings(request):
     operation_donation = Payment.objects.filter(user=request.user,project=project).aggregate(Sum('amount'))['amount__sum'] or 0
     userform = UpdateUser(initial={'first_name':user.first_name, 'last_name':user.last_name, 'username': user.username, 'email':user.email})
     revolv_profile = RevolvUserProfile.objects.get(user=request.user)
-    monthly_donation = StripeDetails.objects.filter(user=revolv_profile)
-    print "ssssssssssssss",monthly_donation
-    monthly_donation_amount = 0
-    if monthly_donation:
+
+    monthly_operation_donation = StripeDetails.objects.filter(user=request.user).filter(amount__gt=0.0)
+    monthly_solar_donation = StripeDetails.objects.filter(user=request.user).filter(donation_amount__gt=0.0)
+    monthly_donation_amount = 0.0
+    solar_donation = 0.0
+    if monthly_operation_donation or monthly_solar_donation:
         existing_user = True
-        amount = monthly_donation.aggregate(Sum('amount'))['amount__sum'] or 0
-        monthly_donation_amount = amount
+        operation_amount = monthly_operation_donation.aggregate(Sum('amount'))['amount__sum'] or 0.0
+        solar_amount = monthly_solar_donation.aggregate(Sum('donation_amount'))['donation_amount__sum'] or 0.0
+        monthly_donation_amount = operation_amount
+        solar_donation = solar_amount
     context = {
         "form": userform,
         'subscribed_to_newsletter': userprofile.subscribed_to_newsletter,
@@ -1452,15 +1450,81 @@ def account_settings(request):
         'repayment_solar_seed': repayment_solar_seed,
         'operation_donation': operation_donation,
         'monthly_donation_amount': monthly_donation_amount,
+        'monthly_solar_donation': solar_donation,
         'existing_user': existing_user
     }
     return render(request, 'base/partials/account_settings.html', context)
+
+
+def create_subscription(request,donation_type, revolv_profile,amt_in_cents,customer):
+    if donation_type == 'SOLAR_SEED_FUND':
+        plan = stripe.Plan.create(
+            amount=int(amt_in_cents),
+            interval="month",
+            name="Solar Donation " + str(amt_in_cents/100),
+            currency="usd",
+            id="solar_donation" + "_" + customer + "_" + str(amt_in_cents/100))
+
+        subscription = stripe.Subscription.create(
+            customer=customer,
+            plan=plan,
+        )
+        StripeDetails.objects.create(
+            user=revolv_profile,
+            stripe_customer_id=subscription.customer,
+            subscription_id=subscription.id,
+            plan=subscription.plan.id,
+            stripe_email=request.user.email,
+            donation_amount=amt_in_cents/100
+        )
+
+    else:
+        plan = stripe.Plan.create(
+            amount=int(amt_in_cents),
+            interval="month",
+            name="Operation Donation " + str(amt_in_cents/100),
+            currency="usd",
+            id="operation_donation" + "_" + customer + "_" + str(amt_in_cents/100))
+
+        subscription = stripe.Subscription.create(
+            customer=customer,
+            plan=plan,
+        )
+        StripeDetails.objects.create(
+            user=revolv_profile,
+            stripe_customer_id=subscription.customer,
+            subscription_id=subscription.id,
+            plan=subscription.plan.id,
+            stripe_email=request.user.email,
+            amount=amt_in_cents/100
+        )
+
+def delete_subscription(revolv_profile, donation_type):
+    if donation_type == 'SOLAR_SEED_FUND':
+        subscription = StripeDetails.objects.get(user=revolv_profile, donation_amount__gt=0.0)
+    else:
+        subscription = StripeDetails.objects.get(user=revolv_profile, amount__gt=0.0)
+    subscription = stripe.Subscription.retrieve(subscription.subscription_id)
+    customer = subscription.customer
+    plan_id = subscription.plan.id
+    print "subscription<<<<<<<<<<<<<<<<<", subscription.plan.id
+    plan = stripe.Plan.retrieve(plan_id)
+    plan.delete()
+    subscription.delete()
+    if donation_type == 'SOLAR_SEED_FUND':
+        StripeDetails.objects.get(user=revolv_profile, donation_amount__gt=0.0).delete()
+    else:
+        StripeDetails.objects.get(user=revolv_profile, amount__gt=0.0).delete()
+    return customer
+
 
 @login_required
 def donation_update(request):
     try:
         operation_amt = request.POST.get('operation-amt')
-        amount = round(float(operation_amt) * 100)
+        donation_amt = request.POST.get('donation-amt')
+        operation_amt_cents = round(float(operation_amt) * 100)
+        donation_amt_cents = round(float(donation_amt) * 100)
     except KeyError:
         logger.exception('stripe_payment called without required POST data')
         return HttpResponseBadRequest('bad POST data')
@@ -1470,35 +1534,51 @@ def donation_update(request):
     if stripedetail:
         try:
             if float(operation_amt) <= 0:
-                user = StripeDetails.objects.get(user=revolv_profile)
-                subscription = stripe.Subscription.retrieve(user.subscription_id)
-                subscription.delete()
-                StripeDetails.objects.get(user=revolv_profile).delete()
+                try:
+                    donation_type = 'OPERATION'
+                    delete_subscription(revolv_profile,donation_type)
+                except StripeDetails.DoesNotExist:
+                    subscription = None
             else:
-                user = StripeDetails.objects.get(user=revolv_profile)
-                subscription = stripe.Subscription.retrieve(user.subscription_id)
-                customer = subscription.customer
-                subscription.delete()
-                StripeDetails.objects.get(user=revolv_profile).delete()
-                plan = stripe.Plan.create(
-                    amount=int(amount),
-                    interval="month",
-                    name="Revolv Donation " + str(operation_amt),
-                    currency="usd",
-                    id="revolv_donation" + customer + "_" + str(operation_amt))
+                try:
+                    amount = StripeDetails.objects.get(user=revolv_profile, amount__gt=0.0).amount
+                except StripeDetails.DoesNotExist:
+                    amount = 0
+                if not abs(float(operation_amt)-float(amount))<0.00000001:
+                    try:
+                        donation_type = 'OPERATION'
+                        customer = delete_subscription(revolv_profile, donation_type)
+                    except StripeDetails.DoesNotExist:
+                        user = StripeDetails.objects.get(user=revolv_profile, donation_amount__gt=0.0)
+                        subscription = stripe.Subscription.retrieve(user.subscription_id)
+                        customer = subscription.customer
 
-                subscription = stripe.Subscription.create(
-                    customer=customer,
-                    plan=plan,
-                )
-                StripeDetails.objects.create(
-                    user=revolv_profile,
-                    stripe_customer_id=subscription.customer,
-                    subscription_id=subscription.id,
-                    plan=subscription.plan.id,
-                    stripe_email=request.user.email,
-                    amount=amount / float(100)
-                )
+                    create_subscription(request,donation_type, revolv_profile, operation_amt_cents, customer)
+
+
+            if float(donation_amt) <= 0:
+                try:
+                    donation_type = 'SOLAR_SEED_FUND'
+                    delete_subscription(revolv_profile, donation_type)
+                except StripeDetails.DoesNotExist:
+                    subscription = None
+            else:
+                try:
+                    amount = StripeDetails.objects.get(user=revolv_profile, donation_amount__gt=0.0).donation_amount
+                except StripeDetails.DoesNotExist:
+                    amount = 0
+                if not abs(float(donation_amt) - float(amount)) < 0.00000001:
+                    try:
+                        donation_type = 'SOLAR_SEED_FUND'
+                        customer = delete_subscription(revolv_profile, donation_type)
+                    except StripeDetails.DoesNotExist:
+                        user = StripeDetails.objects.get(user=revolv_profile, amount__gt=0.0)
+                        subscription = stripe.Subscription.retrieve(user.subscription_id)
+                        customer = subscription.customer
+
+                    donation_type = 'SOLAR_SEED_FUND'
+                    create_subscription(request,donation_type, revolv_profile, donation_amt_cents, customer)
+
 
         except KeyError:
             logger.exception('stripe_payment called without required POST data')
@@ -1507,36 +1587,22 @@ def donation_update(request):
         return HttpResponse(json.dumps({'status': 'donation_updated'}), content_type="application/json")
 
     else:
-        print request.POST
         token = request.POST['stripeToken']
-        operation_amt = request.POST['operation-amt']
         email = request.POST['stripeEmail']
-        amount = round(float(operation_amt) * 100)
         try:
             customer = stripe.Customer.create(
                 email=email,
                 description="Donation for RE-volv Operations",
                 source=token  # obtained with Stripe.js
             )
-            plan = stripe.Plan.create(
-                amount=int(amount),
-                interval="day",
-                name="Revolv Donation " + str(operation_amt),
-                currency="usd",
-                id="revolv_donation" + "_" + customer["id"] + "_" + str(operation_amt))
 
-            subscription = stripe.Subscription.create(
-                customer=customer,
-                plan=plan,
-            )
-            StripeDetails.objects.create(
-                user=revolv_profile,
-                stripe_customer_id=subscription.customer,
-                subscription_id=subscription.id,
-                plan=subscription.plan.id,
-                stripe_email=request.user.email,
-                amount=amount / float(100)
-            )
+            if float(operation_amt) > 0.0:
+                donation_type = 'OPERATION'
+                create_subscription(request,donation_type, revolv_profile, operation_amt_cents, customer["id"])
+
+            if float(donation_amt) > 0.0:
+                donation_type = 'SOLAR_SEED_FUND'
+                create_subscription(request,donation_type, revolv_profile, donation_amt_cents, customer["id"])
 
 
         except stripe.error.CardError as e:

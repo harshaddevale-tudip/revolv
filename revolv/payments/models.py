@@ -136,6 +136,13 @@ class AdminReinvestment(models.Model):
         return '%s for %s' % (self.amount, self.project)
 
 
+class SolarSeedFund(models.Model):
+    amount = models.FloatField()
+    user = models.ForeignKey('base.RevolvUserProfile')
+    project = models.ForeignKey("project.Project")
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
 class PaymentTypeManager(models.Manager):
     """
     Manager for PaymentType.
@@ -505,6 +512,7 @@ class Payment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     admin_reinvestment = models.ForeignKey(AdminReinvestment, blank=True, null=True)
+    solar_seed_monthly = models.ForeignKey(SolarSeedFund, blank=True, null=True)
     user_reinvestment = models.ForeignKey(UserReinvestment, blank=True, null=True)
     tip = models.ForeignKey('payments.Tip', blank=True, null=True)
     amount = models.FloatField(blank=True, null=True)
@@ -529,11 +537,11 @@ class ProjectMontlyRepaymentConfig(models.Model):
     """
     SOLAR_SEED_FUND = 'SSF'
     REVOLVE_OVERHEAD = 'REV'
-    REPAYMENT_TYPE_CHOICES = ((SOLAR_SEED_FUND, 'Solar Seed Fund'), (REVOLVE_OVERHEAD, 'RE-volv Overhead'))
+    REPAYMENT_TYPE_CHOICES = ((SOLAR_SEED_FUND, 'Solar Seed Fund'))
 
     project = models.ForeignKey("project.Project")
     year = models.PositiveSmallIntegerField(default=date.today().year)
-    repayment_type = models.CharField(max_length=3, choices=REPAYMENT_TYPE_CHOICES)
+    repayment_type = models.CharField(max_length=3, default=REPAYMENT_TYPE_CHOICES)
     amount = models.FloatField()
     factories = ImportProxy('revolv.payments.factories', 'ProjectMontlyRepaymentConfigFactory')
 

@@ -55,7 +55,7 @@ class DonorDashboardView(UserDataMixin, TemplateView):
         active = Project.objects.get_active()
         context["first_project"] = active[0] if active.count() > 0 else None
         context["role"] = "donor"
-        context["donor_has_no_donated_projects"] = Project.objects.donated_projects(self.user_profile).count() == 0
+        context["donor_has_no_donated_projects"] = Payment.objects.filter(user=self.user_profile).count() == 0
         total_people_affected = Project.objects.donated_completed_projects(self.user_profile)
         context['donated_projects'] = Project.objects.donated_projects(self.user_profile)
         statistics_dictionary = aggregate_stats(self.user_profile)
@@ -63,14 +63,15 @@ class DonorDashboardView(UserDataMixin, TemplateView):
         statistics_dictionary['people_served'] = total_people_affected
         humanize_integers(statistics_dictionary)
         context['statistics'] = statistics_dictionary
-        if self.user_profile and self.user_profile.reinvest_pool > 0.0:
-            context["reinvestment_amount"] = self.user_profile.reinvest_pool
+        amount = self.user_profile.reinvest_pool + self.user_profile.solar_seed_fund_pool
+        if self.user_profile and amount > 0.0:
+            context["reinvestment_amount"] = self.user_profile.reinvest_pool + self.user_profile.solar_seed_fund_pool
         else:
             context["reinvestment_amount"] = 0.0
 
-        context['category_setter_url'] = reverse('dashboard_category_setter')
-        context['categories'] = Category.objects.all().order_by('title')
-        context['preferred_categories'] = self.user_profile.preferred_categories.all()
+        #context['category_setter_url'] = reverse('dashboard_category_setter')
+        #context['categories'] = Category.objects.all().order_by('title')
+        #context['preferred_categories'] = self.user_profile.preferred_categories.all()
 
         return context
 
