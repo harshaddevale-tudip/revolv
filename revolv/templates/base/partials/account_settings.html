@@ -96,15 +96,12 @@ input[type="checkbox"] + label::before {
                 <div class="setting-input-block">
                     <span class="setting-form-lebel">CURRENT MONTHLY DONATION TO SOLAR SEED FUND:</span>
                     <input id="donation-amt" type="text" name="donation-amt" value="{{monthly_solar_donation}}" class="setting-donation-input"/>
-                        <!--<span class="setting-donation-amount">$ 50</span>-->
                         <span class="setting-donation-change solar-donation">Change</span>
 
                 </div>
                 <div class="setting-input-block">
                     <span class="setting-form-lebel">CURRENT MONTHLY DONATION TO RE-volv's OPERATIONS:</span>
                     <input id="operation-amt" type="text" name="operation-amt" class="setting-donation-input" value="{{monthly_donation_amount}}"/>
-                        <!--<span class="setting-donation-amount">$ 50</span>-->
-                        <!--<span class="setting-donation-change">Change</span>-->
                     <span class="setting-donation-change operation-donation">Change</span>
                     </div>
                 <div class="setting-input-block">
@@ -132,8 +129,6 @@ input[type="checkbox"] + label::before {
                             {{ form.first_name|add_class:"setting-donation-input" }}
                         {% endif %}
                     </div>
-                    <!--<input id="firstname" type="text" name="first_name" class="setting-donation-input" value='{{user.first_name}}' disabled/>-->
-                        <!--<input type="text" class="setting-donation-amount"/>-->
                         <span id="firstnamelabel" class="setting-donation-change">Edit</span>
                         {% if form.first_name.errors %}
                             <div class="error-text">
@@ -150,8 +145,6 @@ input[type="checkbox"] + label::before {
                             {{ form.last_name|add_class:"setting-donation-input" }}
                         {% endif %}
                     </div>
-                    <!--<input id="lastname" type="text" name="last_name" class="setting-donation-input" value='{{user.last_name}}' disabled/>-->
-                        <!--<input type="text" class="setting-donation-amount"/>-->
                     <span id="lastnamelabel" class="setting-donation-change">Edit</span>
                     {% if form.last_name.errors %}
                         <div class="error-text">
@@ -162,9 +155,6 @@ input[type="checkbox"] + label::before {
                 <div class="setting-input-block">
                     <span class="setting-form-lebel">USERNAME:</span>
 
-                        <!--{% for error in form.username.errors %}-->
-                          <!--<small class="field-error error">{{form.username.label}}: {{ error }}</small>-->
-                        <!--{% endfor %}-->
 
                     <div>
                         {% if form.username.errors %}
@@ -173,8 +163,6 @@ input[type="checkbox"] + label::before {
                             {{ form.username|add_class:"setting-donation-input" }}
                         {% endif %}
                     </div>
-                    <!--<input id="username" type="text" name="username" class="setting-donation-input" value='{{user.username}}' disabled/>-->
-                        <!--<input type="text" class="setting-donation-amount"/>-->
                         <span id="usernamelabel" class="setting-donation-change">Edit</span>
                         {% if form.username.errors %}
                             <div class="error-text">
@@ -191,8 +179,6 @@ input[type="checkbox"] + label::before {
                             {{ form.email|add_class:"setting-donation-input" }}
                         {% endif %}
                     </div>
-                    <!--<input id="email" type="text" name="email" class="setting-donation-input" value='{{user.email}}' disabled/>-->
-                        <!--<input type="text" class="setting-donation-amount">Andreas Karla</span>-->
                         <span id="emaillabel" class="setting-donation-change">Edit</span>
                         {% if form.email.errors %}
                             <div class="error-text">
@@ -202,11 +188,7 @@ input[type="checkbox"] + label::before {
                     </div>
                 <div class="setting-input-block">
                     <span class="setting-form-lebel">PASSWORD:</span>
-                    <!--<div>-->
-                        <!--{{ form.password|add_class:"setting-donation-input" }}-->
-                    <!--</div>-->
                     <input id="password" type="password" name="password" class="setting-donation-input" value='*******' disabled/>
-                        <!--<span class="setting-donation-amount">*******</span>-->
                         <span id="passwordlabel" class="setting-donation-change">Change Password</span>
                     </div>
                 <div class="setting-input-block">
@@ -221,7 +203,7 @@ input[type="checkbox"] + label::before {
                     </div>
                     <div class="checkbox-margin">
                         <input type="checkbox" name="announcement" id="announcement" checked>
-                        <label for="announcement" style="font-family: 'SExtralight'; font-size:14px;"><span class="checkbox-text">Receive Important RE-volv Announcement</span></label>
+                        <label for="announcement" style="font-family: 'SExtralight'; font-size:14px;"><span class="checkbox-text">Receive Important RE-volv Announcements</span></label>
                     </div>
                 </div>
                 <div class="setting-input-block" style="float: right;">
@@ -281,7 +263,7 @@ input[type="checkbox"] + label::before {
                  {
                     if(data.status == 'donation_updated') {
                         $('.modal-title').text('Thank you for donating!');
-                        $('.donation-text').text("Your donation successfully updated.");
+                        $('.donation-text').text("Your donation was successfully updated.");
                     }
                     $('#donation-spinner').css('display', 'none');
                     $('#operationModal').modal('show');
@@ -300,7 +282,7 @@ input[type="checkbox"] + label::before {
       var amount = parseInt($('#operation-amt').val())+parseInt($('#donation-amt').val());
       if (amount > 0) {
           handler.open({
-            description: 'Donate $'
+            description: 'Monthly subscription of $'+amount
             , amount: amount*100
             , token: function (token) {
               var id = token.id;

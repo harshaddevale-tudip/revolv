@@ -6,7 +6,7 @@
 {% block title %}Home | {% endblock %}
 {% block head %}
 
-    <style>
+<style>
     .dropdown-open {
         display
     }
@@ -16,48 +16,31 @@
 
     }
 
-a.How_it_Works:hover {
-    text-decoration: none;
-    color: #fff;
-}
+    a.How_it_Works:hover {
+        text-decoration: none;
+        color: #fff;
+    }
 
-.header.top-section-header {
-    background-color: rgba(0, 0, 0, 0);
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 0);
-    margin-top: 0;
-    position: absolute;
-}
+    .header.top-section-header {
+        background-color: rgba(0, 0, 0, 0);
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0);
+        margin-top: 0;
+        position: absolute;
+    }
 
-.menu-list {
-    position: absolute;
-    width: 100%;
-    background-image: linear-gradient(to bottom,transparent 0,transparent 100%);
-    background-color: transparent;
-    border: transparent;
-    border-radius: 0;
-    box-shadow: none;
-}
-.burger-sub-menu {
-  display: block;
-}
-.header .solar_at_home_rights .btn-yellow {
-    <!--background-color: rgb(255, 204, 0);-->
-    <!--padding: 0px 84px 0 0;-->
-        border-radius: 6%;
-    background-color: rgb(255, 204, 0);
-    color: black;
-    /* width: 30%; */
-    height: auto;
-    line-height: normal;
-    padding: 2vmin 1%;
-}
-.header .solar_at_home_rights {
-     padding: 3vmin 4% 0 0;
-}
-<!--.header a.btn-yellow, .header.after-scroll-header a.btn-yellow {-->
-    <!--text-decoration: none;-->
-    <!--color: #333;-->
-    <!--}-->
+    .menu-list {
+        position: absolute;
+        width: 100%;
+        background-image: linear-gradient(to bottom,transparent 0,transparent 100%);
+        background-color: transparent;
+        border: transparent;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    .burger-sub-menu {
+      display: block;
+    }
+
 
     .hamburger_color {
         border-color: transparent;
@@ -67,7 +50,7 @@ a.How_it_Works:hover {
             background-color: white;
     }
 
-    </style>
+</style>
 
 {%endblock%}
 {% block nav %}
@@ -112,20 +95,37 @@ a.How_it_Works:hover {
         </div>
     <!-- end .logo -->
             <div class="solar_at_home_rights pull-right">
-              <div class="txt pull-left">
+				  <div class="txt pull-left">
 
-                {% if request.user.is_authenticated %}
-                  <li class="user-controls has-dropdown">
-                    <a href="{% url 'dashboard' %}" class="btn-blue pull-left btn-donate btn-yellow">MY PORTFOLIO</a>
-                    <a href="{% url 'logout' %}" class="btn-blue pull-left btn-donate btn-yellow" >SIGN OUT</a>
-                  </li>
-                  {% else %}
-                    <a href="{% url 'signin' %}#signup" class="component-link btn-blue pull-left btn-donate btn-yellow" data-component="signup" >SIGN UP</a>
-                    <a href="{% url 'signin' %}#login" class="component-link btn-blue pull-left btn-donate btn-yellow" data-component="login" >SIGN IN</a>
-                {% endif %}
-              </div>
-              <a href="#" onclick="return clearInput();" class="component-link btn-blue btn-donate btn-yellow" data-toggle="modal" data-target="#popup" >DONATE</a>
-              <!--<a #data-target="popup" data-toggle="modal" class=" btn-blue btn-donate pull-left after-scroll">DONATE NOW</a>-->
+					{% if request.user.is_authenticated %}
+					  <!--<li class="user-controls has-dropdown">-->
+						<a href="{% url 'dashboard' %}" class="btn-blue pull-left btn-donate btn-yellow">MY PORTFOLIO</a>
+						<!--<a href="{% url 'logout' %}" class="btn-blue pull-left btn-donate">SIGN OUT</a>-->
+
+					  <!--</li>-->
+					  {% else %}
+						<a href="{% url 'signin' %}#signup" class="component-link btn-blue pull-left btn-donate btn-yellow" data-component="signup">SIGN UP</a>
+						<a href="{% url 'signin' %}#login" class="component-link btn-blue pull-left btn-donate btn-yellow" data-component="login">SIGN IN</a>
+					{% endif %}
+					<a href="#" onclick="return clearInput();" class="component-link pull-left btn-blue btn-donate btn-yellow" data-toggle="modal" data-target="#popup">DONATE</a>
+					<!--<a href="#" onclick="return clearInput();" class="component-link btn-blue btn-donate" data-toggle="modal" data-target="#popup">DONATE</a>-->
+					{% if request.user.is_authenticated %}
+					  <div class="container1" data-toggle="collapse" data-target=".navbar-collapse-settings">
+						<div class="bar1" style="background-color:rgb(255, 204, 0);"></div>
+						<div class="bar2" style="background-color:rgb(255, 204, 0);"></div>
+						<div class="bar3" style="background-color:rgb(255, 204, 0);"></div>
+					  </div>
+					  <div class="navbar-collapse-settings collapse background-collapse-color navbar-collapse-settings-blue" style="position: absolute;">
+							<ul class="nav navbar-collapse-border">
+
+								<li><a href="{% url 'dashboard' %}" class="dropdown">ACCOUNT SETTINGS</a>
+								</li>
+								<li> <a href="{% url 'logout' %}" class="dropdown">SIGN OUT</a>
+								</li>
+							</ul>
+						</div>
+					{% endif %}
+				  </div>
             </div>
           </div>
              <div style="width:100%;float:left;padding-top: 14vmin;">
