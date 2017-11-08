@@ -14971,3 +14971,56 @@ span.setting-donation-change {
     margin: 0 auto;
     margin-bottom: 4%;
 }
+.myth-box-header-div {
+    text-align: left;
+    font-size: 22px;
+    font-weight: 600;
+    color: rgba(75, 75, 75, 0.71);
+    margin: 0 auto;
+    width: 90%;
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+}
+.myth-collapse-text {
+    margin: 0 2.7em auto;
+    padding-bottom: 2em;
+    padding-right: 8em;
+    color: #777;
+    font-weight: 500;
+    font-size: 16px;
+    font-family: sans-serif;
+}
+.myth-box-div {
+    border: 1px solid #e8e8e8;
+    width: 81%;
+    margin-bottom: 2em;
+    border-radius: 5px;
+}
+.myth-collapse-icon {
+    float: right;
+    color: #14b1e7;
+}
+@media (max-width: 767px) {
+    .account-heading{
+        margin-top: 31%;
+    }
+    .myth-box-div {
+        width: 100%;
+    }
+    .myth-collapse-text {
+        padding-right: 0;
+    }
+    .myth-box-header-div {
+        font-size: 12px;
+    }
+    .myth-collapse-text {
+        font-size: 10px;
+    }
+    .account-tab-text {
+        font-size: 1.2em;
+    }
+    .account-heading-span {
+        font-size: 1.8em;
+        padding-left: 0;
+    }
+}

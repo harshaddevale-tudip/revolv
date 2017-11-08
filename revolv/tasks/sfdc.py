@@ -49,7 +49,7 @@ def send_donation_info(name, amount,email, project, address=''):
         return
     try:
         res = None
-        payload = {'donorName': name, 'projectName': project, 'donationAmount': amount, 'donorAddress': ''}
+        payload = {'donorName': name,'donorEmail':email, 'projectName': project, 'donationAmount': amount, 'donorAddress': ''}
         sf = Salesforce(
             instance="https://cs66.lightning.force.com/",
             username=settings.SFDC_ACCOUNT,

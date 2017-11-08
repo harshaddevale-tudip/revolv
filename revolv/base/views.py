@@ -525,7 +525,8 @@ def solarathome(request):
 def leo_page(request):
     return render(request,'base/partials/leo_page.html')
 
-
+def myths_and_facts(request):
+    return render(request, 'base/partials/myth_and_facts.html')
 
 def solarathome(request):
     return render_to_response('base/solar_at_home.html',
@@ -1507,7 +1508,6 @@ def delete_subscription(revolv_profile, donation_type):
     subscription = stripe.Subscription.retrieve(subscription.subscription_id)
     customer = subscription.customer
     plan_id = subscription.plan.id
-    print "subscription<<<<<<<<<<<<<<<<<", subscription.plan.id
     plan = stripe.Plan.retrieve(plan_id)
     plan.delete()
     subscription.delete()

@@ -266,7 +266,7 @@ def stripe_operation_donation(request):
 
             project = get_object_or_404(Project, title='Operations')
 
-            #send_donation_info(user.get_full_name(), amount/100,user.user.email,project.title, address='')
+            send_donation_info(user.get_full_name(), amount/100,user.user.email,project.title, address='')
 
         context = {}
         if not request.user.is_authenticated():
@@ -458,7 +458,7 @@ def stripe_webhook(request):
                         payment_type=PaymentType.objects.get_stripe(),
                     )
                     project = get_object_or_404(Project, title='Operations')
-                    # send_donation_info(user.get_full_name(), round(amount/float(100),2) , user.user.email, project.title, address='')
+                    send_donation_info(user.get_full_name(), round(amount/float(100),2) , user.user.email, project.title, address='')
             else:
                 user = stripeDetails.user
                 user.solar_seed_fund_pool = user.solar_seed_fund_pool + amount/100
@@ -707,7 +707,8 @@ class ProjectView(UserDataMixin, DetailView):
         context['project_matching_donor'] = ProjectMatchingDonors.objects.filter(project=self.get_object(), amount__gt=0)
         context["is_draft_mode"] = self.get_object().project_status == self.get_object().DRAFTED
         context["is_reinvestment"] = False
-        amount = self.user_profile.reinvest_pool + self.user_profile.solar_seed_fund_pool
+        if self.user_profile:
+            amount = self.user_profile.reinvest_pool + self.user_profile.solar_seed_fund_pool
         if self.user_profile and amount > 0.0:
             context["reinvestment_amount"] = self.user_profile.reinvest_pool + self.user_profile.solar_seed_fund_pool
         else:
