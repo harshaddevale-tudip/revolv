@@ -8,7 +8,7 @@ from wagtail.wagtailcore import urls as wagtail_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
 
 from revolv.base import views as base_views
-from revolv.base.views import solarathome, bring_solar_tou_your_community, select_chapter, intake_form, intake_form_submit, account_settings, editprofile, donation_update, myths_and_facts
+from revolv.base.views import solarathome, bring_solar_tou_your_community, select_chapter, intake_form, intake_form_submit, account_settings, editprofile, donation_update, myths_and_facts, completedproject
 from revolv.project.views import ProjectView
 
 urlpatterns = patterns(
@@ -38,6 +38,7 @@ urlpatterns = patterns(
     url(r'^solar-education/myths-and-facts/', 'revolv.base.views.myths_and_facts', name='myths_and_facts'),
 
     url(r'^what-we-do/projects/', base_views.ProjectListView.as_view(), name='projects_list'),
+    url(r'^projects/completed_projects', 'revolv.base.views.completedproject', name='completed_projects'),
     url(r'^signin/$', base_views.SignInView.as_view(), name='signin'),
     url(r'^login/$', base_views.LoginView.as_view(), name='login'),
     url(r'^signup/$', base_views.SignupView.as_view(), name='signup'),

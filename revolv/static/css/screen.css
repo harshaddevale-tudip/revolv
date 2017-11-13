@@ -13567,6 +13567,7 @@ a.How_it_Works:hover {
     }
     .background-collapse-color {
             background-color: white;
+            height: auto !important;
     }
 
 
@@ -14872,6 +14873,14 @@ form#change_password_form label {
     font-size: 1.1em;
     font-weight: 700;
 }
+.setting-dollar-label{
+    position: absolute;
+    float: left;
+    top: 1.4rem;
+    left: 1rem;
+    font-size: 1.9rem;
+    color: #777;
+}
 .setting-donation-input {
     height: 2.9em;
     width: 100%;
@@ -14899,6 +14908,10 @@ form#change_password_form label {
 }
 .setting-input-block {
     margin-bottom: 2em;
+}
+.setting-input-full-width {
+    float: left;
+    width: 100%;
 }
 .setting-donation-details {
     font-size: 1.3em;
@@ -15023,4 +15036,26 @@ span.setting-donation-change {
         font-size: 1.8em;
         padding-left: 0;
     }
+}
+.facts-icon-image{
+     padding: 5px;
+     width: 9em;
+}
+.facts-label-text{
+    font-size:30px;
+    padding:22px;
+    color:#777;
+    font-weight:700;
+}
+.facts-div-style{
+    position: relative;
+    width: 100%;
+    float: left;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+.facts-row{
+    margin-bottom: 2em;
+    margin-left: 0;
+    margin-right: 0;
 }

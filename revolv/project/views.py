@@ -199,7 +199,7 @@ def stripe_operation_donation(request):
         logger.exception('stripe_operation_donation called without required POST data')
         return HttpResponseBadRequest('bad POST data')
 
-    project = get_object_or_404(Project, title='RE-volv Donation')
+    project = get_object_or_404(Project, title='Operations')
 
     if check==None:
         amount = round(float(amount_cents) * 100)
@@ -266,7 +266,7 @@ def stripe_operation_donation(request):
 
             project = get_object_or_404(Project, title='Operations')
 
-            send_donation_info(user.get_full_name(), amount/100,user.user.email,project.title, address='')
+            #send_donation_info(user.get_full_name(), amount/100,user.user.email,project.title, address='')
 
         context = {}
         if not request.user.is_authenticated():
@@ -284,7 +284,7 @@ def stripe_operation_donation(request):
         # )
 
         #messages.info(request, "Thank you for donating to RE-volv's mission to empower communities with solar energy!")
-        return HttpResponse(json.dumps({'status': 'donation_success'}), content_type="application/json")
+        return HttpResponse(json.dumps({'status': 'donation_success', 'amount':amount/float(100)}), content_type="application/json")
 
     else:
         amount = round(float(amount_cents) * 100)
@@ -421,8 +421,7 @@ def stripe_operation_donation(request):
             #     context, [email]
             # )
 
-            #messages.info(request, "Thank you for donating monthly to RE-volv's mission to empower communities with solar energy!")
-            return HttpResponse(json.dumps({'status': 'subscription_success'}), content_type="application/json")
+            return HttpResponse(json.dumps({'status': 'subscription_success', 'amount': amount/float(100)}), content_type="application/json")
 
 
 @require_POST
@@ -458,7 +457,7 @@ def stripe_webhook(request):
                         payment_type=PaymentType.objects.get_stripe(),
                     )
                     project = get_object_or_404(Project, title='Operations')
-                    send_donation_info(user.get_full_name(), round(amount/float(100),2) , user.user.email, project.title, address='')
+                   # send_donation_info(user.get_full_name(), round(amount/float(100),2) , user.user.email, project.title, address='')
             else:
                 user = stripeDetails.user
                 user.solar_seed_fund_pool = user.solar_seed_fund_pool + amount/100
@@ -467,7 +466,7 @@ def stripe_webhook(request):
     except:
         pass
 
-    return HttpResponse(json.dumps({'status': 'subscription_success'}), content_type="application/json")
+    return HttpResponse(json.dumps({'status': 'subscription_success', 'amount': amount/float(100)}), content_type="application/json")
 
 class DonationLevelFormSetMixin(object):
     """

@@ -1,3 +1,4 @@
+
 {% extends "base/base.html" %}
 {% load staticfiles %}
 {% load humanize %}
@@ -12,6 +13,17 @@
     <script type="text/javascript" src="{% static 'js/base/util/util.js' %}?version={{ version_number }}"></script>
     <script type="text/javascript" src="{% static 'js/base/partialcircle.js' %}?version={{ version_number }}"></script>
     <script type="text/javascript" src="{% static 'js/base/projects-list.js' %}?version={{ version_number }}"></script>
+    <style>
+    p.attribution.footer-text {
+        color: #337ab7;
+        font-size: 14px;
+        margin-bottom: 0;
+    }
+    ul {
+        margin-left: 0;
+        line-height: 26px;
+    }
+    </style>
 
 {% endblock %}
 

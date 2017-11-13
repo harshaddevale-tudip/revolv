@@ -518,9 +518,14 @@ class ReinvestmentRedirect(UserDataMixin, TemplateView):
     #     if self.is_administrator:
     #         return render_to_response('base/partials/project.html',context_instance=RequestContext(request))
 
+
 def solarathome(request):
     return render_to_response('base/solar_at_home.html',
                               context_instance=RequestContext(request))
+def completedproject(request):
+    completed_projects = Project.objects.get_completed()
+    # return render_to_response('base/partials/completed_projects.html',context_instance=RequestContext(request))
+    return render(request, 'base/partials/completed_projects.html', {'completed_projects': completed_projects})
 
 def leo_page(request):
     return render(request,'base/partials/leo_page.html')
@@ -1425,7 +1430,7 @@ def account_settings(request):
     existing_user = False
     user = request.user
     userprofile = RevolvUserProfile.objects.get(user=request.user)
-    project = Project.objects.get(title='RE-volv Donation')
+    project = Project.objects.get(title='Operations')
     donated_solar_seed = Payment.objects.filter(user=request.user).exclude(project=project).aggregate(Sum('amount'))['amount__sum'] or 0
     repayment_solar_seed = RepaymentFragment.objects.filter(user=request.user).aggregate(Sum('amount'))['amount__sum'] or 0
     operation_donation = Payment.objects.filter(user=request.user,project=project).aggregate(Sum('amount'))['amount__sum'] or 0
@@ -1533,6 +1538,7 @@ def donation_update(request):
     stripedetail = StripeDetails.objects.filter(user=revolv_profile)
     if stripedetail:
         try:
+            donation_amount = 0
             if float(operation_amt) <= 0:
                 try:
                     donation_type = 'OPERATION'
@@ -1553,6 +1559,7 @@ def donation_update(request):
                         subscription = stripe.Subscription.retrieve(user.subscription_id)
                         customer = subscription.customer
 
+                    donation_amount = float(donation_amount) + float(operation_amt)
                     create_subscription(request,donation_type, revolv_profile, operation_amt_cents, customer)
 
 
@@ -1577,6 +1584,7 @@ def donation_update(request):
                         customer = subscription.customer
 
                     donation_type = 'SOLAR_SEED_FUND'
+                    donation_amount = float(donation_amount) + float(donation_amt)
                     create_subscription(request,donation_type, revolv_profile, donation_amt_cents, customer)
 
 
@@ -1584,12 +1592,13 @@ def donation_update(request):
             logger.exception('stripe_payment called without required POST data')
             return HttpResponseBadRequest('bad POST data')
 
-        return HttpResponse(json.dumps({'status': 'donation_updated'}), content_type="application/json")
+        return HttpResponse(json.dumps({'status': 'donation_updated', 'amount': donation_amount}), content_type="application/json")
 
     else:
         token = request.POST['stripeToken']
         email = request.POST['stripeEmail']
         try:
+            donation_amount = 0
             customer = stripe.Customer.create(
                 email=email,
                 description="Donation for RE-volv Operations",
@@ -1598,10 +1607,12 @@ def donation_update(request):
 
             if float(operation_amt) > 0.0:
                 donation_type = 'OPERATION'
+                donation_amount = float(donation_amount) + float(operation_amt)
                 create_subscription(request,donation_type, revolv_profile, operation_amt_cents, customer["id"])
 
             if float(donation_amt) > 0.0:
                 donation_type = 'SOLAR_SEED_FUND'
+                donation_amount = float(donation_amount) + float(donation_amt)
                 create_subscription(request,donation_type, revolv_profile, donation_amt_cents, customer["id"])
 
 
@@ -1621,6 +1632,6 @@ def donation_update(request):
 
             messages.error(request, 'Payment error. RE-volv has been notified.')
             return redirect('home')
-        return HttpResponse(json.dumps({'status': 'donation_success'}), content_type="application/json")
+        return HttpResponse(json.dumps({'status': 'donation_success', 'amount': donation_amount}), content_type="application/json")
 
 
