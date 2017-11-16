@@ -329,7 +329,7 @@ input[type="checkbox"] + label::before {
                         }
                         if(data.status == 'subscription_success') {
                             $('.modal-title').text('Thank you for donating!');
-                            $('.donation-text').text("Thank you for donating monthly to RE-volv's mission to empower communities with solar energy!");
+                            $('.donation-text').text("Thank you for donating  $" +data.amount + " monthly to RE-volv's mission to empower communities with solar energy!");
                         }
                         $('#donation-spinner').css('display', 'none');
                         $('#operationModal').modal('show');

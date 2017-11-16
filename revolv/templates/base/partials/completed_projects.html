@@ -15,6 +15,15 @@
     project-link a:hover, project-linka:focus {
         color: #0078a0;
     }
+    a {
+      color: #008CBA;
+    line-height: inherit;
+    text-decoration: none; }
+    a:hover, a:focus {
+        color: #0078a0; }
+    a img {
+        border: none; }
+
     .divider-title {
       margin: 30px auto;
       width: 75%;
@@ -125,7 +134,7 @@
         </div>
     </div>
       <div style="padding-bottom: 1em">
-      <a href="{% url "projects_list"%}" class="project-link" style="font-size: 24px;color: #008CBA;">Check out our active projects</a>
+      <a href="{% url "projects_list"%}" class="project-link" style="font-size: 24px;">Check out our active projects</a>
       </div>
   </div>
 </div>

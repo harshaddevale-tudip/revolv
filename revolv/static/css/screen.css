@@ -14888,7 +14888,7 @@ form#change_password_form label {
     border-radius: 5.5px;
     font-weight: 500;
     color: #777;
-    padding: 2.1rem !important;
+    padding-left: 2.1rem !important;
     font-size: 1.4em !important;
 }
 .setting-donation-amount {
@@ -15038,11 +15038,12 @@ span.setting-donation-change {
     }
 }
 .facts-icon-image{
-     padding: 5px;
-     width: 9em;
+     margin-top: 1em;
+     padding: 0.5em;
+     width: 6.5em;
 }
 .facts-label-text{
-    font-size:30px;
+    font-size:23px;
     padding:22px;
     color:#777;
     font-weight:700;
@@ -15051,11 +15052,59 @@ span.setting-donation-change {
     position: relative;
     width: 100%;
     float: left;
+    border-radius: 4px;
     text-align: center;
     border: 1px solid #ddd;
+    height: 240px;
 }
 .facts-row{
     margin-bottom: 2em;
     margin-left: 0;
     margin-right: 0;
+}
+.fact-card-info{
+    float: left;
+    color: #FFFFFF;
+    font-size: 1.1em;
+}
+.fact-card-text-style{
+    display:none;
+    background-color: #00BFFF;
+    border-radius: 4px;
+    padding: 1em;
+    float: left;
+    height: 240px;
+}
+.fact-bottom-text{
+    float: left;
+    width: 100%;
+    margin-bottom: 4em;
+    color: #b1a6a6;
+    padding-left: 1.5em;
+    padding-top: 0.4em;
+    font-size: 1.4em;
+}
+.fact-card-width{
+    float: left;
+    width: 100%;
+}
+.fact-card-logo-style{
+    float: left;
+    width: 100%;
+    height: 240px;
+    padding: 10px;
+}
+.fact-card-logo{
+    float: left;
+    width: 100%;
+    text-align: center;
+    height: 240px;
+}
+
+.show-card{
+    display: block !important;
+}
+
+.hide-card{
+    display: none !important;
 }
