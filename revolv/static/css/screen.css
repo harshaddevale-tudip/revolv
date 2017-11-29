@@ -13567,6 +13567,7 @@ a.How_it_Works:hover {
     }
     .background-collapse-color {
             background-color: white;
+            height: auto !important;
     }
 
 
@@ -14872,6 +14873,14 @@ form#change_password_form label {
     font-size: 1.1em;
     font-weight: 700;
 }
+.setting-dollar-label{
+    position: absolute;
+    float: left;
+    top: 1.4rem;
+    left: 1rem;
+    font-size: 1.9rem;
+    color: #777;
+}
 .setting-donation-input {
     height: 2.9em;
     width: 100%;
@@ -14879,7 +14888,7 @@ form#change_password_form label {
     border-radius: 5.5px;
     font-weight: 500;
     color: #777;
-    padding: 2.1rem !important;
+    padding-left: 2.1rem !important;
     font-size: 1.4em !important;
 }
 .setting-donation-amount {
@@ -14899,6 +14908,10 @@ form#change_password_form label {
 }
 .setting-input-block {
     margin-bottom: 2em;
+}
+.setting-input-full-width {
+    float: left;
+    width: 100%;
 }
 .setting-donation-details {
     font-size: 1.3em;
@@ -15023,4 +15036,75 @@ span.setting-donation-change {
         font-size: 1.8em;
         padding-left: 0;
     }
+}
+.facts-icon-image{
+     margin-top: 1em;
+     padding: 0.5em;
+     width: 6.5em;
+}
+.facts-label-text{
+    font-size:23px;
+    padding:22px;
+    color:#777;
+    font-weight:700;
+}
+.facts-div-style{
+    position: relative;
+    width: 100%;
+    float: left;
+    border-radius: 4px;
+    text-align: center;
+    border: 1px solid #ddd;
+    height: 240px;
+}
+.facts-row{
+    margin-bottom: 2em;
+    margin-left: 0;
+    margin-right: 0;
+}
+.fact-card-info{
+    float: left;
+    color: #FFFFFF;
+    font-size: 1.1em;
+}
+.fact-card-text-style{
+    display:none;
+    background-color: #00BFFF;
+    border-radius: 4px;
+    padding: 1em;
+    float: left;
+    height: 240px;
+}
+.fact-bottom-text{
+    float: left;
+    width: 100%;
+    margin-bottom: 4em;
+    color: #b1a6a6;
+    padding-left: 1.5em;
+    padding-top: 0.4em;
+    font-size: 1.4em;
+}
+.fact-card-width{
+    float: left;
+    width: 100%;
+}
+.fact-card-logo-style{
+    float: left;
+    width: 100%;
+    height: 240px;
+    padding: 10px;
+}
+.fact-card-logo{
+    float: left;
+    width: 100%;
+    text-align: center;
+    height: 240px;
+}
+
+.show-card{
+    display: block !important;
+}
+
+.hide-card{
+    display: none !important;
 }

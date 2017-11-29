@@ -32,7 +32,7 @@ class ProjectFactory(factory.django.DjangoModelFactory):
     org_start_date = datetime.date.today() - datetime.timedelta(days=1)  # yesterday
     actual_energy = 25.5
     amount_repaid = 29.25
-    ambassador = None
+    #ambassador = None
     created_by_user = factory.SubFactory("revolv.base.factories.RevolvUserProfileFactory")
     location_latitude = 42.0
     location_longitude = 42.0

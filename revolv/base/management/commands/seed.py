@@ -144,6 +144,29 @@ class ProjectSeedSpec(SeedSpec):
         "internal_rate_return": 7.8
     }
 
+    operation = {
+        "funding_goal": 10000.0,
+        "title": "Operations",
+        "tagline": "Dance forever, dance until the dawn.",
+        "video_url": "https://www.youtube.com/watch?v=fzShzO2pk-E",
+        "solar_url": "http://home.solarlog-web.net/1445.html",
+        "org_name": "The Community Dance Studio",
+        "impact_power": 10.0,
+        "actual_energy": 0.0,
+        "location": "2415 Bowditch St, Berkeley, CA 94704, United States",
+        "location_latitude": 37.8670289,
+        "location_longitude": -122.2561597,
+        "start_date": datetime.date(2014, 1, 1),
+        # community dance studio is in progress, two months til deadline
+        "end_date": datetime.date.today() + datetime.timedelta(weeks=8),
+        "cover_photo": "covers/box.jpg",
+        "org_start_date": datetime.date(1995, 10, 9),
+        "mission_statement": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\r\n",
+        "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\r\n",
+        "org_about": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\r\n",
+        "internal_rate_return": 7.8
+    }
+
     studio2 = {
         "funding_goal": 14000.0,
         "title": "Power Community Dance Studio 2",
@@ -209,7 +232,7 @@ class ProjectSeedSpec(SeedSpec):
         "mission_statement": "With Paper, Facebook has effectively rebooted its core News Feed product on the iPhone. Although Paper is built largely around the same photos and status updates you get from Facebook's main app, it doesn't feel like something that was merely retrofitted to the phone. It emphasizes large photos and swipe gestures, and lets you add general news sections for when you need a break from your friends. It could easily stand in for the main Facebook experience, even if it doesn't have all the same features.\r\n\r\nFacebook isn't alone. Last week, Google announced Inbox, which is built around Gmail but with a different approach to displaying and handling messages. Instead of showing every email in reverse-chronological order, Inbox intelligently sorts messages into groups like \u201cTravel\u201d and \u201cPurchases,\u201d and in a nod to Dropbox's Mailbox, lets you snooze or pin important emails for later.",
         "description": "With Paper, Facebook has effectively rebooted its core News Feed product on the iPhone. Although Paper is built largely around the same photos and status updates you get from Facebook's main app, it doesn't feel like something that was merely retrofitted to the phone. It emphasizes large photos and swipe gestures, and lets you add general news sections for when you need a break from your friends. It could easily stand in for the main Facebook experience, even if it doesn't have all the same features.\r\n\r\nFacebook isn't alone. Last week, Google announced Inbox, which is built around Gmail but with a different approach to displaying and handling messages. Instead of showing every email in reverse-chronological order, Inbox intelligently sorts messages into groups like \u201cTravel\u201d and \u201cPurchases,\u201d and in a nod to Dropbox's Mailbox, lets you snooze or pin important emails for later.",
         "org_about": "The idea that companies should prioritize phones and tablets over old-school PCs isn't new, and companies like Google claim to have been doing it for years. But what they're finally realizing is that mobile-first means more than just making a finely polished app for touch screens. User behavior isn't the same on phones as it is on PCs, which means the app itself must be fundamentally different.\r\n\r\nMicrosoft's Sway, for instance, throws out most of the robust tools that PowerPoint offers, and instead focuses on letting people throw things together quickly, even on a smartphone. It's sort of like using templates in PowerPoint, except that each slide can adapt to the amount of photos and text you put in it, and will format itself automatically for any screen size.",
-        "internal_rate_return": 7.5,
+        "internal_rate_return": 7.5
     }
     dairy2 = {
         "funding_goal": 20000.00,
@@ -230,7 +253,7 @@ class ProjectSeedSpec(SeedSpec):
         "mission_statement": "Copy from Diary: With Paper, Facebook has effectively rebooted its core News Feed product on the iPhone. Although Paper is built largely around the same photos and status updates you get from Facebook's main app, it doesn't feel like something that was merely retrofitted to the phone. It emphasizes large photos and swipe gestures, and lets you add general news sections for when you need a break from your friends. It could easily stand in for the main Facebook experience, even if it doesn't have all the same features.\r\n\r\nFacebook isn't alone. Last week, Google announced Inbox, which is built around Gmail but with a different approach to displaying and handling messages. Instead of showing every email in reverse-chronological order, Inbox intelligently sorts messages into groups like \u201cTravel\u201d and \u201cPurchases,\u201d and in a nod to Dropbox's Mailbox, lets you snooze or pin important emails for later.",
         "description": "Copy from Diary: With Paper, Facebook has effectively rebooted its core News Feed product on the iPhone. Although Paper is built largely around the same photos and status updates you get from Facebook's main app, it doesn't feel like something that was merely retrofitted to the phone. It emphasizes large photos and swipe gestures, and lets you add general news sections for when you need a break from your friends. It could easily stand in for the main Facebook experience, even if it doesn't have all the same features.\r\n\r\nFacebook isn't alone. Last week, Google announced Inbox, which is built around Gmail but with a different approach to displaying and handling messages. Instead of showing every email in reverse-chronological order, Inbox intelligently sorts messages into groups like \u201cTravel\u201d and \u201cPurchases,\u201d and in a nod to Dropbox's Mailbox, lets you snooze or pin important emails for later.",
         "org_about": "Copy from Diary: The idea that companies should prioritize phones and tablets over old-school PCs isn't new, and companies like Google claim to have been doing it for years. But what they're finally realizing is that mobile-first means more than just making a finely polished app for touch screens. User behavior isn't the same on phones as it is on PCs, which means the app itself must be fundamentally different.\r\n\r\nMicrosoft's Sway, for instance, throws out most of the robust tools that PowerPoint offers, and instead focuses on letting people throw things together quickly, even on a smartphone. It's sort of like using templates in PowerPoint, except that each slide can adapt to the amount of photos and text you put in it, and will format itself automatically for any screen size.",
-        "internal_rate_return": 7.5,
+        "internal_rate_return": 7.5
     }
     dairy3 = {
         "funding_goal": 10000.00,
@@ -251,7 +274,7 @@ class ProjectSeedSpec(SeedSpec):
         "mission_statement": "Copy from Diary 2: With Paper, Facebook has effectively rebooted its core News Feed product on the iPhone. Although Paper is built largely around the same photos and status updates you get from Facebook's main app, it doesn't feel like something that was merely retrofitted to the phone. It emphasizes large photos and swipe gestures, and lets you add general news sections for when you need a break from your friends. It could easily stand in for the main Facebook experience, even if it doesn't have all the same features.\r\n\r\nFacebook isn't alone. Last week, Google announced Inbox, which is built around Gmail but with a different approach to displaying and handling messages. Instead of showing every email in reverse-chronological order, Inbox intelligently sorts messages into groups like \u201cTravel\u201d and \u201cPurchases,\u201d and in a nod to Dropbox's Mailbox, lets you snooze or pin important emails for later.",
         "description": "Copy from Diary 2 : With Paper, Facebook has effectively rebooted its core News Feed product on the iPhone. Although Paper is built largely around the same photos and status updates you get from Facebook's main app, it doesn't feel like something that was merely retrofitted to the phone. It emphasizes large photos and swipe gestures, and lets you add general news sections for when you need a break from your friends. It could easily stand in for the main Facebook experience, even if it doesn't have all the same features.\r\n\r\nFacebook isn't alone. Last week, Google announced Inbox, which is built around Gmail but with a different approach to displaying and handling messages. Instead of showing every email in reverse-chronological order, Inbox intelligently sorts messages into groups like \u201cTravel\u201d and \u201cPurchases,\u201d and in a nod to Dropbox's Mailbox, lets you snooze or pin important emails for later.",
         "org_about": "Copy from Diary 2: The idea that companies should prioritize phones and tablets over old-school PCs isn't new, and companies like Google claim to have been doing it for years. But what they're finally realizing is that mobile-first means more than just making a finely polished app for touch screens. User behavior isn't the same on phones as it is on PCs, which means the app itself must be fundamentally different.\r\n\r\nMicrosoft's Sway, for instance, throws out most of the robust tools that PowerPoint offers, and instead focuses on letting people throw things together quickly, even on a smartphone. It's sort of like using templates in PowerPoint, except that each slide can adapt to the amount of photos and text you put in it, and will format itself automatically for any screen size.",
-        "internal_rate_return": 7.5,
+        "internal_rate_return": 7.5
     }
     educathing = {
         "funding_goal": 22000.00,
@@ -271,7 +294,7 @@ class ProjectSeedSpec(SeedSpec):
         "mission_statement": "The Internship, which opens on June 7, finds Vince Vaughn and Owen Wilson playing middle-aged watch salesmen who are dinosaurs when it comes to technology. The guys become Google interns--this is a comedy, so just suspend your disbelief--to learn all they can about the digital world. The aspiring tech experts hope to get jobs at Google when all is said and done, but they must beat out brilliant geeks for the coveted positions. Leaving aside the creative merits of the film (just about every reviewer has called The Internship an unabashed, two-hour ad for Google), it does explore a hypothetically interesting topic--what it\u2019s like to make the grade at the competitive corporate promised land of the Internet age.\r\n",
         "description": "The Internship, which opens on June 7, finds Vince Vaughn and Owen Wilson playing middle-aged watch salesmen who are dinosaurs when it comes to technology. The guys become Google interns--this is a comedy, so just suspend your disbelief--to learn all they can about the digital world. The aspiring tech experts hope to get jobs at Google when all is said and done, but they must beat out brilliant geeks for the coveted positions. Leaving aside the creative merits of the film (just about every reviewer has called The Internship an unabashed, two-hour ad for Google), it does explore a hypothetically interesting topic--what it\u2019s like to make the grade at the competitive corporate promised land of the Internet age.\r\n",
         "org_about": "The environment for interns at Google is healthier than it might be portrayed in the movie Ewing says with a laugh, noting, \u201cOne of the biggest differences between the movie and a real internship at Google is that interns are not competing against each other, not for jobs or anything else. We would never pit them against each other.\u201d\r\n\r\nIn addition to working in what Ewing describes as a supportive and collaborative environment, Google interns enjoy competitive pay and perks, and interning can indeed be a path to a full-time job.",
-        "internal_rate_return": 7.2,
+        "internal_rate_return": 7.2
     }
     emblem = {
         "funding_goal": 24000.00,
@@ -291,19 +314,20 @@ class ProjectSeedSpec(SeedSpec):
         "mission_statement": "Fire Emblem, the best game ever.",
         "description": "Fire Emblem, the best game ever.",
         "org_about": "Embark with our heroes on a quest to save the world!",
-        "internal_rate_return": 7.0,
+        "internal_rate_return": 7.0
     }
-    projects_to_clear = [studio, studio2, studio3, dairy, dairy2, dairy3, educathing, emblem]
+    projects_to_clear = [studio]
 
     def seed(self, quiet=False):
         ambassador = RevolvUserProfile.objects.get(user__username="ambassador")
-        Project.factories.active.create(ambassador=ambassador, **self.studio)
-        Project.factories.active.create(ambassador=ambassador, **self.studio2)
-        Project.factories.active.create(ambassador=ambassador, **self.studio3)
-        p_complete1 = Project.factories.completed.create(ambassador=ambassador, **self.dairy)
-        p_complete2 = Project.factories.completed.create(ambassador=ambassador, **self.dairy2)
-        p_complete3 = Project.factories.completed.create(ambassador=ambassador, **self.dairy3)
-        Project.factories.proposed.create(ambassador=ambassador, **self.educathing)
+        Project.factories.active.create( **self.operation)
+        Project.factories.active.create( **self.studio)
+        Project.factories.active.create( **self.studio2)
+        Project.factories.active.create( **self.studio3)
+        p_complete1 = Project.factories.completed.create( **self.dairy)
+        p_complete2 = Project.factories.completed.create( **self.dairy2)
+        p_complete3 = Project.factories.completed.create( **self.dairy3)
+        Project.factories.proposed.create( **self.educathing)
         Project.factories.drafted.create(**self.emblem)
 
         ProjectMontlyRepaymentConfig.objects.create(project=p_complete1,

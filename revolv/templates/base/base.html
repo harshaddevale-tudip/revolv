@@ -28,7 +28,9 @@
     <!-- Main CSS -->
     <link href="{% static 'css/jqtransform.css' %}" rel="stylesheet" />
     <link href="{% static 'css/animate.css' %}?version={{ version_number }}" rel="stylesheet" />
+
     <link href="{% static 'css/screen.css' %}?version={{ version_number }}"  rel="stylesheet" />
+
 
     <!-- Toastr CSS -->
     <link href="{% static 'css/toastr.min.css' %}?version={{ version_number }}"  rel="stylesheet" />
@@ -96,7 +98,7 @@
             <p class="donation-text"></p>
         </div>
         <div class="modal-footer align-center">
-            <a href="" class="btn btn-primary donate-ok-btn">Ok</a>
+            <a href="" class="btn btn-primary donate-ok-btn">OK</a>
         </div>
       </div>
 
@@ -232,12 +234,13 @@ $(function ($) {
                  success: function(data)
                  {
                     if(data.status == 'donation_success') {
+                        console.log(data.amount);
                         $('.modal-title').text('Thank you for donating!');
-                        $('.donation-text').text("Thank you for donating to RE-volv's mission to empower communities with solar energy!");
+                        $('.donation-text').text("Thank you for donating $" +data.amount + " to RE-volv's mission to empower communities with solar energy!");
                     }
                     if(data.status == 'subscription_success') {
                         $('.modal-title').text('Thank you for donating!');
-                        $('.donation-text').text("Thank you for donating monthly to RE-volv's mission to empower communities with solar energy!");
+                        $('.donation-text').text("Thank you for donating $" +data.amount + " monthly to RE-volv's mission to empower communities with solar energy!");
                     }
                     if(data.status == 'already_exist') {
                         $('.modal-title').text('Donation already exist');

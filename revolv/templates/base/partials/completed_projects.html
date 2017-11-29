@@ -1,0 +1,141 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% load humanize %}
+{% load static humanize %}
+
+{% block title %}Completed Projects | {% endblock %}
+
+{% block head %}
+
+    <script type="text/javascript" src="{% static 'js/vendor/d3.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/base/util/util.js' %}?version={{ version_number }}"></script>
+    <script type="text/javascript" src="{% static 'js/base/partialcircle.js' %}?version={{ version_number }}"></script>
+    <script type="text/javascript" src="{% static 'js/base/projects-list.js' %}?version={{ version_number }}"></script>
+    <style>
+    project-link a:hover, project-linka:focus {
+        color: #0078a0;
+    }
+    a {
+      color: #008CBA;
+    line-height: inherit;
+    text-decoration: none; }
+    a:hover, a:focus {
+        color: #0078a0; }
+    a img {
+        border: none; }
+
+    .divider-title {
+      margin: 30px auto;
+      width: 75%;
+      color: #064f7e;
+      font-weight: 100;
+      margin-top: 110px;
+      display: block;
+      height: 0.5em;
+      line-height: 1em;
+      border: none;
+      border-bottom: 1px solid #064f7e;
+      text-align: center;
+      font-size: 25px;
+      margin-bottom: 1.5em; }
+      .divider-title:first-line {
+        background-color: #EBECE7; }
+      .divider-title:before {
+        display: inline;
+        content: "\a0\a0\a0"; }
+      .divider-title:after {
+        display: inline;
+        content: "\a0\a0\a0"; }
+      .divider-title.heading-error {
+        color: #E83D3D;
+        display: block;
+        height: 0.5em;
+        line-height: 1em;
+        border: none;
+        border-bottom: 1px solid #E83D3D;
+        text-align: center;
+        font-size: 25px;
+        margin-bottom: 1.5em; }
+        .divider-title.heading-error:first-line {
+          background-color: #EBECE7; }
+        .divider-title.heading-error:before {
+          display: inline;
+          content: "\a0\a0\a0"; }
+        .divider-title.heading-error:after {
+          display: inline;
+          content: "\a0\a0\a0"; }
+    </style>
+{% endblock %}
+
+
+{% block body %}
+
+<script src="{% static 'js/base/homeAnimations.js' %}?version={{ version_number }}"></script>
+    <div class="divider-title"> COMPLETED PROJECTS </div>
+<div class="active-projects-module animated">
+  <div class="container">
+    <div class="row">
+        <div class="regular slider">
+
+            {% for completed_project in completed_projects %}
+                <div class="col-md-4 facts-row">
+                    <div>
+                        <div class="module-box">
+                          <div class="img-main">
+                            <a href="{% url "project:view" title=completed_project.project_url %}" class="img-link">
+                              <span class="txt-table">
+                                <span class="txt">
+                                    {{ completed_project.title }}
+                                </span>
+                              </span>
+                              <div class="img" style="background-image:url('{{MEDIA_URL}}{{completed_project.cover_photo.url }}' )"><span class="completed_project"><img src="/static/images/COMPLETED.png" alt="Project is completed" ></span></div>
+                            </a>
+                            <div class="funded-round">
+                              <div class="status-circular">
+                                <span class="status-text">
+                                  <span class="round-depict"><span>OF</span> ${{ completed_project.funding_goal|floatformat:0|intcomma }}</span>
+                                </span>
+                                <!-- end .status-text -->
+                                <div class="status-indicator desktop-circle">
+                                  <input type="text" value="{{ completed_project.percent_complete }}" data-min="0" data-width="105" data-height="105" data-bgcolor="#fff" data-fgcolor="#14b1e7" data-max="100" data-readonly="true" data-thickness=".24">
+                                </div>
+                                <div class="status-indicator small-circle">
+                                  <input type="text" value="{{ completed_project.percent_complete }}" data-min="0" data-width="92" data-height="92" data-bgcolor="#fff" data-fgcolor="#14b1e7" data-max="100" data-readonly="true" data-thickness=".2">
+                                </div>
+                                <div class="status-indicator tablet-circle">
+                                  <input type="text" value="{{ completed_project.percent_complete }}" data-min="0" data-width="200" data-height="200" data-bgcolor="#fff" data-fgcolor="#14b1e7" data-max="100" data-readonly="true" data-thickness=".12">
+                                </div>
+                                <div class="status-indicator mobile-circle">
+                                  <input type="text" value="{{ completed_project.percent_complete }}" data-min="0" data-width="98" data-height="98" data-bgcolor="#fff" data-fgcolor="#14b1e7" data-max="100" data-readonly="true" data-thickness=".12">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- end .img-main -->
+                          <div class="info-main">
+                            <div class="blue-bar">
+                              <span class="pull-left">${{ completed_project.amount_donated|floatformat:"0"|intcomma }}</span>
+                              <span class="pull-right">{{ completed_project.days_left }} Days Left</span>
+                            </div>
+                            <!-- end .blue-bar -->
+                            <div class="dark-blue-bar">
+                              <span class="pull-left actual-energy">{{ completed_project.get_statistic_for_project|floatformat:"0"|intcomma}} lbs CO<sub>2</sub></span>
+                              <span class="pull-right">{{ completed_project.donors.count }} Donors</span>
+                            </div>
+                            <!-- end .blue-bar -->
+                          </div>
+                          <!-- end .info-main -->
+                        </div>
+                        <!-- end .module-box -->
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+      <div style="padding-bottom: 1em">
+      <a href="{% url "projects_list"%}" class="project-link" style="font-size: 24px;">Check out our active projects</a>
+      </div>
+  </div>
+</div>
+{% endblock %}

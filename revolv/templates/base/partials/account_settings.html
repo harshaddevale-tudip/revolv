@@ -93,17 +93,35 @@ input[type="checkbox"] + label::before {
         {% csrf_token %}
         <div id="donation-info" class="col-xs-12 col-sm-9 setting-form-top" style="display:none;">
             <div style="width:65%;margin-left: 1.4em;">
-                <div class="setting-input-block">
-                    <span class="setting-form-lebel">CURRENT MONTHLY DONATION TO SOLAR SEED FUND:</span>
-                    <input id="donation-amt" type="text" name="donation-amt" value="{{monthly_solar_donation}}" class="setting-donation-input"/>
-                        <span class="setting-donation-change solar-donation">Change</span>
+                <div class="setting-input-block setting-input-full-width" >
+                    <span class="setting-form-lebel setting-input-full-width" >CURRENT MONTHLY DONATION TO SOLAR SEED FUND:</span>
+                    <div class="full-width">
+                        <div>
+                            <span class="setting-dollar-label">$</span>
+                        </div>
+                        <div style="width: 100%;">
+                            <input id="donation-amt" type="text" name="donation-amt" value="{{monthly_solar_donation|floatformat:"2"}}" class="setting-donation-input"/>
+                        </div>
+                        <div>
+                            <span class="setting-donation-change solar-donation">Change</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="setting-input-block setting-input-full-width">
+                    <span class="setting-form-lebel setting-input-full-width">CURRENT MONTHLY DONATION TO RE-volv's OPERATIONS:</span>
+                    <div class="full-width">
+                        <div>
+                            <span class="setting-dollar-label">$</span>
+                        </div>
+                        <div style="width: 100%;">
+                            <input id="operation-amt" type="text" name="operation-amt" class="setting-donation-input" value="{{monthly_donation_amount|floatformat:"2"}}"/>
+                        </div>
+                        <div>
+                            <span class="setting-donation-change operation-donation">Change</span>
+                        </div>
+                    </div>
 
                 </div>
-                <div class="setting-input-block">
-                    <span class="setting-form-lebel">CURRENT MONTHLY DONATION TO RE-volv's OPERATIONS:</span>
-                    <input id="operation-amt" type="text" name="operation-amt" class="setting-donation-input" value="{{monthly_donation_amount}}"/>
-                    <span class="setting-donation-change operation-donation">Change</span>
-                    </div>
                 <div class="setting-input-block">
                     <p class="setting-form-lebel setting-input-block">DONATION HISTORY</p>
                     <p class="setting-details-margin"><span class="setting-donation-details">How much I've donated to the Solar Seed Fund</span> <span class="setting-donations">{{donated_solar_seed|floatformat:"2"}}$</span></p>
@@ -263,7 +281,7 @@ input[type="checkbox"] + label::before {
                  {
                     if(data.status == 'donation_updated') {
                         $('.modal-title').text('Thank you for donating!');
-                        $('.donation-text').text("Your donation was successfully updated.");
+                        $('.donation-text').text("Your donation $" +data.amount + "  was successfully updated.");
                     }
                     $('#donation-spinner').css('display', 'none');
                     $('#operationModal').modal('show');
@@ -307,11 +325,11 @@ input[type="checkbox"] + label::before {
                      {
                         if(data.status == 'donation_success') {
                             $('.modal-title').text('Thank you for donating!');
-                            $('.donation-text').text("Thank you for donating to RE-volv's mission to empower communities with solar energy!");
+                            $('.donation-text').text("Thank you for donating $" +data.amount + " to RE-volv's mission to empower communities with solar energy!");
                         }
                         if(data.status == 'subscription_success') {
                             $('.modal-title').text('Thank you for donating!');
-                            $('.donation-text').text("Thank you for donating monthly to RE-volv's mission to empower communities with solar energy!");
+                            $('.donation-text').text("Thank you for donating  $" +data.amount + " monthly to RE-volv's mission to empower communities with solar energy!");
                         }
                         $('#donation-spinner').css('display', 'none');
                         $('#operationModal').modal('show');
