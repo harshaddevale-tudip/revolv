@@ -40,7 +40,6 @@ def distribute_reinvestment_fund():
     reinvest_amount_left = RevolvUserProfile.objects.all().aggregate(total=Sum('reinvest_pool'))['total']
     total_funding_goal = Project.objects.get_active().aggregate(total=Sum('funding_goal'))['total']
     pending_reinvestors = []
-    pending_solar_seed_fund = []
 
     users = RevolvUserProfile.objects.filter(Q(reinvest_pool__gt=0.0) | Q(solar_seed_fund_pool__gt=0.0))
     for user in users:
@@ -50,8 +49,6 @@ def distribute_reinvestment_fund():
 
     for project in Project.objects.get_active():
         reinvest_amount_praportion = float(project.funding_goal)/float(total_funding_goal)
-        reinvest_amount=float(reinvest_amount_praportion)*float(reinvest_amount_left)
-        reinvest_amount=float("{0:.2f}".format(reinvest_amount))
 
         for (user, reinvest_pool, solar_seed_fund_pool) in pending_reinvestors:
             if solar_seed_fund_pool > 0.0:
@@ -122,6 +119,10 @@ def distribute_reinvestment_fund():
 
 
     for user in users:
+        if user.solar_seed_fund_pool <= 0.01:
+            user.solar_seed_fund_pool = 0
+
         if user.reinvest_pool <= 0.01:
             user.reinvest_pool = 0
-            user.save()
+
+        user.save()

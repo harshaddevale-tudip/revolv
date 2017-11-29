@@ -35,6 +35,7 @@ urlpatterns = patterns(
     url(r'^userupdate/', base_views.editprofile.as_view(), name='userupdate'),
     url(r'^donation_update/', 'revolv.base.views.donation_update', name='donation_update'),
     url(r'^get-involved/leonardo-dicaprio-foundation-partners-re-volv/', 'revolv.base.views.leo_page', name='leo_page'),
+    url(r'^get-involved/faq', 'revolv.base.views.faq', name='faq'),
     url(r'^solar-education/myths-and-facts/', 'revolv.base.views.myths_and_facts', name='myths_and_facts'),
 
     url(r'^what-we-do/projects/', base_views.ProjectListView.as_view(), name='projects_list'),

@@ -7,6 +7,7 @@ from django.views.generic.edit import UpdateView
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.conf import settings
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import views as auth_views
@@ -24,7 +25,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.http import require_http_methods
 from django.views.generic import FormView, TemplateView, View
 from django.template.context import RequestContext
-from revolv.base.forms import SignupForm, AuthenticationForm, RevolvUserProfileForm, UpdateUser
+from revolv.base.forms import SignupForm, RevolvUserProfileForm, UpdateUser
 from revolv.base.users import UserDataMixin
 from revolv.base.utils import ProjectGroup
 from revolv.payments.models import Payment, Tip, PaymentType, RepaymentFragment
@@ -424,6 +425,7 @@ class SignupView(RedirectToSigninOrHomeMixin, FormView):
         send_signup_info(name, u.email, u.revolvuserprofile.address)
 
         # log in the newly created user model. if there is a problem, error
+        u.backend = 'django.contrib.auth.backends.ModelBackend'
         auth_login(self.request, u)
         SITE_URL = settings.SITE_URL
         login_link = SITE_URL + reverse('login')
@@ -524,6 +526,9 @@ def solarathome(request):
 
 def leo_page(request):
     return render(request,'base/partials/leo_page.html')
+
+def faq(request):
+    return render(request,'base/partials/faq.html')
 
 def myths_and_facts(request):
     return render(request, 'base/partials/myth_and_facts.html')

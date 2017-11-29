@@ -27,7 +27,8 @@ def user_reinvestment_reminder():
         data['projects_url'] = project_reinvest_list_url + utils.get_query_string(user.user)
         data['unsubscribe_url'] = unsubscribe_update_url + utils.get_query_string(user.user)
         data['first_name'] = user.user.first_name
-        send_revolv_email(
-            'reinvestment_reminder',
-            data, [user.user.email]
-        )
+        if user.repayment_notification:
+            send_revolv_email(
+                'reinvestment_reminder',
+                data, [user.user.email]
+            )

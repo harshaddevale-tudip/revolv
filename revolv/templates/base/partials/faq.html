@@ -1,0 +1,122 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% load humanize %}
+{% block head %}
+{% endblock %}
+<script type="text/javascript">
+</script>
+<script src="{% static 'js/base/homeAnimations.js' %}?version={{ version_number }}"></script>
+{% block title %}Project | {% endblock %}
+{% block body %}
+
+<div class="contents after-header">
+    <div class="account-heading">
+        <div style="padding-top: 2.3%;"><span class="account-heading-span">Frequently Asked Questions</span></div>
+    </div>
+    <div class="col-xs-12 col-sm-3 account-tabs">
+        <div style="margin-bottom: 2em;">
+            <span id="account-link" class="account-tab-text account-tab-text-active">Nonprofits <br> Interested in Solar</span>
+        </div>
+        <div style="margin-bottom: 2em;">
+            <span id="donation-link" class="account-tab-text ">RE-volv Users</span>
+        </div>
+    </div>
+    <div id="account-info" class="col-xs-12 col-sm-9 setting-form-top" style="display: block;">
+
+        <div class="myth-box-div">
+                <div class="myth-box-header-div"><span>What are benefits of going Solar?</span><span data-toggle="collapse" data-target="#text-block-1" class="myth-collapse-icon glyphicon glyphicon-chevron-down"></span></div>
+                <div id="text-block-1" class="myth-collapse-text collapse">It's good for the environment and good for the economy<br>It will also save you money on electricity bills. </div>
+        </div>
+        <div class="myth-box-div">
+            <div class="myth-box-header-div"><span>Why go solar with RE-volv?</span><span data-toggle="collapse" data-target="#text-block-2" class="myth-collapse-icon glyphicon glyphicon-chevron-down"></span></div>
+            <div id="text-block-2" class="myth-collapse-text collapse">The truth is that, the solar financing options such as solar lease, you can go solar for zero down and start saving up to 15% or more electrical bills. </div>
+        </div>
+        <div class="myth-box-div">
+            <div class="myth-box-header-div"><span>Who is eligible?</span><span data-toggle="collapse" data-target="#text-block-3" class="myth-collapse-icon glyphicon glyphicon-chevron-down"></span></div>
+            <div id="text-block-3" class="myth-collapse-text collapse">The truth is that, the solar financing options such as solar lease, you can go solar for zero down and start saving up to 15% or more electrical bills. </div>
+        </div>
+        <div class="myth-box-div">
+            <div class="myth-box-header-div"><span>How much will I save and how does the pricing model work?</span><span data-toggle="collapse" data-target="#text-block-4" class="myth-collapse-icon glyphicon glyphicon-chevron-down"></span></div>
+            <div id="text-block-4" class="myth-collapse-text collapse">The truth is that, the solar financing options such as solar lease, you can go solar for zero down and start saving up to 15% or more electrical bills. </div>
+        </div>
+        <div class="myth-box-div">
+            <div class="myth-box-header-div"><span>How much will our organization pay?</span><span data-toggle="collapse" data-target="#text-block-5" class="myth-collapse-icon glyphicon glyphicon-chevron-down"></span></div>
+            <div id="text-block-5" class="myth-collapse-text collapse">The truth is that, the solar financing options such as solar lease, you can go solar for zero down and start saving up to 15% or more electrical bills. </div>
+        </div>
+        <div class="myth-box-div">
+            <div class="myth-box-header-div"><span>How long is the crowdfunding(fundraising) period? </span><span data-toggle="collapse" data-target="#text-block-6" class="myth-collapse-icon glyphicon glyphicon-chevron-down"></span></div>
+            <div id="text-block-6" class="myth-collapse-text collapse">The truth is that, the solar financing options such as solar lease, you can go solar for zero down and start saving up to 15% or more electrical bills. </div>
+        </div>
+        <div class="myth-box-div">
+            <div class="myth-box-header-div"><span>What fundraising does the organization need to do?</span><span data-toggle="collapse" data-target="#text-block-7" class="myth-collapse-icon glyphicon glyphicon-chevron-down"></span></div>
+            <div id="text-block-7" class="myth-collapse-text collapse">The truth is that, the solar financing options such as solar lease, you can go solar for zero down and start saving up to 15% or more electrical bills. </div>
+        </div>
+        <div class="myth-box-div">
+            <div class="myth-box-header-div"><span>What is the Solar Seed Fund?<br>Is this a general fund for different projects?</span><span data-toggle="collapse" data-target="#text-block-8" class="myth-collapse-icon glyphicon glyphicon-chevron-down" style="margin-top: -1em;"></span></div>
+            <div id="text-block-8" class="myth-collapse-text collapse">The truth is that, the solar financing options such as solar lease, you can go solar for zero down and start saving up to 15% or more electrical bills. </div>
+        </div>
+        <div class="myth-box-div">
+            <div class="myth-box-header-div"><span>Who takes care of Operations & Maintenance(O & M) during<br>the 20 year solar lease? Don't inverters usually need to be<br>replaced before the 20 year lease is complete?</span><span data-toggle="collapse" data-target="#text-block-9" class="myth-collapse-icon glyphicon glyphicon-chevron-down" style="margin-top: -2.2em;"></span></div>
+            <div id="text-block-9" class="myth-collapse-text collapse">The truth is that, the solar financing options such as solar lease, you can go solar for zero down and start saving up to 15% or more electrical bills. </div>
+        </div>
+        <div class="myth-box-div">
+            <div class="myth-box-header-div"><span>Will the Lessor set up the system so that energy usage and<br>production can also be monitored at the organization site?</span><span data-toggle="collapse" data-target="#text-block-10" class="myth-collapse-icon glyphicon glyphicon-chevron-down" style="margin-top: -0.6em;"></span></div>
+            <div id="text-block-10" class="myth-collapse-text collapse">The truth is that, the solar financing options such as solar lease, you can go solar for zero down and start saving up to 15% or more electrical bills. </div>
+        </div>
+        <div class="myth-box-div">
+            <div class="myth-box-header-div"><span>If the system falls short of the estimated energy production,<br>When does RE-volv reimburse the organization for the shortfall?</span><span data-toggle="collapse" data-target="#text-block-11" class="myth-collapse-icon glyphicon glyphicon-chevron-down" style="margin-top: -0.6em;"></span></div>
+            <div id="text-block-11" class="myth-collapse-text collapse">The truth is that, the solar financing options such as solar lease, you can go solar for zero down and start saving up to 15% or more electrical bills. </div>
+        </div>
+        <div class="myth-box-div">
+            <div class="myth-box-header-div"><span>Why have other financing options been ruled out<br>for this project?</span><span data-toggle="collapse" data-target="#text-block-12" class="myth-collapse-icon glyphicon glyphicon-chevron-down" style="margin-top: -0.6em;"></span></div>
+            <div id="text-block-12" class="myth-collapse-text collapse">The truth is that, the solar financing options such as solar lease, you can go solar for zero down and start saving up to 15% or more electrical bills. </div>
+        </div>
+        <div class="myth-box-div">
+            <div class="myth-box-header-div"><span>What are the insurance details?</span><span data-toggle="collapse" data-target="#text-block-13" class="myth-collapse-icon glyphicon glyphicon-chevron-down"></span></div>
+            <div id="text-block-13" class="myth-collapse-text collapse">The truth is that, the solar financing options such as solar lease, you can go solar for zero down and start saving up to 15% or more electrical bills. </div>
+        </div>
+        <div class="myth-box-div">
+            <div class="myth-box-header-div"><span>What happens if RE-volv has to transfer ownership of the lease?</span><span data-toggle="collapse" data-target="#text-block-14" class="myth-collapse-icon glyphicon glyphicon-chevron-down" ></span></div>
+            <div id="text-block-14" class="myth-collapse-text collapse">The truth is that, the solar financing options such as solar lease, you can go solar for zero down and start saving up to 15% or more electrical bills. </div>
+        </div>
+        <div class="myth-box-div">
+            <div class="myth-box-header-div"><span>What if I need to replace my roof?</span><span data-toggle="collapse" data-target="#text-block-15" class="myth-collapse-icon glyphicon glyphicon-chevron-down"></span></div>
+            <div id="text-block-15" class="myth-collapse-text collapse">The truth is that, the solar financing options such as solar lease, you can go solar for zero down and start saving up to 15% or more electrical bills. </div>
+        </div>
+        <div class="myth-box-div">
+            <div class="myth-box-header-div"><span>How much electricity will this replace?</span><span data-toggle="collapse" data-target="#text-block-16" class="myth-collapse-icon glyphicon glyphicon-chevron-down"></span></div>
+            <div id="text-block-16" class="myth-collapse-text collapse">The truth is that, the solar financing options such as solar lease, you can go solar for zero down and start saving up to 15% or more electrical bills. </div>
+        </div>
+        <div class="myth-box-div">
+            <div class="myth-box-header-div"><span>How long will the panels last?</span><span data-toggle="collapse" data-target="#text-block-17" class="myth-collapse-icon glyphicon glyphicon-chevron-down"></span></div>
+            <div id="text-block-17" class="myth-collapse-text collapse">The truth is that, the solar financing options such as solar lease, you can go solar for zero down and start saving up to 15% or more electrical bills. </div>
+        </div>
+        <div class="myth-box-div">
+            <div class="myth-box-header-div"><span>What happens if we sell our building?</span><span data-toggle="collapse" data-target="#text-block-18" class="myth-collapse-icon glyphicon glyphicon-chevron-down"></span></div>
+            <div id="text-block-18" class="myth-collapse-text collapse">The truth is that, the solar financing options such as solar lease, you can go solar for zero down and start saving up to 15% or more electrical bills. </div>
+        </div>
+
+    </div>
+    <div id="donation-info" class="col-xs-12 col-sm-9 setting-form-top" style="display: none;">
+        <div class="myth-box-div">
+                <div class="myth-box-header-div"><span>How do I support RE-vovl?</span><span data-toggle="collapse" data-target="#text-block-19" class="myth-collapse-icon glyphicon glyphicon-chevron-down"></span></div>
+                <div id="text-block-19" class="myth-collapse-text collapse">It's good for the environment and good for the economy<br>It will also save you money on electricity bills. </div>
+        </div>
+        <div class="myth-box-div">
+            <div class="myth-box-header-div"><span>What is the revolving fund & how does my doantion pay into it?</span><span data-toggle="collapse" data-target="#text-block-20" class="myth-collapse-icon glyphicon glyphicon-chevron-down"></span></div>
+            <div id="text-block-20" class="myth-collapse-text collapse">The truth is that, the solar financing options such as solar lease, you can go solar for zero down and start saving up to 15% or more electrical bills. </div>
+        </div>
+        <div class="myth-box-div">
+            <div class="myth-box-header-div"><span>Is RE-volv a non profit</span><span data-toggle="collapse" data-target="#text-block-21" class="myth-collapse-icon glyphicon glyphicon-chevron-down"></span></div>
+            <div id="text-block-21" class="myth-collapse-text collapse">The truth is that, the solar financing options such as solar lease, you can go solar for zero down and start saving up to 15% or more electrical bills. </div>
+        </div>
+        <div class="myth-box-div">
+            <div class="myth-box-header-div"><span>How does RE-volv make money?</span><span data-toggle="collapse" data-target="#text-block-22" class="myth-collapse-icon glyphicon glyphicon-chevron-down"></span></div>
+            <div id="text-block-22" class="myth-collapse-text collapse">The truth is that, the solar financing options such as solar lease, you can go solar for zero down and start saving up to 15% or more electrical bills. </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
