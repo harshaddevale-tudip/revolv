@@ -38,7 +38,6 @@ class UserCreationForm(forms.ModelForm):
         'duplicate_username': ("A user with that username already exists."),
         'password_mismatch': ("The two password fields didn't match."),
     }
-    # username = "harshad"
 
     email = forms.EmailField(label="Email")
     password1 = forms.CharField(label=("Password"),
@@ -205,11 +204,14 @@ class UpdateUser(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'email']
+        unique_together = ["email"]
 
     email = forms.EmailField(label="Email")
     def clean_email(self):
         data = self.cleaned_data['email']
-        if User.objects.filter(email=data).exists():
+        username = self.cleaned_data['username']
+        # user=User.objects.get(id=self.user_cache.id)
+        if User.objects.filter(email=data).exclude(username=username).exists():
             raise forms.ValidationError("This email already used")
         return data
     first_name = forms.CharField(label="First name")

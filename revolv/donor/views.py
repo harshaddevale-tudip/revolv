@@ -55,6 +55,13 @@ class DonorDashboardView(UserDataMixin, TemplateView):
         active = Project.objects.get_active()
         context["first_project"] = active[0] if active.count() > 0 else None
         context["role"] = "donor"
+        context["donated_amount"] = self.request.session.get('amount')
+        context["donated_project"] = self.request.session.get('project')
+        context["cover_photo"] = self.request.session.get('cover_photo')
+        context["url"] = self.request.session.get('url')
+        context["social"] = self.request.session.get('social')
+        if self.request.session.get('social'):
+            del self.request.session['social']
         context["donor_has_no_donated_projects"] = Payment.objects.filter(user=self.user_profile).count() == 0
         total_people_affected = Project.objects.donated_completed_projects(self.user_profile)
         context['donated_projects'] = Project.objects.donated_projects(self.user_profile)

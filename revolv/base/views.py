@@ -25,7 +25,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.http import require_http_methods
 from django.views.generic import FormView, TemplateView, View
 from django.template.context import RequestContext
-from revolv.base.forms import SignupForm, RevolvUserProfileForm, UpdateUser
+from revolv.base.forms import SignupForm, RevolvUserProfileForm, UpdateUser, AuthenticationForm
 from revolv.base.users import UserDataMixin
 from revolv.base.utils import ProjectGroup
 from revolv.payments.models import Payment, Tip, PaymentType, RepaymentFragment
@@ -357,9 +357,10 @@ class LoginView(RedirectToSigninOrHomeMixin, FormView):
     def form_valid(self, form):
         """Log the user in and redirect them to the supplied next page."""
         self.username = self.request.POST.get('username')
+        self.email = self.request.POST.get('email')
         self.password = self.request.POST.get('password')
         """Log the user in and redirect them to the supplied next page."""
-        user = authenticate(username=self.username, password=self.password)
+        user = authenticate(email=self.email, password=self.password)
 
         auth_login(self.request, form.get_user())
         if self.request.session.get('payment'):
@@ -379,9 +380,9 @@ class LoginView(RedirectToSigninOrHomeMixin, FormView):
                     project.donors.remove(guest_profile)
                 Tip.objects.filter(id=payment.tip_id).update(user=user)
                 del self.request.session['payment']
-                messages.success(self.request, 'Logged in as ' + self.request.POST.get('username'))
+                messages.success(self.request, 'Logged in as ' + self.request.user.username)
                 return redirect(reverse('dashboard'))
-        messages.success(self.request, 'Logged in as ' + self.request.POST.get('username'))
+        messages.success(self.request, 'Logged in as ' + self.request.user.username)
         return redirect(self.next_url)
 
     def get_context_data(self, *args, **kwargs):
@@ -652,10 +653,18 @@ class DashboardRedirect(UserDataMixin, View):
     """
 
     def get(self, request, *args, **kwargs):
-        social = request.GET.get('social', '')
+        # social = request.GET.get('social', '')
         amount = request.session.get('amount')
         project = request.session.get('project')
+        social = request.session.get('social')
+        url = request.session.get('url')
         cover_photo = request.session.get('cover_photo','')
+        request.session['amount'] = amount
+        request.session['project'] = project
+        request.session['cover_photo'] = cover_photo
+        request.session['social'] = social
+        request.session['url'] = url
+
         if bool(request.GET) is False :
             if not self.is_authenticated:
                 return redirect('home')
@@ -673,9 +682,9 @@ class DashboardRedirect(UserDataMixin, View):
                 return redirect('administrator:dashboard')
 
             if self.is_ambassador:
-                return redirect(reverse('ambassador:dashboard') + '?social=' + social+'&amount='+amount+'&project='+project+'&cover_photo='+''.join(cover_photo))
+                return redirect(reverse('ambassador:dashboard'))
             if self.is_donor:
-                return redirect(reverse('donor:dashboard') + '?social=' + social+'&amount='+amount+'&project='+project+'&cover_photo='+''.join(cover_photo))
+                return redirect(reverse('donor:dashboard'))
 
         else:
             if not self.is_authenticated:

@@ -133,19 +133,24 @@ def stripe_payment(request, pk):
         context['project'] = project
         context['amount'] = tip_cents / 100.0
         user = RevolvUserProfile.objects.get(user=request.user)
-        send_donation_info(user.get_full_name(), donation_cents / 100, user.user.email, project.title, address='')
+        # send_donation_info(user.get_full_name(), donation_cents / 100, user.user.email, project.title, address='')
         # send_revolv_email(
         #     'post_donation',
         #     context, [request.user.email]
         # )
         amount=donation_cents / 100.0
-        request.session['amount'] = str(amount)
-        request.session['project'] = project.title
         cover_photo = Project.objects.values_list('cover_photo', flat=True).filter(pk=pk)
         cover_photo=list(cover_photo)
-        request.session['cover_photo'] = cover_photo
+        request.session['amount'] = str(amount)
+        request.session['project'] = project.title
+        previous_url = request.META.get('HTTP_REFERER')
+        request.session['url'] = previous_url
+        # cover_photo = Project.objects.values_list('cover_photo', flat=True).filter(pk=pk)
+        # cover_photo=list(cover_photo)
+        request.session['cover_photo'] = (SITE_URL+'/media/')+ ''.join(cover_photo)
+        request.session['social'] = "donation"
         messages.success(request, 'Donation Successful')
-        return HttpResponseRedirect(reverse("dashboard") + '?social=donation')
+        return HttpResponseRedirect(reverse("dashboard"))
 
     else:
         user_id = User.objects.get(username='Guest').pk

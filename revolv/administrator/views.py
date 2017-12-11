@@ -19,6 +19,13 @@ class AdministratorDashboardView(BaseStaffDashboardView):
 
     def get_context_data(self, **kwargs):
         context = super(AdministratorDashboardView, self).get_context_data(**kwargs)
+        context["donated_amount"] = self.request.session.get('amount')
+        context["donated_project"] = self.request.session.get('project')
+        context["cover_photo"] = self.request.session.get('cover_photo')
+        context["url"] = self.request.session.get('url')
+        context["social"] = self.request.session.get('social')
+        if self.request.session.get('social'):
+            del self.request.session['social']
         amount = self.user_profile.reinvest_pool + self.user_profile.solar_seed_fund_pool
         if self.user_profile and amount > 0.0:
             context["reinvestment_amount"] = self.user_profile.reinvest_pool + self.user_profile.solar_seed_fund_pool

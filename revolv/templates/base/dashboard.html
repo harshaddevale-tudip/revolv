@@ -30,6 +30,7 @@
 {% endblock %}
 {% block body %}
 {% include "project/success_modal.html" with project=project %}
+     <i class="fa fa-facebook" aria-hidden="true"></i>
 <div class='main-row dashboard'>
 
     <div class="container-fluid after-header">
@@ -70,49 +71,26 @@
 <script>
 
     $( document ).ready(function() {
-    var str = "donation";
-        if ('{{ request.GET.social }}' == 'donation')
+        if ('{{ social }}' == 'donation')
         {
-            $("#share-modal").modal("show");
-        }
-        else if('{{ request.GET.social }}' == 'signup')
-        {
-            $("#share-signup-modal").modal("show");
+            $("#social_media").modal("show");
         }
     })
 </script>
 
-<script>
-     <!--$('#share-modal #sharethis-button').remove();-->
+{#<script>
     $('#share-signup-modal .sharethis-placeholder').append('<span id="sharethis-button"></span>');
       stWidget.addEntry({
                   <!--type:'custom',-->
                  "service":"sharethis",
                  "element":document.getElementById('sharethis-button'),
-                 "url":"https://re-volv.org",
-                 "title":'{{ request.GET.project }}',
+                 "url":location.protocol + '//' + location.host + location.pathname,
+                 "title":'{{ donated_project }}',
                  "type":"large",
                  <!--"text":"ShareThis" ,-->
-                 "image":'https://re-volv.org/media/{{request.GET.cover_photo}}',
-                 "summary":"I just donated $" + {{ request.GET.amount }}+ " to RE-volv in support of clean energy! Join me!"
+                 "image":location.protocol + '//' + location.host + '/media/{{cover_photo}}',
+                 "summary":"I just donated $" + {{ donated_amount }}+ " to RE-volv in support of clean energy! Join me!"
          });
-</script>
-
-<script>
-     <!--$('#share-modal #sharethis-button').remove();-->
-    $('#share-modal .sharethis-placeholder').append('<span id="sharethis-button"></span>');
-      stWidget.addEntry({
-                  <!--type:'custom',-->
-                 "service":"sharethis",
-                 "element":document.getElementById('sharethis-signup-button'),
-                  "url":"https://re-volv.org",
-                 "title":"RE-volv",
-                 "type":"large",
-                 <!--"text":"ShareThis" ,-->
-                 "image":'https://re-volv.org/static/images/revolv-logo.png',
-                 "summary":"I just connected with RE-volv in support of clean energy! Join me!"
-         });
-
-</script>
+</script>#}
 
 {% endblock %}
