@@ -15121,3 +15121,11 @@ span.setting-donation-change {
     padding-bottom: 3em;
     border-bottom: 1px solid #ccc;
 }
+.leadship-li {
+    list-style-type:disc!important;
+    margin-left:15px;
+}
+.leadship-ui {
+    list-style-type : none;
+    text-decoration: none;
+}
