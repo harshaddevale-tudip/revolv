@@ -1,0 +1,155 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% load wagtailimages_tags %}
+
+{% block title %}RE-volv Accelerator Page | {% endblock %}
+{% block body %}
+    <div class="after-header" style="width: 100%;min-height: 114em;position: relative;">
+        <div class="leo-content-center">
+            <span class="leo-content-text">Join the RE-volv Accelerator Monthly Donor Program!</span>
+            <p class="accelator-sub-heading">When you become a RE-volv Accelerator, you are taking the future of renewable energy into your hands.</p>
+{#            <p class="leo-content-size">We are thrilled to announce that RE-volv has received its largest grant to date from the Leonardo DiCaprio Foundation.</p>#}
+{#            <p class="leo-content-size" style="margin-left: 1.6em;"><b>You can partner with LDF and RE-volv by becoming a Monthly Donor today!</b></p>#}
+            <div class="leo-donate-btn">
+                <form action="{% url 'project:stripe_operation_donation' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="donation_amount_cents" value="10">
+                    <input name="metadata" value="1.00" type="hidden">
+                    <input name="check" value="checked" type="hidden">
+                    <button type="submit" class="stripe-monthly-donation-button-el component-link btn-blue btn-donate" style="visibility: visible;">
+                      <span style="display: block; min-height: 30px;">Donate $10 a month</span>
+                    </button>
+                  </form>
+{#                <a href="#" onclick="return clearInput();" class="component-link btn-blue btn-donate" data-toggle="modal" data-target="#popup">Donate $20 a months</a>#}
+            </div>
+{#            <div class="leo-content-size">#}
+{#                <img src="/static/images/leo_page_img.jpg" width="100%" height="421" alt="1f1d0876-be74-4b33-99c8-6ac93f1d70db_dev_c75f7cd7-28a3-4c00-b00d-e8c2a8014ff1_6.png.jpg" class="img-center">#}
+{#            </div>#}
+            <div>
+                <p class="leo-content-size">$10 a month allows us to hold 5 more solar education events each year and spread the word about solar across the country.</p>
+                <p class="leo-content-size">$10 a month allows us to open up one more fellowship spot where a college student will be trained a Solar Ambassador. </p>
+            </div>
+            <div class="leo-donate-btn">
+                <form action="{% url 'project:stripe_operation_donation' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="donation_amount_cents" value="20">
+                    <input name="metadata" value="1.00" type="hidden">
+                    <input name="check" value="checked" type="hidden">
+                    <button type="submit" class="stripe-monthly-donation-button-el component-link btn-blue btn-donate" style="visibility: visible;">
+                      <span style="display: block; min-height: 30px;">Donate $20 a month</span>
+                    </button>
+                  </form>
+{#                <a href="#" onclick="return clearInput();" class="component-link btn-blue btn-donate" data-toggle="modal" data-target="#popup">Donate $20 a months</a>#}
+            </div>
+            <div>
+                <p class="leo-content-size">$20 a month allows us to film one more professional solar education video during the year.</p>
+                <p class="leo-content-size">$20 a month allows us to open up TWO more fellowship spots where college students will be trained as a Solar Ambassador. </p>
+            </div>
+            <div class="leadship-img">
+                <img src="/static/images/Group_photo_spirit_fingers.max-600x600.jpg" class="leadership-img-size" width="450" height="450" alt="1f1d0876-be74-4b33-99c8-6ac93f1d70db_dev_c75f7cd7-28a3-4c00-b00d-e8c2a8014ff1_6.png.jpg" class="img-center">
+            </div>
+            <div class="leo-content-size">
+                <img src="/static/images/Education_small.png" width="100%" height="421" alt="Solar installations" class="img-center">
+            </div>
+            <p class="accelator-sub-heading">RE-volv Accelerator perks!</p>
+            <ul class="leadship-ui">
+                  <li class="leadship-li"><p class="leadership-content">You will receive our monthly updates to our current projects</p></li>
+                  <li class="leadship-li"><p class="leadership-content">At $10 a month, you receive a RE-volv t-shirt</p></li>
+                  <li class="leadship-li"><p class="leadership-content">At $20 a month, you will receive both a RE-volv t-shirt AND a RE-volv tote bag</p></li>
+                  <li class="leadship-li"><p class="leadership-content">At You will be invited to the Solar System Ribbon Cutting Events for all projects </p></li>
+                  <li class="leadship-li"><p class="leadership-content">In some areas, you will get priority access to volunteer positions during the solar installations</p></li>
+            </ul>
+            <div class="leo-content-size" style="margin-bottom: 2em;">
+                <img src="/static/images/t-shirt_tote.png" width="100%" height="421" alt="Solar installations" class="img-center">
+            </div>
+        </div>
+
+    </div>
+    <script>
+  $(function ($) {
+  var handler = StripeCheckout.configure({
+    key: '{{ stripe_publishable_key }}'
+    , image: '{% static "images/revolv-logo.png" %}'
+    , locale: 'auto'
+    , name: 'RE-volv'
+    , email: '{{request.user.email}}'
+  });
+  $(window).on('popstate', function () {
+    handler.close();
+  });
+  $('.stripe-monthly-donation-button-el').on('click', function (e) {
+    e.preventDefault();
+    var $form = $(this).closest('form');
+    var serialized = $form.serializeArray();
+    var endpoint = $form.attr('action');
+    var amount, metadata;
+    $.each(serialized, function () {
+      if (this.name === 'donation_amount_cents') {
+        amount = this.value*100;
+      }
+      if (this.name === 'metadata') {
+        metadata = this.value;
+      }
+    });
+    if (typeof amount !== 'undefined') {
+      handler.open({
+        description: 'Donate $' + parseFloat((amount / 100).toFixed(2)).toLocaleString()
+        , amount: amount
+        , metadata: metadata
+        , panelLabel: "Donate Monthly"
+        , token: function (token) {
+          var id = token.id;
+          var email = token.email;
+          var $id = $('<input>')
+            .attr('type', 'hidden')
+            .attr('name', 'stripeToken')
+            .val(id);
+          var $email = $('<input>')
+            .attr('type', 'hidden')
+            .attr('name', 'stripeEmail')
+            .val(email);
+          $id.appendTo($form);
+          $email.appendTo($form);
+          $form.submit(function(e) {
+          $('#donation-spinner').css('display', 'flex');
+          $.ajax({
+                 type: "POST",
+                 url: '{% url 'project:stripe_operation_donation' %}',
+                 data: $form.serializeArray(), // serializes the form's elements.
+                 success: function(data)
+                 {
+                    if(data.status == 'donation_success') {
+                        $('.modal-title').text('Thank you for donating!');
+                        $('.donation-text').text("Thank you for donating $" +data.amount + " to RE-volv's mission to empower communities with solar energy!");
+                    }
+                    if(data.status == 'subscription_success') {
+                        $('.modal-title').text('Thank you for donating!');
+                        $('.donation-text').text("Thank you for donating $" +data.amount + " monthly to RE-volv's mission to empower communities with solar energy!");
+                    }
+                    if(data.status == 'already_exist') {
+                        $('.modal-title').text('Donation already exist');
+                        $('.donation-text').text("Thank you for showing interest, you are already subscribe for monthly donation!");
+                    }
+                    $('#donation-spinner').css('display', 'none');
+                    $('#operationModal').modal('show');
+
+                 },
+                 error: function(data)
+                 {
+                    $('.modal-title').text('Error!');
+                    $('.donation-text').text("Payment error. Something went wrong.");
+                     $('#donation-spinner').css('display', 'none');
+                    $('#operationModal').modal('show');
+                 }
+               });
+
+          e.preventDefault(); // avoid to execute the actual submit of the form.
+        });
+          $form.trigger('submit');
+        }
+      });
+    }
+  });
+});
+</script>
+{%endblock%}

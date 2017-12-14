@@ -55,12 +55,12 @@
 
   .confirm-text {
     text-align: center;
-    padding: ($column-gutter / 2) 0;
+    /*padding: ($column-gutter / 2) 0;*/
     font-family: "Lato", sans-serif;
     font-weight: normal;
     font-style: normal;
     color: #222222;
-    font-size: 2.5vmin;
+    font-size: 2.3vmin;
     padding: 0 2vmin;
 }
 .submit-button {

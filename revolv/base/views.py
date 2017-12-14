@@ -25,7 +25,8 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.http import require_http_methods
 from django.views.generic import FormView, TemplateView, View
 from django.template.context import RequestContext
-from revolv.base.forms import SignupForm, RevolvUserProfileForm, UpdateUser, AuthenticationForm
+from revolv.base.forms import SignupForm, RevolvUserProfileForm, UpdateUser
+from django.contrib.auth.forms import AuthenticationForm
 from revolv.base.users import UserDataMixin
 from revolv.base.utils import ProjectGroup
 from revolv.payments.models import Payment, Tip, PaymentType, RepaymentFragment
@@ -360,7 +361,7 @@ class LoginView(RedirectToSigninOrHomeMixin, FormView):
         self.email = self.request.POST.get('email')
         self.password = self.request.POST.get('password')
         """Log the user in and redirect them to the supplied next page."""
-        user = authenticate(email=self.email, password=self.password)
+        user = authenticate(username=self.username, password=self.password)
 
         auth_login(self.request, form.get_user())
         if self.request.session.get('payment'):
@@ -532,6 +533,9 @@ def completedproject(request):
 
 def leo_page(request):
     return render(request,'base/partials/leo_page.html')
+
+def revolv_accelator(request):
+    return render(request,'base/partials/revolv_accelator.html')
 
 def faq(request):
     return render(request,'base/partials/faq.html')

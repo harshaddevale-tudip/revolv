@@ -15108,3 +15108,16 @@ span.setting-donation-change {
 .hide-card{
     display: none !important;
 }
+.accelator-sub-heading {
+    margin-top: 1.1em;
+    color: #11ADE5;
+    font-size: 28px;
+    line-height: 30px;
+    font-weight: bold;
+}
+.leadship-img {
+    text-align: center;
+    margin-top: 1.6em;
+    padding-bottom: 3em;
+    border-bottom: 1px solid #ccc;
+}
