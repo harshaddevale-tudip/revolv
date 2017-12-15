@@ -58,7 +58,7 @@
 {% block head %}
 
     <link rel="stylesheet" type="text/css" href="{% static "css/dashboard.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css?version={{ version_number }}">
 
 {% endblock %}
 
@@ -180,38 +180,37 @@
 <div class="modal fade et_monarch" id="social_media" role="dialog">
                 <div class="et_social_popup_content et_social_resize et_social_fadein" style="height: 176px; max-height: 392px; top: 108px;">
 					<a href="#" class="et_social_icon et_social_icon_cancel"></a>
-					<div class="et_social_header" style="padding-bottom: 2em;">
-						<span class="confirm-text">Thanks for your donation! Could you please do a favor and share this with your friends?</span>
-{#						<p>Tell your friends about our website!</p>#}
+					<div class="et_social_header" style="padding-bottom: 2em;text-align: center;">
+						<span class="confirm-text">Thank you for donating. Please spread the word about this project below</span>
 					</div>
 					<div class="et_social_networks et_social_3col et_social_slide et_social_rounded et_social_left et_social_withcounts et_social_withnetworknames" style="height: 112px;">
 
 						<ul class="et_social_icons_container"><li class="et_social_facebook">
 
-									<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ url }}&title={{ donated_project }}&description=I just donated{{ donated_amount }}&picture={{ cover_photo }}" class="et_social_share et_social_display_count" rel="nofollow" data-social_name="facebook" data-post_id="7661" data-social_type="share" data-location="popup" data-min_count="0">
+									<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ url }}&title={{ donated_project }}&description=I just donated {{ donated_amount }} to {{ donated_project }} project&picture={{ cover_photo }}" class="et_social_share et_social_display_count" rel="nofollow" data-social_name="facebook" data-post_id="7661" data-social_type="share" data-location="popup" data-min_count="0">
 										<i class="et_social_icon et_social_icon_facebook" aria-hidden="true"></i><div class="et_social_network_label"><div class="et_social_networkname">Facebook</div><div class="et_social_count">
 					</div></div><span class="et_social_overlay"></span>
 									</a>
 								</li><li class="et_social_twitter">
-									<a target="_blank" href="http://twitter.com/share?text=I just donated{{ donated_amount }}&url={{url}}&image={{cover_photo}}" class="et_social_share" rel="nofollow" data-social_name="twitter" data-post_id="7661" data-social_type="share" data-location="popup">
+									<a target="_blank" href="http://twitter.com/share?text=I just donated {{ donated_amount }} to {{ donated_project }} project&url={{url}}&image={{cover_photo}}" class="et_social_share" rel="nofollow" data-social_name="twitter" data-post_id="7661" data-social_type="share" data-location="popup">
 										<i class="et_social_icon et_social_icon_twitter"></i><div class="et_social_network_label"><div class="et_social_networkname">Twitter</div><div class="et_social_count">
 					</div></div><span class="et_social_overlay"></span>
 									</a>
 								</li><li class="et_social_pinterest">
-									<a target="_blank" href="https://www.pinterest.com/pin/create/button/?url={{ url }}&media={{cover_photo}}&description=I just donated{{ donated_amount }}" rel="nofollow" data-social_name="pinterest" data-post_id="7661" data-social_type="share" data-location="popup" data-min_count="0">
+									<a target="_blank" href="https://www.pinterest.com/pin/create/button/?url={{ url }}&media={{cover_photo}}&description=I just donated {{ donated_amount }} to {{ donated_project }} project" rel="nofollow" data-social_name="pinterest" data-post_id="7661" data-social_type="share" data-location="popup" data-min_count="0">
 										<i class="et_social_icon et_social_icon_pinterest"></i><div class="et_social_network_label"><div class="et_social_networkname">Pinterest</div><div class="et_social_count">
 					</div></div><span class="et_social_overlay"></span>
 									</a>
 								</li><li class="et_social_linkedin">
-									<a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url={{ url }}&title=I just donated{{ donated_amount }}" class="et_social_share" rel="nofollow" data-social_name="linkedin" data-post_id="7661" data-social_type="share" data-location="popup">
+									<a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url={{ url }}&title=I just donated {{ donated_amount }} to {{ donated_project }} project" class="et_social_share" rel="nofollow" data-social_name="linkedin" data-post_id="7661" data-social_type="share" data-location="popup">
 										<i class="et_social_icon et_social_icon_linkedin"></i><div class="et_social_network_label"><div class="et_social_networkname">linkedin</div></div><span class="et_social_overlay"></span>
 									</a>
-								</li><li class="et_social_tumblr">
-									<a target="_blank" href="https://www.tumblr.com/share?v=3&u={{ url }}&t=I just donated{{ donated_amount }}" class="et_social_share" rel="nofollow" data-social_name="tumblr" data-post_id="7661" data-social_type="share" data-location="popup">
-										<i class="et_social_icon et_social_icon_tumblr"></i><div class="et_social_network_label"><div class="et_social_networkname">tumblr</div></div><span class="et_social_overlay"></span>
+								</li><li class="et_social_reddit">
+									<a href="http://www.reddit.com/submit?url={{ url }}title=I just donated {{ donated_amount }} to {{ donated_project }} project" class="et_social_share" rel="nofollow" data-social_name="reddit" data-post_id="7661" data-social_type="share" data-location="popup">
+										<i class="et_social_icon et_social_icon_reddit"></i><div class="et_social_network_label"><div class="et_social_networkname">reddit</div></div><span class="et_social_overlay"></span>
 									</a>
 								</li><li class="et_social_googleplus">
-									<a target="_blank" href="https://plus.google.com/share?url={{ url }}&t=I just donated{{ donated_amount }}" class="et_social_share" rel="nofollow" data-social_name="googleplus" data-post_id="7661" data-social_type="share" data-location="popup">
+									<a target="_blank" href="https://plus.google.com/share?url={{ url }}&t=I just donated {{ donated_amount }} to {{ donated_project }} project" class="et_social_share" rel="nofollow" data-social_name="googleplus" data-post_id="7661" data-social_type="share" data-location="popup">
 										<i class="et_social_icon et_social_icon_googleplus"></i><div class="et_social_network_label"><div class="et_social_networkname">googleplus</div></div><span class="et_social_overlay"></span>
 									</a>
 								</li></ul>

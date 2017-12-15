@@ -15129,3 +15129,14 @@ span.setting-donation-change {
     list-style-type : none;
     text-decoration: none;
 }
+
+  .confirm-text {
+    text-align: center;
+    /*padding: ($column-gutter / 2) 0;*/
+    font-family: "Lato", sans-serif;
+    font-weight: bold;
+    font-style: normal;
+    color: #222222;
+    font-size: 2.5vmin;
+    padding: 0 2vmin;
+}
