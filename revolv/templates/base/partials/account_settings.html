@@ -3,8 +3,7 @@
 {% load widget_tweaks %}
 {% load humanize %}
 {% block head %}
-<script type="text/javascript">
-</script>
+<link rel="stylesheet" type="text/css" href="/static/css/style.css?version={{ version_number }}">   
 <script src="{% static 'js/base/homeAnimations.js' %}?version={{ version_number }}"></script>
 <style>
 .checkbox-text {

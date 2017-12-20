@@ -16,7 +16,7 @@
                         <div class="accelerator-donate-btn">
                             <form action="{% url 'project:stripe_operation_donation' %}" method="POST">
                                 {% csrf_token %}
-                                <input type="hidden" name="donation_amount_cents" value="10">
+                                <input type="hidden" name="donation_amount_in_cents" value="10">
                                 <input name="metadata" value="1.00" type="hidden">
                                 <input name="check" value="checked" type="hidden">
                                 <button type="submit" class="stripe-monthly-donation-button-el component-link btn-blue btn-donate" style="visibility: visible;">
@@ -27,7 +27,8 @@
                         <div>
                             <ul class="leadship-ui" style="margin-left: 2em;">
                                 <li class="leadship-li"><p class="leo-content-size" style="margin-top: 0;">$10 a month allows us to hold 5 more solar education events each year and spread the word about solar across the country.</p>
-                                <li class="leadship-li" style="margin-top: 1em;"><p class="leo-content-size" style="margin-top: 0;">$10 a month allows us to open up one more fellowship spot where a college student will be trained a Solar Ambassador. </p>
+                                <li class="leadship-li" style="margin-top: 1em;"><p class="leo-content-size" style="margin-top: 0;">$10 a month allows us to open up one more fellowship opportunity for a college student to be trained as a Solar Ambassador.  </p>
+                                <li class="leadship-li" style="margin-top: 1em;"><p class="leo-content-size" style="margin-top: 0;">At $10 a month, you receive a RE-volv t-shirt PLUS more perks shown below!  </p>
                             </ul>
 
                         </div>
@@ -38,7 +39,7 @@
                         <div class="accelerator-donate-btn">
                             <form action="{% url 'project:stripe_operation_donation' %}" method="POST">
                             {% csrf_token %}
-                                <input type="hidden" name="donation_amount_cents" value="20">
+                                <input type="hidden" name="donation_amount_in_cents" value="20">
                                 <input name="metadata" value="1.00" type="hidden">
                                 <input name="check" value="checked" type="hidden">
                                 <button type="submit" class="stripe-monthly-donation-button-el component-link btn-blue btn-donate" style="visibility: visible;">
@@ -49,10 +50,14 @@
                         <div>
                             <ul class="leadship-ui" style="margin-left: 2em;">
                                 <li class="leadship-li"><p class="leo-content-size" style="margin-top: 0;">$20 a month allows us to film one more professional solar education video during the year.</p>
-                                <li class="leadship-li"><p class="leo-content-size" style="margin-top: 1em;"><p class="leo-content-size" style="margin-top: 0;">$20 a month allows us to open up TWO more fellowship spots where college students will be trained as a Solar Ambassador. </p>
+                                <li class="leadship-li"><p class="leo-content-size" style="margin-top: 1em;"><p class="leo-content-size" style="margin-top: 0;">$20 a month allows us to open up TWO more fellowship opportunities for college students to be trained as Solar Ambassadors. </p>
+                                <li class="leadship-li"><p class="leo-content-size" style="margin-top: 1em;"><p class="leo-content-size" style="margin-top: 0;">At $20 a month, you will receive both a RE-volv t-shirt AND a RE-volv tote bag  PLUS more perks shown below!  </p>
                             </ul>
 
                         </div>
+                    </div>
+                    <div class="leo-donate-btn" >
+                        <a href="#" onclick="return acceleratorClearInput();" class="component-link btn-blue btn-donate" data-toggle="modal" data-target="#popup">Customize your Monthly Gift</a>
                     </div>
                     <p class="accelator-sub-heading">RE-volv Accelerator perks!</p>
                     <ul class="leadship-ui">
@@ -61,13 +66,14 @@
                           <li class="leadship-li" style="font-size: 16px"><p class="leadership-content">At $20 a month, you will receive both a RE-volv t-shirt AND a RE-volv tote bag</p></li>
                           <li class="leadship-li" style="font-size: 16px"><p class="leadership-content">You will be invited to the Solar System Ribbon Cutting Events for all projects </p></li>
                           <li class="leadship-li" style="font-size: 16px"><p class="leadership-content">In some areas, you will get priority access to volunteer positions during the solar installations</p></li>
+                          <li class="leadship-li" style="font-size: 16px"><p class="leadership-content">You will get priority access to volunteer positions available during the solar installations</p></li>
                     </ul>
                     <div class="leo-content-size accelerator-bottom-btn">
-                        <img src="/static/images/t-shirt_tote.png" width="100%" height="421" alt="Solar installations" class="img-center">
+                        <img src="/static/images/resized_t-shirt_tote.png" width="100%" height="421" alt="Solar installations" class="img-center">
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-3">
-                    <img src="/static/images/revolv_meeting.jpg" width="100%" alt="Solar installations" class="img-center" style="margin-top: 15%;">
+                    <img src="/static/images/revolv_meeting.jpg" width="100%" alt="Solar installations" class="img-center" style="margin-top: 25%;">
                     <img src="/static/images/Group_outside_shot.jpg" width="100%" style="margin-top: 15%;" alt="Solar installations" class="img-center">
                 </div>
             </div>
@@ -93,7 +99,7 @@
     var endpoint = $form.attr('action');
     var amount, metadata;
     $.each(serialized, function () {
-      if (this.name === 'donation_amount_cents') {
+      if (this.name === 'donation_amount_in_cents') {
         amount = this.value*100;
       }
       if (this.name === 'metadata') {
@@ -160,5 +166,15 @@
     }
   });
 });
+</script>
+<script>
+    function acceleratorClearInput() {
+    $('input[name=check]').prop('checked', true);
+    $('input[name=donation_amount_cents]').val('');
+    $(".monthly-plan-msg").hide();
+    $(".donate-popup .next-button").css("background-color", "#9a9a9a");
+    $(".donate-popup .next-button").removeClass("stripe-button-el");
+   $(".donate-popup .next-button").addClass("disable-donation-btn");
+ }
 </script>
 {%endblock%}
