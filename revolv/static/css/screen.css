@@ -15167,3 +15167,8 @@ span.setting-donation-change {
     min-height:81em;
     position:relative;
 }
+.source-anchor-link {
+    color: white;
+    font-weight: 700;
+    text-decoration: underline;
+}

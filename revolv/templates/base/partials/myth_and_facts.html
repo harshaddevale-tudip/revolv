@@ -25,23 +25,45 @@
     <div id="account-info" class="col-xs-12 col-sm-9 setting-form-top" style="display: block;">
         <div class="myth-box-div">
             <div class="myth-box-header-div"><span>Solar energy is too expensive.</span><span data-toggle="collapse" data-target="#text-block-1" class="myth-collapse-icon glyphicon glyphicon-chevron-down"></span></div>
-            <div id="text-block-1" class="myth-collapse-text collapse">The truth is that, the solar financing options such as solar lease, you can go solar for zero down and start saving up to 15% or more electrical bills. </div>
+            <div id="text-block-1" class="myth-collapse-text collapse">
+                <ul class="leadship-ui">
+                  <li class="leadship-li" style="margin-bottom: 1em;">With solar financing options such as a solar lease, you can go solar for zero money down and start saving up to 15% or more on your electric bill immediately!</li>
+                    <li class="leadship-li">Thinking of going solar at home? <a target="_blank" href="{% url 'solar_at_home' %}">Get a solar savings estimate!</a> <br>Do you know you a <b>nonprofit</b> that could benefit from solar? <a target="_blank" href="{% url 'bring_solar_to_your_community' %}">Click here!</a></li>
+                </ul>
+            </div>
         </div>
         <div class="myth-box-div">
             <div class="myth-box-header-div"><span>Solar energy is unreliable.<br> I'll wait until technology gets better.</span><span data-toggle="collapse" data-target="#text-block-2" class="myth-collapse-icon glyphicon glyphicon-chevron-down" style="margin-top: -0.6em;"></span></div>
-            <div id="text-block-2" class="myth-collapse-text collapse">The truth is that, the solar financing options such as solar lease, you can go solar for zero down and start saving up to 15% or more electrical bills. </div>
+            <div id="text-block-2" class="myth-collapse-text collapse">
+                <ul class="leadship-ui">
+                  <li class="leadship-li">Solar energy is incredibly reliable and solar panels typically come with a production guarantee and a manufacturer’s warranty of 25 years. There is no need to wait to receive 15% savings on your electricity bill.</li>
+                </ul>
+            </div>
         </div>
         <div class="myth-box-div">
             <div class="myth-box-header-div"><span>Solar power won't work for me. It is too cloudy where I live.</span><span data-toggle="collapse" data-target="#text-block-3" class="myth-collapse-icon glyphicon glyphicon-chevron-down"></span></div>
-            <div id="text-block-3" class="myth-collapse-text collapse">The truth is that, the solar financing options such as solar lease, you can go solar for zero down and start saving up to 15% or more electrical bills. </div>
+            <div id="text-block-3" class="myth-collapse-text collapse">
+                <ul class="leadship-ui">
+                    <li class="leadship-li" style="margin-bottom: 1em;">While direct sunlight is best, panels perform extremely well in cloudy climates too! Think of Germany, which gets 50% of their electricity from solar – despite having the same amount of sunshine as Alaska. Brrr! <a target="_blank" href="https://solarpowerrocks.com/solar-basics/how-do-solar-panels-work-in-cloudy-weather/">Read more</a></li>
+                    <li class="leadship-li">Investigate <a target="_blank" href="{% url 'solar_at_home' %}">going solar</a> in your area.</li>
+                </ul>
+            </div>
         </div>
         <div class="myth-box-div">
             <div class="myth-box-header-div"><span>Solar is hard to maintain.</span><span data-toggle="collapse" data-target="#text-block-4" class="myth-collapse-icon glyphicon glyphicon-chevron-down"></span></div>
-            <div id="text-block-4" class="myth-collapse-text collapse">The truth is that, the solar financing options such as solar lease, you can go solar for zero down and start saving up to 15% or more electrical bills. </div>
+            <div id="text-block-4" class="myth-collapse-text collapse">
+                <ul class="leadship-ui">
+                    <li class="leadship-li" style="margin-bottom: 1em;">Most solar energy systems have no moving parts and generally require little-to-no maintenance during their lifetimes, which is typically 30 years or more. Besides an occasional cleaning, the solar panels pretty much take care of themselves.</li>
+                </ul>
+            </div>
         </div>
         <div class="myth-box-div">
             <div class="myth-box-header-div"><span>Solar energy isn't for me<br> I am not environmentalist or into techy things.</span><span data-toggle="collapse" data-target="#text-block-5" class="myth-collapse-icon glyphicon glyphicon-chevron-down" style="margin-top: -0.6em;"></span></div>
-            <div id="text-block-5" class="myth-collapse-text collapse">The truth is that, the solar financing options such as solar lease, you can go solar for zero down and start saving up to 15% or more electrical bills. </div>
+            <div id="text-block-5" class="myth-collapse-text collapse">
+                <ul class="leadship-ui">
+                    <li class="leadship-li" style="margin-bottom: 1em;">As long as you like saving money, solar energy is for you. Depending on where you are, you can save 15% or more a month.  The cost of solar panels has dropped by 80% since 2008, and it is expected to keep falling. Solar is for everyone! Read more</li>
+                </ul>
+            </div>
         </div>
     </div>
     <div id="donation-info" class="col-md-9 setting-form-top" style="display: none;">
@@ -63,10 +85,10 @@
                                 <label class="fact-card-info" style="font-size: 1.4em;">An abundant resource</label><br><br><br>
                             </div>
                             <div>
-                                <span class="fact-card-info">Just 18 days of sunshine on Earth</span>
-                                <span class="fact-card-info">contains the same amount of energy as</span>
-                                <span class="fact-card-info">is stored in all of the planet's reserves</span>
-                                <span class="fact-card-info">of coal, oil, and natural gas.</span>
+                                <span class="fact-card-info">The sun provides more energy to the earth’s surface in one-and-a-half hours than the the world consumes in a year. <a class="source-anchor-link" target="_blank" href="http://www.sandia.gov/~jytsao/Solar%20FAQs.pdf">Source</a></span>
+                                <!--<span class="fact-card-info">contains the same amount of energy as</span>-->
+                                <!--<span class="fact-card-info">is stored in all of the planet's reserves</span>-->
+                                <!--<span class="fact-card-info">of coal, oil, and natural gas.</span>-->
                             </div>
                         </div>
                     </div>
@@ -88,10 +110,10 @@
                                 <label class="fact-card-info" style="font-size: 1.4em;">A way to combat climate change</label><br><br><br>
                             </div>
                             <div>
-                                <span class="fact-card-info">Just 18 days of sunshine on Earth</span>
-                                <span class="fact-card-info">contains the same amount of energy as</span>
-                                <span class="fact-card-info">is stored in all of the planet's reserves</span>
-                                <span class="fact-card-info">of coal, oil, and natural gas.</span>
+                                <span class="fact-card-info">Climate change is caused by human use of fossil fuels and their greenhouse gas emissions. Solar energy solves this issue by offering an energy option that uses much less life-cycle greenhouse gas emissions than conventional fossil fuel energy sources. <a class="source-anchor-link" target="_blank" href="http://www.solarresourceguide.org/solar-environmental-benefits/">Source</a></span>
+                                <!--<span class="fact-card-info">contains the same amount of energy as</span>-->
+                                <!--<span class="fact-card-info">is stored in all of the planet's reserves</span>-->
+                                <!--<span class="fact-card-info">of coal, oil, and natural gas.</span>-->
                             </div>
                         </div>
                     </div>
@@ -116,10 +138,10 @@
                                     <label class="fact-card-info" style="font-size: 1.4em;">Reduce air pollution</label><br><br><br>
                                 </div>
                                 <div>
-                                    <span class="fact-card-info">Just 18 days of sunshine on Earth</span>
-                                    <span class="fact-card-info">contains the same amount of energy as</span>
-                                    <span class="fact-card-info">is stored in all of the planet's reserves</span>
-                                    <span class="fact-card-info">of coal, oil, and natural gas.</span>
+                                    <span class="fact-card-info">Compared with electricity from coal, solar PV over its lifetime uses less water, occupies or transforms less land and presents approximately lower toxicity to humans <a class="source-anchor-link" target="_blank" href="https://turbinegenerator.org/reducing-air-pollution-solar-panels/">Source</a></span>
+                                    <!--<span class="fact-card-info">contains the same amount of energy as</span>-->
+                                    <!--<span class="fact-card-info">is stored in all of the planet's reserves</span>-->
+                                    <!--<span class="fact-card-info">of coal, oil, and natural gas.</span>-->
                                 </div>
                             </div>
                     </div>
@@ -141,10 +163,10 @@
                                 <label class="fact-card-info" style="font-size: 1.4em;">Solar for everyone</label><br><br><br>
                             </div>
                             <div>
-                                <span class="fact-card-info">Just 18 days of sunshine on Earth</span>
-                                <span class="fact-card-info">contains the same amount of energy as</span>
-                                <span class="fact-card-info">is stored in all of the planet's reserves</span>
-                                <span class="fact-card-info">of coal, oil, and natural gas.</span>
+                                <span class="fact-card-info">The notion that solar is only used by the very wealthy is a misconception. Most rooftop solar panels land in neighborhoods with a median household income of $45,000 - $150,000 a year. <a class="source-anchor-link" target="_blank" href="https://pv-magazine-usa.com/2017/04/19/report-middle-income-homeowners-make-up-70-of-solar-customers-with-3-critical-charts/">Source</a></span>
+                                <!--<span class="fact-card-info">contains the same amount of energy as</span>-->
+                                <!--<span class="fact-card-info">is stored in all of the planet's reserves</span>-->
+                                <!--<span class="fact-card-info">of coal, oil, and natural gas.</span>-->
                             </div>
                         </div>
                     </div>
@@ -169,10 +191,10 @@
                                 <label class="fact-card-info" style="font-size: 1.4em;">A job creator</label><br><br><br>
                             </div>
                             <div>
-                                <span class="fact-card-info">Just 18 days of sunshine on Earth</span>
-                                <span class="fact-card-info">contains the same amount of energy as</span>
-                                <span class="fact-card-info">is stored in all of the planet's reserves</span>
-                                <span class="fact-card-info">of coal, oil, and natural gas.</span>
+                                <span class="fact-card-info">One out of every 50 new jobs added in the United States in 2016 was created by the solar industry, representing 2% percent of all new jobs. <a class="source-anchor-link" target="_blank" href="https://www.americanprogress.org/issues/green/reports/2013/10/21/76013/solar-power-to-the-people-the-rise-of-rooftop-solar-among-the-middle-class/">Source</a></span>
+                                <!--<span class="fact-card-info">contains the same amount of energy as</span>-->
+                                <!--<span class="fact-card-info">is stored in all of the planet's reserves</span>-->
+                                <!--<span class="fact-card-info">of coal, oil, and natural gas.</span>-->
                             </div>
                         </div>
                     </div>
@@ -180,10 +202,20 @@
             </div>
         </div>
     </div>
+    <div class="fact-bottom-text" style="margin-bottom: 2em;">
+        <span>For more information:</span>
+        <ul class="leadship-ui">
+            <li class="leadship-li"><a style="font-size: 16px;" href="https://www.aps.org/policy/reports/popa-reports/integelec-facts.cfm">Renewable Energy Facts</a></li>
+            <li class="leadship-li"><a style="font-size: 16px;" href="https://re-volv.org/solar_at_home/">To Go Solar at Home</a></li>
+            <li class="leadship-li"><a style="font-size: 16px;" href="https://re-volv.org/bring_solar_to_your_community/">Help a Non-profit Go Solar</a></li>
+        </ul>
+
+    </div>
     <div class="fact-bottom-text">
+        <span>Send us a question…</span><br><br>
         <span>RE-volv is a non-profit committed to making solar available in all communities. We serve</span><br>
         <span>other non-profits so they can save on electrical cost and reduce their carbon footprint.</span><br><br>
-        <span>Like us on Facebook, follow us on Twitter and sign up for our mailing list!</span>
+        <span>Like us on <a target="_blank" href="https://www.facebook.com/solarseedfund">Facebook</a>, follow us on <a target="_blank" href="https://twitter.com/re_volv">Twitter</a> and <a href="https://re-volv.org/content/joinourmailinglist/">sign up for our mailing list!</a></span>
     </div>
     </div>
 
