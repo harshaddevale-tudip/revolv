@@ -13,46 +13,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
 {% endblock %}
 {% block title %}Project | {% endblock %}
 {% block body %}
-    <div class="donate-msg-cntnr">
-        <div class="donate-popup">
-            <img src="/static/images/close-video.png" class="close-donate-popup">
-            <span>Thank you for donating to this campaign! Log in or create an account now to see all the incredible impact you're having!</span>
-            <div class="donate-submit-btn-cntnr">
-                <form action="{% url 'login'  %}" method="POST" class="payment-module" >
-                    {% csrf_token %}
-                    <input name="donation_tip" value="15" type="hidden">
-                    <input id="payment_login" name="payment" value="" type="hidden">
-                    <input type="hidden" name="title" value="{{ project.project_url }}">
-                    <button type="submit" style="visibility: visible;" class="donate-btn-login">
-                      Log In
-                    </button>
-                </form>
-                <form action="{% url 'signup'  %}" method="POST" class="payment-module">
-                    {% csrf_token %}
-                    <input name="donation_tip" value="15" type="hidden">
-                    <input id="payment_signup" name="payment" value="" type="hidden">
-                    <input type="hidden" name="title" value="{{ project.project_url }}">
-                    <button type="submit" style="visibility: visible;margin-top:2vmin;"  class="donate-btn-login">
-                      Sign Up
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="donate-error-cntnr">
-        <div class="donate-popup">
-            <img src="/static/images/close-video.png" class="close-donate-popup">
-            <span>Sorry, your payment failed. No charges were made.</span>
-            <div class="donate-submit-btn-cntnr">
-                <a href="" style="visibility: visible;" class="donate-btn-error">
-                  OK
-                </a>
-            </div>
-        </div>
-    </div>
-
     <div id="reinvest-spinner"><img src="/static/images/gif/revolv-loader.gif" alt="reinvestment is loading" ></div>
-
 {% include "project/confirm_modal.html" %}
 {%  if is_draft_mode == True %}
 <div class="draft-mode-div">
@@ -61,7 +22,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
 </div>
 {% endif %}
 <div class="contents project-details-contents after-header">
-    {%  if project_matching_donor %}
+  {%  if project_matching_donor %}
     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 title-matching-donor">
          <div class="title-blue-border title-yellow-border">ALL DONATIONS ARE NOW BEING MATCHED!
          </div>
@@ -192,27 +153,14 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                         <span class="input-group-addon">$</span>
                     </div>
                   </div>
-                  {% if user.is_authenticated %}
-                  {% for level in project_donation_levels %}
-                  {% endfor %}
                   <form action="{% url 'project:stripe_payment' pk=project.pk %}" method="POST">
                     {% csrf_token %}
-                    <input type="hidden" name="donate_amount_cents" value="{{ donation_level.amount }}">
+                    <input type="hidden" name="amount_cents" value="{{ donation_level.amount }}">
                     <input name="metadata" value="1.00" type="hidden">
                     <button type="submit" class="stripe-button-el" style="visibility: visible;">
                       <span style="display: block; min-height: 30px;">Donate</span>
                     </button>
                   </form>
-                {% else %}
-                   <form action="{% url 'project:stripe_payment' pk=project.pk %}" method="POST" id="phone1">
-                        {% csrf_token %}
-                        <input type="hidden" name="donate_amount_cents" value="{{ donation_level.amount }}">
-                        <input name="metadata" value="1.00" type="hidden">
-                        <button type="submit" class="stripe-button-donate-without-login" style="visibility: visible;">
-                          <span style="display: block; min-height: 30px;" >DONATE</span>
-                        </button>
-                      </form>
-                {% endif %}
                 </div>
                 {% endfor %}
                 <!-- end .module-box -->
@@ -238,28 +186,16 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                     <span class="input-group-addon">$</span>
                   </div>
                 </div>
-
-                {% if user.is_authenticated %}
                   {% for level in project_donation_levels %}
                   {% endfor %}
                   <form action="{% url 'project:stripe_payment' pk=project.pk %}" method="POST">
                     {% csrf_token %}
-                    <input type="hidden" name="donate_amount_cents" value="{{ donation_level.amount }}">
+                    <input type="hidden" name="amount_cents" value="1000">
                     <input name="metadata" value="1.00" type="hidden">
                     <button type="submit" class="stripe-button-el" style="visibility: visible;">
                       <span style="display: block; min-height: 30px;">Donate</span>
                     </button>
                   </form>
-                {% else %}
-                  <form action="{% url 'project:stripe_payment' pk=project.pk %}" method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" name="donate_amount_cents" value="{{ donation_level.amount }}">
-                    <input name="metadata" value="1.00" type="hidden">
-                    <button type="submit" class="stripe-button-donate-without-login" style="visibility: visible;">
-                      <span style="display: block; min-height: 30px;">DONATE</span>
-                    </button>
-                  </form>
-                {% endif %}
               </div>
               <!-- end .module-box -->
             </aside>
@@ -269,7 +205,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
       </div>
 
 
- {%  else %}
+    {%  else %}
       <div class="info-section">
       <div class="container">
         <div class="video-main">
@@ -290,7 +226,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                   <div class="input-group">
                     <label for="value">Donation to the project</label>
                     <div class="input-group">
-                      <input type="number" class="form-control donation-field" id="donate_amount" class="form-control" step="0.01" value="50" min="0" name="value">
+                      <input type="number" class="form-control donation-field" step="1" value="50" min="0" name="value">
                       <span class="input-group-addon">$</span>
                     </div>
                   </div>
@@ -300,25 +236,14 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                       <input type="number" class="form-control donation-tip" value="15" step="1" max="100" min="0" name="tip_edit">
                       <span class="input-group-addon">%</span>
                     </div>
-                    {% if user.is_authenticated %}
                       <form action="{% url 'project:stripe_payment' pk=project.pk %}" method="POST" id="ipad">
                         {% csrf_token %}
-                        <input type="hidden" name="donate_amount_cents" value="{{ donation_level.amount }}">
+                        <input type="hidden" name="amount_cents" value="{{ donation_level.amount }}">
                         <input name="metadata" value="1.00" type="hidden">
                         <button type="submit" class="stripe-button-el" style="visibility: visible;">
                           <span style="display: block; min-height: 30px;" >DONATE</span>
                         </button>
                       </form>
-                    {% else %}
-                        <form action="{% url 'project:stripe_payment' pk=project.pk %}" method="POST" id="ipad1">
-                        {% csrf_token %}
-                        <input type="hidden" name="donate_amount_cents" value="{{ donation_level.amount }}">
-                        <input name="metadata" value="1.00" type="hidden">
-                        <button type="submit" class="stripe-button-donate-without-login" style="visibility: visible;">
-                          <span style="display: block; min-height: 30px;" >DONATE</span>
-                        </button>
-                      </form>
-                {% endif %}
 
                   </div>
                   <div class="input-group">
@@ -329,25 +254,14 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                     </div>
                   </div>
                 </div>
-                {% if user.is_authenticated %}
                   <form action="{% url 'project:stripe_payment' pk=project.pk %}" method="POST" id="phone">
                     {% csrf_token %}
-                    <input type="hidden" name="donate_amount_cents" value="{{ donation_level.amount }}">
+                    <input type="hidden" name="amount_cents" value="{{ donation_level.amount }}">
                     <input name="metadata" value="1.00" type="hidden">
                     <button type="submit" class="stripe-button-el" style="visibility: visible;">
                       <span style="display: block; min-height: 30px;" >DONATE</span>
                     </button>
                   </form>
-                {% else %}
-                   <form action="{% url 'project:stripe_payment' pk=project.pk %}" method="POST" id="phone1">
-                        {% csrf_token %}
-                        <input type="hidden" name="donate_amount_cents" value="{{ donation_level.amount }}">
-                        <input name="metadata" value="1.00" type="hidden">
-                        <button type="submit" class="stripe-button-donate-without-login" style="visibility: visible;">
-                          <span style="display: block; min-height: 30px;" >DONATE</span>
-                        </button>
-                      </form>
-                {% endif %}
               </div>
             </div>
           </div>
@@ -427,27 +341,14 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                         <span class="input-group-addon">$</span>
                     </div>
                   </div>
-                  {% if user.is_authenticated %}
-                  {% for level in project_donation_levels %}
-                  {% endfor %}
                   <form action="{% url 'project:stripe_payment' pk=project.pk %}" method="POST">
                     {% csrf_token %}
-                    <input type="hidden" name="donate_amount_cents" value="{{ donation_level.amount }}">
+                    <input type="hidden" name="amount_cents" value="{{ donation_level.amount }}">
                     <input name="metadata" value="1.00" type="hidden">
                     <button type="submit" class="stripe-button-el" style="visibility: visible;">
                       <span style="display: block; min-height: 30px;">Donate</span>
                     </button>
                   </form>
-                {% else %}
-                   <form action="{% url 'project:stripe_payment' pk=project.pk %}" method="POST" id="phone1">
-                        {% csrf_token %}
-                        <input type="hidden" name="donate_amount_cents" value="{{ donation_level.amount }}">
-                        <input name="metadata" value="1.00" type="hidden">
-                        <button type="submit" class="stripe-button-donate-without-login" style="visibility: visible;">
-                          <span style="display: block; min-height: 30px;" >DONATE</span>
-                        </button>
-                      </form>
-                {% endif %}
                 </div>
                 {% endfor %}
                 <!-- end .module-box -->
@@ -473,27 +374,17 @@ input:invalid {box-shadow: 0 0 5px 1px red;
                   </div>
                 </div>
 
-                {% if user.is_authenticated %}
                   {% for level in project_donation_levels %}
                   {% endfor %}
                   <form action="{% url 'project:stripe_payment' pk=project.pk %}" method="POST">
                     {% csrf_token %}
-                    <input type="hidden" name="donate_amount_cents" value="{{ donation_level.amount }}">
+                    <input type="hidden" name="amount_cents" value="1000">
                     <input name="metadata" value="1.00" type="hidden">
                     <button type="submit" class="stripe-button-el" style="visibility: visible;">
-                      <span style="display: block; min-height: 30px;">Donate</span>
+                      <span style="display: block; min-height: 30px;">DONATE</span>
                     </button>
                   </form>
-                {% else %}
-                   <form action="{% url 'project:stripe_payment' pk=project.pk %}" method="POST" id="phone1">
-                        {% csrf_token %}
-                        <input type="hidden" name="donate_amount_cents" value="{{ donation_level.amount }}">
-                        <input name="metadata" value="1.00" type="hidden">
-                        <button type="submit" class="stripe-button-donate-without-login" style="visibility: visible;">
-                          <span style="display: block; min-height: 30px;" >DONATE</span>
-                        </button>
-                      </form>
-                {% endif %}
+              </div>
               <!-- end .module-box -->
             </aside>
             <!-- end .list-area -->
@@ -602,61 +493,59 @@ input:invalid {box-shadow: 0 0 5px 1px red;
 <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key={{GOOGLEMAPS_API_KEY}}">
 </script>
 <script>
-     /* $("#amt").keyup(function (event) {
-         if ((pointPos = this.value.indexOf('.')) >= 0){
-             console.log("inside if")
-             $(this).attr("maxLength", pointPos + 3);
+    /* $("#amt").keyup(function (event) {
+        if ((pointPos = this.value.indexOf('.')) >= 0){
+            console.log("inside if")
+            $(this).attr("maxLength", pointPos + 3);
+        }
+        else {
+            $(this).removeAttr("maxLength");
+        }
+        //this.value = parseFloat(this.value).toFixed(2);
+    }); */
+
+    function setTwoNumberDecimal(event) {
+        console.log("input", $("#amt").val().indexOf('.'))
+      if ((pointPos = $("#amt").val().indexOf('.')) >= 0){
+            console.log("inside if")
+            $("#amt").attr("maxLength", pointPos+3);
+      }
+    else
+        $("#amt").removeAttr("maxLength");
+      //this.value = parseFloat(this.value).toFixed(2);
+    }
+    $('.btn-reinvest').on('click', function (e) {
+        $('.btn-reinvest').prop('disabled', true);
+         document.getElementById("amt").value = parseFloat(document.getElementById("amt").value).toFixed(2)
+
+         if (parseFloat($("#amt").val()) > {{reinvestment_amount|floatformat:2}} || parseFloat($("#amt").val()) < 0.01 || $("#amt").val() == ""){
+                toastr.options.positionClass = "toast-bottom-right";
+                toastr.error('Invalid amount');
+                 e.stopPropagation();
+                 $('.btn-reinvest').prop('disabled', false);
          }
          else {
-             $(this).removeAttr("maxLength");
-         }
-         //this.value = parseFloat(this.value).toFixed(2);
-     }); */
+                $('#reinvest-spinner').css('display', 'flex');
+                var $form = $(this).closest('form');
+                $.ajax({
+               type: "POST",
+               url: '{% url 'project:reinvest' pk=project.pk %}',
+               data: $form.serializeArray(),
+               success: function(data)
+               {
 
-     function setTwoNumberDecimal(event) {
-         console.log("input", $("#amt").val().indexOf('.'))
-       if ((pointPos = $("#amt").val().indexOf('.')) >= 0){
-             console.log("inside if")
-             $("#amt").attr("maxLength", pointPos+3);
-       }
-     else
-         $("#amt").removeAttr("maxLength");
-       //this.value = parseFloat(this.value).toFixed(2);
-     }
-     $('.btn-reinvest').on('click', function (e) {
-         $('.btn-reinvest').prop('disabled', true);
-          document.getElementById("amt").value = parseFloat(document.getElementById("amt").value).toFixed(2)
-
-          if (parseFloat($("#amt").val()) > {{reinvestment_amount|floatformat:2}} || parseFloat($("#amt").val()) < 0.01 || $("#amt").val() == ""){
-                 toastr.options.positionClass = "toast-bottom-right";
-                 toastr.error('Invalid amount');
-                  e.stopPropagation();
-                  $('.btn-reinvest').prop('disabled', false);
-          }
-          else {
-                 $('#reinvest-spinner').css('display', 'flex');
-                 var $form = $(this).closest('form');
-                 $.ajax({
-                type: "POST",
-                url: '{% url 'project:reinvest' pk=project.pk %}',
-                data: $form.serializeArray(),
-                success: function(data)
-                {
-                   $('#reinvest-spinner').css('display', 'none');
-                   $("#confirmModal").modal();
-                   $(".modal-body p > span").text(parseFloat(document.getElementById("amt").value).toFixed(2));
-                   $('.btn-reinvest').prop('disabled', false);
-
-                },
-                error: function (textStatus, errorThrown) {
                   $('#reinvest-spinner').css('display', 'none');
-                  $(".donate-error-cntnr").css('display', 'flex');
-                }
-              });
-          }
-      });
+                  $("#confirmModal").modal();
+                  $(".modal-body p > span").text(parseFloat(document.getElementById("amt").value).toFixed(2));
+                  $('.btn-reinvest').prop('disabled', false);
 
-  </script>
+
+               }
+             });
+         }
+     });
+
+</script>
 <script>
   $(function ($) {
   var handler = StripeCheckout.configure({
@@ -676,7 +565,7 @@ input:invalid {box-shadow: 0 0 5px 1px red;
     var endpoint = $form.attr('action');
     var amount, metadata;
     $.each(serialized, function () {
-      if (this.name === 'donate_amount_cents') {
+      if (this.name === 'amount_cents') {
         amount = this.value;
       }
       if (this.name === 'metadata') {
@@ -708,83 +597,6 @@ input:invalid {box-shadow: 0 0 5px 1px red;
   });
 });
 </script>
-
-<script>
-  $(function ($) {
-  var handler = StripeCheckout.configure({
-    key: '{{ stripe_publishable_key }}'
-    , image: '{% static "images/revolv-logo.png" %}'
-    , locale: 'auto'
-    , name: 'RE-volv'
-    , email: '{{request.user.email}}'
-  });
-  $(window).on('popstate', function () {
-    handler.close();
-  });
-  $('.stripe-button-donate-without-login').on('click', function (e) {
-    e.preventDefault();
-    var $form = $(this).closest('form');
-    var serialized = $form.serializeArray();
-    var endpoint = $form.attr('action');
-    var amount, metadata;
-    $.each(serialized, function () {
-      if (this.name === 'donate_amount_cents') {
-        amount = this.value;
-      }
-      if (this.name === 'metadata') {
-        metadata = this.value;
-      }
-    });
-    if (typeof amount !== 'undefined') {
-      handler.open({
-        description: 'Donate $' + parseFloat((amount/100).toFixed(2)).toLocaleString()
-        , amount: amount
-        , metadata: metadata
-        , token: function (token) {
-          var id = token.id;
-          var email = token.email;
-          var $id = $('<input>')
-            .attr('type', 'hidden')
-            .attr('name', 'stripeToken')
-            .val(id);
-          var $email = $('<input>')
-            .attr('type', 'hidden')
-            .attr('name', 'stripeEmail')
-            .val(email);
-          $id.appendTo($form);
-          $email.appendTo($form);
-          $form.submit(function(e) {
-          $('#reinvest-spinner').css('display', 'flex');
-          $.ajax({
-                 type: "POST",
-                 url: '{% url 'project:stripe_payment' pk=project.pk %}',
-                 data: $form.serializeArray(), // serializes the form's elements.
-                 success: function(data)
-                 {
-                     $('#reinvest-spinner').css('display', 'none');
-                    $("#payment_login").val(data.payment);
-                    $("#payment_signup").val(data.payment);
-                     $(".donate-msg-cntnr").css('display', 'flex');
-                      closeDoanatePopUp();
-
-                 },
-                 error: function (textStatus, errorThrown) {
-                  $('#reinvest-spinner').css('display', 'none');
-                  $(".donate-error-cntnr").css('display', 'flex');
-                  closeDoanatePopUp();
-                }
-               });
-
-          e.preventDefault(); // avoid to execute the actual submit of the form.
-      });
-          $form.trigger('submit');
-        }
-      });
-    }
-  });
-});
-</script>
-
 
 {% if project.video_url %}
 <script type="text/javascript">
@@ -854,11 +666,10 @@ $( document ).ready(function() {
       }
       var $tip = $module.find('input[name="tip_edit"]');
       var $total = $module.find('input[name="total"]');
-      var $amount = $module.find('input[name="donate_amount_cents"]');
+      var $amount = $module.find('input[name="amount_cents"]');
       var $meta = $module.find('input[name="metadata"]');
       var $donationAmount = $module.find('input[name="donation_amount"]');
       var $donationTip = $module.find('input[name="donation_tip"]');
-
       function update () {
         var val = parseFloat($value.val() || $value.data('value'));
         var scale = parseFloat($tip.val()) / 100;

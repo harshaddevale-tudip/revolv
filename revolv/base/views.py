@@ -351,39 +351,19 @@ class LoginView(RedirectToSigninOrHomeMixin, FormView):
     @method_decorator(sensitive_post_parameters('password'))
     def dispatch(self, request, *args, **kwargs):
         self.next_url = request.POST.get("next", "home")
-        if request.POST.get("payment"):
-            self.request.session['payment'] = request.POST.get("payment")
         return super(LoginView, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         """Log the user in and redirect them to the supplied next page."""
-        self.username = self.request.POST.get('username')
-        self.email = self.request.POST.get('email')
-        self.password = self.request.POST.get('password')
-        """Log the user in and redirect them to the supplied next page."""
-        user = authenticate(username=self.username, password=self.password)
-
         auth_login(self.request, form.get_user())
         if self.request.session.get('payment'):
-            payment_id=self.request.session.get('payment')
-            # amount = self.amount
-            # tip = self.tip
-            user=RevolvUserProfile.objects.get(user=self.request.user)
-            if user:
-                Payment.objects.filter(id=payment_id).update(user=user, entrant=user)
-                payment=Payment.objects.get(pk=payment_id)
-                project=Project.objects.get(id=payment.project_id)
-                project.donors.add(user)
-                guest_user = User.objects.get(username='Guest')
-                guest_profile = RevolvUserProfile.objects.get(user=guest_user)
-                payment_count = Payment.objects.filter(user=guest_profile,project=project).count()
-                if payment_count <= 1:
-                    project.donors.remove(guest_profile)
-                Tip.objects.filter(id=payment.tip_id).update(user=user)
-                del self.request.session['payment']
-                messages.success(self.request, 'Logged in as ' + self.request.user.username)
-                return redirect(reverse('dashboard'))
-        messages.success(self.request, 'Logged in as ' + self.request.user.username)
+            Payment.objects.filter(id=self.request.session['payment']).update(user_id=self.request.user.revolvuserprofile, entrant_id =self.request.user.revolvuserprofile )
+            tip=Payment.objects.get(id=self.request.session['payment']).tip_id
+            Tip.objects.filter(id=tip).update(user_id=self.request.user.revolvuserprofile)
+            del self.request.session['payment']
+            # messages.success(self.request, 'Logged in as ' + self.request.POST.get('username'))
+            # return redirect(reverse('project:view', kwargs={'title':title})+'?amount='+amount+'&tip='+tip)
+        messages.success(self.request, 'Logged in as ' + self.request.POST.get('username'))
         return redirect(self.next_url)
 
     def get_context_data(self, *args, **kwargs):
@@ -411,12 +391,10 @@ class SignupView(RedirectToSigninOrHomeMixin, FormView):
     redirect_view = "signin"
 
     @csrf_exempt
+    @method_decorator(sensitive_post_parameters('password'))
     def dispatch(self, request, *args, **kwargs):
-        self.next_url = request.POST.get("next", "home")
         if request.user.is_authenticated():
             return redirect("dashboard")
-        if request.POST.get("payment"):
-            self.request.session['payment'] = request.POST.get("payment")
         return super(SignupView, self).dispatch(request, *args, **kwargs)
 
     @csrf_exempt
@@ -425,9 +403,7 @@ class SignupView(RedirectToSigninOrHomeMixin, FormView):
         u = form.ensure_authenticated_user()
         name = u.revolvuserprofile.get_full_name()
         send_signup_info(name, u.email, u.revolvuserprofile.address)
-
         # log in the newly created user model. if there is a problem, error
-        u.backend = 'django.contrib.auth.backends.ModelBackend'
         auth_login(self.request, u)
         SITE_URL = settings.SITE_URL
         login_link = SITE_URL + reverse('login')
@@ -436,6 +412,7 @@ class SignupView(RedirectToSigninOrHomeMixin, FormView):
         context['user'] = self.request.user
         context['login_link'] = login_link
         context['portfolio_link'] = portfolio_link
+
         # send_revolv_email(
         #     'signup',
         #     context, [self.request.user.email]
@@ -452,33 +429,18 @@ class SignupView(RedirectToSigninOrHomeMixin, FormView):
                 if is_email_exist:
                     pass
                 else:
-                    list.subscribe(self.request.user.email, {'EMAIL': self.request.user.email})
+                    list.subscribe(self.request.user.email, {'EMAIL': self.request.user.email},double_optin=False)
 
             except Exception, e:
                 logger.exception(e)
 
-
-
         if self.request.session.get('payment'):
-            payment_id=self.request.session.get('payment')
-            user=RevolvUserProfile.objects.get(user=self.request.user)
-            if user:
-                Payment.objects.filter(id=payment_id).update(user=user, entrant=user)
-                payment = Payment.objects.get(pk=payment_id)
-                project = Project.objects.get(id=payment.project_id)
-                project.donors.add(user)
-                guest_user = User.objects.get(username='Guest')
-                guest_profile = RevolvUserProfile.objects.get(user=guest_user)
-                payment_count = Payment.objects.filter(user=guest_profile, project=project).count()
-                if payment_count <= 1:
-                    project.donors.remove(guest_profile)
-                Tip.objects.filter(id=payment.tip_id).update(user=user)
-                del self.request.session['payment']
-                messages.success(self.request, 'Signed up as ' + self.request.POST.get('username'))
-                return redirect(reverse('dashboard'))
+            Payment.objects.filter(id=self.request.session['payment']).update(user_id=self.request.user.revolvuserprofile, entrant_id =self.request.user.revolvuserprofile )
+            tip=Payment.objects.get(id=self.request.session['payment']).tip_id
+            Tip.objects.filter(id=tip).update(user_id=self.request.user.revolvuserprofile)
+            del self.request.session['payment']
         messages.success(self.request, 'Signed up successfully!')
-        # return redirect("dashboard" +'?social=true')
-        return HttpResponseRedirect(reverse("dashboard"))
+        return redirect("dashboard")
 
     def get_context_data(self, *args, **kwargs):
         context = super(SignupView, self).get_context_data(**kwargs)
@@ -486,7 +448,6 @@ class SignupView(RedirectToSigninOrHomeMixin, FormView):
         context["login_form"] = AuthenticationForm()
         context["referring_endpoint"] = "signup"
         return context
-
 
 class LogoutView(UserDataMixin, View):
     """
