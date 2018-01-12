@@ -1413,6 +1413,7 @@ def account_settings(request):
     donated_solar_seed = Payment.objects.filter(user=request.user).exclude(project=project).aggregate(Sum('amount'))['amount__sum'] or 0
     repayment_solar_seed = RepaymentFragment.objects.filter(user=request.user).aggregate(Sum('amount'))['amount__sum'] or 0
     operation_donation = Payment.objects.filter(user=request.user,project=project).aggregate(Sum('amount'))['amount__sum'] or 0
+    tip = Tip.objects.filter(user=userprofile).aggregate(Sum('amount'))['amount__sum'] or 0
     userform = UpdateUser(initial={'first_name':user.first_name, 'last_name':user.last_name, 'username': user.username, 'email':user.email})
     revolv_profile = RevolvUserProfile.objects.get(user=request.user)
 
@@ -1433,7 +1434,7 @@ def account_settings(request):
         'subscribed_to_updates': userprofile.subscribed_to_updates,
         'donated_solar_seed': donated_solar_seed,
         'repayment_solar_seed': repayment_solar_seed,
-        'operation_donation': operation_donation,
+        'operation_donation': operation_donation+tip,
         'monthly_donation_amount': monthly_donation_amount,
         'monthly_solar_donation': solar_donation,
         'existing_user': existing_user

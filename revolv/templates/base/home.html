@@ -190,7 +190,7 @@
 
         </div>
         <div class="how-it-works-button">
-            <a href="#" class="How_it_Works space_btn_element" data-toggle="modal" data-target="#popup">Become a Monthly Donor</a>
+            <a href="#" onclick="return monthlydonorClearInput();" class="How_it_Works space_btn_element" data-toggle="modal" data-target="#popup">Become a Monthly Donor</a>
         </div>
         <div class="learn-more"><a href="/get-involved/leonardo-dicaprio-foundation-partners-re-volv/" ><span class="learn-more-text"><i>Learn more</i></span></a></div>
       </div>
@@ -769,6 +769,15 @@
     });
 
 </script>
-
+<script>
+    function monthlydonorClearInput() {
+    $('input[name=check]').prop('checked', true);
+    $('input[name=donation_amount_cents]').val('');
+    $(".monthly-plan-msg").hide();
+    $(".donate-popup .next-button").css("background-color", "#9a9a9a");
+    $(".donate-popup .next-button").removeClass("stripe-button-el");
+   $(".donate-popup .next-button").addClass("disable-donation-btn");
+ }
+</script>
 
 {% endblock %}
